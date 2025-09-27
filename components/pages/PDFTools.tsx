@@ -201,7 +201,7 @@ export default function PDFTools() {
             transition={{ delay: 0.3 }}
             className="lg:col-span-3"
           >
-            {!showEditor ? (
+            {!showEditor && activeTab !== "edit-pdf" ? (
               // Upload Interface
               <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-8">
                 {/* File Upload */}
@@ -306,7 +306,8 @@ export default function PDFTools() {
                     {result.type === "success" && (
                       <div className="space-y-4">
                         <p className="text-gray-300">
-                          Your PDF has been processed successfully! You can now view and edit it.
+                          Your PDF has been processed successfully! You can now
+                          view and edit it.
                         </p>
                         <div className="flex space-x-4">
                           <button
@@ -321,7 +322,7 @@ export default function PDFTools() {
                   </motion.div>
                 )}
               </div>
-            ) : (
+            ) : showEditor ? (
               // PDF Editor Interface
               <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
                 <div className="flex items-center justify-between p-4 border-b border-white/10">
@@ -353,6 +354,78 @@ export default function PDFTools() {
                     sandbox="allow-same-origin allow-scripts allow-forms allow-downloads"
                   />
                 </div>
+              </div>
+            ) : (
+              // Edit PDF tab - show upload interface
+              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-8">
+                {/* File Upload */}
+                <div className="mb-8">
+                  <h3 className="text-white font-semibold mb-4">
+                    Upload PDF File
+                  </h3>
+                  <div
+                    {...getRootProps()}
+                    className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-200 ${
+                      isDragActive
+                        ? "border-purple-500 bg-purple-500/10"
+                        : "border-gray-600 hover:border-purple-500 hover:bg-purple-500/5"
+                    }`}
+                  >
+                    <input {...getInputProps()} />
+                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    {isDragActive ? (
+                      <p className="text-purple-300">
+                        Drop the PDF file here...
+                      </p>
+                    ) : (
+                      <div>
+                        <p className="text-gray-300 mb-2">
+                          Drag & drop a PDF file here, or click to select
+                        </p>
+                        <p className="text-gray-500 text-sm">
+                          Supports PDF files only
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {uploadedFile && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-lg"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                        <span className="text-green-300">
+                          {uploadedFile.name} (
+                          {Math.round(uploadedFile.size / 1024)} KB)
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+
+                {/* Process Button */}
+                <motion.button
+                  onClick={handleProcess}
+                  disabled={!uploadedFile || isProcessing}
+                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all duration-200 ${
+                    uploadedFile && !isProcessing
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600"
+                      : "bg-gray-600 text-gray-400 cursor-not-allowed"
+                  }`}
+                  whileHover={
+                    uploadedFile && !isProcessing ? { scale: 1.02 } : {}
+                  }
+                  whileTap={
+                    uploadedFile && !isProcessing ? { scale: 0.98 } : {}
+                  }
+                >
+                  {isProcessing
+                    ? "Processing..."
+                    : "Open PDF Editor"}
+                </motion.button>
               </div>
             )}
           </motion.div>
