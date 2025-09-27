@@ -275,8 +275,8 @@ export default function PDFTools() {
                     : "Process PDF"}
                 </motion.button>
 
-                {/* Results */}
-                {result && (
+                {/* Results - Only show for non-edit-pdf tabs */}
+                {result && activeTab !== "edit-pdf" && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -306,24 +306,16 @@ export default function PDFTools() {
                     {result.type === "success" && (
                       <div className="space-y-4">
                         <p className="text-gray-300">
-                          {activeTab === "edit-pdf"
-                            ? "PDF uploaded successfully! The editor should open in a new tab where you can click on text and images to edit them."
-                            : "Your PDF has been processed successfully! You can now view and edit it."}
+                          Your PDF has been processed successfully! You can now view and edit it.
                         </p>
-                        {activeTab !== "edit-pdf" && (
-                          <div className="flex space-x-4">
-                            <button
-                              onClick={() => navigateTo("pdf-editor")}
-                              className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg transition-colors"
-                            >
-                              Open Editor
-                            </button>
-                            <button className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg transition-colors flex items-center space-x-2">
-                              <Download className="w-4 h-4" />
-                              <span>Download</span>
-                            </button>
-                          </div>
-                        )}
+                        <div className="flex space-x-4">
+                          <button
+                            onClick={() => navigateTo("pdf-editor")}
+                            className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg transition-colors"
+                          >
+                            Open Editor
+                          </button>
+                        </div>
                       </div>
                     )}
                   </motion.div>
@@ -350,7 +342,7 @@ export default function PDFTools() {
                     }}
                     className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
                   >
-                    Close Editor
+                    Upload New PDF
                   </button>
                 </div>
                 <div className="bg-white h-[700px]">
