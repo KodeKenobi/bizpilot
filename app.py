@@ -95,7 +95,11 @@ def convert_pdf(filename):
 @app.route("/save_edits/<filename>", methods=["POST"])
 def save_edits(filename):
     try:
-        edits = request.json or []
+        # Get the request data
+        data = request.get_json()
+        edits = data.get("edits", []) if data else []
+        
+        print(f"Received edits for {filename}: {len(edits)} edits")
         
         if not edits:
             return jsonify({"status": "success", "message": "No edits to save"})
@@ -110,30 +114,47 @@ def save_edits(filename):
         doc = fitz.open(filepath)
         
         for edit in edits:
-            page_num = edit["page"] - 1
-            if page_num < len(doc):
+            try:
+                if not isinstance(edit, dict):
+                    print(f"Skipping invalid edit: {edit}")
+                    continue
+                    
+                page_num = edit.get("page", 1) - 1
+                edit_type = edit.get("type", "")
+                
+                if page_num < 0 or page_num >= len(doc):
+                    print(f"Skipping edit for invalid page: {page_num}")
+                    continue
+                    
                 page = doc[page_num]
                 
-                if edit["type"] == "text":
-                    old_text = edit["old_text"]
-                    new_text = edit["new_text"]
+                if edit_type == "text":
+                    old_text = edit.get("old_text", "")
+                    new_text = edit.get("new_text", "")
                     
-                    text_instances = page.search_for(old_text)
-                    for inst in text_instances:
-                        rect = fitz.Rect(inst)
-                        page.add_redact_annot(rect)
-                        page.apply_redactions()
-                        page.insert_text((inst.x0, inst.y1), new_text, fontsize=12)
+                    if old_text and new_text:
+                        text_instances = page.search_for(old_text)
+                        for inst in text_instances:
+                            rect = fitz.Rect(inst)
+                            page.add_redact_annot(rect)
+                            page.apply_redactions()
+                            page.insert_text((inst.x0, inst.y1), new_text, fontsize=12)
                 
-                elif edit["type"] == "image":
-                    image_id = edit["image_id"]
-                    new_image_data = edit["image_data"]
+                elif edit_type == "image":
+                    image_id = edit.get("image_id")
+                    new_image_data = edit.get("image_data")
                     
-                    image_list = page.get_images()
-                    if image_id <= len(image_list):
-                        xref = image_list[image_id - 1][0]
-                        image_data = base64.b64decode(new_image_data.split(',')[1])
-                        doc.update_stream(xref, image_data)
+                    if image_id and new_image_data:
+                        image_list = page.get_images()
+                        if 1 <= image_id <= len(image_list):
+                            xref = image_list[image_id - 1][0]
+                            if ',' in new_image_data:
+                                image_data = base64.b64decode(new_image_data.split(',')[1])
+                                doc.update_stream(xref, image_data)
+                        
+            except Exception as edit_error:
+                print(f"Error processing individual edit: {edit_error}")
+                continue
         
         doc.save(edited_path)
         doc.close()
@@ -198,84 +219,103 @@ def download_pdf(html_filename):
         pdf_filename = html_filename.replace('.html', '.pdf')
         pdf_path = os.path.join(HTML_FOLDER, pdf_filename)
         
-        # Use PyMuPDF to create a proper PDF from HTML content
-        # Read HTML content and extract structured content
+        # Read HTML content
         with open(html_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
         
-        # Parse HTML to extract text and structure using regex (no external dependencies)
+        # Parse HTML to extract page content using regex
         import re
         
-        # Extract editable text content using regex
-        editable_text_pattern = r'<[^>]*class="[^"]*editable-text[^"]*"[^>]*>([^<]*)</[^>]*>'
-        editable_texts = re.findall(editable_text_pattern, html_content, re.IGNORECASE | re.DOTALL)
-        
-        # Extract image count
-        image_pattern = r'<[^>]*class="[^"]*editable-image[^"]*"[^>]*>'
-        images = re.findall(image_pattern, html_content, re.IGNORECASE)
+        # Extract page divs with their content
+        page_pattern = r'<div[^>]*class="[^"]*pdf-page[^"]*"[^>]*data-page="(\d+)"[^>]*>(.*?)</div>'
+        pages = re.findall(page_pattern, html_content, re.IGNORECASE | re.DOTALL)
         
         # Create PDF with proper formatting
         doc = fitz.open()
-        page = doc.new_page(width=595, height=842)  # A4 size
-        y_position = 50
         
-        # Add title
-        page.insert_text((50, y_position), "Edited Document", fontsize=16, color=(0, 0, 0))
-        y_position += 40
-        
-        # Add timestamp
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        page.insert_text((50, y_position), f"Edited on: {timestamp}", fontsize=10, color=(0.5, 0.5, 0.5))
-        y_position += 30
-        
-        # Add editable text content
-        for i, text_content in enumerate(editable_texts):
-            if text_content and text_content.strip():
-                # Clean and format text
-                clean_text = text_content.strip()
-                # Decode HTML entities
-                clean_text = clean_text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"')
-                
-                if len(clean_text) > 100:
-                    # Split long text into paragraphs
-                    words = clean_text.split()
-                    current_line = ""
-                    for word in words:
-                        test_line = current_line + " " + word if current_line else word
-                        if len(test_line) < 70:
-                            current_line = test_line
-                        else:
-                            if current_line:
-                                page.insert_text((50, y_position), current_line, fontsize=11)
-                                y_position += 15
-                                if y_position > 800:
-                                    page = doc.new_page(width=595, height=842)
-                                    y_position = 50
-                            current_line = word
-                    if current_line:
-                        page.insert_text((50, y_position), current_line, fontsize=11)
-                        y_position += 20
-                else:
-                    page.insert_text((50, y_position), clean_text, fontsize=11)
-                    y_position += 20
-                
-                # Add spacing between sections
-                y_position += 10
-                
-                # Check if we need a new page
-                if y_position > 800:
-                    page = doc.new_page(width=595, height=842)
-                    y_position = 50
-        
-        # Add note about images
-        if images:
-            if y_position > 750:
-                page = doc.new_page(width=595, height=842)
-                y_position = 50
+        for page_num, page_content in pages:
+            # Create a new page for each PDF page
+            page = doc.new_page(width=595, height=842)  # A4 size
+            y_position = 50
             
-            page.insert_text((50, y_position), "Note: Images were edited in this document.", fontsize=10, color=(0.5, 0.5, 0.5))
-            y_position += 20
-            page.insert_text((50, y_position), f"Total images edited: {len(images)}", fontsize=10, color=(0.5, 0.5, 0.5))
+            # Extract text spans from this page
+            text_span_pattern = r'<span[^>]*class="[^"]*editable-text[^"]*"[^>]*style="[^"]*left: ([^;]+)px; top: ([^;]+)px;[^"]*"[^>]*>([^<]*)</span>'
+            text_spans = re.findall(text_span_pattern, page_content, re.IGNORECASE)
+            
+            # Extract images from this page
+            image_pattern = r'<img[^>]*class="[^"]*editable-image[^"]*"[^>]*style="[^"]*left: ([^;]+)px; top: ([^;]+)px; width: ([^;]+)px; height: ([^;]+)px;[^"]*"[^>]*src="data:image/png;base64,([^"]*)"[^>]*>'
+            images = re.findall(image_pattern, page_content, re.IGNORECASE)
+            
+            # Add text content to PDF page
+            for left, top, text_content in text_spans:
+                if text_content and text_content.strip():
+                    try:
+                        x_pos = float(left)
+                        y_pos = float(top)
+                        clean_text = text_content.strip()
+                        # Decode HTML entities
+                        clean_text = clean_text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"')
+                        
+                        # Convert PDF coordinates (top-left origin) to PyMuPDF coordinates
+                        # Scale positions to fit A4 page
+                        scale_x = 595 / 800  # Adjust based on your PDF page width
+                        scale_y = 842 / 1000  # Adjust based on your PDF page height
+                        
+                        pdf_x = x_pos * scale_x
+                        pdf_y = y_pos * scale_y
+                        
+                        # Ensure text fits within page bounds
+                        if pdf_x < 0:
+                            pdf_x = 50
+                        if pdf_y < 0:
+                            pdf_y = 50
+                        if pdf_x > 545:
+                            pdf_x = 545
+                        if pdf_y > 792:
+                            pdf_y = 792
+                        
+                        page.insert_text((pdf_x, pdf_y), clean_text, fontsize=10)
+                    except (ValueError, TypeError):
+                        # If position parsing fails, just add text sequentially
+                        page.insert_text((50, y_position), clean_text, fontsize=10)
+                        y_position += 15
+            
+            # Add images to PDF page
+            for left, top, width, height, image_data in images:
+                try:
+                    x_pos = float(left)
+                    y_pos = float(top)
+                    img_width = float(width)
+                    img_height = float(height)
+                    
+                    # Scale positions to fit A4 page
+                    scale_x = 595 / 800
+                    scale_y = 842 / 1000
+                    
+                    pdf_x = x_pos * scale_x
+                    pdf_y = y_pos * scale_y
+                    pdf_width = img_width * scale_x
+                    pdf_height = img_height * scale_y
+                    
+                    # Ensure image fits within page bounds
+                    if pdf_x < 0:
+                        pdf_x = 50
+                    if pdf_y < 0:
+                        pdf_y = 50
+                    if pdf_x + pdf_width > 545:
+                        pdf_width = 545 - pdf_x
+                    if pdf_y + pdf_height > 792:
+                        pdf_height = 792 - pdf_y
+                    
+                    if pdf_width > 0 and pdf_height > 0:
+                        # Decode base64 image and insert
+                        import base64
+                        image_bytes = base64.b64decode(image_data)
+                        rect = fitz.Rect(pdf_x, pdf_y, pdf_x + pdf_width, pdf_y + pdf_height)
+                        page.insert_image(rect, pixmap=fitz.Pixmap(fitz.csRGB, image_bytes))
+                except (ValueError, TypeError, Exception):
+                    # Skip problematic images
+                    continue
         
         doc.save(pdf_path)
         doc.close()

@@ -1,8 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { FileText, Image, CheckCircle, AlertCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FileText,
+  Image,
+  CheckCircle,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
 import { FileUpload } from "@/components/ui/file-upload";
 import { useNavigation } from "@/contexts/NavigationContext";
 
@@ -33,6 +39,7 @@ export default function PDFTools() {
     message: string;
     data?: any;
   } | null>(null);
+  const [showNotification, setShowNotification] = useState(false);
   const [backendStatus, setBackendStatus] = useState<
     "checking" | "online" | "offline"
   >("checking");
@@ -52,10 +59,8 @@ export default function PDFTools() {
       setUploadedFile(file);
       setResult(null);
 
-      // Auto-process the file
       setIsProcessing(true);
       try {
-        // For ALL tabs, go directly to editor
         const formData = new FormData();
         formData.append("pdf", file);
 
@@ -68,12 +73,18 @@ export default function PDFTools() {
           const filename = file.name;
           setEditorUrl(`http://localhost:5000/convert/${filename}`);
           setShowEditor(true);
-          setResult(null);
+          setResult({ type: "success", message: "PDF uploaded successfully" });
+          setShowNotification(true);
+          setTimeout(() => setShowNotification(false), 3000);
         } else {
           setResult({ type: "error", message: "Failed to upload PDF" });
+          setShowNotification(true);
+          setTimeout(() => setShowNotification(false), 3000);
         }
       } catch (error) {
         setResult({ type: "error", message: "Error processing PDF" });
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000);
       } finally {
         setIsProcessing(false);
       }
@@ -82,6 +93,66 @@ export default function PDFTools() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-24">
+      {/* Google Drive-like Minimal Notifications */}
+      <AnimatePresence>
+        {showNotification && result && (
+          <motion.div
+            initial={{ opacity: 0, y: -50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -50, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="fixed top-4 right-4 z-50"
+          >
+            <div
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg backdrop-blur-sm border ${
+                result.type === "success"
+                  ? "bg-white/90 border-green-200 text-green-800"
+                  : "bg-white/90 border-red-200 text-red-800"
+              }`}
+            >
+              {result.type === "success" ? (
+                <CheckCircle className="w-5 h-5 text-green-600" />
+              ) : (
+                <AlertCircle className="w-5 h-5 text-red-600" />
+              )}
+              <span className="text-sm font-medium">{result.message}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Processing Animation */}
+      <AnimatePresence>
+        {isProcessing && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 flex items-center justify-center"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20"
+            >
+              <div className="flex items-center gap-4">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  <Loader2 className="w-6 h-6 text-blue-600" />
+                </motion.div>
+                <div>
+                  <p className="font-medium text-gray-900">Processing PDF...</p>
+                  <p className="text-sm text-gray-600">Please wait</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Minimal Slidable Tabs */}
         <motion.div
@@ -141,11 +212,11 @@ export default function PDFTools() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-lg"
+                  className="mt-4 p-3 bg-white/5 border border-white/10 rounded-lg"
                 >
                   <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-green-300">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
+                    <span className="text-gray-300 text-sm">
                       {uploadedFile.name} (
                       {Math.round(uploadedFile.size / 1024)} KB)
                     </span>
