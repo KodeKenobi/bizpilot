@@ -163,26 +163,26 @@ export default function PDFTools() {
         >
           <div className="relative">
             {/* Main Tab Container */}
-            <div className="relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-full p-1 overflow-hidden">
+            <div className="relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-full p-2 overflow-hidden">
               {/* Active Tab Background */}
               <motion.div
                 layoutId="activeTabBg"
-                className="absolute top-1 bottom-1 bg-white/10 backdrop-blur-md rounded-full"
+                className="absolute top-2 bottom-2 bg-white/10 backdrop-blur-md rounded-full"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
 
               {/* Tab Buttons */}
-              <div className="relative flex overflow-x-auto scrollbar-hide">
+              <div className="relative flex overflow-x-auto scrollbar-hide gap-1">
                 {tabs.map((tab) => {
                   const isActive = activeTab === tab.id;
                   return (
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`relative px-6 py-3 text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                      className={`relative px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-300 rounded-full ${
                         isActive
-                          ? "text-white"
-                          : "text-gray-400 hover:text-gray-200"
+                          ? "text-gray-900 bg-white"
+                          : "text-gray-400 hover:text-gray-200 hover:bg-white/20"
                       }`}
                     >
                       {tab.label}
