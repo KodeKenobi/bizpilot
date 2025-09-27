@@ -180,6 +180,32 @@
       >
         Save Edits
       </button>
+      <button
+        onclick="saveHTML()"
+        class="download-btn"
+        style="background: #28a745; margin-right: 10px"
+        id="saveHtmlBtn"
+      >
+        Save Document
+      </button>
+      <button
+        onclick="viewPDF()"
+        class="download-btn"
+        style="background: #17a2b8; margin-right: 10px"
+        id="viewPdfBtn"
+        disabled
+      >
+        View Your PDF
+      </button>
+      <button
+        onclick="downloadPDF()"
+        class="download-btn"
+        style="background: #fd7e14; margin-right: 10px"
+        id="downloadPdfBtn"
+        disabled
+      >
+        Download PDF
+      </button>
       <a href="/" class="download-btn">Convert Another PDF</a>
     </div>
 
@@ -191,6 +217,7 @@
       let edits = [];
       let currentEditElement = null;
       let currentEditType = null;
+      let savedHtmlFilename = null;
 
       function changePage(direction) {
         const newPage = currentPage + direction;
@@ -240,6 +267,49 @@
         .catch(error => {
           alert('Error saving edits: ' + error);
         });
+      }
+
+      function saveHTML() {
+        // Get the current HTML content
+        const htmlContent = document.documentElement.outerHTML;
+        
+        fetch(`/save_html/{{ filename }}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ html_content: htmlContent })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            savedHtmlFilename = data.html_filename;
+            document.getElementById('viewPdfBtn').disabled = false;
+            document.getElementById('downloadPdfBtn').disabled = false;
+            alert('Document saved successfully! You can now view or download your PDF.');
+          } else {
+            alert('Error saving document: ' + data.message);
+          }
+        })
+        .catch(error => {
+          alert('Error saving document: ' + error);
+        });
+      }
+
+      function viewPDF() {
+        if (savedHtmlFilename) {
+          window.open(`/view_html/${savedHtmlFilename}`, '_blank');
+        } else {
+          alert('Please save your document first!');
+        }
+      }
+
+      function downloadPDF() {
+        if (savedHtmlFilename) {
+          window.location.href = `/download_pdf/${savedHtmlFilename}`;
+        } else {
+          alert('Please save your document first!');
+        }
       }
 
       document.addEventListener('DOMContentLoaded', function() {

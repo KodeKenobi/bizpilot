@@ -5,13 +5,17 @@ import fitz
 import base64
 from io import BytesIO
 import json
+import weasyprint
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 UPLOAD_FOLDER = "uploads"
 EDITED_FOLDER = "edited"
+HTML_FOLDER = "saved_html"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(EDITED_FOLDER, exist_ok=True)
+os.makedirs(HTML_FOLDER, exist_ok=True)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -131,6 +135,77 @@ def save_edits(filename):
     
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/save_html/<filename>", methods=["POST"])
+def save_html(filename):
+    try:
+        data = request.json
+        html_content = data.get("html_content")
+        
+        if not html_content:
+            return jsonify({"status": "error", "message": "No HTML content provided"}), 400
+        
+        # Create a clean filename
+        base_name = os.path.splitext(filename)[0]
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        html_filename = f"{base_name}_{timestamp}.html"
+        html_path = os.path.join(HTML_FOLDER, html_filename)
+        
+        # Save the HTML file
+        with open(html_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        return jsonify({
+            "status": "success", 
+            "message": "HTML saved successfully",
+            "html_filename": html_filename
+        })
+    
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/view_html/<html_filename>")
+def view_html(html_filename):
+    try:
+        html_path = os.path.join(HTML_FOLDER, html_filename)
+        if not os.path.exists(html_path):
+            return "HTML file not found", 404
+        
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        return html_content
+    
+    except Exception as e:
+        return f"Error loading HTML: {str(e)}", 500
+
+@app.route("/download_pdf/<html_filename>")
+def download_pdf(html_filename):
+    try:
+        html_path = os.path.join(HTML_FOLDER, html_filename)
+        if not os.path.exists(html_path):
+            return "HTML file not found", 404
+        
+        # Convert HTML to PDF
+        pdf_filename = html_filename.replace('.html', '.pdf')
+        pdf_path = os.path.join(HTML_FOLDER, pdf_filename)
+        
+        # Use weasyprint to convert HTML to PDF
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        # Convert HTML to PDF
+        pdf_bytes = weasyprint.HTML(string=html_content).write_pdf()
+        
+        # Save PDF file
+        with open(pdf_path, 'wb') as f:
+            f.write(pdf_bytes)
+        
+        # Send PDF file for download
+        return send_file(pdf_path, as_attachment=True, download_name=pdf_filename)
+    
+    except Exception as e:
+        return f"Error converting to PDF: {str(e)}", 500
 
 if __name__ == "__main__":
     app.run(debug=True)
