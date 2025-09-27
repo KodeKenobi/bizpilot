@@ -55,107 +55,28 @@
       }
 
       .editable-text {
-        cursor: pointer;
-        border: 1px solid transparent;
-        padding: 2px;
-        border-radius: 3px;
+        cursor: text;
+        border: none;
+        padding: 0;
+        outline: none;
+        background: transparent;
       }
 
       .editable-text:hover {
-        border-color: #007bff;
-        background-color: rgba(0, 123, 255, 0.1);
+        border: none;
+        background: transparent;
       }
 
       .editable-image {
         cursor: pointer;
-        border: 2px solid transparent;
-        border-radius: 3px;
+        border: none;
+        outline: none;
       }
 
       .editable-image:hover {
-        border-color: #007bff;
-      }
-
-      .edit-modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      .edit-modal-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border-radius: 8px;
-        width: 80%;
-        max-width: 500px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      }
-
-      .edit-modal h3 {
-        margin-top: 0;
-        color: #333;
-      }
-
-      .edit-modal input,
-      .edit-modal textarea {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 14px;
-      }
-
-      .edit-modal textarea {
-        height: 100px;
-        resize: vertical;
-      }
-
-      .edit-modal-buttons {
-        text-align: right;
-        margin-top: 20px;
-      }
-
-      .edit-modal button {
-        padding: 10px 20px;
-        margin-left: 10px;
         border: none;
-        border-radius: 4px;
-        cursor: pointer;
       }
 
-      .save-btn {
-        background: #28a745;
-        color: white;
-      }
-
-      .save-btn:hover {
-        background: #218838;
-      }
-
-      .cancel-btn {
-        background: #6c757d;
-        color: white;
-      }
-
-      .cancel-btn:hover {
-        background: #5a6268;
-      }
-
-      .image-upload {
-        margin: 10px 0;
-      }
-
-      .image-upload input[type="file"] {
-        display: block;
-        margin: 10px 0;
-      }
 
       .page-controls {
         text-align: center;
@@ -262,18 +183,6 @@
       <a href="/" class="download-btn">Convert Another PDF</a>
     </div>
 
-    <div id="editModal" class="edit-modal">
-      <div class="edit-modal-content">
-        <h3 id="modalTitle">Edit Content</h3>
-        <div id="modalBody">
-          <input type="text" id="editInput" placeholder="Enter new text" />
-        </div>
-        <div class="edit-modal-buttons">
-          <button class="cancel-btn" onclick="closeEditModal()">Cancel</button>
-          <button class="save-btn" onclick="saveEdit()">Save</button>
-        </div>
-      </div>
-    </div>
 
     <script>
       let currentPage = 1;
@@ -305,72 +214,6 @@
         });
       }
 
-      function openEditModal(element, type) {
-        currentEditElement = element;
-        currentEditType = type;
-        const modal = document.getElementById('editModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        const editInput = document.getElementById('editInput');
-
-        if (type === 'text') {
-          modalTitle.textContent = 'Edit Text';
-          modalBody.innerHTML = '<input type="text" id="editInput" placeholder="Enter new text">';
-          editInput.value = element.textContent;
-        } else if (type === 'image') {
-          modalTitle.textContent = 'Replace Image';
-          modalBody.innerHTML = `
-            <div class="image-upload">
-              <p>Current image:</p>
-              <img src="${element.src}" style="max-width: 200px; max-height: 150px; border: 1px solid #ddd;">
-              <p>Upload new image:</p>
-              <input type="file" id="imageFile" accept="image/*">
-            </div>
-          `;
-        }
-
-        modal.style.display = 'block';
-      }
-
-      function closeEditModal() {
-        document.getElementById('editModal').style.display = 'none';
-        currentEditElement = null;
-        currentEditType = null;
-      }
-
-      function saveEdit() {
-        if (currentEditType === 'text') {
-          const newText = document.getElementById('editInput').value;
-          if (newText !== currentEditElement.textContent) {
-            edits.push({
-              type: 'text',
-              page: currentPage,
-              old_text: currentEditElement.dataset.text,
-              new_text: newText
-            });
-            currentEditElement.textContent = newText;
-            currentEditElement.dataset.text = newText;
-          }
-        } else if (currentEditType === 'image') {
-          const fileInput = document.getElementById('imageFile');
-          if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              edits.push({
-                type: 'image',
-                page: currentPage,
-                image_id: parseInt(currentEditElement.dataset.imageId),
-                image_data: e.target.result
-              });
-              currentEditElement.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-          }
-        }
-
-        closeEditModal();
-      }
 
       function saveEdits() {
         if (edits.length === 0) {
@@ -400,15 +243,44 @@
       }
 
       document.addEventListener('DOMContentLoaded', function() {
+        // Make text elements directly editable
         document.querySelectorAll('.editable-text').forEach(element => {
-          element.addEventListener('click', function() {
-            openEditModal(this, 'text');
+          element.contentEditable = true;
+          element.addEventListener('input', function() {
+            // Track text changes
+            edits.push({
+              type: 'text',
+              page: currentPage,
+              old_text: element.dataset.text,
+              new_text: element.textContent
+            });
+            element.dataset.text = element.textContent;
           });
         });
 
+        // Handle image replacement
         document.querySelectorAll('.editable-image').forEach(element => {
           element.addEventListener('click', function() {
-            openEditModal(this, 'image');
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+              const file = e.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                  edits.push({
+                    type: 'image',
+                    page: currentPage,
+                    image_id: parseInt(element.dataset.imageId),
+                    image_data: e.target.result
+                  });
+                  element.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+              }
+            };
+            input.click();
           });
         });
 
@@ -418,12 +290,6 @@
         }
       });
 
-      window.onclick = function(event) {
-        const modal = document.getElementById('editModal');
-        if (event.target === modal) {
-          closeEditModal();
-        }
-      }
     </script>
   </body>
 </html>
