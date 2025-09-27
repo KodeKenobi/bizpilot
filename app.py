@@ -327,5 +327,129 @@ def download_pdf(html_filename):
         print(f"Error in download_pdf: {str(e)}")  # Debug logging
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@app.route("/extract_text/<filename>")
+def extract_text(filename):
+    try:
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        if not os.path.exists(filepath):
+            return jsonify({"status": "error", "message": "File not found"}), 404
+        
+        doc = fitz.open(filepath)
+        extracted_text = ""
+        page_count = len(doc)
+        
+        for page_num in range(page_count):
+            page = doc[page_num]
+            page_text = page.get_text()
+            if page_text.strip():
+                extracted_text += f"--- Page {page_num + 1} ---\n"
+                extracted_text += page_text + "\n\n"
+        
+        doc.close()
+        
+        return jsonify({
+            "status": "success",
+            "filename": filename,
+            "text": extracted_text,
+            "page_count": page_count
+        })
+    
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/extract_images/<filename>")
+def extract_images(filename):
+    try:
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        if not os.path.exists(filepath):
+            return jsonify({"status": "error", "message": "File not found"}), 404
+        
+        doc = fitz.open(filepath)
+        images_data = []
+        
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            image_list = page.get_images()
+            
+            for img_index, img in enumerate(image_list):
+                xref = img[0]
+                pix = fitz.Pixmap(doc, xref)
+                
+                if pix.n - pix.alpha < 4:  # GRAY or RGB
+                    img_data = pix.tobytes("png")
+                    img_base64 = base64.b64encode(img_data).decode()
+                    
+                    images_data.append({
+                        "page": page_num + 1,
+                        "image_index": img_index + 1,
+                        "width": pix.width,
+                        "height": pix.height,
+                        "data": img_base64
+                    })
+                
+                pix = None
+        
+        doc.close()
+        
+        return jsonify({
+            "status": "success",
+            "filename": filename,
+            "images": images_data,
+            "total_images": len(images_data)
+        })
+    
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/convert_to_word/<filename>")
+def convert_to_word(filename):
+    try:
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        if not os.path.exists(filepath):
+            return jsonify({"status": "error", "message": "File not found"}), 404
+        
+        doc = fitz.open(filepath)
+        word_content = ""
+        
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            page_text = page.get_text()
+            if page_text.strip():
+                word_content += f"Page {page_num + 1}\n"
+                word_content += "=" * 50 + "\n"
+                word_content += page_text + "\n\n"
+        
+        doc.close()
+        
+        # Create a simple text file (can be opened in Word)
+        base_name = os.path.splitext(filename)[0]
+        word_filename = f"{base_name}_converted.txt"
+        word_path = os.path.join(HTML_FOLDER, word_filename)
+        
+        with open(word_path, 'w', encoding='utf-8') as f:
+            f.write(word_content)
+        
+        return jsonify({
+            "status": "success",
+            "filename": filename,
+            "word_filename": word_filename,
+            "download_url": f"/download_word/{word_filename}"
+        })
+    
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/download_word/<word_filename>")
+def download_word(word_filename):
+    try:
+        word_path = os.path.join(HTML_FOLDER, word_filename)
+        if not os.path.exists(word_path):
+            return "Word file not found", 404
+        
+        return send_file(word_path, as_attachment=True, download_name=word_filename)
+    
+    except Exception as e:
+        return f"Error downloading word file: {str(e)}", 500
+
 if __name__ == "__main__":
     app.run(debug=True)

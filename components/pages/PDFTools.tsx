@@ -45,6 +45,7 @@ export default function PDFTools() {
   >("checking");
   const [showEditor, setShowEditor] = useState(false);
   const [editorUrl, setEditorUrl] = useState<string>("");
+  const [previewFormat, setPreviewFormat] = useState<string>("txt");
 
   // Check backend status
   useEffect(() => {
@@ -52,6 +53,15 @@ export default function PDFTools() {
       .then(() => setBackendStatus("online"))
       .catch(() => setBackendStatus("offline"));
   }, []);
+
+  // Reset everything when switching tabs
+  useEffect(() => {
+    setShowEditor(false);
+    setEditorUrl("");
+    setUploadedFile(null);
+    setResult(null);
+    setShowNotification(false);
+  }, [activeTab]);
 
   const handleFileUpload = async (files: File[]) => {
     if (files.length > 0) {
@@ -71,9 +81,21 @@ export default function PDFTools() {
 
         if (response.ok) {
           const filename = file.name;
-          setEditorUrl(`http://localhost:5000/convert/${filename}`);
-          setShowEditor(true);
-          setResult({ type: "success", message: "PDF uploaded successfully" });
+
+          // Handle different tabs
+          if (activeTab === "edit-pdf") {
+            setEditorUrl(`http://localhost:5000/convert/${filename}`);
+            setShowEditor(true);
+            setResult({
+              type: "success",
+              message: "PDF uploaded successfully",
+            });
+          } else {
+            setShowEditor(false);
+            // Process based on active tab
+            await processTabFeature(filename);
+          }
+
           setShowNotification(true);
           setTimeout(() => setShowNotification(false), 3000);
         } else {
@@ -89,6 +111,125 @@ export default function PDFTools() {
         setIsProcessing(false);
       }
     }
+  };
+
+  const processTabFeature = async (filename: string) => {
+    try {
+      let response;
+      let endpoint = "";
+
+      switch (activeTab) {
+        case "extract-text":
+          endpoint = `/extract_text/${filename}`;
+          break;
+        case "extract-images":
+          endpoint = `/extract_images/${filename}`;
+          break;
+        case "convert-word":
+          endpoint = `/convert_to_word/${filename}`;
+          break;
+        default:
+          setResult({ type: "success", message: "PDF uploaded successfully" });
+          return;
+      }
+
+      response = await fetch(`http://localhost:5000${endpoint}`);
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setResult({
+          type: "success",
+          message: "Processing completed successfully",
+          data: data,
+        });
+      } else {
+        setResult({ type: "error", message: data.message });
+      }
+    } catch (error) {
+      setResult({ type: "error", message: "Error processing PDF feature" });
+    }
+  };
+
+  const getPreviewContent = () => {
+    if (!result?.data?.text || !uploadedFile) return "";
+
+    switch (previewFormat) {
+      case "txt":
+        return result.data.text;
+      case "md":
+        return `# Extracted Text from ${uploadedFile.name}\n\n${result.data.text}`;
+      case "json":
+        return JSON.stringify(
+          {
+            filename: uploadedFile.name,
+            page_count: result.data.page_count,
+            extracted_text: result.data.text,
+            extracted_at: new Date().toISOString(),
+          },
+          null,
+          2
+        );
+      case "csv":
+        const lines = result.data.text.split("\n");
+        const csvLines = lines.map(
+          (line, index) => `"${index + 1}","${line.replace(/"/g, '""')}"`
+        );
+        return "Line_Number,Content\n" + csvLines.join("\n");
+      default:
+        return result.data.text;
+    }
+  };
+
+  const downloadText = (format: string, mimeType: string) => {
+    if (!result?.data?.text || !uploadedFile) return;
+
+    let content = result.data.text;
+    let filename = `${uploadedFile.name.replace(".pdf", "")}_extracted_text`;
+
+    switch (format) {
+      case "txt":
+        // Keep as plain text
+        filename += ".txt";
+        break;
+      case "md":
+        // Convert to Markdown format
+        content = `# Extracted Text from ${uploadedFile.name}\n\n${result.data.text}`;
+        filename += ".md";
+        break;
+      case "json":
+        // Convert to JSON format
+        content = JSON.stringify(
+          {
+            filename: uploadedFile.name,
+            page_count: result.data.page_count,
+            extracted_text: result.data.text,
+            extracted_at: new Date().toISOString(),
+          },
+          null,
+          2
+        );
+        filename += ".json";
+        break;
+      case "csv":
+        // Convert to CSV format (split by lines)
+        const lines = result.data.text.split("\n");
+        const csvLines = lines.map(
+          (line, index) => `"${index + 1}","${line.replace(/"/g, '""')}"`
+        );
+        content = "Line_Number,Content\n" + csvLines.join("\n");
+        filename += ".csv";
+        break;
+      default:
+        return;
+    }
+
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -201,31 +342,8 @@ export default function PDFTools() {
           transition={{ delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          {!showEditor ? (
-            // Upload Interface
-            <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-gray-800/40 border-gray-700 rounded-lg overflow-hidden">
-              <div className="dark">
-                <FileUpload onChange={handleFileUpload} />
-              </div>
-
-              {uploadedFile && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 p-3 bg-white/5 border border-white/10 rounded-lg"
-                >
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span className="text-gray-300 text-sm">
-                      {uploadedFile.name} (
-                      {Math.round(uploadedFile.size / 1024)} KB)
-                    </span>
-                  </div>
-                </motion.div>
-              )}
-            </div>
-          ) : (
-            // PDF Editor Interface
+          {showEditor && activeTab === "edit-pdf" ? (
+            // PDF Editor Interface (only for Edit PDF tab)
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
               <div className="flex items-center justify-between p-4 border-b border-white/10">
                 <div className="flex items-center space-x-4">
@@ -255,6 +373,174 @@ export default function PDFTools() {
                   title="PDF Editor"
                   sandbox="allow-same-origin allow-scripts allow-forms allow-downloads allow-modals allow-popups"
                 />
+              </div>
+            </div>
+          ) : result && result.data ? (
+            // Results Section (after successful extraction/conversion)
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
+              <div className="flex items-center justify-between p-4 border-b border-white/10">
+                <div className="flex items-center space-x-4">
+                  <h3 className="text-white font-semibold text-lg">
+                    {activeTab === "extract-text" && "Extracted Text"}
+                    {activeTab === "extract-images" && "Extracted Images"}
+                    {activeTab === "convert-word" && "Word Document"}
+                  </h3>
+                  <span className="text-gray-400 text-sm">
+                    {uploadedFile?.name}
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    setUploadedFile(null);
+                    setResult(null);
+                  }}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  Upload New PDF
+                </button>
+              </div>
+
+              <div className="p-6">
+                {activeTab === "extract-text" && (
+                  <div>
+                    <div className="bg-gray-900/50 rounded-lg p-4 max-h-96 overflow-y-auto">
+                      <pre className="text-gray-300 text-sm whitespace-pre-wrap">
+                        {result.data.text}
+                      </pre>
+                    </div>
+                    <div className="mt-4 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-400 text-sm">
+                          {result.data.page_count} pages processed
+                        </span>
+                        <div className="flex items-center gap-3">
+                          <span className="text-gray-500 text-sm">
+                            Download as:
+                          </span>
+                          <select
+                            onChange={(e) => {
+                              if (e.target.value) {
+                                const [format, mimeType] =
+                                  e.target.value.split(",");
+                                downloadText(format, mimeType);
+                                e.target.value = ""; // Reset selection
+                              }
+                            }}
+                            className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                          >
+                            <option value="">Choose format...</option>
+                            <option value="txt,text/plain">Text (.txt)</option>
+                            <option value="md,text/markdown">
+                              Markdown (.md)
+                            </option>
+                            <option value="json,application/json">
+                              JSON (.json)
+                            </option>
+                            <option value="csv,text/csv">CSV (.csv)</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Format Preview */}
+                      <div className="bg-gray-900/50 rounded-lg p-4">
+                        <div className="flex gap-2 mb-3">
+                          <button
+                            onClick={() => setPreviewFormat("txt")}
+                            className={`px-3 py-1 rounded text-xs transition-colors ${
+                              previewFormat === "txt"
+                                ? "bg-blue-600 text-white"
+                                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                            }`}
+                          >
+                            TXT
+                          </button>
+                          <button
+                            onClick={() => setPreviewFormat("md")}
+                            className={`px-3 py-1 rounded text-xs transition-colors ${
+                              previewFormat === "md"
+                                ? "bg-blue-600 text-white"
+                                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                            }`}
+                          >
+                            MD
+                          </button>
+                          <button
+                            onClick={() => setPreviewFormat("json")}
+                            className={`px-3 py-1 rounded text-xs transition-colors ${
+                              previewFormat === "json"
+                                ? "bg-blue-600 text-white"
+                                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                            }`}
+                          >
+                            JSON
+                          </button>
+                          <button
+                            onClick={() => setPreviewFormat("csv")}
+                            className={`px-3 py-1 rounded text-xs transition-colors ${
+                              previewFormat === "csv"
+                                ? "bg-blue-600 text-white"
+                                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                            }`}
+                          >
+                            CSV
+                          </button>
+                        </div>
+                        <div className="bg-gray-800 rounded p-3 max-h-48 overflow-y-auto">
+                          <pre className="text-gray-300 text-xs whitespace-pre-wrap">
+                            {getPreviewContent()}
+                          </pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "extract-images" && (
+                  <div>
+                    <p className="text-gray-400 text-sm mb-4">
+                      Found {result.data.total_images} images
+                    </p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+                      {result.data.images.map((img: any, index: number) => (
+                        <div
+                          key={index}
+                          className="bg-gray-900/50 rounded-lg p-3"
+                        >
+                          <img
+                            src={`data:image/png;base64,${img.data}`}
+                            alt={`Image ${img.image_index} from page ${img.page}`}
+                            className="w-full h-32 object-contain bg-white rounded"
+                          />
+                          <p className="text-gray-400 text-xs mt-2">
+                            Page {img.page}, Image {img.image_index}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "convert-word" && (
+                  <div>
+                    <p className="text-gray-400 text-sm mb-4">
+                      PDF converted to Word format successfully
+                    </p>
+                    <a
+                      href={`http://localhost:5000${result.data.download_url}`}
+                      download
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-sm inline-block"
+                    >
+                      Download Word Document
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            // Upload Interface (initial state)
+            <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+              <div className="dark">
+                <FileUpload onChange={handleFileUpload} />
               </div>
             </div>
           )}
