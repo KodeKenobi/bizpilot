@@ -111,6 +111,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+Lib/
+Scripts/
 
 # Flask
 instance/
@@ -119,3 +121,8 @@ instance/
 # PDF uploads and edited files
 uploads/
 edited/
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
