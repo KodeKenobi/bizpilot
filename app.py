@@ -95,8 +95,16 @@ def convert_pdf(filename):
 @app.route("/save_edits/<filename>", methods=["POST"])
 def save_edits(filename):
     try:
-        edits = request.json
+        edits = request.json or []
+        
+        if not edits:
+            return jsonify({"status": "success", "message": "No edits to save"})
+            
         filepath = os.path.join(UPLOAD_FOLDER, filename)
+        
+        if not os.path.exists(filepath):
+            return jsonify({"status": "error", "message": f"Original file {filename} not found"}), 404
+            
         edited_path = os.path.join(EDITED_FOLDER, f"edited_{filename}")
         
         doc = fitz.open(filepath)
@@ -133,6 +141,7 @@ def save_edits(filename):
         return jsonify({"status": "success", "message": "Edits saved successfully"})
     
     except Exception as e:
+        print(f"Error in save_edits: {str(e)}")  # Debug logging
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route("/save_html/<filename>", methods=["POST"])
@@ -183,27 +192,91 @@ def download_pdf(html_filename):
     try:
         html_path = os.path.join(HTML_FOLDER, html_filename)
         if not os.path.exists(html_path):
-            return "HTML file not found", 404
+            return jsonify({"status": "error", "message": "HTML file not found"}), 404
         
         # Convert HTML to PDF
         pdf_filename = html_filename.replace('.html', '.pdf')
         pdf_path = os.path.join(HTML_FOLDER, pdf_filename)
         
-        # For now, let's create a simple PDF with a message
-        # In a production environment, you'd want to use a proper HTML to PDF converter
-        doc = fitz.open()  # Create new PDF
+        # Use PyMuPDF to create a proper PDF from HTML content
+        # Read HTML content and extract structured content
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        # Parse HTML to extract text and structure using regex (no external dependencies)
+        import re
+        
+        # Extract editable text content using regex
+        editable_text_pattern = r'<[^>]*class="[^"]*editable-text[^"]*"[^>]*>([^<]*)</[^>]*>'
+        editable_texts = re.findall(editable_text_pattern, html_content, re.IGNORECASE | re.DOTALL)
+        
+        # Extract image count
+        image_pattern = r'<[^>]*class="[^"]*editable-image[^"]*"[^>]*>'
+        images = re.findall(image_pattern, html_content, re.IGNORECASE)
+        
+        # Create PDF with proper formatting
+        doc = fitz.open()
         page = doc.new_page(width=595, height=842)  # A4 size
+        y_position = 50
         
-        # Add text to the PDF
-        text = f"Your edited document has been saved as HTML.\n\n"
-        text += f"HTML file: {html_filename}\n"
-        text += f"Saved on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
-        text += "To view the full document with formatting, please use the 'View Your PDF' button."
+        # Add title
+        page.insert_text((50, y_position), "Edited Document", fontsize=16, color=(0, 0, 0))
+        y_position += 40
         
-        # Insert text
-        page.insert_text((50, 100), text, fontsize=12)
+        # Add timestamp
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        page.insert_text((50, y_position), f"Edited on: {timestamp}", fontsize=10, color=(0.5, 0.5, 0.5))
+        y_position += 30
         
-        # Save the PDF
+        # Add editable text content
+        for i, text_content in enumerate(editable_texts):
+            if text_content and text_content.strip():
+                # Clean and format text
+                clean_text = text_content.strip()
+                # Decode HTML entities
+                clean_text = clean_text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>').replace('&quot;', '"')
+                
+                if len(clean_text) > 100:
+                    # Split long text into paragraphs
+                    words = clean_text.split()
+                    current_line = ""
+                    for word in words:
+                        test_line = current_line + " " + word if current_line else word
+                        if len(test_line) < 70:
+                            current_line = test_line
+                        else:
+                            if current_line:
+                                page.insert_text((50, y_position), current_line, fontsize=11)
+                                y_position += 15
+                                if y_position > 800:
+                                    page = doc.new_page(width=595, height=842)
+                                    y_position = 50
+                            current_line = word
+                    if current_line:
+                        page.insert_text((50, y_position), current_line, fontsize=11)
+                        y_position += 20
+                else:
+                    page.insert_text((50, y_position), clean_text, fontsize=11)
+                    y_position += 20
+                
+                # Add spacing between sections
+                y_position += 10
+                
+                # Check if we need a new page
+                if y_position > 800:
+                    page = doc.new_page(width=595, height=842)
+                    y_position = 50
+        
+        # Add note about images
+        if images:
+            if y_position > 750:
+                page = doc.new_page(width=595, height=842)
+                y_position = 50
+            
+            page.insert_text((50, y_position), "Note: Images were edited in this document.", fontsize=10, color=(0.5, 0.5, 0.5))
+            y_position += 20
+            page.insert_text((50, y_position), f"Total images edited: {len(images)}", fontsize=10, color=(0.5, 0.5, 0.5))
+        
         doc.save(pdf_path)
         doc.close()
         
@@ -211,7 +284,8 @@ def download_pdf(html_filename):
         return send_file(pdf_path, as_attachment=True, download_name=pdf_filename)
     
     except Exception as e:
-        return f"Error converting to PDF: {str(e)}", 500
+        print(f"Error in download_pdf: {str(e)}")  # Debug logging
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

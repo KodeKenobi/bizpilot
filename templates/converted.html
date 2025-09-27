@@ -44,6 +44,10 @@
         transform-origin: top left;
       }
 
+      .pdf-page.hidden {
+        display: none;
+      }
+
       .text-line {
         position: relative;
         white-space: nowrap;
@@ -77,221 +81,181 @@
         border: none;
       }
 
-
-      .page-controls {
-        text-align: center;
-        padding: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 12px;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 16px;
+        background: #2a2a2a;
+        border-bottom: 1px solid #444;
+        position: sticky;
+        top: 0;
+        z-index: 100;
       }
 
-      .control-section {
+      .nav-controls {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 15px;
-        margin-bottom: 15px;
+        gap: 12px;
       }
 
-      .page-controls button {
-        background: rgba(255, 255, 255, 0.2);
+      .nav-controls button {
+        background: #444;
         color: white;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 12px 20px;
-        border-radius: 8px;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
         cursor: pointer;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
+        font-size: 14px;
+        transition: background 0.2s;
       }
 
-      .page-controls button:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      .nav-controls button:hover {
+        background: #555;
       }
 
-      .page-controls button:disabled {
-        background: rgba(255, 255, 255, 0.1);
+      .nav-controls button:disabled {
+        background: #333;
         cursor: not-allowed;
-        transform: none;
+        opacity: 0.5;
       }
 
-      .page-controls #pageInfo {
+      .nav-controls #pageInfo {
         color: white;
-        font-weight: 600;
-        font-size: 16px;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        font-weight: 500;
+        font-size: 14px;
+        min-width: 40px;
+        text-align: center;
       }
 
       .zoom-controls {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        gap: 4px;
+        margin-left: 16px;
       }
 
       .zoom-controls button {
-        background: rgba(255, 255, 255, 0.15);
+        background: #444;
         color: white;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 8px 16px;
-        border-radius: 6px;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 3px;
         cursor: pointer;
-        font-size: 14px;
-        transition: all 0.2s ease;
+        font-size: 12px;
+        transition: background 0.2s;
       }
 
       .zoom-controls button:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-1px);
+        background: #555;
       }
 
-      .action-buttons {
+      .actions {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 12px;
-        padding: 20px;
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        border-radius: 12px;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        flex-wrap: wrap;
-      }
-
-      .action-btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
         gap: 8px;
+      }
+
+      .btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
         font-weight: 500;
-        font-size: 14px;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        min-width: 140px;
-        justify-content: center;
+        text-decoration: none;
+        transition: all 0.2s;
+        display: inline-block;
       }
 
-      .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        background: linear-gradient(135deg, #7c4dff 0%, #8e24aa 100%);
+      .btn.primary {
+        background: #007bff;
+        color: white;
       }
 
-      .action-btn:disabled {
-        background: linear-gradient(135deg, #666 0%, #888 100%);
+      .btn.primary:hover {
+        background: #0056b3;
+      }
+
+      .btn.secondary {
+        background: #6c757d;
+        color: white;
+      }
+
+      .btn.secondary:hover {
+        background: #545b62;
+      }
+
+      .btn.secondary:disabled {
+        background: #495057;
         cursor: not-allowed;
-        transform: none;
         opacity: 0.6;
       }
 
-      .action-btn:disabled:hover {
-        transform: none;
-        box-shadow: none;
+      .btn.tertiary {
+        background: #28a745;
+        color: white;
       }
 
-      .save-edits-btn {
-        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-      }
-
-      .save-doc-btn {
-        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
-      }
-
-      .view-pdf-btn {
-        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-      }
-
-      .download-pdf-btn {
-        background: linear-gradient(135deg, #fd7e14 0%, #e55a00 100%);
-      }
-
-      .convert-another-btn {
-        background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
+      .btn.tertiary:hover {
+        background: #1e7e34;
       }
     </style>
   </head>
   <body>
-
-    <div class="page-controls">
-      <div class="control-section">
-        <button id="prevPage" onclick="changePage(-1)">← Previous</button>
-        <span id="pageInfo">Page 1 of {{ pages|length }}</span>
-        <button id="nextPage" onclick="changePage(1)">Next →</button>
+    <div class="toolbar">
+      <div class="nav-controls">
+        <button id="prevPage" onclick="changePage(-1)">←</button>
+        <span id="pageInfo">1/{{ pages|length }}</span>
+        <button id="nextPage" onclick="changePage(1)">→</button>
+        <div class="zoom-controls">
+          <button onclick="changeZoom(0.5)">50%</button>
+          <button onclick="changeZoom(1)">100%</button>
+          <button onclick="changeZoom(1.5)">150%</button>
+          <button onclick="changeZoom(2)">200%</button>
+        </div>
       </div>
 
-      <div class="zoom-controls">
-        <button onclick="changeZoom(0.5)">50%</button>
-        <button onclick="changeZoom(1)">100%</button>
-        <button onclick="changeZoom(1.5)">150%</button>
-        <button onclick="changeZoom(2)">200%</button>
+      <div class="actions">
+        <button onclick="saveEdits()" class="btn primary">Save Changes</button>
+        <button
+          onclick="viewPDF()"
+          class="btn secondary"
+          id="viewPdfBtn"
+          style="display: none"
+        >
+          View
+        </button>
+        <button
+          onclick="downloadPDF()"
+          class="btn secondary"
+          id="downloadPdfBtn"
+          style="display: none"
+        >
+          Download
+        </button>
+        <a href="/" class="btn tertiary">New</a>
       </div>
-    </div>
-
-    <div class="action-buttons">
-      <button
-        onclick="saveEdits()"
-        class="action-btn save-edits-btn"
-      >
-        💾 Save Edits
-      </button>
-      <button
-        onclick="saveHTML()"
-        class="action-btn save-doc-btn"
-        id="saveHtmlBtn"
-      >
-        📄 Save Document
-      </button>
-      <button
-        onclick="viewPDF()"
-        class="action-btn view-pdf-btn"
-        id="viewPdfBtn"
-        disabled
-      >
-        👁️ View Your PDF
-      </button>
-      <button
-        onclick="downloadPDF()"
-        class="action-btn download-pdf-btn"
-        id="downloadPdfBtn"
-        disabled
-      >
-        ⬇️ Download PDF
-      </button>
-      <a href="/" class="action-btn convert-another-btn">🔄 Convert Another PDF</a>
     </div>
 
     <div class="pdf-container">
       {% for page in pages %}
       <div
-        class="pdf-page"
+        class="pdf-page{% if loop.index > 1 %} hidden{% endif %}"
         id="page-{{ loop.index }}"
-        style="width: {{ page.width }}px; height: {{ page.height }}px; {% if loop.index > 1 %}display: none;{% endif %}"
+        data-width="{{ page.width }}"
+        data-height="{{ page.height }}"
       >
         {{ page.html|safe }}
       </div>
       {% endfor %}
     </div>
 
-
+    <!-- HTML to PDF Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
       let currentPage = 1;
-      const totalPages = {{ pages|length }};
+      const totalPages = parseInt("{{ pages|length }}");
       let currentZoom = 1;
       let edits = [];
       let currentEditElement = null;
@@ -301,128 +265,258 @@
       function changePage(direction) {
         const newPage = currentPage + direction;
         if (newPage >= 1 && newPage <= totalPages) {
-          document.getElementById(`page-${currentPage}`).style.display = 'none';
+          document.getElementById(`page-${currentPage}`).style.display = "none";
           currentPage = newPage;
-          document.getElementById(`page-${currentPage}`).style.display = 'block';
-          document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+          document.getElementById(`page-${currentPage}`).style.display =
+            "block";
+          document.getElementById(
+            "pageInfo"
+          ).textContent = `${currentPage}/${totalPages}`;
 
-          document.getElementById('prevPage').disabled = currentPage === 1;
-          document.getElementById('nextPage').disabled = currentPage === totalPages;
+          document.getElementById("prevPage").disabled = currentPage === 1;
+          document.getElementById("nextPage").disabled =
+            currentPage === totalPages;
         }
       }
 
       function changeZoom(zoom) {
         currentZoom = zoom;
-        const pages = document.querySelectorAll('.pdf-page');
-        pages.forEach(page => {
+        const pages = document.querySelectorAll(".pdf-page");
+        pages.forEach((page) => {
           page.style.transform = `scale(${zoom})`;
-          page.style.transformOrigin = 'top left';
+          page.style.transformOrigin = "top left";
         });
       }
 
+      function showNotification(message, isError = false) {
+        // Create notification element
+        const notification = document.createElement("div");
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 12px 20px;
+          border-radius: 6px;
+          color: white;
+          font-weight: 500;
+          z-index: 1000;
+          max-width: 300px;
+          word-wrap: break-word;
+          ${isError ? "background: #dc3545;" : "background: #28a745;"}
+        `;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 3000);
+      }
 
       function saveEdits() {
-        if (edits.length === 0) {
-          alert('No edits to save');
-          return;
-        }
-
         fetch(`/save_edits/{{ filename }}`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(edits)
+          body: JSON.stringify(edits),
         })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            alert('Edits saved successfully!');
-            edits = [];
-          } else {
-            alert('Error saving edits: ' + data.message);
-          }
-        })
-        .catch(error => {
-          alert('Error saving edits: ' + error);
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              showNotification("Edits saved successfully!");
+              edits = [];
+
+              // Also save HTML version and show View/Download buttons
+              saveHTMLAndShowButtons();
+            } else {
+              showNotification("Error saving edits: " + data.message, true);
+            }
+          })
+          .catch((error) => {
+            showNotification("Error saving edits: " + error, true);
+          });
       }
 
-      function saveHTML() {
+      function saveHTMLAndShowButtons() {
         // Get the current HTML content
         const htmlContent = document.documentElement.outerHTML;
-        
+
         fetch(`/save_html/{{ filename }}`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({ html_content: htmlContent })
+          body: JSON.stringify({ html_content: htmlContent }),
         })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            savedHtmlFilename = data.html_filename;
-            document.getElementById('viewPdfBtn').disabled = false;
-            document.getElementById('downloadPdfBtn').disabled = false;
-            alert('Document saved successfully! You can now view or download your PDF.');
-          } else {
-            alert('Error saving document: ' + data.message);
-          }
-        })
-        .catch(error => {
-          alert('Error saving document: ' + error);
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              savedHtmlFilename = data.html_filename;
+              document.getElementById("viewPdfBtn").style.display =
+                "inline-block";
+              document.getElementById("downloadPdfBtn").style.display =
+                "inline-block";
+              showNotification(
+                "Document ready! You can now view or download your PDF."
+              );
+            } else {
+              showNotification("Error saving document: " + data.message, true);
+            }
+          })
+          .catch((error) => {
+            showNotification("Error saving document: " + error, true);
+          });
       }
 
       function viewPDF() {
         if (savedHtmlFilename) {
-          window.open(`/view_html/${savedHtmlFilename}`, '_blank');
+          window.open(`/view_html/${savedHtmlFilename}`, "_blank");
         } else {
-          alert('Please save your document first!');
+          showNotification("Please save your document first!", true);
         }
       }
 
-      function downloadPDF() {
-        if (savedHtmlFilename) {
-          window.location.href = `/download_pdf/${savedHtmlFilename}`;
-        } else {
-          alert('Please save your document first!');
+      async function downloadPDF() {
+        if (!savedHtmlFilename) {
+          showNotification("Please save your document first!", true);
+          return;
+        }
+
+        try {
+          showNotification("Generating PDF...", false);
+
+          // Reset zoom to 100% for consistent PDF generation
+          const originalZoom = currentZoom;
+          changeZoom(1);
+
+          // Wait a moment for zoom change to take effect
+          await new Promise((resolve) => setTimeout(resolve, 500));
+
+          // Capture all pages (show all pages temporarily for capture)
+          const allPages = document.querySelectorAll(".pdf-page");
+          const originalDisplays = [];
+
+          // Show all pages temporarily
+          allPages.forEach((page, index) => {
+            originalDisplays[index] = page.style.display;
+            page.style.display = "block";
+          });
+
+          // Wait for all pages to be visible
+          await new Promise((resolve) => setTimeout(resolve, 200));
+
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF("p", "mm", "a4");
+
+          for (let i = 0; i < allPages.length; i++) {
+            const page = allPages[i];
+
+            // Capture the page as canvas
+            const canvas = await html2canvas(page, {
+              scale: 2, // Higher quality
+              useCORS: true,
+              allowTaint: true,
+              backgroundColor: "#ffffff",
+              width: page.offsetWidth,
+              height: page.offsetHeight,
+            });
+
+            // Convert canvas to image
+            const imgData = canvas.toDataURL("image/png");
+
+            // Calculate dimensions to fit A4 page
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 297; // A4 height in mm
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            // Add new page if not the first page
+            if (i > 0) {
+              pdf.addPage();
+            }
+
+            // Add image to PDF
+            pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+          }
+
+          // Restore original page visibility
+          allPages.forEach((page, index) => {
+            page.style.display = originalDisplays[index];
+          });
+
+          // Restore original zoom
+          changeZoom(originalZoom);
+
+          // Generate filename
+          const timestamp = new Date()
+            .toISOString()
+            .replace(/[:.]/g, "-")
+            .slice(0, 19);
+          const filename = `edited_document_${timestamp}.pdf`;
+
+          // Download the PDF
+          pdf.save(filename);
+
+          showNotification("PDF downloaded successfully!", false);
+        } catch (error) {
+          console.error("Error generating PDF:", error);
+          showNotification("Error generating PDF: " + error.message, true);
+
+          // Restore original page visibility on error
+          if (allPages) {
+            allPages.forEach((page, index) => {
+              page.style.display = originalDisplays[index];
+            });
+          }
+
+          // Restore original zoom on error
+          changeZoom(originalZoom);
         }
       }
 
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set page dimensions
+        document.querySelectorAll(".pdf-page").forEach((page) => {
+          const width = page.dataset.width;
+          const height = page.dataset.height;
+          page.style.width = width + "px";
+          page.style.height = height + "px";
+        });
+
         // Make text elements directly editable
-        document.querySelectorAll('.editable-text').forEach(element => {
+        document.querySelectorAll(".editable-text").forEach((element) => {
           element.contentEditable = true;
-          element.addEventListener('input', function() {
+          element.addEventListener("input", function () {
             // Track text changes
             edits.push({
-              type: 'text',
+              type: "text",
               page: currentPage,
               old_text: element.dataset.text,
-              new_text: element.textContent
+              new_text: element.textContent,
             });
             element.dataset.text = element.textContent;
           });
         });
 
         // Handle image replacement
-        document.querySelectorAll('.editable-image').forEach(element => {
-          element.addEventListener('click', function() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = function(e) {
+        document.querySelectorAll(".editable-image").forEach((element) => {
+          element.addEventListener("click", function () {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+            input.onchange = function (e) {
               const file = e.target.files[0];
               if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                   edits.push({
-                    type: 'image',
+                    type: "image",
                     page: currentPage,
                     image_id: parseInt(element.dataset.imageId),
-                    image_data: e.target.result
+                    image_data: e.target.result,
                   });
                   element.src = e.target.result;
                 };
@@ -433,12 +527,11 @@
           });
         });
 
-        document.getElementById('prevPage').disabled = true;
+        document.getElementById("prevPage").disabled = true;
         if (totalPages === 1) {
-          document.getElementById('nextPage').disabled = true;
+          document.getElementById("nextPage").disabled = true;
         }
       });
-
     </script>
   </body>
 </html>

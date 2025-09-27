@@ -4,9 +4,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Play, FileText, QrCode, Image } from "lucide-react";
 import { useEffect, useState } from "react";
-import ScrollHandler from "@/components/ScrollHandler";
 
 export default function LandingPage() {
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [cardOrder, setCardOrder] = useState([
     { text: "Convert videos to high-quality MP3 audio", icon: Play },
     { text: "Create animated GIFs from video content", icon: ArrowRight },
@@ -27,56 +31,57 @@ export default function LandingPage() {
 
   return (
     <>
-      <ScrollHandler />
-      <div
-        className="min-h-screen relative overflow-hidden"
-        style={{
-          background: 'url("/platform-hero-bg.png") no-repeat center top',
-          backgroundSize: "contain",
-          backgroundPosition: "center -50px",
-        }}
-      >
+      <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        {/* Background Image Layer */}
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: 'url("/platform-hero-bg.png") no-repeat center top',
+            backgroundSize: "contain",
+            backgroundPosition: "center -50px",
+          }}
+        ></div>
         {/* Background glow orbs */}
         <motion.div
           className="absolute w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[150px] top-[-200px] left-[-200px]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
         ></motion.div>
         <motion.div
           className="absolute w-[500px] h-[500px] bg-pink-500/20 rounded-full blur-[120px] top-[-100px] right-[-100px]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
         ></motion.div>
         <motion.div
           className="absolute w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] bottom-[-100px] left-1/2 transform -translate-x-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
         ></motion.div>
         <motion.div
           className="absolute w-[300px] h-[300px] bg-orange-500/15 rounded-full blur-[80px] top-1/2 right-1/4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
         ></motion.div>
 
         {/* Hero Section */}
-        <main className="relative z-10 px-6 lg:px-12 pt-24 pb-32">
+        <main className="relative z-20 px-6 lg:px-12 pt-24 pb-32">
           <div className="max-w-6xl mx-auto text-center">
             {/* Hero Text Container */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.1, delay: 0.02 }}
               className="relative mb-12"
             >
               {/* Main Headline */}
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.1, delay: 0.05 }}
                 className="text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight mt-14"
               >
                 The only file conversion that{" "}
@@ -89,7 +94,7 @@ export default function LandingPage() {
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+                transition={{ duration: 0.1, delay: 0.1 }}
                 className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
               >
                 Transform your media files with our intelligent conversion
@@ -102,7 +107,7 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.1, delay: 0.15 }}
               className="max-w-2xl mx-auto"
             >
               <div className="relative h-80 flex flex-col items-center">
