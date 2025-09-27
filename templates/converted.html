@@ -81,76 +81,158 @@
       .page-controls {
         text-align: center;
         padding: 20px;
-        background: white;
-        border-radius: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
         margin-bottom: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .control-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 15px;
       }
 
       .page-controls button {
-        background: #007bff;
+        background: rgba(255, 255, 255, 0.2);
         color: white;
-        border: none;
-        padding: 10px 20px;
-        margin: 0 5px;
-        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 12px 20px;
+        border-radius: 8px;
         cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
       }
 
       .page-controls button:hover {
-        background: #0056b3;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
 
       .page-controls button:disabled {
-        background: #ccc;
+        background: rgba(255, 255, 255, 0.1);
         cursor: not-allowed;
+        transform: none;
+      }
+
+      .page-controls #pageInfo {
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       }
 
       .zoom-controls {
-        display: inline-block;
-        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
       }
 
-      .zoom-controls input {
-        width: 60px;
-        margin: 0 5px;
+      .zoom-controls button {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
       }
 
-      .download-section {
-        text-align: center;
+      .zoom-controls button:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-1px);
+      }
+
+      .action-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
         padding: 20px;
-        background: white;
-        border-radius: 8px;
-        margin-top: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        flex-wrap: wrap;
       }
 
-      .download-btn {
-        background: #28a745;
+      .action-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
-        padding: 12px 24px;
-        border-radius: 4px;
+        padding: 12px 20px;
+        border-radius: 8px;
         cursor: pointer;
         text-decoration: none;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        min-width: 140px;
+        justify-content: center;
       }
 
-      .download-btn:hover {
-        background: #218838;
+      .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #7c4dff 0%, #8e24aa 100%);
+      }
+
+      .action-btn:disabled {
+        background: linear-gradient(135deg, #666 0%, #888 100%);
+        cursor: not-allowed;
+        transform: none;
+        opacity: 0.6;
+      }
+
+      .action-btn:disabled:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .save-edits-btn {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+      }
+
+      .save-doc-btn {
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+      }
+
+      .view-pdf-btn {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+      }
+
+      .download-pdf-btn {
+        background: linear-gradient(135deg, #fd7e14 0%, #e55a00 100%);
+      }
+
+      .convert-another-btn {
+        background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%);
       }
     </style>
   </head>
   <body>
-    <div class="header">
-      <h1>PDF Converted to HTML</h1>
-      <p>File: {{ filename }} | Pages: {{ pages|length }}</p>
-    </div>
 
     <div class="page-controls">
-      <button id="prevPage" onclick="changePage(-1)">Previous</button>
-      <span id="pageInfo">Page 1 of {{ pages|length }}</span>
-      <button id="nextPage" onclick="changePage(1)">Next</button>
+      <div class="control-section">
+        <button id="prevPage" onclick="changePage(-1)">← Previous</button>
+        <span id="pageInfo">Page 1 of {{ pages|length }}</span>
+        <button id="nextPage" onclick="changePage(1)">Next →</button>
+      </div>
 
       <div class="zoom-controls">
         <button onclick="changeZoom(0.5)">50%</button>
@@ -158,6 +240,39 @@
         <button onclick="changeZoom(1.5)">150%</button>
         <button onclick="changeZoom(2)">200%</button>
       </div>
+    </div>
+
+    <div class="action-buttons">
+      <button
+        onclick="saveEdits()"
+        class="action-btn save-edits-btn"
+      >
+        💾 Save Edits
+      </button>
+      <button
+        onclick="saveHTML()"
+        class="action-btn save-doc-btn"
+        id="saveHtmlBtn"
+      >
+        📄 Save Document
+      </button>
+      <button
+        onclick="viewPDF()"
+        class="action-btn view-pdf-btn"
+        id="viewPdfBtn"
+        disabled
+      >
+        👁️ View Your PDF
+      </button>
+      <button
+        onclick="downloadPDF()"
+        class="action-btn download-pdf-btn"
+        id="downloadPdfBtn"
+        disabled
+      >
+        ⬇️ Download PDF
+      </button>
+      <a href="/" class="action-btn convert-another-btn">🔄 Convert Another PDF</a>
     </div>
 
     <div class="pdf-container">
@@ -172,42 +287,6 @@
       {% endfor %}
     </div>
 
-    <div class="download-section">
-      <button
-        onclick="saveEdits()"
-        class="download-btn"
-        style="background: #007bff; margin-right: 10px"
-      >
-        Save Edits
-      </button>
-      <button
-        onclick="saveHTML()"
-        class="download-btn"
-        style="background: #28a745; margin-right: 10px"
-        id="saveHtmlBtn"
-      >
-        Save Document
-      </button>
-      <button
-        onclick="viewPDF()"
-        class="download-btn"
-        style="background: #17a2b8; margin-right: 10px"
-        id="viewPdfBtn"
-        disabled
-      >
-        View Your PDF
-      </button>
-      <button
-        onclick="downloadPDF()"
-        class="download-btn"
-        style="background: #fd7e14; margin-right: 10px"
-        id="downloadPdfBtn"
-        disabled
-      >
-        Download PDF
-      </button>
-      <a href="/" class="download-btn">Convert Another PDF</a>
-    </div>
 
 
     <script>
