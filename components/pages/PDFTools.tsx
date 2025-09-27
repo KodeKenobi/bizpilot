@@ -15,7 +15,6 @@ import { useNavigation } from "@/contexts/NavigationContext";
 const tabs = [
   { id: "extract-text", label: "Extract Text", icon: FileText },
   { id: "extract-images", label: "Extract Images", icon: Image },
-  { id: "convert-word", label: "Convert to Word", icon: FileText },
   { id: "edit-pdf", label: "Edit PDF", icon: FileText },
   { id: "merge-pdfs", label: "Merge PDFs", icon: FileText },
   { id: "split-pdf", label: "Split PDF", icon: FileText },
@@ -48,6 +47,8 @@ export default function PDFTools() {
   const [previewFormat, setPreviewFormat] = useState<string>("txt");
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [showImageModal, setShowImageModal] = useState(false);
+  const [showPdfViewer, setShowPdfViewer] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   // Check backend status
   useEffect(() => {
@@ -61,12 +62,22 @@ export default function PDFTools() {
     setShowEditor(false);
     setEditorUrl("");
     setUploadedFile(null);
+    setUploadedFiles([]);
     setResult(null);
     setShowNotification(false);
+    setShowPdfViewer(false); // Reset PDF viewer state
   }, [activeTab]);
 
   const handleFileUpload = async (files: File[]) => {
     if (files.length > 0) {
+      // Handle merge PDFs differently
+      if (activeTab === "merge-pdfs") {
+        setUploadedFiles(files);
+        setResult(null);
+        await mergePDFs(files);
+        return;
+      }
+
       const file = files[0];
       setUploadedFile(file);
       setResult(null);
@@ -115,6 +126,52 @@ export default function PDFTools() {
     }
   };
 
+  const mergePDFs = async (files: File[]) => {
+    if (files.length < 2) {
+      setResult({
+        type: "error",
+        message: "At least 2 PDF files are required for merging",
+      });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+      return;
+    }
+
+    setIsProcessing(true);
+    try {
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("pdfs", file);
+      });
+
+      const response = await fetch("http://localhost:5000/merge_pdfs", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setResult({
+          type: "success",
+          message: data.message,
+          data: data,
+        });
+      } else {
+        setResult({ type: "error", message: data.message });
+      }
+
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } catch (error) {
+      setResult({ type: "error", message: "Error merging PDFs" });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const processTabFeature = async (filename: string) => {
     try {
       let response;
@@ -127,9 +184,9 @@ export default function PDFTools() {
         case "extract-images":
           endpoint = `/extract_images/${filename}`;
           break;
-        case "convert-word":
-          endpoint = `/convert_to_word/${filename}`;
-          break;
+        case "merge-pdfs":
+          // Handle multiple file upload for merging
+          return;
         default:
           setResult({ type: "success", message: "PDF uploaded successfully" });
           return;
@@ -174,7 +231,8 @@ export default function PDFTools() {
       case "csv":
         const lines = result.data.text.split("\n");
         const csvLines = lines.map(
-          (line, index) => `"${index + 1}","${line.replace(/"/g, '""')}"`
+          (line: string, index: number) =>
+            `"${index + 1}","${line.replace(/"/g, '""')}"`
         );
         return "Line_Number,Content\n" + csvLines.join("\n");
       default:
@@ -216,7 +274,8 @@ export default function PDFTools() {
         // Convert to CSV format (split by lines)
         const lines = result.data.text.split("\n");
         const csvLines = lines.map(
-          (line, index) => `"${index + 1}","${line.replace(/"/g, '""')}"`
+          (line: string, index: number) =>
+            `"${index + 1}","${line.replace(/"/g, '""')}"`
         );
         content = "Line_Number,Content\n" + csvLines.join("\n");
         filename += ".csv";
@@ -252,7 +311,7 @@ export default function PDFTools() {
     if (!result?.data?.images || !uploadedFile) return;
 
     // Create a simple download for all images (in a real app, you'd create a ZIP)
-    result.data.images.forEach((img: any, index: number) => {
+    result.data.images?.forEach((img: any, index: number) => {
       setTimeout(() => {
         const link = document.createElement("a");
         link.href = `data:image/png;base64,${img.data}`;
@@ -475,7 +534,7 @@ export default function PDFTools() {
                   <h3 className="text-white font-semibold text-lg">
                     {activeTab === "extract-text" && "Extracted Text"}
                     {activeTab === "extract-images" && "Extracted Images"}
-                    {activeTab === "convert-word" && "Word Document"}
+                    {activeTab === "merge-pdfs" && "Merged PDF"}
                   </h3>
                   <span className="text-gray-400 text-sm">
                     {uploadedFile?.name}
@@ -591,7 +650,7 @@ export default function PDFTools() {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-gray-400 text-sm">
-                        Found {result.data.total_images} images
+                        Found {result.data.total_images || 0} images
                       </p>
                       <div className="flex items-center gap-3">
                         <span className="text-gray-500 text-sm">Download:</span>
@@ -605,7 +664,7 @@ export default function PDFTools() {
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-96 overflow-y-auto">
-                      {result.data.images.map((img: any, index: number) => (
+                      {result.data.images?.map((img: any, index: number) => (
                         <div
                           key={index}
                           className="bg-gray-900/50 rounded-lg p-3 group hover:bg-gray-900/70 transition-colors"
@@ -640,18 +699,77 @@ export default function PDFTools() {
                   </div>
                 )}
 
-                {activeTab === "convert-word" && (
+                {activeTab === "merge-pdfs" && (
                   <div>
-                    <p className="text-gray-400 text-sm mb-4">
-                      PDF converted to Word format successfully
-                    </p>
-                    <a
-                      href={`http://localhost:5000${result.data.download_url}`}
-                      download
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-sm inline-block"
-                    >
-                      Download Word Document
-                    </a>
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <p className="text-gray-400 text-sm">
+                          PDFs merged successfully
+                        </p>
+                        <p className="text-gray-500 text-xs mt-1">
+                          File: {result.data.merged_filename} •{" "}
+                          {result.data.file_count} files merged
+                        </p>
+                        <p className="text-green-400 text-xs mt-1">
+                          ✅ All pages preserved • ✅ Original quality
+                          maintained • ✅ Ready for download
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Action Section - Moved to top */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <button
+                        onClick={() => setShowPdfViewer(!showPdfViewer)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium"
+                      >
+                        {showPdfViewer ? "Hide PDF" : "View PDF"}
+                      </button>
+                      <button
+                        onClick={() => {
+                          const link = document.createElement("a");
+                          link.href = `http://localhost:5000${result.data.download_url}?download=true`;
+                          link.download = result.data.merged_filename;
+                          link.click();
+                        }}
+                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium"
+                      >
+                        Download PDF
+                      </button>
+                    </div>
+
+                    {/* File List */}
+                    <div className="bg-gray-900/50 rounded-lg p-4 mb-4">
+                      <h4 className="text-gray-300 text-sm font-medium mb-3">
+                        Files merged:
+                      </h4>
+                      <div className="space-y-2 max-h-32 overflow-y-auto">
+                        {uploadedFiles.map((file, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between bg-gray-800/50 rounded px-3 py-2"
+                          >
+                            <span className="text-gray-300 text-sm">
+                              {file.name}
+                            </span>
+                            <span className="text-gray-500 text-xs">
+                              File {index + 1}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* PDF Viewer - Conditional */}
+                    {showPdfViewer && (
+                      <div className="bg-white rounded-lg overflow-hidden">
+                        <iframe
+                          src={`http://localhost:5000${result.data.download_url}`}
+                          className="w-full h-96"
+                          title="Merged PDF Viewer"
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -660,7 +778,10 @@ export default function PDFTools() {
             // Upload Interface (initial state)
             <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
               <div className="dark">
-                <FileUpload onChange={handleFileUpload} />
+                <FileUpload
+                  onChange={handleFileUpload}
+                  multiple={activeTab === "merge-pdfs"}
+                />
               </div>
             </div>
           )}

@@ -401,55 +401,72 @@ def extract_images(filename):
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@app.route("/convert_to_word/<filename>")
-def convert_to_word(filename):
+@app.route("/merge_pdfs", methods=["POST"])
+def merge_pdfs():
     try:
-        filepath = os.path.join(UPLOAD_FOLDER, filename)
-        if not os.path.exists(filepath):
-            return jsonify({"status": "error", "message": "File not found"}), 404
+        files = request.files.getlist('pdfs')
         
-        doc = fitz.open(filepath)
-        word_content = ""
+        if len(files) < 2:
+            return jsonify({"status": "error", "message": "At least 2 PDF files are required for merging"}), 400
         
-        for page_num in range(len(doc)):
-            page = doc[page_num]
-            page_text = page.get_text()
-            if page_text.strip():
-                word_content += f"Page {page_num + 1}\n"
-                word_content += "=" * 50 + "\n"
-                word_content += page_text + "\n\n"
+        # Create merged document
+        merged_doc = fitz.open()
         
-        doc.close()
+        for file in files:
+            if file.filename.endswith('.pdf'):
+                # Save temporary file
+                temp_path = os.path.join(UPLOAD_FOLDER, f"temp_{file.filename}")
+                file.save(temp_path)
+                
+                # Open and add pages to merged document
+                temp_doc = fitz.open(temp_path)
+                merged_doc.insert_pdf(temp_doc)
+                temp_doc.close()
+                
+                # Remove temporary file
+                os.remove(temp_path)
         
-        # Create a simple text file (can be opened in Word)
-        base_name = os.path.splitext(filename)[0]
-        word_filename = f"{base_name}_converted.txt"
-        word_path = os.path.join(HTML_FOLDER, word_filename)
+        # Generate merged filename
+        merged_filename = f"merged_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+        merged_path = os.path.join(HTML_FOLDER, merged_filename)
         
-        with open(word_path, 'w', encoding='utf-8') as f:
-            f.write(word_content)
+        # Get page count before closing
+        page_count = len(merged_doc)
+        
+        # Save merged document
+        merged_doc.save(merged_path)
+        merged_doc.close()
         
         return jsonify({
             "status": "success",
-            "filename": filename,
-            "word_filename": word_filename,
-            "download_url": f"/download_word/{word_filename}"
+            "message": f"Successfully merged {len(files)} PDF files",
+            "merged_filename": merged_filename,
+            "download_url": f"/download_merged/{merged_filename}",
+            "file_count": len(files),
+            "page_count": page_count
         })
     
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@app.route("/download_word/<word_filename>")
-def download_word(word_filename):
+@app.route("/download_merged/<merged_filename>")
+def download_merged(merged_filename):
     try:
-        word_path = os.path.join(HTML_FOLDER, word_filename)
-        if not os.path.exists(word_path):
-            return "Word file not found", 404
+        merged_path = os.path.join(HTML_FOLDER, merged_filename)
+        if not os.path.exists(merged_path):
+            return "Merged PDF file not found", 404
         
-        return send_file(word_path, as_attachment=True, download_name=word_filename)
+        # Check if it's a download request (has download parameter)
+        download = request.args.get('download', 'false').lower() == 'true'
+        
+        if download:
+            return send_file(merged_path, as_attachment=True, download_name=merged_filename)
+        else:
+            return send_file(merged_path, as_attachment=False)
     
     except Exception as e:
-        return f"Error downloading word file: {str(e)}", 500
+        return f"Error downloading merged PDF: {str(e)}", 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)

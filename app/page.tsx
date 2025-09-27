@@ -2,6 +2,7 @@
 
 import { useNavigation } from "@/contexts/NavigationContext";
 import LandingPage from "@/components/pages/LandingPage";
+import ToolsPage from "@/components/pages/ToolsPage";
 import PDFTools from "@/components/pages/PDFTools";
 import PDFEditor from "@/components/pages/PDFEditor";
 
@@ -12,6 +13,7 @@ export default function Home() {
     case "home":
       return <LandingPage />;
     case "tools":
+      return <ToolsPage />;
     case "pdf-tools":
       return <PDFTools />;
     case "pdf-editor":
