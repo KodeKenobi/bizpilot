@@ -46,6 +46,8 @@ export default function PDFTools() {
   const [showEditor, setShowEditor] = useState(false);
   const [editorUrl, setEditorUrl] = useState<string>("");
   const [previewFormat, setPreviewFormat] = useState<string>("txt");
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [showImageModal, setShowImageModal] = useState(false);
 
   // Check backend status
   useEffect(() => {
@@ -232,6 +234,36 @@ export default function PDFTools() {
     URL.revokeObjectURL(url);
   };
 
+  const openImageModal = (img: any, index: number) => {
+    setSelectedImage({ ...img, index });
+    setShowImageModal(true);
+  };
+
+  const downloadSingleImage = (img: any, index: number) => {
+    const link = document.createElement("a");
+    link.href = `data:image/png;base64,${img.data}`;
+    link.download = `${uploadedFile?.name.replace(".pdf", "")}_page${
+      img.page
+    }_image${img.image_index}.png`;
+    link.click();
+  };
+
+  const downloadAllImages = () => {
+    if (!result?.data?.images || !uploadedFile) return;
+
+    // Create a simple download for all images (in a real app, you'd create a ZIP)
+    result.data.images.forEach((img: any, index: number) => {
+      setTimeout(() => {
+        const link = document.createElement("a");
+        link.href = `data:image/png;base64,${img.data}`;
+        link.download = `${uploadedFile.name.replace(".pdf", "")}_page${
+          img.page
+        }_image${img.image_index}.png`;
+        link.click();
+      }, index * 100); // Small delay between downloads
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-24">
       {/* Google Drive-like Minimal Notifications */}
@@ -288,6 +320,66 @@ export default function PDFTools() {
                   <p className="font-medium text-gray-900">Processing PDF...</p>
                   <p className="text-sm text-gray-600">Please wait</p>
                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Image Modal */}
+      <AnimatePresence>
+        {showImageModal && selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowImageModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-gray-900 rounded-xl p-6 max-w-4xl max-h-[90vh] overflow-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-white font-semibold text-lg">
+                  Image from Page {selectedImage.page}
+                </h3>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() =>
+                      downloadSingleImage(selectedImage, selectedImage.index)
+                    }
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+                  >
+                    Download
+                  </button>
+                  <button
+                    onClick={() => setShowImageModal(false)}
+                    className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg p-4 flex justify-center">
+                <img
+                  src={`data:image/png;base64,${selectedImage.data}`}
+                  alt={`Image ${selectedImage.image_index} from page ${selectedImage.page}`}
+                  className="max-w-full max-h-[70vh] object-contain"
+                />
+              </div>
+
+              <div className="mt-4 text-center text-gray-400 text-sm">
+                <p>
+                  Dimensions: {selectedImage.width} × {selectedImage.height}px
+                </p>
+                <p>
+                  Page {selectedImage.page}, Image {selectedImage.image_index}
+                </p>
               </div>
             </motion.div>
           </motion.div>
@@ -497,23 +589,51 @@ export default function PDFTools() {
 
                 {activeTab === "extract-images" && (
                   <div>
-                    <p className="text-gray-400 text-sm mb-4">
-                      Found {result.data.total_images} images
-                    </p>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+                    <div className="flex items-center justify-between mb-4">
+                      <p className="text-gray-400 text-sm">
+                        Found {result.data.total_images} images
+                      </p>
+                      <div className="flex items-center gap-3">
+                        <span className="text-gray-500 text-sm">Download:</span>
+                        <button
+                          onClick={() => downloadAllImages()}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition-colors text-sm"
+                        >
+                          All as ZIP
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-96 overflow-y-auto">
                       {result.data.images.map((img: any, index: number) => (
                         <div
                           key={index}
-                          className="bg-gray-900/50 rounded-lg p-3"
+                          className="bg-gray-900/50 rounded-lg p-3 group hover:bg-gray-900/70 transition-colors"
                         >
-                          <img
-                            src={`data:image/png;base64,${img.data}`}
-                            alt={`Image ${img.image_index} from page ${img.page}`}
-                            className="w-full h-32 object-contain bg-white rounded"
-                          />
-                          <p className="text-gray-400 text-xs mt-2">
-                            Page {img.page}, Image {img.image_index}
-                          </p>
+                          <div className="relative">
+                            <img
+                              src={`data:image/png;base64,${img.data}`}
+                              alt={`Image ${img.image_index} from page ${img.page}`}
+                              className="w-full h-32 object-contain bg-white rounded cursor-pointer"
+                              onClick={() => openImageModal(img, index)}
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded flex items-center justify-center">
+                              <button
+                                onClick={() => downloadSingleImage(img, index)}
+                                className="opacity-0 group-hover:opacity-100 bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs transition-all"
+                              >
+                                Download
+                              </button>
+                            </div>
+                          </div>
+                          <div className="mt-2 space-y-1">
+                            <p className="text-gray-400 text-xs">
+                              Page {img.page}, Image {img.image_index}
+                            </p>
+                            <p className="text-gray-500 text-xs">
+                              {img.width} × {img.height}px
+                            </p>
+                          </div>
                         </div>
                       ))}
                     </div>
