@@ -110,7 +110,7 @@ def save_edits(filename):
             return jsonify({"status": "error", "message": f"Original file {filename} not found"}), 404
             
         edited_path = os.path.join(EDITED_FOLDER, f"edited_{filename}")
-        
+
         doc = fitz.open(filepath)
         
         for edit in edits:
@@ -466,6 +466,96 @@ def download_merged(merged_filename):
     
     except Exception as e:
         return f"Error downloading merged PDF: {str(e)}", 500
+
+
+@app.route('/split_pdf', methods=['POST'])
+def split_pdf():
+    try:
+        if 'pdf' not in request.files:
+            return jsonify({"status": "error", "message": "No PDF file provided"}), 400
+        
+        pdf_file = request.files['pdf']
+        if pdf_file.filename == '':
+            return jsonify({"status": "error", "message": "No file selected"}), 400
+        
+        # Save uploaded PDF
+        original_filename = pdf_file.filename
+        # Create a safe filename by replacing problematic characters
+        safe_filename = "".join(c for c in original_filename if c.isalnum() or c in '._-')
+        if not safe_filename.endswith('.pdf'):
+            safe_filename += '.pdf'
+        pdf_path = os.path.join(UPLOAD_FOLDER, safe_filename)
+        pdf_file.save(pdf_path)
+        
+        # Open PDF document
+        doc = fitz.open(pdf_path)
+        total_pages = len(doc)
+        
+        if total_pages <= 1:
+            doc.close()
+            os.remove(pdf_path)
+            return jsonify({"status": "error", "message": "PDF must have more than 1 page to split"}), 400
+        
+        # Create split folder
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        split_folder = os.path.join(HTML_FOLDER, f"split_{timestamp}")
+        os.makedirs(split_folder, exist_ok=True)
+        
+        split_files = []
+        
+        # Split PDF into individual pages
+        for page_num in range(total_pages):
+            # Create new document with single page
+            new_doc = fitz.open()
+            new_doc.insert_pdf(doc, from_page=page_num, to_page=page_num)
+            
+            # Generate filename for split page
+            base_name = os.path.splitext(safe_filename)[0]
+            split_filename = f"{base_name}_page_{page_num + 1}.pdf"
+            split_path = os.path.join(split_folder, split_filename)
+            
+            # Save split page
+            new_doc.save(split_path)
+            new_doc.close()
+            
+            split_files.append({
+                "filename": split_filename,
+                "page_number": page_num + 1,
+                "download_url": f"/download_split/split_{timestamp}/{split_filename}"
+            })
+        
+        doc.close()
+        os.remove(pdf_path)  # Clean up original uploaded file
+        
+        return jsonify({
+            "status": "success",
+            "message": f"PDF split successfully into {total_pages} pages",
+            "total_pages": total_pages,
+            "split_files": split_files,
+            "split_folder": timestamp
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error splitting PDF: {str(e)}"}), 500
+
+
+@app.route('/download_split/<split_folder>/<split_filename>')
+def download_split(split_folder, split_filename):
+    try:
+        split_path = os.path.join(HTML_FOLDER, split_folder, split_filename)
+        if not os.path.exists(split_path):
+            return "Split PDF file not found", 404
+        
+        # Check if it's a download request (has download parameter)
+        download = request.args.get('download', 'false').lower() == 'true'
+        
+        if download:
+            return send_file(split_path, as_attachment=True, download_name=split_filename)
+        else:
+            return send_file(split_path, as_attachment=False)
+    
+    except Exception as e:
+        return f"Error downloading split PDF: {str(e)}", 500
 
 
 if __name__ == "__main__":

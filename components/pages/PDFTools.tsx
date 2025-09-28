@@ -48,6 +48,10 @@ export default function PDFTools() {
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showPdfViewer, setShowPdfViewer] = useState(false);
+  const [showSplitPdfViewer, setShowSplitPdfViewer] = useState(false);
+  const [currentSplitPdfUrl, setCurrentSplitPdfUrl] = useState<string | null>(
+    null
+  );
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   // Check backend status
@@ -66,6 +70,8 @@ export default function PDFTools() {
     setResult(null);
     setShowNotification(false);
     setShowPdfViewer(false); // Reset PDF viewer state
+    setShowSplitPdfViewer(false); // Reset split PDF viewer state
+    setCurrentSplitPdfUrl(null); // Reset current split PDF URL
   }, [activeTab]);
 
   const handleFileUpload = async (files: File[]) => {
@@ -75,6 +81,15 @@ export default function PDFTools() {
         setUploadedFiles(files);
         setResult(null);
         await mergePDFs(files);
+        return;
+      }
+
+      // Handle split PDF differently
+      if (activeTab === "split-pdf") {
+        const file = files[0];
+        setUploadedFile(file);
+        setResult(null);
+        await splitPDF(file);
         return;
       }
 
@@ -165,6 +180,40 @@ export default function PDFTools() {
       setTimeout(() => setShowNotification(false), 3000);
     } catch (error) {
       setResult({ type: "error", message: "Error merging PDFs" });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const splitPDF = async (file: File) => {
+    setIsProcessing(true);
+    try {
+      const formData = new FormData();
+      formData.append("pdf", file);
+
+      const response = await fetch("http://localhost:5000/split_pdf", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        setResult({
+          type: "success",
+          message: data.message,
+          data: data,
+        });
+      } else {
+        setResult({ type: "error", message: data.message });
+      }
+
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } catch (error) {
+      setResult({ type: "error", message: "Error splitting PDF" });
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);
     } finally {
@@ -464,7 +513,7 @@ export default function PDFTools() {
               />
 
               {/* Tab Buttons */}
-              <div className="relative flex overflow-x-auto scrollbar-hide gap-1">
+              <div className="relative flex overflow-x-auto scrollbar-hide gap-1 justify-center">
                 {tabs.map((tab) => {
                   const isActive = activeTab === tab.id;
                   return (
@@ -695,6 +744,115 @@ export default function PDFTools() {
                           </div>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "split-pdf" && (
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <p className="text-gray-400 text-sm">
+                          PDF split successfully
+                        </p>
+                        <p className="text-gray-500 text-xs mt-1">
+                          Original: {uploadedFile?.name} • Split into{" "}
+                          {result.data.total_pages} pages
+                        </p>
+                        <p className="text-green-400 text-xs mt-1">
+                          ✅ All pages preserved • ✅ Individual files created •
+                          ✅ Ready for download
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Action Section - Download All */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <button
+                        onClick={() => {
+                          result.data.split_files.forEach((file: any) => {
+                            const link = document.createElement("a");
+                            link.href = `http://localhost:5000${file.download_url}?download=true`;
+                            link.download = file.filename;
+                            link.click();
+                          });
+                        }}
+                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium"
+                      >
+                        Download All Pages
+                      </button>
+                    </div>
+
+                    {/* Split PDF Viewer - Conditional */}
+                    {showSplitPdfViewer && currentSplitPdfUrl && (
+                      <div className="bg-white rounded-lg overflow-hidden mb-4">
+                        <div className="flex items-center justify-between p-3 bg-gray-100">
+                          <span className="text-sm font-medium text-gray-700">
+                            Split PDF Viewer
+                          </span>
+                          <button
+                            onClick={() => setShowSplitPdfViewer(false)}
+                            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition-colors"
+                          >
+                            Close
+                          </button>
+                        </div>
+                        <iframe
+                          src={currentSplitPdfUrl}
+                          className="w-full h-96"
+                          title="Split PDF Viewer"
+                        />
+                      </div>
+                    )}
+
+                    {/* Split Files List */}
+                    <div className="bg-gray-900/50 rounded-lg p-4 mb-4">
+                      <h4 className="text-gray-300 text-sm font-medium mb-3">
+                        Split files ({result.data.total_pages} pages):
+                      </h4>
+                      <div className="space-y-2 max-h-64 overflow-y-auto">
+                        {result.data.split_files.map(
+                          (file: any, index: number) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-between bg-gray-800/50 rounded px-3 py-2"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="text-gray-300 text-sm">
+                                  {file.filename}
+                                </span>
+                                <span className="text-gray-500 text-xs">
+                                  Page {file.page_number}
+                                </span>
+                              </div>
+                              <div className="flex gap-2">
+                                <button
+                                  onClick={() => {
+                                    setCurrentSplitPdfUrl(
+                                      `http://localhost:5000${file.download_url}`
+                                    );
+                                    setShowSplitPdfViewer(true);
+                                  }}
+                                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs transition-colors"
+                                >
+                                  View
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    const link = document.createElement("a");
+                                    link.href = `http://localhost:5000${file.download_url}?download=true`;
+                                    link.download = file.filename;
+                                    link.click();
+                                  }}
+                                  className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs transition-colors"
+                                >
+                                  Download
+                                </button>
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
