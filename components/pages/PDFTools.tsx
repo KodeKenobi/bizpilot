@@ -10,7 +10,11 @@ import {
   Loader2,
 } from "lucide-react";
 import { FileUpload } from "@/components/ui/file-upload";
+import { SignatureCanvas } from "@/components/ui/signature-canvas";
 import { useNavigation } from "@/contexts/NavigationContext";
+import AlertModal from "../ui/AlertModal";
+import { useAlertModal } from "../../hooks/useAlertModal";
+import Button from "../ui/Button";
 
 const tabs = [
   { id: "extract-text", label: "Extract Text", icon: FileText },
@@ -25,6 +29,7 @@ const tabs = [
 
 export default function PDFTools() {
   const { navigateTo } = useNavigation();
+  const alertModal = useAlertModal();
 
   // Scroll to top on page load
   useEffect(() => {
@@ -52,7 +57,51 @@ export default function PDFTools() {
   const [currentSplitPdfUrl, setCurrentSplitPdfUrl] = useState<string | null>(
     null
   );
+  const [showSignedPdfViewer, setShowSignedPdfViewer] = useState(false);
+  const [signedPdfUrl, setSignedPdfUrl] = useState<string | null>(null);
+  const [signatureData, setSignatureData] = useState<string>("");
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [signaturePosition, setSignaturePosition] = useState({
+    x: 100,
+    y: 100,
+  });
+  const [signatureSize, setSignatureSize] = useState({
+    width: 200,
+    height: 100,
+  });
+  const [signaturePlaced, setSignaturePlaced] = useState(false);
+  const [signatureOverlay, setSignatureOverlay] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }>({
+    visible: false,
+    x: 0,
+    y: 0,
+    width: 120,
+    height: 60,
+  });
+  const [isDragging, setIsDragging] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
+  const [dragStart, setDragStart] = useState({
+    x: 0,
+    y: 0,
+    startX: 0,
+    startY: 0,
+  });
+  const [resizeStart, setResizeStart] = useState({
+    x: 0,
+    y: 0,
+    startWidth: 0,
+    startHeight: 0,
+  });
+  const [pdfPreviewImage, setPdfPreviewImage] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState<number>(1);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   // Check backend status
   useEffect(() => {
@@ -61,17 +110,131 @@ export default function PDFTools() {
       .catch(() => setBackendStatus("offline"));
   }, []);
 
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Global mouse/touch event handlers for smooth dragging and resizing
+  useEffect(() => {
+    let animationFrameId: number | null = null;
+
+    const getClientPos = (e: MouseEvent | TouchEvent) => {
+      if ("touches" in e) {
+        return { clientX: e.touches[0].clientX, clientY: e.touches[0].clientY };
+      }
+      return { clientX: e.clientX, clientY: e.clientY };
+    };
+
+    const handleMove = (e: MouseEvent | TouchEvent) => {
+      e.preventDefault();
+
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+
+      animationFrameId = requestAnimationFrame(() => {
+        const { clientX, clientY } = getClientPos(e);
+
+        if (isDragging) {
+          const deltaX = (clientX - dragStart.x) / zoomLevel;
+          const deltaY = (clientY - dragStart.y) / zoomLevel;
+          const maxX = (isMobile ? 400 : 600) - signatureOverlay.width;
+          const maxY = (isMobile ? 300 : 500) - signatureOverlay.height;
+
+          const newX = Math.max(0, Math.min(dragStart.startX + deltaX, maxX));
+          const newY = Math.max(0, Math.min(dragStart.startY + deltaY, maxY));
+
+          setSignatureOverlay((prev) => ({
+            ...prev,
+            x: newX,
+            y: newY,
+          }));
+        }
+
+        if (isResizing) {
+          const deltaX = (clientX - resizeStart.x) / zoomLevel;
+          const deltaY = (clientY - resizeStart.y) / zoomLevel;
+          const maxWidth = isMobile ? 200 : 300;
+          const maxHeight = isMobile ? 100 : 150;
+
+          const newWidth = Math.max(
+            60,
+            Math.min(resizeStart.startWidth + deltaX, maxWidth)
+          );
+          const newHeight = Math.max(
+            30,
+            Math.min(resizeStart.startHeight + deltaY, maxHeight)
+          );
+
+          setSignatureOverlay((prev) => ({
+            ...prev,
+            width: newWidth,
+            height: newHeight,
+          }));
+        }
+      });
+    };
+
+    const handleEnd = () => {
+      setIsDragging(false);
+      setIsResizing(false);
+    };
+
+    if (isDragging || isResizing) {
+      document.addEventListener("mousemove", handleMove);
+      document.addEventListener("mouseup", handleEnd);
+      document.addEventListener("touchmove", handleMove, { passive: false });
+      document.addEventListener("touchend", handleEnd);
+    }
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      document.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseup", handleEnd);
+      document.removeEventListener("touchmove", handleMove);
+      document.removeEventListener("touchend", handleEnd);
+    };
+  }, [
+    isDragging,
+    isResizing,
+    dragStart,
+    resizeStart,
+    signatureOverlay.width,
+    signatureOverlay.height,
+    zoomLevel,
+    isMobile,
+  ]);
+
   // Reset everything when switching tabs
   useEffect(() => {
     setShowEditor(false);
     setEditorUrl("");
-    setUploadedFile(null);
+    // Don't reset uploadedFile for add-signature tab to preserve uploaded PDF
+    if (activeTab !== "add-signature") {
+      setUploadedFile(null);
+    }
     setUploadedFiles([]);
     setResult(null);
     setShowNotification(false);
     setShowPdfViewer(false); // Reset PDF viewer state
     setShowSplitPdfViewer(false); // Reset split PDF viewer state
     setCurrentSplitPdfUrl(null); // Reset current split PDF URL
+    setShowSignedPdfViewer(false); // Reset signed PDF viewer state
+    setSignedPdfUrl(null); // Reset signed PDF URL
+    setSignatureData(""); // Reset signature data
+    setPageNumber(1); // Reset page number
+    setTotalPages(0); // Reset total pages
+    setSignaturePosition({ x: 100, y: 100 }); // Reset signature position
+    setSignatureSize({ width: 200, height: 100 }); // Reset signature size
+    setPdfPreviewImage(null); // Reset PDF preview image
   }, [activeTab]);
 
   const handleFileUpload = async (files: File[]) => {
@@ -90,6 +253,16 @@ export default function PDFTools() {
         setUploadedFile(file);
         setResult(null);
         await splitPDF(file);
+        return;
+      }
+
+      // Handle add signature differently
+      if (activeTab === "add-signature") {
+        const file = files[0];
+        setUploadedFile(file);
+        setResult(null);
+        // Get PDF page count for signature positioning
+        await getPdfPageCount(file);
         return;
       }
 
@@ -214,6 +387,172 @@ export default function PDFTools() {
       setTimeout(() => setShowNotification(false), 3000);
     } catch (error) {
       setResult({ type: "error", message: "Error splitting PDF" });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const getPdfPageCount = async (file: File) => {
+    try {
+      console.log("Getting PDF page count for file:", file.name);
+      const formData = new FormData();
+      formData.append("pdf", file);
+
+      const response = await fetch("http://localhost:5000/get_page_count", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Page count response:", data);
+        setTotalPages(data.page_count || 1);
+        setPageNumber(1);
+        // Store the actual filename from backend for PDF viewing
+        if (data.filename) {
+          console.log("Updating filename to:", data.filename);
+          setUploadedFile((prev) => {
+            if (prev && prev instanceof File) {
+              // Create a new File object with the updated name
+              return new File([prev], data.filename, { type: prev.type });
+            }
+            return prev;
+          });
+        }
+      } else {
+        console.error("Failed to get page count, status:", response.status);
+        // Fallback to default if backend doesn't support this endpoint
+        setTotalPages(1);
+        setPageNumber(1);
+      }
+    } catch (error) {
+      console.error("Error getting PDF page count:", error);
+      setTotalPages(1);
+      setPageNumber(1);
+    }
+  };
+
+  const getPdfPreview = async (file: File) => {
+    try {
+      const formData = new FormData();
+      formData.append("pdf", file);
+
+      const response = await fetch("http://localhost:5000/pdf_preview", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("PDF preview data received:", data);
+        console.log("Preview image length:", data.preview_image?.length);
+        console.log(
+          "Preview image starts with:",
+          data.preview_image?.substring(0, 50)
+        );
+        setPdfPreviewImage(data.preview_image);
+      } else {
+        console.error("Error getting PDF preview:", response.status);
+      }
+    } catch (error) {
+      console.error("Error getting PDF preview:", error);
+    }
+  };
+
+  const addSignature = async () => {
+    if (!uploadedFile || !signatureData) {
+      setResult({
+        type: "error",
+        message: "Please upload a PDF and create a signature",
+      });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+      return;
+    }
+
+    setIsProcessing(true);
+    try {
+      console.log("DEBUG: Preparing signature data...");
+      console.log(
+        "DEBUG: signatureData length:",
+        signatureData ? signatureData.length : 0
+      );
+      console.log("DEBUG: signatureOverlay:", signatureOverlay);
+      console.log("DEBUG: pageNumber:", pageNumber);
+      console.log("DEBUG: uploadedFile:", uploadedFile?.name);
+      console.log("DEBUG: uploadedFile type:", typeof uploadedFile);
+      console.log(
+        "DEBUG: uploadedFile instanceof File:",
+        uploadedFile instanceof File
+      );
+      console.log(
+        "DEBUG: uploadedFile constructor:",
+        uploadedFile?.constructor?.name
+      );
+
+      const formData = new FormData();
+      // Ensure uploadedFile is a proper File object
+      if (uploadedFile instanceof File) {
+        formData.append("pdf", uploadedFile, uploadedFile.name);
+      } else {
+        console.error(
+          "DEBUG: uploadedFile is not a File object:",
+          uploadedFile
+        );
+        throw new Error("Invalid file object");
+      }
+      formData.append("signature_data", signatureData);
+      formData.append("page_number", pageNumber.toString());
+      formData.append("x_position", signatureOverlay.x.toString());
+      formData.append("y_position", signatureOverlay.y.toString());
+      formData.append("width", signatureOverlay.width.toString());
+      formData.append("height", signatureOverlay.height.toString());
+
+      console.log("DEBUG: FormData entries:");
+      Array.from(formData.entries()).forEach(([key, value]) => {
+        console.log(`  ${key}:`, value);
+      });
+
+      console.log("DEBUG: FormData prepared, sending request...");
+
+      const response = await fetch("http://localhost:5000/add_signature", {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log("DEBUG: Response status:", response.status);
+
+      const data = await response.json();
+      console.log("DEBUG: Response data:", data);
+
+      if (data.status === "success") {
+        setResult({
+          type: "success",
+          message: data.message,
+          data: data,
+        });
+        // Set the signed PDF URL for inline viewing
+        setSignedPdfUrl(`http://localhost:5000${data.download_url}`);
+      } else {
+        console.error("DEBUG: Signature addition failed:", data);
+        setResult({
+          type: "error",
+          message: data.message || "Failed to add signature",
+        });
+      }
+
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } catch (error) {
+      console.error("DEBUG: Signature addition error:", error);
+      setResult({
+        type: "error",
+        message: `Error adding signature: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      });
       setShowNotification(true);
       setTimeout(() => setShowNotification(false), 3000);
     } finally {
@@ -575,6 +914,538 @@ export default function PDFTools() {
                 />
               </div>
             </div>
+          ) : activeTab === "add-signature" && uploadedFile ? (
+            // Add Signature Interface
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
+              <div className="flex items-center justify-between p-4 border-b border-white/10">
+                <div className="flex items-center space-x-4">
+                  <h3 className="text-white font-semibold text-lg">
+                    Add Signature
+                  </h3>
+                  <span className="text-gray-400 text-sm">
+                    {uploadedFile?.name}
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    setUploadedFile(null);
+                    setSignatureData("");
+                    setResult(null);
+                  }}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  Upload New PDF
+                </button>
+              </div>
+
+              <div className="p-6">
+                {/* Action Buttons - AT THE VERY TOP OF THE PAGE */}
+                {result && result.data && (
+                  <div className="flex items-center gap-3 mb-6">
+                    <Button
+                      onClick={() =>
+                        setShowSignedPdfViewer(!showSignedPdfViewer)
+                      }
+                      variant="primary"
+                      size="md"
+                    >
+                      {showSignedPdfViewer ? "Hide PDF" : "View Signed PDF"}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        const link = document.createElement("a");
+                        link.href = `http://localhost:5000${result.data.download_url}?download=true`;
+                        link.download = result.data.signed_filename;
+                        link.click();
+                      }}
+                      variant="success"
+                      size="md"
+                    >
+                      Download Signed PDF
+                    </Button>
+                  </div>
+                )}
+
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-gray-400 text-sm">
+                        PDF uploaded successfully
+                      </p>
+                      <p className="text-gray-500 text-xs mt-1">
+                        File: {uploadedFile.name}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Only show signature creation sections if not viewing signed PDF */}
+                  {!showSignedPdfViewer && (
+                    <>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* Signature Canvas */}
+                        <div className="bg-gray-900/50 rounded-lg p-6">
+                          <h3 className="text-gray-300 text-lg font-medium mb-4">
+                            Create Your Signature
+                          </h3>
+                          <SignatureCanvas
+                            onSignatureChange={setSignatureData}
+                            width={400}
+                            height={200}
+                          />
+                        </div>
+
+                        {/* Page Selection & Controls */}
+                        <div className="bg-gray-900/50 rounded-lg p-6">
+                          <h3 className="text-gray-300 text-lg font-medium mb-4">
+                            Signature Settings
+                          </h3>
+
+                          <div className="space-y-4">
+                            <div>
+                              <label className="block text-gray-400 text-sm mb-2">
+                                Page Number
+                              </label>
+                              <input
+                                type="number"
+                                min="1"
+                                max={totalPages || 1}
+                                value={isNaN(pageNumber) ? 1 : pageNumber}
+                                onChange={(e) => {
+                                  const value = parseInt(e.target.value);
+                                  if (!isNaN(value) && value > 0) {
+                                    setPageNumber(value);
+                                  }
+                                }}
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                              />
+                              <p className="text-gray-500 text-xs mt-1">
+                                Total pages: {totalPages || 1}
+                              </p>
+                            </div>
+
+                            <div className="pt-4">
+                              <Button
+                                onClick={addSignature}
+                                disabled={
+                                  !signatureData ||
+                                  !signaturePlaced ||
+                                  isProcessing
+                                }
+                                loading={isProcessing}
+                                variant="primary"
+                                size="lg"
+                                className="w-full"
+                              >
+                                {signaturePlaced
+                                  ? "Finalize Signature"
+                                  : "Place Signature First"}
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Signature Preview */}
+                      {signatureData && (
+                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-gray-700 text-sm font-medium">
+                              Signature Preview
+                            </h4>
+
+                            {/* Action Buttons - ON THE RIGHT */}
+                            <div className="flex items-center gap-2">
+                              <Button
+                                onClick={() => {
+                                  // Show signature overlay for positioning
+                                  setSignatureOverlay({
+                                    visible: true,
+                                    x: 200, // Center position
+                                    y: 150,
+                                    width: 120,
+                                    height: 60,
+                                  });
+                                  setSignaturePlaced(true);
+                                  console.log(
+                                    "Signature overlay shown for positioning"
+                                  );
+
+                                  // Show success modal
+                                  alertModal.showSuccess(
+                                    "Signature Placed",
+                                    `Your signature has been placed on Page ${pageNumber}. You can now drag it to position it exactly where you want, and use the resize handle to scale it. When you're satisfied with the position, click "Finalize Signature" to save it to the PDF.`,
+                                    {
+                                      primary: {
+                                        text: "Got it!",
+                                        onClick: () => alertModal.hideAlert(),
+                                        variant: "primary",
+                                      },
+                                    }
+                                  );
+                                }}
+                                variant="primary"
+                                size="sm"
+                              >
+                                Insert Signature
+                              </Button>
+
+                              <Button
+                                onClick={() => {
+                                  // Remove signature overlay
+                                  setSignatureOverlay({
+                                    visible: false,
+                                    x: 0,
+                                    y: 0,
+                                    width: 120,
+                                    height: 60,
+                                  });
+                                  setSignaturePlaced(false);
+                                  console.log("Signature overlay removed");
+
+                                  // Show info modal
+                                  alertModal.showInfo(
+                                    "Signature Removed",
+                                    "The signature has been removed from the preview. You can place a new signature if needed.",
+                                    {
+                                      primary: {
+                                        text: "OK",
+                                        onClick: () => alertModal.hideAlert(),
+                                        variant: "primary",
+                                      },
+                                    }
+                                  );
+                                }}
+                                variant="danger"
+                                size="sm"
+                              >
+                                Remove Signature
+                              </Button>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                              <div className="border border-gray-300 rounded p-2 bg-white">
+                                <img
+                                  src={signatureData}
+                                  alt="Signature Preview"
+                                  className="max-w-32 max-h-16 object-contain"
+                                />
+                              </div>
+                              <div className="text-sm text-gray-600">
+                                <p>
+                                  Signature will be added to{" "}
+                                  <strong>Page {pageNumber}</strong>
+                                </p>
+                                <p className="text-xs text-gray-500 mt-1">
+                                  {signaturePlaced
+                                    ? "✅ Signature ready! Click 'Finalize Signature' to save it to the PDF."
+                                    : "Click 'Insert Signature' to prepare it for the selected page"}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Zoom Controls */}
+                            <div
+                              className={`flex items-center gap-2 ${
+                                isMobile ? "flex-wrap" : ""
+                              }`}
+                            >
+                              <span className="text-sm text-gray-600">
+                                Zoom:
+                              </span>
+                              <div className="flex items-center gap-1">
+                                <Button
+                                  onClick={() =>
+                                    setZoomLevel(
+                                      Math.max(0.5, zoomLevel - 0.25)
+                                    )
+                                  }
+                                  variant="outline"
+                                  size="sm"
+                                  disabled={zoomLevel <= 0.5}
+                                  className="px-2 py-1 min-w-[32px]"
+                                >
+                                  -
+                                </Button>
+                                <span className="text-sm text-gray-700 min-w-[3rem] text-center">
+                                  {Math.round(zoomLevel * 100)}%
+                                </span>
+                                <Button
+                                  onClick={() =>
+                                    setZoomLevel(Math.min(2, zoomLevel + 0.25))
+                                  }
+                                  variant="outline"
+                                  size="sm"
+                                  disabled={zoomLevel >= 2}
+                                  className="px-2 py-1 min-w-[32px]"
+                                >
+                                  +
+                                </Button>
+                              </div>
+                              <Button
+                                onClick={() => setZoomLevel(1)}
+                                variant="secondary"
+                                size="sm"
+                                className="px-2 py-1"
+                              >
+                                Reset
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Multi-Page PDF Preview */}
+                      {signatureData && (
+                        <div className="bg-gray-900/50 rounded-lg p-6">
+                          <h3 className="text-gray-300 text-lg font-medium mb-4">
+                            Select Page & Position Your Signature
+                          </h3>
+
+                          <div className="space-y-4">
+                            {/* Page Selection Info */}
+                            <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4">
+                              <div className="flex items-center gap-2 text-blue-300">
+                                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <span className="text-sm font-medium">
+                                  Selected Page: {pageNumber}
+                                </span>
+                              </div>
+                              <p className="text-blue-200 text-xs mt-1">
+                                Click on any page header in the preview below to
+                                select it for signature placement
+                              </p>
+                            </div>
+
+                            {/* Full PDF Preview */}
+                            <div className="bg-white rounded-lg overflow-hidden">
+                              <div className="bg-gray-50 border-b border-gray-200 px-4 py-2">
+                                <h4 className="text-gray-700 text-sm font-medium">
+                                  PDF Preview - All Pages
+                                </h4>
+                              </div>
+
+                              <div className="relative">
+                                {/* Zoomed PDF Container */}
+                                <div
+                                  className="relative"
+                                  style={{
+                                    height: isMobile ? "300px" : "600px",
+                                    overflow: "auto",
+                                    transform: `scale(${zoomLevel})`,
+                                    transformOrigin: "top left",
+                                    width: `${100 / zoomLevel}%`,
+                                  }}
+                                >
+                                  {uploadedFile && (
+                                    <iframe
+                                      src={`http://localhost:5000/convert_signature/${encodeURIComponent(
+                                        uploadedFile.name
+                                      )}`}
+                                      className="w-full h-full border-0"
+                                      title="Multi-Page PDF Viewer"
+                                      style={{
+                                        pointerEvents: "auto",
+                                        backgroundColor: "white",
+                                      }}
+                                      sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-top-navigation"
+                                      onLoad={() => {
+                                        console.log(
+                                          "Multi-page PDF iframe loaded successfully"
+                                        );
+
+                                        // Listen for page selection messages from iframe
+                                        window.addEventListener(
+                                          "message",
+                                          (event) => {
+                                            if (
+                                              event.data.type === "pageSelected"
+                                            ) {
+                                              const page = parseInt(
+                                                event.data.page
+                                              );
+                                              if (!isNaN(page) && page > 0) {
+                                                setPageNumber(page);
+                                                console.log(
+                                                  "Page selected:",
+                                                  page
+                                                );
+                                              }
+                                            }
+                                          }
+                                        );
+                                      }}
+                                      onError={(e) =>
+                                        console.error(
+                                          "Multi-page PDF iframe failed to load:",
+                                          e
+                                        )
+                                      }
+                                    />
+                                  )}
+                                </div>
+
+                                {/* Signature Overlay - Outside zoomed container */}
+                                {signatureOverlay.visible && signatureData && (
+                                  <div
+                                    className={`absolute border-2 bg-blue-50/20 select-none z-50 transition-none ${
+                                      isDragging
+                                        ? "border-blue-400 cursor-grabbing shadow-lg"
+                                        : isResizing
+                                        ? "border-blue-400 shadow-lg"
+                                        : "border-blue-500 cursor-move"
+                                    }`}
+                                    style={{
+                                      left: `${
+                                        signatureOverlay.x * zoomLevel
+                                      }px`,
+                                      top: `${
+                                        signatureOverlay.y * zoomLevel
+                                      }px`,
+                                      width: `${
+                                        signatureOverlay.width * zoomLevel
+                                      }px`,
+                                      height: `${
+                                        signatureOverlay.height * zoomLevel
+                                      }px`,
+                                      willChange: "transform",
+                                      transform: "translateZ(0)",
+                                      backfaceVisibility: "hidden",
+                                      WebkitBackfaceVisibility: "hidden",
+                                    }}
+                                    onMouseDown={(e) => {
+                                      if (e.target === e.currentTarget) {
+                                        e.preventDefault();
+                                        setIsDragging(true);
+                                        setDragStart({
+                                          x: e.clientX,
+                                          y: e.clientY,
+                                          startX: signatureOverlay.x,
+                                          startY: signatureOverlay.y,
+                                        });
+                                      }
+                                    }}
+                                    onTouchStart={(e) => {
+                                      if (e.target === e.currentTarget) {
+                                        e.preventDefault();
+                                        const touch = e.touches[0];
+                                        setIsDragging(true);
+                                        setDragStart({
+                                          x: touch.clientX,
+                                          y: touch.clientY,
+                                          startX: signatureOverlay.x,
+                                          startY: signatureOverlay.y,
+                                        });
+                                      }
+                                    }}
+                                  >
+                                    <img
+                                      src={signatureData}
+                                      alt="Signature Preview"
+                                      className="w-full h-full object-contain pointer-events-none"
+                                    />
+
+                                    {/* Resize handles */}
+                                    <div
+                                      className="absolute -bottom-1 -right-1 w-3 h-3 bg-blue-500 cursor-se-resize"
+                                      onMouseDown={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        setIsResizing(true);
+                                        setResizeStart({
+                                          x: e.clientX,
+                                          y: e.clientY,
+                                          startWidth: signatureOverlay.width,
+                                          startHeight: signatureOverlay.height,
+                                        });
+                                      }}
+                                      onTouchStart={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        const touch = e.touches[0];
+                                        setIsResizing(true);
+                                        setResizeStart({
+                                          x: touch.clientX,
+                                          y: touch.clientY,
+                                          startWidth: signatureOverlay.width,
+                                          startHeight: signatureOverlay.height,
+                                        });
+                                      }}
+                                    />
+                                  </div>
+                                )}
+
+                                {/* Fallback message if iframe content is not visible */}
+                                <div className="absolute top-4 left-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-3 py-2 rounded text-sm">
+                                  <p className="font-medium">
+                                    PDF Preview Loading...
+                                  </p>
+                                  <p className="text-xs">
+                                    If you don't see the PDF pages, try
+                                    refreshing the page.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+
+                  {/* Results */}
+                  {result && (
+                    <div className="bg-gray-900/50 rounded-lg p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div>
+                          <p
+                            className={`text-sm ${
+                              result.type === "success"
+                                ? "text-green-400"
+                                : "text-red-400"
+                            }`}
+                          >
+                            {result.message}
+                          </p>
+                          {result.data && (
+                            <p className="text-gray-500 text-xs mt-1">
+                              File: {result.data.signed_filename}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {result.data && (
+                        <div className="space-y-4">
+                          {/* Inline PDF Viewer */}
+                          {showSignedPdfViewer && signedPdfUrl && (
+                            <div className="bg-white rounded-lg overflow-hidden">
+                              <div className="flex items-center justify-between p-3 bg-gray-100">
+                                <span className="text-sm font-medium text-gray-700">
+                                  Signed PDF Preview
+                                </span>
+                                <button
+                                  onClick={() => setShowSignedPdfViewer(false)}
+                                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition-colors"
+                                >
+                                  Close
+                                </button>
+                              </div>
+                              <iframe
+                                src={signedPdfUrl}
+                                className="w-full h-96"
+                                title="Signed PDF Viewer"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           ) : result && result.data ? (
             // Results Section (after successful extraction/conversion)
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
@@ -703,12 +1574,13 @@ export default function PDFTools() {
                       </p>
                       <div className="flex items-center gap-3">
                         <span className="text-gray-500 text-sm">Download:</span>
-                        <button
+                        <Button
                           onClick={() => downloadAllImages()}
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition-colors text-sm"
+                          variant="primary"
+                          size="sm"
                         >
                           All as ZIP
-                        </button>
+                        </Button>
                       </div>
                     </div>
 
@@ -877,23 +1749,25 @@ export default function PDFTools() {
 
                     {/* Action Section - Moved to top */}
                     <div className="flex items-center gap-3 mb-4">
-                      <button
+                      <Button
                         onClick={() => setShowPdfViewer(!showPdfViewer)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium"
+                        variant="primary"
+                        size="md"
                       >
                         {showPdfViewer ? "Hide PDF" : "View PDF"}
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         onClick={() => {
                           const link = document.createElement("a");
                           link.href = `http://localhost:5000${result.data.download_url}?download=true`;
                           link.download = result.data.merged_filename;
                           link.click();
                         }}
-                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors text-sm font-medium"
+                        variant="success"
+                        size="md"
                       >
                         Download PDF
-                      </button>
+                      </Button>
                     </div>
 
                     {/* File List */}
@@ -945,6 +1819,18 @@ export default function PDFTools() {
           )}
         </motion.div>
       </div>
+
+      {/* Alert Modal */}
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={alertModal.hideAlert}
+        title={alertModal.title}
+        message={alertModal.message}
+        type={alertModal.type}
+        primaryButton={alertModal.primaryButton}
+        secondaryButton={alertModal.secondaryButton}
+        showCloseButton={alertModal.showCloseButton}
+      />
     </div>
   );
 }

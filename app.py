@@ -30,20 +30,97 @@ def index():
         return redirect(url_for("convert_pdf", filename=file.filename))
     return render_template("index.html")
 
+@app.route("/get_page_count", methods=["POST"])
+def get_page_count():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file to uploads folder for later use
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        print(f"DEBUG: Saved file as {file.filename}")
+        
+        # Open PDF and get page count
+        doc = fitz.open(filepath)
+        page_count = len(doc)
+        doc.close()
+        
+        response_data = {"page_count": page_count, "filename": file.filename}
+        print(f"DEBUG: Returning response: {response_data}")
+        return jsonify(response_data)
+    except Exception as e:
+        print(f"DEBUG: Error in get_page_count: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/pdf_preview", methods=["POST"])
+def pdf_preview():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file temporarily
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # Open PDF and get first page as image
+        doc = fitz.open(filepath)
+        page = doc[0]  # Get first page
+        
+        # Render page as image
+        mat = fitz.Matrix(2.0, 2.0)  # 2x zoom for better quality
+        pix = page.get_pixmap(matrix=mat)
+        img_data = pix.tobytes("png")
+        
+        doc.close()
+        
+        # Clean up temporary file
+        os.remove(filepath)
+        
+        # Return base64 encoded image
+        img_base64 = base64.b64encode(img_data).decode()
+        return jsonify({"preview_image": f"data:image/png;base64,{img_base64}"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/convert/<filename>")
 def convert_pdf(filename):
+    print(f"DEBUG: Convert endpoint called with filename: {filename}")
     filepath = os.path.join(UPLOAD_FOLDER, filename)
+    page_num = request.args.get('page', type=int, default=1) - 1  # Convert to 0-based index
+    print(f"DEBUG: File path: {filepath}")
+    print(f"DEBUG: Page number (0-based): {page_num}")
+    print(f"DEBUG: File exists: {os.path.exists(filepath)}")
     
     try:
         doc = fitz.open(filepath)
+        print(f"DEBUG: PDF opened successfully, total pages: {len(doc)}")
         pages_data = []
         image_counter = 0
         
-        for page_num in range(len(doc)):
-            page = doc[page_num]
+        # If page number is specified, only show that page
+        if page_num >= 0 and page_num < len(doc):
+            page_range = [page_num]
+            print(f"DEBUG: Showing specific page {page_num + 1}")
+        else:
+            page_range = range(len(doc))
+            print(f"DEBUG: Showing all pages, range: {list(page_range)}")
+        
+        for page_idx in page_range:
+            print(f"DEBUG: Processing page {page_idx + 1}")
+            page = doc[page_idx]
             page_dict = page.get_text("dict")
+            print(f"DEBUG: Page {page_idx + 1} has {len(page_dict['blocks'])} blocks")
             
-            page_html = f'<div class="pdf-page" data-page="{page_num + 1}">'
+            page_html = f'<div class="pdf-page" data-page="{page_idx + 1}">'
             
             for block in page_dict["blocks"]:
                 if "lines" in block:
@@ -82,8 +159,11 @@ def convert_pdf(filename):
                 'width': page.rect.width,
                 'height': page.rect.height
             })
+            print(f"DEBUG: Page {page_idx + 1} HTML length: {len(page_html)}")
         
         doc.close()
+        print(f"DEBUG: Total pages processed: {len(pages_data)}")
+        print(f"DEBUG: Rendering template with {len(pages_data)} pages")
         
         return render_template("converted.html", 
                              filename=filename, 
@@ -91,6 +171,166 @@ def convert_pdf(filename):
     
     except Exception as e:
         return f"Error converting PDF: {str(e)}", 500
+
+@app.route("/convert_signature/<filename>")
+def convert_pdf_for_signature(filename):
+    print(f"DEBUG: Convert signature endpoint called with filename: {filename}")
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    print(f"DEBUG: File path: {filepath}")
+    print(f"DEBUG: File exists: {os.path.exists(filepath)}")
+    
+    try:
+        doc = fitz.open(filepath)
+        print(f"DEBUG: PDF opened successfully, total pages: {len(doc)}")
+        
+        # Always show all pages for signature positioning
+        page_range = range(len(doc))
+        print(f"DEBUG: Showing all pages, range: {list(page_range)}")
+        
+        # Create a multi-page HTML for signature positioning
+        html_content = """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 20px;
+                    background: #f5f5f5;
+                    font-family: Arial, sans-serif;
+                }
+                .pdf-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+                .pdf-page {
+                    position: relative;
+                    background: white;
+                    transform-origin: top left;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+                .page-header {
+                    background: #e9ecef;
+                    padding: 8px 12px;
+                    font-size: 12px;
+                    color: #6c757d;
+                    border-bottom: 1px solid #dee2e6;
+                    cursor: pointer;
+                    user-select: none;
+                }
+                .page-header:hover {
+                    background: #dee2e6;
+                }
+                .page-header.selected {
+                    background: #007bff;
+                    color: white;
+                }
+                .page-content {
+                    position: relative;
+                }
+                .text-span {
+                    position: absolute;
+                    white-space: nowrap;
+                }
+                .editable-image {
+                    position: absolute;
+                }
+            </style>
+        </head>
+        <body>
+        <div class="pdf-container">
+        """
+        
+        for page_idx in page_range:
+            print(f"DEBUG: Processing page {page_idx + 1} for signature")
+            page = doc[page_idx]
+            page_dict = page.get_text("dict")
+            print(f"DEBUG: Page {page_idx + 1} has {len(page_dict['blocks'])} blocks")
+            
+            # Scale factor to fit pages nicely (max width 800px)
+            scale_factor = min(800 / page.rect.width, 1.0)
+            scaled_width = page.rect.width * scale_factor
+            scaled_height = page.rect.height * scale_factor
+            
+            page_html = f'''
+            <div class="pdf-page" data-page="{page_idx + 1}" style="width: {scaled_width}px;">
+                <div class="page-header" onclick="selectPage({page_idx + 1})">Page {page_idx + 1}</div>
+                <div class="page-content" style="width: {scaled_width}px; height: {scaled_height}px;">
+            '''
+            
+            for block in page_dict["blocks"]:
+                if "lines" in block:
+                    for line in block["lines"]:
+                        line_html = '<div class="text-line">'
+                        for span in line["spans"]:
+                            text = span["text"]
+                            if text.strip():
+                                bbox = span["bbox"]
+                                font = span["font"]
+                                size = span["size"]
+                                flags = span["flags"]
+                                
+                                style = f"position: absolute; left: {bbox[0] * scale_factor}px; top: {bbox[1] * scale_factor}px; font-size: {size * scale_factor}px; font-family: {font};"
+                                if flags & 2**4:
+                                    style += " font-weight: bold;"
+                                if flags & 2**1:
+                                    style += " font-style: italic;"
+                                
+                                line_html += f'<span class="text-span" style="{style}">{text}</span>'
+                        line_html += '</div>'
+                        page_html += line_html
+                
+                elif "image" in block:
+                    bbox = block["bbox"]
+                    image_data = block["image"]
+                    image_base64 = base64.b64encode(image_data).decode()
+                    
+                    style = f"position: absolute; left: {bbox[0] * scale_factor}px; top: {bbox[1] * scale_factor}px; width: {(bbox[2] - bbox[0]) * scale_factor}px; height: {(bbox[3] - bbox[1]) * scale_factor}px;"
+                    page_html += f'<img class="editable-image" src="data:image/png;base64,{image_base64}" style="{style}">'
+            
+            page_html += '''
+                </div>
+            </div>
+            '''
+            html_content += page_html
+            print(f"DEBUG: Page {page_idx + 1} HTML length: {len(page_html)}")
+        
+        html_content += """
+        </div>
+        <script>
+            function selectPage(pageNum) {
+                // Remove previous selection
+                document.querySelectorAll('.page-header').forEach(header => {
+                    header.classList.remove('selected');
+                });
+                
+                // Add selection to clicked page
+                const clickedHeader = document.querySelector(`[data-page="${pageNum}"] .page-header`);
+                clickedHeader.classList.add('selected');
+                
+                // Notify parent window about page selection
+                window.parent.postMessage({
+                    type: 'pageSelected',
+                    page: pageNum
+                }, '*');
+            }
+        </script>
+        </body>
+        </html>
+        """
+        
+        doc.close()
+        print(f"DEBUG: Returning multi-page HTML for signature positioning")
+        
+        return html_content
+    
+    except Exception as e:
+        return f"Error converting PDF for signature: {str(e)}", 500
 
 @app.route("/save_edits/<filename>", methods=["POST"])
 def save_edits(filename):
@@ -556,6 +796,129 @@ def download_split(split_folder, split_filename):
     
     except Exception as e:
         return f"Error downloading split PDF: {str(e)}", 500
+
+
+@app.route('/add_signature', methods=['POST'])
+def add_signature():
+    try:
+        print(f"DEBUG: Request files: {list(request.files.keys())}")
+        print(f"DEBUG: Request form: {list(request.form.keys())}")
+        
+        if 'pdf' not in request.files:
+            return jsonify({"status": "error", "message": "No PDF file provided"}), 400
+        
+        pdf_file = request.files['pdf']
+        if pdf_file.filename == '':
+            return jsonify({"status": "error", "message": "No file selected"}), 400
+        
+        # Get signature data and position
+        signature_data = request.form.get('signature_data', '')
+        page_number = int(request.form.get('page_number', 1))
+        x_position = float(request.form.get('x_position', 100))
+        y_position = float(request.form.get('y_position', 100))
+        width = float(request.form.get('width', 200))
+        height = float(request.form.get('height', 100))
+        
+        print(f"DEBUG: Signature data length: {len(signature_data) if signature_data else 0}")
+        print(f"DEBUG: Page number: {page_number}, Position: ({x_position}, {y_position}), Size: ({width}, {height})")
+        
+        if not signature_data:
+            return jsonify({"status": "error", "message": "No signature data provided"}), 400
+        
+        # Save uploaded PDF
+        original_filename = pdf_file.filename
+        safe_filename = "".join(c for c in original_filename if c.isalnum() or c in '._-')
+        if not safe_filename.endswith('.pdf'):
+            safe_filename += '.pdf'
+        pdf_path = os.path.join(UPLOAD_FOLDER, safe_filename)
+        pdf_file.save(pdf_path)
+        
+        # Open PDF document
+        doc = fitz.open(pdf_path)
+        total_pages = len(doc)
+        
+        if page_number < 1 or page_number > total_pages:
+            doc.close()
+            os.remove(pdf_path)
+            return jsonify({"status": "error", "message": f"Invalid page number. PDF has {total_pages} pages"}), 400
+        
+        # Get the specific page
+        page = doc[page_number - 1]
+        page_rect = page.rect
+        
+        # Convert signature data from base64 to image
+        import base64
+        import io
+        from PIL import Image
+        
+        # Remove data URL prefix if present
+        if signature_data.startswith('data:image'):
+            signature_data = signature_data.split(',')[1]
+        
+        # Decode base64 image
+        signature_bytes = base64.b64decode(signature_data)
+        signature_image = Image.open(io.BytesIO(signature_bytes))
+        
+        # Convert PIL image to bytes
+        img_byte_arr = io.BytesIO()
+        signature_image.save(img_byte_arr, format='PNG')
+        img_byte_arr = img_byte_arr.getvalue()
+        
+        # Create a temporary image file
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        temp_img_path = os.path.join(UPLOAD_FOLDER, f"temp_signature_{timestamp}.png")
+        with open(temp_img_path, 'wb') as f:
+            f.write(img_byte_arr)
+        
+        # Create signature rectangle
+        signature_rect = fitz.Rect(x_position, y_position, x_position + width, y_position + height)
+        
+        # Insert signature image into PDF
+        page.insert_image(signature_rect, filename=temp_img_path)
+        
+        # Generate output filename
+        base_name = os.path.splitext(safe_filename)[0]
+        signed_filename = f"{base_name}_signed.pdf"
+        signed_path = os.path.join(HTML_FOLDER, signed_filename)
+        
+        # Save the signed PDF
+        doc.save(signed_path)
+        doc.close()
+        
+        # Clean up temporary files
+        os.remove(pdf_path)
+        os.remove(temp_img_path)
+        
+        return jsonify({
+            "status": "success",
+            "message": f"Signature added successfully to page {page_number}",
+            "signed_filename": signed_filename,
+            "download_url": f"/download_signed/{signed_filename}",
+            "page_number": page_number,
+            "total_pages": total_pages
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Error adding signature: {str(e)}"}), 500
+
+
+@app.route('/download_signed/<signed_filename>')
+def download_signed(signed_filename):
+    try:
+        signed_path = os.path.join(HTML_FOLDER, signed_filename)
+        if not os.path.exists(signed_path):
+            return "Signed PDF file not found", 404
+        
+        # Check if it's a download request (has download parameter)
+        download = request.args.get('download', 'false').lower() == 'true'
+        
+        if download:
+            return send_file(signed_path, as_attachment=True, download_name=signed_filename)
+        else:
+            return send_file(signed_path, as_attachment=False)
+    
+    except Exception as e:
+        return f"Error downloading signed PDF: {str(e)}", 500
 
 
 if __name__ == "__main__":

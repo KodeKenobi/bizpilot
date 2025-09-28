@@ -1,0 +1,86 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 20px;
+                    background: #f5f5f5;
+                    font-family: Arial, sans-serif;
+                }
+                .pdf-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+                .pdf-page {
+                    position: relative;
+                    background: white;
+                    transform-origin: top left;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+                .page-header {
+                    background: #e9ecef;
+                    padding: 8px 12px;
+                    font-size: 12px;
+                    color: #6c757d;
+                    border-bottom: 1px solid #dee2e6;
+                    cursor: pointer;
+                    user-select: none;
+                }
+                .page-header:hover {
+                    background: #dee2e6;
+                }
+                .page-header.selected {
+                    background: #007bff;
+                    color: white;
+                }
+                .page-content {
+                    position: relative;
+                }
+                .text-span {
+                    position: absolute;
+                    white-space: nowrap;
+                }
+                .editable-image {
+                    position: absolute;
+                }
+            </style>
+        </head>
+        <body>
+        <div class="pdf-container">
+        
+            <div class="pdf-page" data-page="1" style="width: 595.0px;">
+                <div class="page-header" onclick="selectPage(1)">Page 1</div>
+                <div class="page-content" style="width: 595.0px; height: 842.0px;">
+            <div class="text-line"><span class="text-span" style="position: absolute; left: 50.0px; top: 87.0999984741211px; font-size: 12.0px; font-family: Helvetica;">Document Summary</span></div><div class="text-line"><span class="text-span" style="position: absolute; left: 50.0px; top: 120.0759506225586px; font-size: 12.0px; font-family: Helvetica;">Original file: qT 9603_20250927_230224.pdf</span></div><div class="text-line"><span class="text-span" style="position: absolute; left: 50.0px; top: 136.56393432617188px; font-size: 12.0px; font-family: Helvetica;">Edited and saved on: 2025-09-27 23:02:33</span></div><div class="text-line"><span class="text-span" style="position: absolute; left: 50.0px; top: 153.05191040039062px; font-size: 12.0px; font-family: Helvetica;">HTML version: qT 9603_20250927_230224.html</span></div><div class="text-line"><span class="text-span" style="position: absolute; left: 50.0px; top: 186.02786254882812px; font-size: 12.0px; font-family: Helvetica;">This is a summary of your edited document.</span></div><div class="text-line"><span class="text-span" style="position: absolute; left: 50.0px; top: 202.51583862304688px; font-size: 12.0px; font-family: Helvetica;">For the full formatted version with all your edits,</span></div><div class="text-line"><span class="text-span" style="position: absolute; left: 50.0px; top: 219.00381469726562px; font-size: 12.0px; font-family: Helvetica;">please use the 'View Your PDF' button in the editor.</span></div>
+                </div>
+            </div>
+            
+        </div>
+        <script>
+            function selectPage(pageNum) {
+                // Remove previous selection
+                document.querySelectorAll('.page-header').forEach(header => {
+                    header.classList.remove('selected');
+                });
+                
+                // Add selection to clicked page
+                const clickedHeader = document.querySelector(`[data-page="${pageNum}"] .page-header`);
+                clickedHeader.classList.add('selected');
+                
+                // Notify parent window about page selection
+                window.parent.postMessage({
+                    type: 'pageSelected',
+                    page: pageNum
+                }, '*');
+            }
+        </script>
+        </body>
+        </html>
+        
