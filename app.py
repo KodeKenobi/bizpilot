@@ -902,6 +902,173 @@ def add_signature():
         return jsonify({"status": "error", "message": f"Error adding signature: {str(e)}"}), 500
 
 
+@app.route('/add_watermark', methods=['POST'])
+def add_watermark():
+    try:
+        print(f"DEBUG: Watermark request files: {list(request.files.keys())}")
+        print(f"DEBUG: Watermark request form: {list(request.form.keys())}")
+
+        if 'pdf' not in request.files:
+            return jsonify({"status": "error", "message": "No PDF file provided"}), 400
+
+        pdf_file = request.files['pdf']
+        if pdf_file.filename == '':
+            return jsonify({"status": "error", "message": "No file selected"}), 400
+
+        # Get watermark data and settings
+        watermark_type = request.form.get('watermark_type', 'text')  # 'text' or 'image'
+        watermark_text = request.form.get('watermark_text', '')
+        watermark_image_data = request.form.get('watermark_image_data', '')
+        page_number = int(request.form.get('page_number', 1))
+        x_position = float(request.form.get('x_position', 100))
+        y_position = float(request.form.get('y_position', 100))
+        width = float(request.form.get('width', 200))
+        height = float(request.form.get('height', 100))
+        opacity = float(request.form.get('opacity', 0.5))
+        rotation = float(request.form.get('rotation', 0))
+        apply_to_all = request.form.get('apply_to_all', 'false').lower() == 'true'
+
+        print(f"DEBUG: Watermark type: {watermark_type}")
+        print(f"DEBUG: Page number: {page_number}, Position: ({x_position}, {y_position}), Size: ({width}, {height})")
+        print(f"DEBUG: Opacity: {opacity}, Rotation: {rotation}, Apply to all: {apply_to_all}")
+
+        if watermark_type == 'text' and not watermark_text:
+            return jsonify({"status": "error", "message": "No watermark text provided"}), 400
+        if watermark_type == 'image' and not watermark_image_data:
+            return jsonify({"status": "error", "message": "No watermark image provided"}), 400
+
+        # Save the uploaded PDF
+        original_filename = pdf_file.filename
+        safe_filename = "".join(c for c in original_filename if c.isalnum() or c in '._-')
+        if not safe_filename.endswith('.pdf'):
+            safe_filename += '.pdf'
+        pdf_path = os.path.join(UPLOAD_FOLDER, safe_filename)
+        pdf_file.save(pdf_path)
+
+        # Open the PDF
+        doc = fitz.open(pdf_path)
+        total_pages = len(doc)
+        
+        # Determine which pages to watermark
+        if apply_to_all:
+            pages_to_watermark = range(total_pages)
+        else:
+            if page_number < 1 or page_number > total_pages:
+                doc.close()
+                os.remove(pdf_path)
+                return jsonify({"status": "error", "message": f"Invalid page number. PDF has {total_pages} pages"}), 400
+            pages_to_watermark = [page_number - 1]
+        
+        # Process each page
+        for page_idx in pages_to_watermark:
+            page = doc[page_idx]
+            page_rect = page.rect
+            
+            if watermark_type == 'text':
+                # Add text watermark
+                # Calculate font size based on height
+                font_size = int(height * 0.8)  # Adjust multiplier as needed
+                
+                # Create text insertion point
+                point = fitz.Point(x_position, y_position + height)
+                
+                # Insert text with rotation
+                page.insert_text(
+                    point,
+                    watermark_text,
+                    fontsize=font_size,
+                    color=(0.5, 0.5, 0.5),  # Gray color for watermark
+                    rotate=rotation
+                )
+                
+            elif watermark_type == 'image':
+                # Add image watermark
+                if watermark_image_data.startswith('data:image'):
+                    watermark_image_data = watermark_image_data.split(',')[1]
+                
+                watermark_bytes = base64.b64decode(watermark_image_data)
+                
+                # Process image with PIL for better control
+                from PIL import Image
+                import io
+                
+                watermark_image = Image.open(io.BytesIO(watermark_bytes))
+                
+                # Apply opacity if needed
+                if opacity < 1.0:
+                    # Create a new image with alpha channel
+                    watermark_image = watermark_image.convert("RGBA")
+                    # Apply opacity
+                    alpha = watermark_image.split()[-1]
+                    alpha = alpha.point(lambda p: int(p * opacity))
+                    watermark_image.putalpha(alpha)
+                
+                # Convert back to bytes
+                img_byte_arr = io.BytesIO()
+                watermark_image.save(img_byte_arr, format='PNG')
+                img_byte_arr = img_byte_arr.getvalue()
+                
+                # Create a temporary image file
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                temp_img_path = os.path.join(UPLOAD_FOLDER, f'temp_watermark_{page_idx}_{timestamp}.png')
+                with open(temp_img_path, 'wb') as f:
+                    f.write(img_byte_arr)
+                
+                # Create image rectangle
+                img_rect = fitz.Rect(x_position, y_position, x_position + width, y_position + height)
+                
+                # Insert the watermark image
+                page.insert_image(img_rect, filename=temp_img_path, rotate=rotation)
+                
+                # Clean up temporary file
+                if os.path.exists(temp_img_path):
+                    os.remove(temp_img_path)
+        
+        # Generate output filename
+        base_name = os.path.splitext(safe_filename)[0]
+        watermarked_filename = f"{base_name}_watermarked.pdf"
+        watermarked_path = os.path.join(HTML_FOLDER, watermarked_filename)
+        
+        # Save the modified PDF
+        doc.save(watermarked_path)
+        doc.close()
+        
+        # Clean up uploaded PDF
+        os.remove(pdf_path)
+        
+        pages_watermarked = len(pages_to_watermark)
+        return jsonify({
+            "status": "success",
+            "message": f"Watermark added successfully to {pages_watermarked} page(s)",
+            "watermarked_filename": watermarked_filename,
+            "download_url": f"/download_watermarked/{watermarked_filename}",
+            "pages_watermarked": pages_watermarked
+        })
+        
+    except Exception as e:
+        print(f"ERROR in add_watermark: {str(e)}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
+@app.route('/download_watermarked/<watermarked_filename>')
+def download_watermarked(watermarked_filename):
+    try:
+        watermarked_path = os.path.join(HTML_FOLDER, watermarked_filename)
+        if not os.path.exists(watermarked_path):
+            return "Watermarked PDF file not found", 404
+        
+        # Check if it's a download request (has download parameter)
+        download = request.args.get('download', 'false').lower() == 'true'
+        
+        if download:
+            return send_file(watermarked_path, as_attachment=True, download_name=watermarked_filename)
+        else:
+            return send_file(watermarked_path, as_attachment=False)
+    
+    except Exception as e:
+        return f"Error downloading watermarked PDF: {str(e)}", 500
+
+
 @app.route('/download_signed/<signed_filename>')
 def download_signed(signed_filename):
     try:

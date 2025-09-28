@@ -103,6 +103,34 @@ export default function PDFTools() {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
+  // Watermark states
+  const [watermarkType, setWatermarkType] = useState<"text" | "image">("text");
+  const [watermarkText, setWatermarkText] = useState<string>("");
+  const [watermarkImage, setWatermarkImage] = useState<File | null>(null);
+  const [watermarkImageData, setWatermarkImageData] = useState<string>("");
+  const [watermarkOpacity, setWatermarkOpacity] = useState<number>(0.5);
+  const [watermarkRotation, setWatermarkRotation] = useState<number>(0);
+  const [applyToAllPages, setApplyToAllPages] = useState<boolean>(false);
+  const [watermarkOverlay, setWatermarkOverlay] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }>({
+    visible: false,
+    x: 100,
+    y: 100,
+    width: 200,
+    height: 100,
+  });
+  const [watermarkPlaced, setWatermarkPlaced] = useState<boolean>(false);
+  const [showWatermarkedPdfViewer, setShowWatermarkedPdfViewer] =
+    useState<boolean>(false);
+  const [watermarkedPdfUrl, setWatermarkedPdfUrl] = useState<string | null>(
+    null
+  );
+
   // Check backend status
   useEffect(() => {
     fetch("http://localhost:5000/")
@@ -144,17 +172,33 @@ export default function PDFTools() {
         if (isDragging) {
           const deltaX = (clientX - dragStart.x) / zoomLevel;
           const deltaY = (clientY - dragStart.y) / zoomLevel;
-          const maxX = (isMobile ? 400 : 600) - signatureOverlay.width;
-          const maxY = (isMobile ? 300 : 500) - signatureOverlay.height;
+          const maxX =
+            (isMobile ? 400 : 600) -
+            (activeTab === "add-watermark"
+              ? watermarkOverlay.width
+              : signatureOverlay.width);
+          const maxY =
+            (isMobile ? 300 : 500) -
+            (activeTab === "add-watermark"
+              ? watermarkOverlay.height
+              : signatureOverlay.height);
 
           const newX = Math.max(0, Math.min(dragStart.startX + deltaX, maxX));
           const newY = Math.max(0, Math.min(dragStart.startY + deltaY, maxY));
 
-          setSignatureOverlay((prev) => ({
-            ...prev,
-            x: newX,
-            y: newY,
-          }));
+          if (activeTab === "add-watermark") {
+            setWatermarkOverlay((prev) => ({
+              ...prev,
+              x: newX,
+              y: newY,
+            }));
+          } else {
+            setSignatureOverlay((prev) => ({
+              ...prev,
+              x: newX,
+              y: newY,
+            }));
+          }
         }
 
         if (isResizing) {
@@ -172,11 +216,19 @@ export default function PDFTools() {
             Math.min(resizeStart.startHeight + deltaY, maxHeight)
           );
 
-          setSignatureOverlay((prev) => ({
-            ...prev,
-            width: newWidth,
-            height: newHeight,
-          }));
+          if (activeTab === "add-watermark") {
+            setWatermarkOverlay((prev) => ({
+              ...prev,
+              width: newWidth,
+              height: newHeight,
+            }));
+          } else {
+            setSignatureOverlay((prev) => ({
+              ...prev,
+              width: newWidth,
+              height: newHeight,
+            }));
+          }
         }
       });
     };
@@ -209,6 +261,9 @@ export default function PDFTools() {
     resizeStart,
     signatureOverlay.width,
     signatureOverlay.height,
+    watermarkOverlay.width,
+    watermarkOverlay.height,
+    activeTab,
     zoomLevel,
     isMobile,
   ]);
@@ -235,6 +290,24 @@ export default function PDFTools() {
     setSignaturePosition({ x: 100, y: 100 }); // Reset signature position
     setSignatureSize({ width: 200, height: 100 }); // Reset signature size
     setPdfPreviewImage(null); // Reset PDF preview image
+    // Reset watermark states
+    setWatermarkType("text");
+    setWatermarkText("");
+    setWatermarkImage(null);
+    setWatermarkImageData("");
+    setWatermarkOpacity(0.5);
+    setWatermarkRotation(0);
+    setApplyToAllPages(false);
+    setWatermarkOverlay({
+      visible: false,
+      x: 100,
+      y: 100,
+      width: 200,
+      height: 100,
+    });
+    setWatermarkPlaced(false);
+    setShowWatermarkedPdfViewer(false);
+    setWatermarkedPdfUrl(null);
   }, [activeTab]);
 
   const handleFileUpload = async (files: File[]) => {
@@ -262,6 +335,16 @@ export default function PDFTools() {
         setUploadedFile(file);
         setResult(null);
         // Get PDF page count for signature positioning
+        await getPdfPageCount(file);
+        return;
+      }
+
+      // Handle add watermark differently
+      if (activeTab === "add-watermark") {
+        const file = files[0];
+        setUploadedFile(file);
+        setResult(null);
+        // Get PDF page count for watermark positioning
         await getPdfPageCount(file);
         return;
       }
@@ -550,6 +633,139 @@ export default function PDFTools() {
       setResult({
         type: "error",
         message: `Error adding signature: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleWatermarkImageUpload = (files: File[]) => {
+    if (files.length > 0) {
+      const file = files[0];
+      setWatermarkImage(file);
+
+      // Convert to base64 for preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setWatermarkImageData(result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const addWatermark = async () => {
+    if (!uploadedFile) {
+      setResult({
+        type: "error",
+        message: "Please upload a PDF first",
+      });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+      return;
+    }
+
+    if (watermarkType === "text" && !watermarkText.trim()) {
+      setResult({
+        type: "error",
+        message: "Please enter watermark text",
+      });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+      return;
+    }
+
+    if (watermarkType === "image" && !watermarkImageData) {
+      setResult({
+        type: "error",
+        message: "Please upload a watermark image",
+      });
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+      return;
+    }
+
+    setIsProcessing(true);
+    try {
+      console.log("DEBUG: Preparing watermark data...");
+      console.log("DEBUG: watermarkType:", watermarkType);
+      console.log("DEBUG: watermarkText:", watermarkText);
+      console.log(
+        "DEBUG: watermarkImageData length:",
+        watermarkImageData ? watermarkImageData.length : 0
+      );
+      console.log("DEBUG: watermarkOverlay:", watermarkOverlay);
+      console.log("DEBUG: pageNumber:", pageNumber);
+      console.log("DEBUG: uploadedFile:", uploadedFile?.name);
+
+      const formData = new FormData();
+      // Ensure uploadedFile is a proper File object
+      if (uploadedFile instanceof File) {
+        formData.append("pdf", uploadedFile, uploadedFile.name);
+      } else {
+        console.error(
+          "DEBUG: uploadedFile is not a File object:",
+          uploadedFile
+        );
+        throw new Error("Invalid file object");
+      }
+
+      formData.append("watermark_type", watermarkType);
+      formData.append("watermark_text", watermarkText);
+      formData.append("watermark_image_data", watermarkImageData);
+      formData.append("page_number", pageNumber.toString());
+      formData.append("x_position", watermarkOverlay.x.toString());
+      formData.append("y_position", watermarkOverlay.y.toString());
+      formData.append("width", watermarkOverlay.width.toString());
+      formData.append("height", watermarkOverlay.height.toString());
+      formData.append("opacity", watermarkOpacity.toString());
+      formData.append("rotation", watermarkRotation.toString());
+      formData.append("apply_to_all", applyToAllPages.toString());
+
+      console.log("DEBUG: FormData entries:");
+      Array.from(formData.entries()).forEach(([key, value]) => {
+        console.log(`  ${key}:`, value);
+      });
+
+      console.log("DEBUG: FormData prepared, sending request...");
+
+      const response = await fetch("http://localhost:5000/add_watermark", {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log("DEBUG: Response status:", response.status);
+
+      const data = await response.json();
+      console.log("DEBUG: Response data:", data);
+
+      if (data.status === "success") {
+        setResult({
+          type: "success",
+          message: data.message,
+          data: data,
+        });
+        // Set the watermarked PDF URL for inline viewing
+        setWatermarkedPdfUrl(`http://localhost:5000${data.download_url}`);
+      } else {
+        console.error("DEBUG: Watermark addition failed:", data);
+        setResult({
+          type: "error",
+          message: data.message || "Failed to add watermark",
+        });
+      }
+
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    } catch (error) {
+      console.error("DEBUG: Watermark addition error:", error);
+      setResult({
+        type: "error",
+        message: `Error adding watermark: ${
           error instanceof Error ? error.message : String(error)
         }`,
       });
@@ -1436,6 +1652,695 @@ export default function PDFTools() {
                                 src={signedPdfUrl}
                                 className="w-full h-96"
                                 title="Signed PDF Viewer"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : activeTab === "add-watermark" && uploadedFile ? (
+            // Add Watermark Interface
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
+              <div className="flex items-center justify-between p-4 border-b border-white/10">
+                <div className="flex items-center space-x-4">
+                  <h3 className="text-white font-semibold text-lg">
+                    Add Watermark
+                  </h3>
+                  <span className="text-gray-400 text-sm">
+                    {uploadedFile?.name}
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    setUploadedFile(null);
+                    setWatermarkText("");
+                    setWatermarkImage(null);
+                    setWatermarkImageData("");
+                    setResult(null);
+                  }}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                >
+                  Upload New PDF
+                </button>
+              </div>
+
+              <div className="p-6">
+                {/* Action Buttons - AT THE VERY TOP OF THE PAGE */}
+                {result && result.data && (
+                  <div className="flex items-center gap-3 mb-6">
+                    <Button
+                      onClick={() =>
+                        setShowWatermarkedPdfViewer(!showWatermarkedPdfViewer)
+                      }
+                      variant="primary"
+                      size="md"
+                    >
+                      {showWatermarkedPdfViewer
+                        ? "Hide PDF"
+                        : "View Watermarked PDF"}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        const link = document.createElement("a");
+                        link.href = `http://localhost:5000${result.data.download_url}?download=true`;
+                        link.download = result.data.watermarked_filename;
+                        link.click();
+                      }}
+                      variant="success"
+                      size="md"
+                    >
+                      Download Watermarked PDF
+                    </Button>
+                  </div>
+                )}
+
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-gray-400 text-sm">
+                        PDF uploaded successfully
+                      </p>
+                      <p className="text-gray-500 text-xs mt-1">
+                        File: {uploadedFile.name}
+                      </p>
+                    </div>
+                  </div>
+
+                  {!showWatermarkedPdfViewer && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Watermark Type Selection */}
+                      <div className="bg-gray-900/50 rounded-lg p-6">
+                        <h3 className="text-gray-300 text-lg font-medium mb-4">
+                          Watermark Type
+                        </h3>
+
+                        <div className="space-y-4">
+                          <div className="flex gap-4">
+                            <button
+                              onClick={() => setWatermarkType("text")}
+                              className={`px-4 py-2 rounded-lg transition-colors ${
+                                watermarkType === "text"
+                                  ? "bg-blue-600 text-white"
+                                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                              }`}
+                            >
+                              Text Watermark
+                            </button>
+                            <button
+                              onClick={() => setWatermarkType("image")}
+                              className={`px-4 py-2 rounded-lg transition-colors ${
+                                watermarkType === "image"
+                                  ? "bg-blue-600 text-white"
+                                  : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                              }`}
+                            >
+                              Image Watermark
+                            </button>
+                          </div>
+
+                          {watermarkType === "text" ? (
+                            <div>
+                              <label className="block text-gray-400 text-sm mb-2">
+                                Watermark Text
+                              </label>
+                              <input
+                                type="text"
+                                value={watermarkText}
+                                onChange={(e) =>
+                                  setWatermarkText(e.target.value)
+                                }
+                                placeholder="Enter watermark text..."
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                              />
+                            </div>
+                          ) : (
+                            <div>
+                              <label className="block text-gray-400 text-sm mb-2">
+                                Watermark Image
+                              </label>
+                              <FileUpload
+                                onChange={handleWatermarkImageUpload}
+                                multiple={false}
+                                variant="dark"
+                              />
+                              {watermarkImageData && (
+                                <div className="mt-3">
+                                  <img
+                                    src={watermarkImageData}
+                                    alt="Watermark Preview"
+                                    className="max-w-32 max-h-16 object-contain border border-gray-600 rounded"
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Watermark Settings */}
+                      <div className="bg-gray-900/50 rounded-lg p-6">
+                        <h3 className="text-gray-300 text-lg font-medium mb-4">
+                          Watermark Settings
+                        </h3>
+
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-gray-400 text-sm mb-2">
+                              Page Number
+                            </label>
+                            <input
+                              type="number"
+                              min="1"
+                              max={totalPages || 1}
+                              value={isNaN(pageNumber) ? 1 : pageNumber}
+                              onChange={(e) => {
+                                const value = parseInt(e.target.value);
+                                if (!isNaN(value) && value > 0) {
+                                  setPageNumber(value);
+                                }
+                              }}
+                              className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                            />
+                            <p className="text-gray-500 text-xs mt-1">
+                              Total pages: {totalPages || 1}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="checkbox"
+                              id="applyToAll"
+                              checked={applyToAllPages}
+                              onChange={(e) =>
+                                setApplyToAllPages(e.target.checked)
+                              }
+                              className="w-4 h-4 text-blue-600 bg-gray-800 border-gray-600 rounded focus:ring-blue-500"
+                            />
+                            <label
+                              htmlFor="applyToAll"
+                              className="text-gray-400 text-sm"
+                            >
+                              Apply to all pages
+                            </label>
+                          </div>
+
+                          <div>
+                            <label className="block text-gray-400 text-sm mb-2">
+                              Opacity: {Math.round(watermarkOpacity * 100)}%
+                            </label>
+                            <input
+                              type="range"
+                              min="0.1"
+                              max="1"
+                              step="0.1"
+                              value={watermarkOpacity}
+                              onChange={(e) =>
+                                setWatermarkOpacity(parseFloat(e.target.value))
+                              }
+                              className="w-full"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-gray-400 text-sm mb-2">
+                              Rotation: {watermarkRotation}°
+                            </label>
+                            <input
+                              type="range"
+                              min="0"
+                              max="360"
+                              step="15"
+                              value={watermarkRotation}
+                              onChange={(e) =>
+                                setWatermarkRotation(parseInt(e.target.value))
+                              }
+                              className="w-full"
+                            />
+                          </div>
+
+                          <div className="pt-4">
+                            <Button
+                              onClick={addWatermark}
+                              disabled={
+                                !watermarkPlaced ||
+                                isProcessing ||
+                                (watermarkType === "text" &&
+                                  !watermarkText.trim()) ||
+                                (watermarkType === "image" &&
+                                  !watermarkImageData)
+                              }
+                              loading={isProcessing}
+                              variant="primary"
+                              size="lg"
+                              className="w-full"
+                            >
+                              {watermarkPlaced
+                                ? "Finalize Watermark"
+                                : "Place Watermark First"}
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Watermark Preview */}
+                  {!showWatermarkedPdfViewer &&
+                    (watermarkText || watermarkImageData) && (
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="text-gray-700 text-sm font-medium">
+                            Watermark Preview
+                          </h4>
+
+                          {/* Action Buttons - ON THE RIGHT */}
+                          <div className="flex items-center gap-2">
+                            <Button
+                              onClick={() => {
+                                // Show watermark overlay for positioning
+                                setWatermarkOverlay({
+                                  visible: true,
+                                  x: 200,
+                                  y: 150,
+                                  width: 200,
+                                  height: 100,
+                                });
+                                setWatermarkPlaced(true);
+                                console.log(
+                                  "Watermark overlay shown for positioning"
+                                );
+
+                                // Show success modal
+                                alertModal.showSuccess(
+                                  "Watermark Placed",
+                                  `Your watermark has been placed on ${
+                                    applyToAllPages
+                                      ? "all pages"
+                                      : `Page ${pageNumber}`
+                                  }. You can now drag it to position it exactly where you want, and use the resize handle to scale it. When you're satisfied with the position, click "Finalize Watermark" to save it to the PDF.`,
+                                  {
+                                    primary: {
+                                      text: "Got it!",
+                                      onClick: () => alertModal.hideAlert(),
+                                      variant: "primary",
+                                    },
+                                  }
+                                );
+                              }}
+                              variant="primary"
+                              size="sm"
+                            >
+                              Insert Watermark
+                            </Button>
+
+                            <Button
+                              onClick={() => {
+                                // Remove watermark overlay
+                                setWatermarkOverlay({
+                                  visible: false,
+                                  x: 100,
+                                  y: 100,
+                                  width: 200,
+                                  height: 100,
+                                });
+                                setWatermarkPlaced(false);
+                                console.log("Watermark overlay removed");
+
+                                // Show info modal
+                                alertModal.showInfo(
+                                  "Watermark Removed",
+                                  "The watermark has been removed from the preview. You can place a new watermark if needed.",
+                                  {
+                                    primary: {
+                                      text: "OK",
+                                      onClick: () => alertModal.hideAlert(),
+                                      variant: "primary",
+                                    },
+                                  }
+                                );
+                              }}
+                              variant="danger"
+                              size="sm"
+                            >
+                              Remove Watermark
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <div className="border border-gray-300 rounded p-2 bg-white">
+                              {watermarkType === "text" ? (
+                                <div
+                                  className="text-gray-600 text-lg font-medium"
+                                  style={{
+                                    transform: `rotate(${watermarkRotation}deg)`,
+                                    opacity: watermarkOpacity,
+                                  }}
+                                >
+                                  {watermarkText}
+                                </div>
+                              ) : (
+                                <img
+                                  src={watermarkImageData}
+                                  alt="Watermark Preview"
+                                  className="max-w-32 max-h-16 object-contain"
+                                  style={{
+                                    transform: `rotate(${watermarkRotation}deg)`,
+                                    opacity: watermarkOpacity,
+                                  }}
+                                />
+                              )}
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              <p>
+                                Watermark will be added to{" "}
+                                <strong>
+                                  {applyToAllPages
+                                    ? "All Pages"
+                                    : `Page ${pageNumber}`}
+                                </strong>
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                {watermarkPlaced
+                                  ? "✅ Watermark ready! Click 'Finalize Watermark' to save it to the PDF."
+                                  : "Click 'Insert Watermark' to prepare it for positioning"}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Zoom Controls */}
+                          <div
+                            className={`flex items-center gap-2 ${
+                              isMobile ? "flex-wrap" : ""
+                            }`}
+                          >
+                            <span className="text-sm text-gray-600">Zoom:</span>
+                            <div className="flex items-center gap-1">
+                              <Button
+                                onClick={() =>
+                                  setZoomLevel(Math.max(0.5, zoomLevel - 0.25))
+                                }
+                                variant="outline"
+                                size="sm"
+                                disabled={zoomLevel <= 0.5}
+                                className="px-2 py-1 min-w-[32px]"
+                              >
+                                -
+                              </Button>
+                              <span className="text-sm text-gray-700 min-w-[3rem] text-center">
+                                {Math.round(zoomLevel * 100)}%
+                              </span>
+                              <Button
+                                onClick={() =>
+                                  setZoomLevel(Math.min(2, zoomLevel + 0.25))
+                                }
+                                variant="outline"
+                                size="sm"
+                                disabled={zoomLevel >= 2}
+                                className="px-2 py-1 min-w-[32px]"
+                              >
+                                +
+                              </Button>
+                            </div>
+                            <Button
+                              onClick={() => setZoomLevel(1)}
+                              variant="secondary"
+                              size="sm"
+                              className="px-2 py-1"
+                            >
+                              Reset
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                  {/* Multi-Page PDF Preview for Watermark Positioning */}
+                  {!showWatermarkedPdfViewer &&
+                    (watermarkText || watermarkImageData) && (
+                      <div className="bg-gray-900/50 rounded-lg p-6">
+                        <h3 className="text-gray-300 text-lg font-medium mb-4">
+                          Select Page & Position Your Watermark
+                        </h3>
+
+                        <div className="space-y-4">
+                          {/* Page Selection Info */}
+                          <div className="bg-blue-900/30 border border-blue-500/30 rounded-lg p-4">
+                            <div className="flex items-center gap-2 text-blue-300">
+                              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                              <span className="text-sm font-medium">
+                                {applyToAllPages
+                                  ? "All Pages Selected"
+                                  : `Selected Page: ${pageNumber}`}
+                              </span>
+                            </div>
+                            <p className="text-blue-200 text-xs mt-1">
+                              {applyToAllPages
+                                ? "Watermark will be applied to all pages in the PDF"
+                                : "Click on any page header in the preview below to select it for watermark placement"}
+                            </p>
+                          </div>
+
+                          {/* Full PDF Preview */}
+                          <div className="bg-white rounded-lg overflow-hidden">
+                            <div className="bg-gray-50 border-b border-gray-200 px-4 py-2">
+                              <h4 className="text-gray-700 text-sm font-medium">
+                                PDF Preview - All Pages
+                              </h4>
+                            </div>
+
+                            <div className="relative">
+                              {/* Zoomed PDF Container */}
+                              <div
+                                className="relative"
+                                style={{
+                                  height: isMobile ? "300px" : "600px",
+                                  overflow: "auto",
+                                  transform: `scale(${zoomLevel})`,
+                                  transformOrigin: "top left",
+                                  width: `${100 / zoomLevel}%`,
+                                }}
+                              >
+                                {uploadedFile && (
+                                  <iframe
+                                    src={`http://localhost:5000/convert_signature/${encodeURIComponent(
+                                      uploadedFile.name
+                                    )}`}
+                                    className="w-full h-full border-0"
+                                    title="Multi-Page PDF Viewer"
+                                    style={{
+                                      pointerEvents: "auto",
+                                      backgroundColor: "white",
+                                    }}
+                                    sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-top-navigation"
+                                    onLoad={() => {
+                                      console.log(
+                                        "Multi-page PDF iframe loaded successfully"
+                                      );
+
+                                      // Listen for page selection messages from iframe
+                                      window.addEventListener(
+                                        "message",
+                                        (event) => {
+                                          if (
+                                            event.data.type === "pageSelected"
+                                          ) {
+                                            const page = parseInt(
+                                              event.data.page
+                                            );
+                                            if (!isNaN(page) && page > 0) {
+                                              setPageNumber(page);
+                                              console.log(
+                                                "Page selected:",
+                                                page
+                                              );
+                                            }
+                                          }
+                                        }
+                                      );
+                                    }}
+                                    onError={(e) =>
+                                      console.error(
+                                        "Multi-page PDF iframe failed to load:",
+                                        e
+                                      )
+                                    }
+                                  />
+                                )}
+                              </div>
+
+                              {/* Watermark Overlay - Outside zoomed container */}
+                              {watermarkOverlay.visible &&
+                                (watermarkText || watermarkImageData) && (
+                                  <div
+                                    className={`absolute border-2 bg-blue-50/20 select-none z-50 transition-none ${
+                                      isDragging
+                                        ? "border-blue-400 cursor-grabbing shadow-lg"
+                                        : isResizing
+                                        ? "border-blue-400 shadow-lg"
+                                        : "border-blue-500 cursor-move"
+                                    }`}
+                                    style={{
+                                      left: `${
+                                        watermarkOverlay.x * zoomLevel
+                                      }px`,
+                                      top: `${
+                                        watermarkOverlay.y * zoomLevel
+                                      }px`,
+                                      width: `${
+                                        watermarkOverlay.width * zoomLevel
+                                      }px`,
+                                      height: `${
+                                        watermarkOverlay.height * zoomLevel
+                                      }px`,
+                                      willChange: "transform",
+                                      transform: "translateZ(0)",
+                                      backfaceVisibility: "hidden",
+                                      WebkitBackfaceVisibility: "hidden",
+                                    }}
+                                    onMouseDown={(e) => {
+                                      if (e.target === e.currentTarget) {
+                                        e.preventDefault();
+                                        setIsDragging(true);
+                                        setDragStart({
+                                          x: e.clientX,
+                                          y: e.clientY,
+                                          startX: watermarkOverlay.x,
+                                          startY: watermarkOverlay.y,
+                                        });
+                                      }
+                                    }}
+                                    onTouchStart={(e) => {
+                                      if (e.target === e.currentTarget) {
+                                        e.preventDefault();
+                                        const touch = e.touches[0];
+                                        setIsDragging(true);
+                                        setDragStart({
+                                          x: touch.clientX,
+                                          y: touch.clientY,
+                                          startX: watermarkOverlay.x,
+                                          startY: watermarkOverlay.y,
+                                        });
+                                      }
+                                    }}
+                                  >
+                                    {watermarkType === "text" ? (
+                                      <div
+                                        className="w-full h-full flex items-center justify-center text-gray-600 font-medium pointer-events-none"
+                                        style={{
+                                          transform: `rotate(${watermarkRotation}deg)`,
+                                          opacity: watermarkOpacity,
+                                        }}
+                                      >
+                                        {watermarkText}
+                                      </div>
+                                    ) : (
+                                      <img
+                                        src={watermarkImageData}
+                                        alt="Watermark Preview"
+                                        className="w-full h-full object-contain pointer-events-none"
+                                        style={{
+                                          transform: `rotate(${watermarkRotation}deg)`,
+                                          opacity: watermarkOpacity,
+                                        }}
+                                      />
+                                    )}
+
+                                    {/* Resize handles */}
+                                    <div
+                                      className="absolute -bottom-1 -right-1 w-3 h-3 bg-blue-500 cursor-se-resize"
+                                      onMouseDown={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        setIsResizing(true);
+                                        setResizeStart({
+                                          x: e.clientX,
+                                          y: e.clientY,
+                                          startWidth: watermarkOverlay.width,
+                                          startHeight: watermarkOverlay.height,
+                                        });
+                                      }}
+                                      onTouchStart={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        const touch = e.touches[0];
+                                        setIsResizing(true);
+                                        setResizeStart({
+                                          x: touch.clientX,
+                                          y: touch.clientY,
+                                          startWidth: watermarkOverlay.width,
+                                          startHeight: watermarkOverlay.height,
+                                        });
+                                      }}
+                                    />
+                                  </div>
+                                )}
+
+                              {/* Fallback message if iframe content is not visible */}
+                              <div className="absolute top-4 left-4 bg-yellow-100 border border-yellow-400 text-yellow-700 px-3 py-2 rounded text-sm">
+                                <p className="font-medium">
+                                  PDF Preview Loading...
+                                </p>
+                                <p className="text-xs">
+                                  If you don't see the PDF pages, try refreshing
+                                  the page.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                  {/* Results */}
+                  {result && (
+                    <div className="bg-gray-900/50 rounded-lg p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div>
+                          <p
+                            className={`text-sm ${
+                              result.type === "success"
+                                ? "text-green-400"
+                                : "text-red-400"
+                            }`}
+                          >
+                            {result.message}
+                          </p>
+                          {result.data && (
+                            <p className="text-gray-500 text-xs mt-1">
+                              File: {result.data.watermarked_filename}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {result.data && (
+                        <div className="space-y-4">
+                          {/* Inline PDF Viewer */}
+                          {showWatermarkedPdfViewer && watermarkedPdfUrl && (
+                            <div className="bg-white rounded-lg overflow-hidden">
+                              <div className="flex items-center justify-between p-3 bg-gray-100">
+                                <span className="text-sm font-medium text-gray-700">
+                                  Watermarked PDF Preview
+                                </span>
+                                <button
+                                  onClick={() =>
+                                    setShowWatermarkedPdfViewer(false)
+                                  }
+                                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition-colors"
+                                >
+                                  Close
+                                </button>
+                              </div>
+                              <iframe
+                                src={watermarkedPdfUrl}
+                                className="w-full h-96"
+                                title="Watermarked PDF Viewer"
                               />
                             </div>
                           )}
