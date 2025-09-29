@@ -3,9 +3,9 @@ import "./globals.css";
 import LayoutClient from "@/components/layout/LayoutClient";
 
 export const metadata: Metadata = {
-  title: "All-in-One Converts",
+  title: "Trevnoctilla - Complete PDF Toolkit",
   description:
-    "Transform your media files with our intelligent conversion system",
+    "Transform, edit, and optimize your PDFs with professional-grade tools in a sleek, modern interface.",
 };
 
 export default function RootLayout({

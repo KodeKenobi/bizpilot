@@ -3,7 +3,7 @@
 import { useNavigation } from "@/contexts/NavigationContext";
 import LandingPage from "@/components/pages/LandingPage";
 import ToolsPage from "@/components/pages/ToolsPage";
-import PDFTools from "@/components/pages/PDFTools";
+import PDFTools from "@/components/pages/tools/pdf-tools/PDFTools";
 import PDFEditor from "@/components/pages/PDFEditor";
 
 export default function Home() {

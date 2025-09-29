@@ -1,6 +1,6 @@
-# All-in-One Converts - PDF Processing Web Application
+# Trevnoctilla - Complete PDF Toolkit
 
-A modern PDF processing web application built with Next.js 15, TypeScript, and Tailwind CSS, featuring advanced PDF to HTML conversion with click-to-edit functionality.
+A powerful, all-in-one PDF management platform built with Next.js and Python Flask. Transform, edit, and optimize your PDFs with professional-grade tools in a sleek, modern interface.
 
 ## Features
 

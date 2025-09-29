@@ -16,6 +16,8 @@ import {
   Check,
 } from "lucide-react";
 import { useNavigation } from "@/contexts/NavigationContext";
+import { useMonetization } from "../../hooks/useMonetization";
+import MonetizationModal from "../ui/MonetizationModal";
 
 const tools = [
   { id: "select", label: "Select", icon: MousePointer },
@@ -27,6 +29,13 @@ const tools = [
 
 export default function PDFEditor() {
   const { navigateTo } = useNavigation();
+  const {
+    monetizationState,
+    openMonetizationModal,
+    closeMonetizationModal,
+    handleAdComplete,
+    handlePaymentComplete,
+  } = useMonetization();
   const [selectedTool, setSelectedTool] = useState("select");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(3);
@@ -310,9 +319,18 @@ export default function PDFEditor() {
                   </button>
                 </div>
                 <div className="flex space-x-2">
-                  <button className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
+                  <button
+                    onClick={() => {
+                      openMonetizationModal(
+                        "edited_document.pdf",
+                        "PDF",
+                        "http://localhost:5000/download_edited/edited_document.pdf"
+                      );
+                    }}
+                    className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-white px-4 py-2 rounded-lg hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-200 flex items-center space-x-2"
+                  >
                     <Download className="w-4 h-4" />
-                    <span>Download</span>
+                    <span>If you like the conversion, download</span>
                   </button>
                 </div>
               </div>
@@ -376,8 +394,17 @@ export default function PDFEditor() {
                     Close
                   </button>
                   {resultType === "success" && (
-                    <button className="flex-1 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors">
-                      Download
+                    <button
+                      onClick={() => {
+                        openMonetizationModal(
+                          "edited_document.pdf",
+                          "PDF",
+                          "http://localhost:5000/download_edited/edited_document.pdf"
+                        );
+                      }}
+                      className="flex-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-white px-4 py-2 rounded-lg hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-200"
+                    >
+                      If you like the conversion, download
                     </button>
                   )}
                 </div>
@@ -385,6 +412,16 @@ export default function PDFEditor() {
             </motion.div>
           </motion.div>
         )}
+
+        {/* Monetization Modal */}
+        <MonetizationModal
+          isOpen={monetizationState.isModalOpen}
+          onClose={closeMonetizationModal}
+          onAdComplete={handleAdComplete}
+          onPaymentComplete={handlePaymentComplete}
+          fileName={monetizationState.fileName}
+          fileType={monetizationState.fileType}
+        />
       </div>
     </div>
   );

@@ -49,7 +49,7 @@ export default function UniversalHeader() {
           }}
           className="text-xl font-bold text-white hover:text-purple-400 transition-colors"
         >
-          ConvertHub
+          Trevnoctilla
         </button>
       </div>
 

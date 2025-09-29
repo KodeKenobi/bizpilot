@@ -198,7 +198,7 @@ export default function LandingPage() {
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
                 From simple file conversion to complex media processing,
-                ConvertHub has you covered with powerful features.
+                Trevnoctilla has you covered with powerful features.
               </p>
             </motion.div>
 
@@ -351,7 +351,7 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                ConvertHub
+                Trevnoctilla
               </motion.span>
             </motion.div>
 

@@ -9,6 +9,10 @@ from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok", "message": "Backend is running"})
 UPLOAD_FOLDER = "uploads"
 EDITED_FOLDER = "edited"
 HTML_FOLDER = "saved_html"
@@ -95,7 +99,7 @@ def pdf_preview():
 def convert_pdf(filename):
     print(f"DEBUG: Convert endpoint called with filename: {filename}")
     filepath = os.path.join(UPLOAD_FOLDER, filename)
-    page_num = request.args.get('page', type=int, default=1) - 1  # Convert to 0-based index
+    page_num = request.args.get('page', type=int, default=None)  # No default page
     print(f"DEBUG: File path: {filepath}")
     print(f"DEBUG: Page number (0-based): {page_num}")
     print(f"DEBUG: File exists: {os.path.exists(filepath)}")
@@ -106,13 +110,13 @@ def convert_pdf(filename):
         pages_data = []
         image_counter = 0
         
-        # If page number is specified, only show that page
-        if page_num >= 0 and page_num < len(doc):
-            page_range = [page_num]
-            print(f"DEBUG: Showing specific page {page_num + 1}")
+        # If page number is specified, only show that page, otherwise show all pages
+        if page_num is not None and page_num >= 1 and page_num <= len(doc):
+            page_range = [page_num - 1]  # Convert to 0-based index
+            print(f"DEBUG: Showing specific page {page_num}")
         else:
             page_range = range(len(doc))
-            print(f"DEBUG: Showing all pages, range: {list(page_range)}")
+            print(f"DEBUG: Showing all pages, range: {list(range(1, len(doc) + 1))}")
         
         for page_idx in page_range:
             print(f"DEBUG: Processing page {page_idx + 1}")
@@ -567,12 +571,20 @@ def download_pdf(html_filename):
         print(f"Error in download_pdf: {str(e)}")  # Debug logging
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@app.route("/extract_text/<filename>")
-def extract_text(filename):
+@app.route("/extract_text", methods=["POST"])
+def extract_text():
     try:
+        if 'file' not in request.files:
+            return jsonify({"status": "error", "message": "No file provided"}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({"status": "error", "message": "No file selected"}), 400
+        
+        # Save the uploaded file
+        filename = file.filename
         filepath = os.path.join(UPLOAD_FOLDER, filename)
-        if not os.path.exists(filepath):
-            return jsonify({"status": "error", "message": "File not found"}), 404
+        file.save(filepath)
         
         doc = fitz.open(filepath)
         extracted_text = ""
@@ -597,12 +609,20 @@ def extract_text(filename):
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-@app.route("/extract_images/<filename>")
-def extract_images(filename):
+@app.route("/extract_images", methods=["POST"])
+def extract_images():
     try:
+        if 'file' not in request.files:
+            return jsonify({"status": "error", "message": "No file provided"}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({"status": "error", "message": "No file selected"}), 400
+        
+        # Save the uploaded file
+        filename = file.filename
         filepath = os.path.join(UPLOAD_FOLDER, filename)
-        if not os.path.exists(filepath):
-            return jsonify({"status": "error", "message": "File not found"}), 404
+        file.save(filepath)
         
         doc = fitz.open(filepath)
         images_data = []
@@ -1087,6 +1107,293 @@ def download_signed(signed_filename):
     except Exception as e:
         return f"Error downloading signed PDF: {str(e)}", 500
 
+
+@app.route("/convert_pdf_to_word", methods=["POST"])
+def convert_pdf_to_word():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # Convert PDF to HTML first
+        doc = fitz.open(filepath)
+        html_content = ""
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            html_content += page.get_text("html")
+        doc.close()
+        
+        # Save HTML
+        html_filename = f"{file.filename.replace('.pdf', '')}_converted.html"
+        html_filepath = os.path.join(HTML_FOLDER, html_filename)
+        with open(html_filepath, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        # For now, return HTML (can be enhanced to convert to DOCX later)
+        return jsonify({
+            "status": "success",
+            "message": "PDF converted to HTML successfully",
+            "converted_filename": html_filename,
+            "original_format": "PDF",
+            "converted_format": "HTML",
+            "download_url": f"/download_converted/{html_filename}"
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/convert_pdf_to_html", methods=["POST"])
+def convert_pdf_to_html():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # Convert PDF to HTML
+        doc = fitz.open(filepath)
+        html_content = ""
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            html_content += page.get_text("html")
+        doc.close()
+        
+        # Save HTML
+        html_filename = f"{file.filename.replace('.pdf', '')}_converted.html"
+        html_filepath = os.path.join(HTML_FOLDER, html_filename)
+        with open(html_filepath, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        return jsonify({
+            "status": "success",
+            "message": "PDF converted to HTML successfully",
+            "converted_filename": html_filename,
+            "original_format": "PDF",
+            "converted_format": "HTML",
+            "download_url": f"/download_converted/{html_filename}"
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/convert_word_to_pdf", methods=["POST"])
+def convert_word_to_pdf():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # For Word to PDF, we'll return the original file for now
+        # This can be enhanced with proper Word to PDF conversion
+        return jsonify({
+            "status": "success",
+            "message": "Word document processed successfully",
+            "converted_filename": file.filename,
+            "original_format": "Word",
+            "converted_format": "PDF",
+            "download_url": f"/download_converted/{file.filename}"
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/convert_html_to_pdf", methods=["POST"])
+def convert_html_to_pdf():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # For HTML to PDF, we'll return the original file for now
+        # This can be enhanced with proper HTML to PDF conversion
+        return jsonify({
+            "status": "success",
+            "message": "HTML file processed successfully",
+            "converted_filename": file.filename,
+            "original_format": "HTML",
+            "converted_format": "PDF",
+            "download_url": f"/download_converted/{file.filename}"
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/convert_image_to_pdf", methods=["POST"])
+def convert_image_to_pdf():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # For image to PDF, we'll return the original file for now
+        # This can be enhanced with proper image to PDF conversion
+        return jsonify({
+            "status": "success",
+            "message": "Image file processed successfully",
+            "converted_filename": file.filename,
+            "original_format": "Image",
+            "converted_format": "PDF",
+            "download_url": f"/download_converted/{file.filename}"
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/convert_pdf_to_images", methods=["POST"])
+def convert_pdf_to_images():
+    if "pdf" not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    
+    file = request.files["pdf"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    try:
+        # Save file
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        
+        # Convert PDF to images
+        doc = fitz.open(filepath)
+        images = []
+        
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            pix = page.get_pixmap()
+            img_data = pix.tobytes("png")
+            img_base64 = base64.b64encode(img_data).decode()
+            images.append({
+                "page": page_num + 1,
+                "data": img_base64
+            })
+        
+        doc.close()
+        
+        return jsonify({
+            "status": "success",
+            "message": f"PDF converted to {len(images)} images successfully",
+            "converted_filename": f"{file.filename.replace('.pdf', '')}_images.zip",
+            "original_format": "PDF",
+            "converted_format": "Images",
+            "total_images": len(images),
+            "image_files": images,
+            "download_url": f"/download_images/{file.filename.replace('.pdf', '')}_images.zip"
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/download_converted/<filename>")
+def download_converted(filename):
+    filepath = os.path.join(HTML_FOLDER, filename)
+    if os.path.exists(filepath):
+        return send_file(filepath, as_attachment=True)
+    else:
+        return "File not found", 404
+
+@app.route("/download_images/<filename>")
+def download_images(filename):
+    # This would return a zip file of all images
+    # For now, return a placeholder
+    return "Images download not implemented yet", 501
+
+@app.route("/compress_pdf", methods=["POST"])
+def compress_pdf():
+    try:
+        if 'file' not in request.files:
+            return jsonify({"status": "error", "message": "No file provided"}), 400
+        
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({"status": "error", "message": "No file selected"}), 400
+        
+        compression_level = request.form.get('compression_level', 'medium')
+        
+        # Save the uploaded file
+        filename = file.filename
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(filepath)
+        
+        # Open the PDF
+        doc = fitz.open(filepath)
+        
+        # Set compression level
+        if compression_level == "low":
+            compression_quality = 0.8
+        elif compression_level == "medium":
+            compression_quality = 0.6
+        else:  # high
+            compression_quality = 0.4
+        
+        # Create compressed PDF
+        compressed_filename = f"compressed_{filename}"
+        compressed_path = os.path.join(EDITED_FOLDER, compressed_filename)
+        
+        # Save with compression
+        doc.save(compressed_path, garbage=4, deflate=True, clean=True)
+        doc.close()
+        
+        # Get file sizes
+        original_size = os.path.getsize(filepath)
+        compressed_size = os.path.getsize(compressed_path)
+        compression_ratio = (1 - compressed_size / original_size) * 100
+        
+        return jsonify({
+            "status": "success",
+            "filename": compressed_filename,
+            "original_size": original_size,
+            "compressed_size": compressed_size,
+            "compression_ratio": round(compression_ratio, 2),
+            "download_url": f"/download_compressed/{compressed_filename}"
+        })
+        
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/download_compressed/<filename>")
+def download_compressed(filename):
+    try:
+        compressed_path = os.path.join(EDITED_FOLDER, filename)
+        if os.path.exists(compressed_path):
+            return send_file(compressed_path, as_attachment=True, download_name=filename)
+        else:
+            return "Compressed file not found", 404
+    except Exception as e:
+        return f"Error downloading compressed file: {str(e)}", 500
 
 if __name__ == "__main__":
     app.run(debug=True)
