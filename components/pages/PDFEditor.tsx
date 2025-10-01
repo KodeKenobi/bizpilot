@@ -88,7 +88,7 @@ export default function PDFEditor() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-24">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 page-content">
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <motion.div

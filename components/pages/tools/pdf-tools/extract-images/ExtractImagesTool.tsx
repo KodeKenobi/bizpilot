@@ -99,59 +99,96 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
                 <p className="text-gray-400 text-sm">
                   Found {result.data.total_images || 0} images
                 </p>
-                <div className="flex items-center gap-3">
-                  <span className="text-gray-500 text-sm">Download:</span>
-                  <button
-                    onClick={() => setShowImageModal(true)}
-                    className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 text-white py-2 px-4 rounded-lg hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-200 text-sm font-medium group"
+                <button
+                  onClick={downloadAllImages}
+                  className="bg-gradient-to-r from-green-500 to-emerald-500 text-white py-2 px-4 rounded-lg font-medium hover:from-green-600 hover:to-emerald-600 transition-all duration-200 text-sm flex items-center gap-2"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    <span className="font-medium">View</span>
-                    <svg
-                      className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
+                  </svg>
+                  Download All Images
+                </button>
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-96 overflow-y-auto">
                 {result.data.images?.map((img: any, index: number) => (
                   <div
                     key={index}
-                    className="bg-gray-900/50 rounded-lg p-3 group hover:bg-gray-900/70 transition-colors"
+                    className="bg-gray-900/50 rounded-lg p-3 hover:bg-gray-900/70 transition-colors"
                   >
-                    <div className="relative">
+                    <div className="relative group/image">
                       <img
                         src={`data:image/png;base64,${img.data}`}
                         alt={`Image ${img.image_index} from page ${img.page}`}
                         className="w-full h-32 object-contain bg-white rounded cursor-pointer"
                         onClick={() => openImageModal(img, index)}
                       />
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover/image:bg-opacity-30 transition-all rounded flex items-center justify-center">
                         <button
                           onClick={() => openImageModal(img, index)}
-                          className="opacity-0 group-hover:opacity-100 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 text-white px-2 py-1 rounded text-xs hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-200"
+                          className="opacity-0 group-hover/image:opacity-100 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 flex items-center gap-1"
                         >
+                          <svg
+                            className="w-3 h-3"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                            />
+                          </svg>
                           View
                         </button>
                       </div>
                     </div>
-                    <div className="mt-2 space-y-1">
-                      <p className="text-gray-400 text-xs">
-                        Page {img.page}, Image {img.image_index}
-                      </p>
-                      <p className="text-gray-500 text-xs">
-                        {img.width} × {img.height}px
-                      </p>
+                    <div className="mt-2 space-y-2">
+                      <div className="space-y-1">
+                        <p className="text-gray-400 text-xs">
+                          Page {img.page}, Image {img.image_index}
+                        </p>
+                        <p className="text-gray-500 text-xs">
+                          {img.width} × {img.height}px
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => downloadSingleImage(img, index)}
+                        className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-1.5 px-3 rounded-lg text-xs font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 flex items-center justify-center gap-1"
+                      >
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                          />
+                        </svg>
+                        Download
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -187,11 +224,10 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
                     onClick={() =>
                       downloadSingleImage(selectedImage, selectedImage.index)
                     }
-                    className="flex items-center text-cyan-400 hover:text-cyan-300 group"
+                    className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 text-sm flex items-center gap-2"
                   >
-                    <span className="font-medium">Try it now</span>
                     <svg
-                      className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                      className="w-4 h-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -200,13 +236,14 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M9 5l7 7-7 7"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                       />
                     </svg>
+                    Download Image
                   </button>
                   <button
                     onClick={() => setShowImageModal(false)}
-                    className="text-gray-400 hover:text-white"
+                    className="text-gray-400 hover:text-white transition-colors"
                   >
                     <svg
                       className="w-6 h-6"

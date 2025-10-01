@@ -96,31 +96,8 @@ export default function PDFTools() {
     data?: any;
   } | null>(null);
   const [showNotification, setShowNotification] = useState(false);
-  const [backendStatus, setBackendStatus] = useState<
-    "checking" | "online" | "offline"
-  >("checking");
   const [showEditor, setShowEditor] = useState(false);
   const [editorUrl, setEditorUrl] = useState<string>("");
-
-  // Check backend status
-  useEffect(() => {
-    const checkBackend = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/health");
-        if (response.ok) {
-          setBackendStatus("online");
-        } else {
-          setBackendStatus("offline");
-        }
-      } catch (error) {
-        setBackendStatus("offline");
-      }
-    };
-
-    checkBackend();
-    const interval = setInterval(checkBackend, 30000); // Check every 30 seconds
-    return () => clearInterval(interval);
-  }, []);
 
   // Reset state when tab changes
   useEffect(() => {
@@ -298,7 +275,7 @@ export default function PDFTools() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 page-content">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
@@ -308,75 +285,22 @@ export default function PDFTools() {
           </p>
         </div>
 
-        {/* Backend Status */}
+        {/* Compact Tool Selection */}
         <div className="mb-6">
-          <div className="flex items-center justify-center gap-2">
-            <div
-              className={`w-3 h-3 rounded-full ${
-                backendStatus === "online"
-                  ? "bg-green-500"
-                  : backendStatus === "offline"
-                  ? "bg-red-500"
-                  : "bg-yellow-500"
-              }`}
-            />
-            <span className="text-gray-400 text-sm">
-              Backend:{" "}
-              {backendStatus === "checking" ? "Checking..." : backendStatus}
-            </span>
-          </div>
-        </div>
-
-        {/* Tool Selection */}
-        <div className="mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="flex flex-wrap gap-1 justify-center">
             {tabs.map((tool) => (
               <motion.button
                 key={tool.id}
                 onClick={() => setActiveTab(tool.id)}
-                className={`p-3 rounded-lg text-left transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                   activeTab === tool.id
-                    ? "bg-cyan-500/20 border border-cyan-500/30 text-cyan-300"
-                    : "bg-gray-800/50 border border-gray-700/50 text-gray-300 hover:bg-gray-700/50"
+                    ? "bg-cyan-500 text-white shadow-md"
+                    : "bg-gray-700/50 text-gray-300 hover:bg-gray-600/50 hover:text-white"
                 }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <div className="flex items-center gap-2 mb-1">
-                  <div
-                    className={`w-2 h-2 rounded-full ${
-                      activeTab === tool.id ? "bg-cyan-400" : "bg-gray-500"
-                    }`}
-                  />
-                  <span className="text-sm font-medium">{tool.label}</span>
-                </div>
-                <p className="text-xs text-gray-400">
-                  {tool.id === "extract-text" &&
-                    "Upload PDF → Get text in multiple formats"}
-                  {tool.id === "extract-images" &&
-                    "Upload PDF → Download all images"}
-                  {tool.id === "edit-pdf" &&
-                    "Upload PDF → Edit content and layout"}
-                  {tool.id === "edit-fill-sign" &&
-                    "Upload PDF → Edit text, fill forms, and add signatures"}
-                  {tool.id === "add-signature" &&
-                    "Upload PDF → Add digital signature"}
-                  {tool.id === "add-watermark" &&
-                    "Upload PDF → Add text/image watermark"}
-                  {tool.id === "split-pdf" &&
-                    "Upload PDF → Get individual pages"}
-                  {tool.id === "merge-pdfs" &&
-                    "Upload PDFs → Get merged document"}
-                  {tool.id === "pdf-to-word" &&
-                    "Upload PDF → Get Word Document"}
-                  {tool.id === "pdf-to-html" && "Upload PDF → Get HTML File"}
-                  {tool.id === "pdf-to-images" &&
-                    "Upload PDF → Get Image Files"}
-                  {tool.id === "word-to-pdf" && "Upload Word → Get PDF"}
-                  {tool.id === "html-to-pdf" && "Upload HTML → Get PDF"}
-                  {tool.id === "image-to-pdf" && "Upload Image → Get PDF"}
-                  {tool.id === "compress" && "Upload PDF → Get compressed file"}
-                </p>
+                {tool.label}
               </motion.button>
             ))}
           </div>

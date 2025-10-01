@@ -75,6 +75,23 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     SignatureElement[]
   >([]);
   const [imageElements, setImageElements] = useState<ImageElement[]>([]);
+
+  // Debug state changes (only log when count changes)
+  React.useEffect(() => {
+    console.log("Text elements updated:", textElements.length, textElements);
+  }, [textElements.length]);
+
+  React.useEffect(() => {
+    console.log(
+      "Signature elements updated:",
+      signatureElements.length,
+      signatureElements
+    );
+  }, [signatureElements.length]);
+
+  React.useEffect(() => {
+    console.log("Image elements updated:", imageElements.length, imageElements);
+  }, [imageElements.length]);
   const [editingSignatureId, setEditingSignatureId] = useState<string | null>(
     null
   );
@@ -109,6 +126,25 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     minHeight: 400,
     maxHeight: 1200,
   });
+
+  // Check backend health on component mount
+  React.useEffect(() => {
+    const checkBackendHealth = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/health");
+        const result = await response.json();
+        console.log("Backend health check:", result);
+      } catch (error) {
+        console.error("Backend not running:", error);
+        alertModal.showError(
+          "Backend Not Running",
+          "Please start the Flask backend server by running 'py app.py' in your terminal"
+        );
+      }
+    };
+
+    checkBackendHealth();
+  }, []);
 
   // Auto-process document when file is uploaded
   React.useEffect(() => {
@@ -189,6 +225,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         width: 200,
         height: 50,
       };
+      console.log("Adding text element:", newElement);
       setTextElements([...textElements, newElement]);
       setNewText("");
       setActiveTool(null);
@@ -202,6 +239,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         width: 200,
         height: 100,
       };
+      console.log("Adding signature element:", newElement);
       setSignatureElements([...signatureElements, newElement]);
       setActiveTool(null);
       setEditingSignatureId(newElement.id);
@@ -215,6 +253,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         width: 200,
         height: 150,
       };
+      console.log("Adding image element:", newElement);
       setImageElements([...imageElements, newElement]);
       setActiveTool(null);
     }
@@ -366,6 +405,94 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
+    }
+  };
+
+  const handleSaveChanges = async () => {
+    if (!uploadedFile) {
+      alertModal.showError("No File", "Please upload a PDF file first");
+      return;
+    }
+
+    if (
+      textElements.length === 0 &&
+      signatureElements.length === 0 &&
+      imageElements.length === 0
+    ) {
+      alertModal.showError("No Changes", "No changes to save");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      console.log("Starting save process...");
+      console.log("Text elements:", textElements.length);
+      console.log("Signature elements:", signatureElements.length);
+      console.log("Image elements:", imageElements.length);
+
+      const formData = new FormData();
+      formData.append("pdf", uploadedFile);
+
+      const elementsData = {
+        textElements,
+        signatureElements,
+        imageElements,
+        totalPages,
+      };
+
+      formData.append("elements", JSON.stringify(elementsData));
+
+      console.log(
+        "Sending request to:",
+        `http://localhost:5000/save_edit_fill_sign/${uploadedFile.name}`
+      );
+
+      const response = await fetch(
+        `http://localhost:5000/save_edit_fill_sign/${uploadedFile.name}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      console.log("Response status:", response.status);
+      console.log("Response ok:", response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Server error:", errorText);
+        alertModal.showError(
+          "Server Error",
+          `Server returned: ${response.status} - ${errorText}`
+        );
+        return;
+      }
+
+      const result = await response.json();
+      console.log("Server response:", result);
+
+      if (result.status === "success") {
+        setResult({
+          type: "success",
+          message: "Changes saved successfully",
+          data: {
+            download_url: result.download_url,
+            filename: result.filename,
+          },
+        });
+        console.log("Save successful! Download URL:", result.download_url);
+      } else {
+        alertModal.showError(
+          "Error",
+          result.message || "Failed to save changes"
+        );
+      }
+    } catch (error) {
+      console.error("Error saving changes:", error);
+      alertModal.showError("Error", `Failed to save changes: ${error.message}`);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -544,11 +671,36 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
               </div>
             )}
 
-            {/* Status */}
-            <div className="text-gray-400 text-sm">
-              {activeTool
-                ? `Click on PDF to place ${activeTool}`
-                : "Select a tool to start"}
+            {/* Status and Save Button */}
+            <div className="flex items-center space-x-4">
+              <div className="text-gray-400 text-sm">
+                {activeTool
+                  ? `Click on PDF to place ${activeTool}`
+                  : "Select a tool to start"}
+              </div>
+              <div className="text-gray-300 text-xs">
+                Elements:{" "}
+                {textElements.length +
+                  signatureElements.length +
+                  imageElements.length}
+                {textElements.length > 0 && ` (${textElements.length} text)`}
+                {signatureElements.length > 0 &&
+                  ` (${signatureElements.length} signatures)`}
+                {imageElements.length > 0 &&
+                  ` (${imageElements.length} images)`}
+              </div>
+              <button
+                onClick={handleSaveChanges}
+                disabled={
+                  isProcessing ||
+                  (textElements.length === 0 &&
+                    signatureElements.length === 0 &&
+                    imageElements.length === 0)
+                }
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
+              >
+                {isProcessing ? "Saving..." : "Save Changes"}
+              </button>
             </div>
           </div>
         </div>
@@ -717,38 +869,66 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         <div className="mt-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b border-white/10">
             <h3 className="text-white font-semibold text-lg">
-              Document Processed Successfully!
+              {result.data.download_url
+                ? "Changes Saved Successfully!"
+                : "Document Processed Successfully!"}
             </h3>
-            <button
-              onClick={() =>
-                openMonetizationModal(
-                  `${uploadedFile?.name.replace(".pdf", "")}_processed.pdf`,
-                  "PDF",
-                  result.data.editor_url
-                )
-              }
-              className="flex items-center text-cyan-400 hover:text-cyan-300 group"
-            >
-              <span className="font-medium">Try it now</span>
-              <svg
-                className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            {result.data.download_url ? (
+              <a
+                href={`http://localhost:5000${result.data.download_url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center text-cyan-400 hover:text-cyan-300 group"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
+                <span className="font-medium">Download PDF</span>
+                <svg
+                  className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              </a>
+            ) : (
+              <button
+                onClick={() =>
+                  openMonetizationModal(
+                    `${uploadedFile?.name.replace(".pdf", "")}_processed.pdf`,
+                    "PDF",
+                    result.data.editor_url
+                  )
+                }
+                className="flex items-center text-cyan-400 hover:text-cyan-300 group"
+              >
+                <span className="font-medium">Try it now</span>
+                <svg
+                  className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            )}
           </div>
           <div className="p-6">
             <div className="text-center">
               <p className="text-gray-400 text-sm mb-4">
-                Your PDF has been processed and is ready for download
+                {result.data.download_url
+                  ? "Your PDF with inserted text, images, and signatures is ready for download"
+                  : "Your PDF has been processed and is ready for download"}
               </p>
             </div>
           </div>

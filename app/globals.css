@@ -10,6 +10,10 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  .page-content {
+    padding-top: 5rem; /* 80px - accounts for fixed header */
+  }
 }
 
 @theme inline {
@@ -22,8 +26,6 @@
 body.scrolling {
   overflow: hidden;
 }
-
-
 
 @layer base {
   :root {
@@ -80,8 +82,6 @@ body.scrolling {
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {

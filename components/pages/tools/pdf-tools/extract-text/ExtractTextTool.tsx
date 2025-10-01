@@ -121,98 +121,107 @@ export const ExtractTextTool: React.FC<ExtractTextToolProps> = ({
     <>
       {result && result.type === "success" && result.data && (
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
-          <div className="flex items-center justify-between p-4 border-b border-white/10">
-            <div className="flex items-center space-x-4">
-              <h3 className="text-white font-semibold text-lg">
-                Extracted Text
-              </h3>
+          {/* Download Format Selector - At the Top */}
+          <div className="p-4 border-b border-white/10">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-400 text-sm">
+                {result.data.page_count} pages processed
+              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-gray-500 text-sm">Download as:</span>
+                <select
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      const [format, mimeType] = e.target.value.split(",");
+                      downloadText(format, mimeType);
+                      e.target.value = ""; // Reset selection
+                    }
+                  }}
+                  className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">Choose format...</option>
+                  <option value="txt,text/plain">Text (.txt)</option>
+                  <option value="md,text/markdown">Markdown (.md)</option>
+                  <option value="json,application/json">JSON (.json)</option>
+                  <option value="csv,text/csv">CSV (.csv)</option>
+                </select>
+              </div>
             </div>
           </div>
 
           <div className="p-6">
             <div>
+              {/* Extracted Text - Non-copyable */}
               <div className="bg-gray-900/50 rounded-lg p-4 max-h-96 overflow-y-auto">
-                <pre className="text-gray-300 text-sm whitespace-pre-wrap">
+                <pre
+                  className="text-gray-300 text-sm whitespace-pre-wrap select-none"
+                  style={{
+                    userSelect: "none",
+                    WebkitUserSelect: "none",
+                    MozUserSelect: "none",
+                    msUserSelect: "none",
+                  }}
+                >
                   {result.data.text}
                 </pre>
               </div>
-              <div className="mt-4 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-400 text-sm">
-                    {result.data.page_count} pages processed
-                  </span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-500 text-sm">Download as:</span>
-                    <select
-                      onChange={(e) => {
-                        if (e.target.value) {
-                          const [format, mimeType] = e.target.value.split(",");
-                          downloadText(format, mimeType);
-                          e.target.value = ""; // Reset selection
-                        }
-                      }}
-                      className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
-                    >
-                      <option value="">Choose format...</option>
-                      <option value="txt,text/plain">Text (.txt)</option>
-                      <option value="md,text/markdown">Markdown (.md)</option>
-                      <option value="json,application/json">
-                        JSON (.json)
-                      </option>
-                      <option value="csv,text/csv">CSV (.csv)</option>
-                    </select>
-                  </div>
-                </div>
 
-                {/* Format Preview */}
-                <div className="bg-gray-900/50 rounded-lg p-4">
-                  <div className="flex gap-2 mb-3">
-                    <button
-                      onClick={() => setPreviewFormat("txt")}
-                      className={`px-3 py-1 rounded text-xs transition-colors ${
-                        previewFormat === "txt"
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                      }`}
-                    >
-                      TXT
-                    </button>
-                    <button
-                      onClick={() => setPreviewFormat("md")}
-                      className={`px-3 py-1 rounded text-xs transition-colors ${
-                        previewFormat === "md"
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                      }`}
-                    >
-                      MD
-                    </button>
-                    <button
-                      onClick={() => setPreviewFormat("json")}
-                      className={`px-3 py-1 rounded text-xs transition-colors ${
-                        previewFormat === "json"
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                      }`}
-                    >
-                      JSON
-                    </button>
-                    <button
-                      onClick={() => setPreviewFormat("csv")}
-                      className={`px-3 py-1 rounded text-xs transition-colors ${
-                        previewFormat === "csv"
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                      }`}
-                    >
-                      CSV
-                    </button>
-                  </div>
-                  <div className="bg-gray-800 rounded p-3 max-h-48 overflow-y-auto">
-                    <pre className="text-gray-300 text-xs whitespace-pre-wrap">
-                      {getPreviewContent()}
-                    </pre>
-                  </div>
+              {/* Format Preview - Non-copyable */}
+              <div className="mt-4 bg-gray-900/50 rounded-lg p-4">
+                <div className="flex gap-2 mb-3">
+                  <button
+                    onClick={() => setPreviewFormat("txt")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "txt"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    TXT
+                  </button>
+                  <button
+                    onClick={() => setPreviewFormat("md")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "md"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    MD
+                  </button>
+                  <button
+                    onClick={() => setPreviewFormat("json")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "json"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    JSON
+                  </button>
+                  <button
+                    onClick={() => setPreviewFormat("csv")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "csv"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    CSV
+                  </button>
+                </div>
+                <div className="bg-gray-800 rounded p-3 max-h-48 overflow-y-auto">
+                  <pre
+                    className="text-gray-300 text-xs whitespace-pre-wrap select-none"
+                    style={{
+                      userSelect: "none",
+                      WebkitUserSelect: "none",
+                      MozUserSelect: "none",
+                      msUserSelect: "none",
+                    }}
+                  >
+                    {getPreviewContent()}
+                  </pre>
                 </div>
               </div>
             </div>

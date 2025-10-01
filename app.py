@@ -1395,5 +1395,176 @@ def download_compressed(filename):
     except Exception as e:
         return f"Error downloading compressed file: {str(e)}", 500
 
+@app.route("/save_edit_fill_sign/<filename>", methods=["POST"])
+def save_edit_fill_sign(filename):
+    try:
+        print(f"DEBUG: Save edit fill sign endpoint called with filename: {filename}")
+        
+        if 'pdf' not in request.files:
+            return jsonify({"status": "error", "message": "No PDF file provided"}), 400
+        
+        pdf_file = request.files['pdf']
+        if pdf_file.filename == '':
+            return jsonify({"status": "error", "message": "No file selected"}), 400
+        
+        elements_data = request.form.get('elements', '{}')
+        elements = json.loads(elements_data)
+        
+        print(f"DEBUG: Elements data: {elements}")
+        
+        text_elements = elements.get('textElements', [])
+        signature_elements = elements.get('signatureElements', [])
+        image_elements = elements.get('imageElements', [])
+        total_pages = elements.get('totalPages', 1)
+        
+        print(f"DEBUG: Text elements: {len(text_elements)}, Signature elements: {len(signature_elements)}, Image elements: {len(image_elements)}")
+        
+        if not text_elements and not signature_elements and not image_elements:
+            return jsonify({"status": "error", "message": "No elements to save"}), 400
+        
+        # Save the uploaded PDF
+        original_filename = pdf_file.filename
+        safe_filename = "".join(c for c in original_filename if c.isalnum() or c in '._-')
+        if not safe_filename.endswith('.pdf'):
+            safe_filename += '.pdf'
+        pdf_path = os.path.join(UPLOAD_FOLDER, safe_filename)
+        pdf_file.save(pdf_path)
+        
+        # Open the PDF
+        doc = fitz.open(pdf_path)
+        
+        # Process text elements
+        for text_element in text_elements:
+            page_num = text_element.get('page', 1) - 1
+            if 0 <= page_num < len(doc):
+                page = doc[page_num]
+                text = text_element.get('text', '')
+                x = text_element.get('x', 0)
+                y = text_element.get('y', 0)
+                font_size = text_element.get('fontSize', 12)
+                color = text_element.get('color', '#000000')
+                
+                # Convert color to RGB
+                if color.startswith('#'):
+                    color = color[1:]
+                    r = int(color[0:2], 16) / 255.0
+                    g = int(color[2:4], 16) / 255.0
+                    b = int(color[4:6], 16) / 255.0
+                    color_rgb = (r, g, b)
+                else:
+                    color_rgb = (0, 0, 0)
+                
+                # Insert text at the specified position
+                page.insert_text((x, y), text, fontsize=font_size, color=color_rgb)
+        
+        # Process signature elements
+        for sig_element in signature_elements:
+            page_num = sig_element.get('page', 1) - 1
+            if 0 <= page_num < len(doc):
+                page = doc[page_num]
+                signature_data = sig_element.get('data', '')
+                x = sig_element.get('x', 0)
+                y = sig_element.get('y', 0)
+                width = sig_element.get('width', 200)
+                height = sig_element.get('height', 100)
+                
+                if signature_data:
+                    # Remove data URL prefix if present
+                    if signature_data.startswith('data:image'):
+                        signature_data = signature_data.split(',')[1]
+                    
+                    # Decode base64 image
+                    signature_bytes = base64.b64decode(signature_data)
+                    
+                    # Create signature rectangle
+                    signature_rect = fitz.Rect(x, y, x + width, y + height)
+                    
+                    # Create a temporary image file
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    temp_img_path = os.path.join(UPLOAD_FOLDER, f"temp_signature_{timestamp}.png")
+                    with open(temp_img_path, 'wb') as f:
+                        f.write(signature_bytes)
+                    
+                    # Insert signature image
+                    page.insert_image(signature_rect, filename=temp_img_path)
+                    
+                    # Clean up temporary file
+                    if os.path.exists(temp_img_path):
+                        os.remove(temp_img_path)
+        
+        # Process image elements
+        for img_element in image_elements:
+            page_num = img_element.get('page', 1) - 1
+            if 0 <= page_num < len(doc):
+                page = doc[page_num]
+                image_data = img_element.get('data', '')
+                x = img_element.get('x', 0)
+                y = img_element.get('y', 0)
+                width = img_element.get('width', 200)
+                height = img_element.get('height', 150)
+                
+                if image_data:
+                    # Remove data URL prefix if present
+                    if image_data.startswith('data:image'):
+                        image_data = image_data.split(',')[1]
+                    
+                    # Decode base64 image
+                    image_bytes = base64.b64decode(image_data)
+                    
+                    # Create image rectangle
+                    image_rect = fitz.Rect(x, y, x + width, y + height)
+                    
+                    # Create a temporary image file
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    temp_img_path = os.path.join(UPLOAD_FOLDER, f"temp_image_{timestamp}.png")
+                    with open(temp_img_path, 'wb') as f:
+                        f.write(image_bytes)
+                    
+                    # Insert image
+                    page.insert_image(image_rect, filename=temp_img_path)
+                    
+                    # Clean up temporary file
+                    if os.path.exists(temp_img_path):
+                        os.remove(temp_img_path)
+        
+        # Generate output filename
+        base_name = os.path.splitext(safe_filename)[0]
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        edited_filename = f"{base_name}_filled_signed_{timestamp}.pdf"
+        edited_path = os.path.join(HTML_FOLDER, edited_filename)
+        
+        # Save the modified PDF
+        doc.save(edited_path)
+        doc.close()
+        
+        # Clean up uploaded PDF
+        os.remove(pdf_path)
+        
+        return jsonify({
+            "status": "success",
+            "message": f"PDF updated successfully with {len(text_elements)} text elements, {len(signature_elements)} signatures, and {len(image_elements)} images",
+            "filename": edited_filename,
+            "download_url": f"/download_edited/{edited_filename}",
+            "text_elements": len(text_elements),
+            "signature_elements": len(signature_elements),
+            "image_elements": len(image_elements)
+        })
+        
+    except Exception as e:
+        print(f"ERROR in save_edit_fill_sign: {str(e)}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/download_edited/<filename>")
+def download_edited(filename):
+    try:
+        edited_path = os.path.join(HTML_FOLDER, filename)
+        if not os.path.exists(edited_path):
+            return "Edited PDF file not found", 404
+        
+        return send_file(edited_path, as_attachment=True, download_name=filename)
+    
+    except Exception as e:
+        return f"Error downloading edited PDF: {str(e)}", 500
+
 if __name__ == "__main__":
     app.run(debug=True)

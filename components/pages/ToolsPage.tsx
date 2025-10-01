@@ -83,7 +83,7 @@ export default function ToolsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gray-900 page-content">
       {/* Tools Grid */}
       <section className="pt-32 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
