@@ -625,17 +625,29 @@
       }
 
       function hideIframeToolbar(iframe) {
-        console.log("=== HIDING IFRAME TOOLBAR ===");
+        console.log("=== HIDING SPECIFIC IFRAME BUTTONS ===");
         try {
-          const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+          const iframeDoc =
+            iframe.contentDocument || iframe.contentWindow.document;
           if (iframeDoc) {
-            const toolbar = iframeDoc.querySelector('.toolbar');
-            if (toolbar) {
-              console.log("Found toolbar in iframe:", toolbar);
-              toolbar.style.setProperty('display', 'none', 'important');
-              console.log("Iframe toolbar hidden");
+            const saveButton = iframeDoc.querySelector(".actions .btn.primary");
+            const newButton = iframeDoc.querySelector(".actions .btn.tertiary");
+            
+            console.log("Save button found in iframe:", saveButton);
+            console.log("New button found in iframe:", newButton);
+            
+            if (saveButton) {
+              saveButton.style.setProperty("display", "none", "important");
+              console.log("Save button hidden in iframe");
             } else {
-              console.log("Toolbar not found in iframe");
+              console.log("Save button not found in iframe");
+            }
+            
+            if (newButton) {
+              newButton.style.setProperty("display", "none", "important");
+              console.log("New button hidden in iframe");
+            } else {
+              console.log("New button not found in iframe");
             }
           } else {
             console.log("Cannot access iframe document");
@@ -643,7 +655,7 @@
         } catch (error) {
           console.log("Error accessing iframe:", error);
         }
-        console.log("=== END HIDING IFRAME TOOLBAR ===");
+        console.log("=== END HIDING SPECIFIC IFRAME BUTTONS ===");
       }
 
       async function downloadPDF() {
