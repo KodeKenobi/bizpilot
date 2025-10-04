@@ -6,6 +6,8 @@ import base64
 from io import BytesIO
 import json
 from datetime import datetime
+import glob
+import uuid
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -19,6 +21,27 @@ HTML_FOLDER = "saved_html"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(EDITED_FOLDER, exist_ok=True)
 os.makedirs(HTML_FOLDER, exist_ok=True)
+
+def cleanup_session_files(session_id):
+    """Clean up all HTML files for a specific session"""
+    try:
+        pattern = os.path.join(HTML_FOLDER, f"session_{session_id}_*.html")
+        files_to_delete = glob.glob(pattern)
+        deleted_count = 0
+        
+        for file_path in files_to_delete:
+            try:
+                os.remove(file_path)
+                deleted_count += 1
+                print(f"Deleted session file: {file_path}")
+            except Exception as e:
+                print(f"Error deleting file {file_path}: {e}")
+        
+        print(f"Cleaned up {deleted_count} files for session {session_id}")
+        return deleted_count
+    except Exception as e:
+        print(f"Error in cleanup_session_files: {e}")
+        return 0
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -414,14 +437,19 @@ def save_html(filename):
     try:
         data = request.json
         html_content = data.get("html_content")
+        session_id = data.get("session_id")
         
         if not html_content:
             return jsonify({"status": "error", "message": "No HTML content provided"}), 400
         
-        # Create a clean filename
+        # Generate session ID if not provided
+        if not session_id:
+            session_id = str(uuid.uuid4())[:8]  # Short session ID
+        
+        # Create a clean filename with session ID
         base_name = os.path.splitext(filename)[0]
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        html_filename = f"{base_name}_{timestamp}.html"
+        html_filename = f"session_{session_id}_{base_name}_{timestamp}.html"
         html_path = os.path.join(HTML_FOLDER, html_filename)
         
         # Save the HTML file
@@ -431,9 +459,23 @@ def save_html(filename):
         return jsonify({
             "status": "success", 
             "message": "HTML saved successfully",
-            "html_filename": html_filename
+            "html_filename": html_filename,
+            "session_id": session_id
         })
     
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route("/cleanup_session/<session_id>", methods=["POST"])
+def cleanup_session(session_id):
+    """Clean up all HTML files for a specific session"""
+    try:
+        deleted_count = cleanup_session_files(session_id)
+        return jsonify({
+            "status": "success",
+            "message": f"Cleaned up {deleted_count} files for session {session_id}",
+            "deleted_count": deleted_count
+        })
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 

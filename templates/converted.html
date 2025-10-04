@@ -346,10 +346,37 @@
       let currentEditElement = null;
       let currentEditType = null;
       let savedHtmlFilename = null;
+      let sessionId = null;
 
-      // Initialize zoom on page load
+      // Generate session ID on page load
+      function generateSessionId() {
+        return Math.random().toString(36).substr(2, 8);
+      }
+
+      // Cleanup session files
+      function cleanupSession() {
+        if (sessionId) {
+          fetch(`/cleanup_session/${sessionId}`, {
+            method: "POST",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Session cleanup:", data.message);
+            })
+            .catch((error) => {
+              console.error("Cleanup error:", error);
+            });
+        }
+      }
+
+      // Initialize session and zoom on page load
       document.addEventListener("DOMContentLoaded", function () {
+        sessionId = generateSessionId();
+        console.log("Generated session ID:", sessionId);
         changeZoom(currentZoom);
+
+        // Cleanup on page unload
+        window.addEventListener("beforeunload", cleanupSession);
       });
 
       function changePage(direction) {
@@ -443,7 +470,10 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ html_content: htmlContent }),
+          body: JSON.stringify({
+            html_content: htmlContent,
+            session_id: sessionId,
+          }),
         })
           .then((response) => response.json())
           .then((data) => {
