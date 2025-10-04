@@ -284,241 +284,6 @@
         border-radius: 0 0 8px 8px;
       }
 
-      .payment-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2000;
-      }
-
-      .payment-modal-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-
-      .payment-modal-content {
-        background: white;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 500px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      }
-
-      .payment-modal-header {
-        padding: 20px 24px 16px;
-        border-bottom: 1px solid #e5e7eb;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .payment-modal-header h3 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 600;
-        color: #111827;
-      }
-
-      .payment-modal-close {
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        color: #6b7280;
-        padding: 0;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-      }
-
-      .payment-modal-close:hover {
-        background-color: #e5e7eb;
-        color: #374151;
-      }
-
-      .payment-modal-body {
-        padding: 24px;
-      }
-
-      .payment-modal-body p {
-        margin: 0 0 20px;
-        color: #6b7280;
-        text-align: center;
-      }
-
-      .payment-options {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .payment-option {
-        display: flex;
-        align-items: center;
-        padding: 16px;
-        border: 2px solid #e5e7eb;
-        border-radius: 8px;
-        background: white;
-        cursor: pointer;
-        transition: all 0.2s;
-        width: 100%;
-      }
-
-      .payment-option:hover {
-        border-color: #3b82f6;
-        background: #f8fafc;
-      }
-
-      .video-option:hover {
-        border-color: #10b981;
-      }
-
-      .pay-option:hover {
-        border-color: #f59e0b;
-      }
-
-      .option-icon {
-        font-size: 24px;
-        margin-right: 12px;
-      }
-
-      .option-text h4 {
-        margin: 0 0 4px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #111827;
-      }
-
-      .option-text p {
-        margin: 0;
-        font-size: 14px;
-        color: #6b7280;
-        text-align: left;
-      }
-
-      .video-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2000;
-      }
-
-      .video-modal-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-
-      .video-modal-content {
-        background: white;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      }
-
-      .video-modal-header {
-        padding: 20px 24px 16px;
-        border-bottom: 1px solid #e5e7eb;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .video-modal-header h3 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 600;
-        color: #111827;
-      }
-
-      .video-modal-close {
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        color: #6b7280;
-        padding: 0;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-      }
-
-      .video-modal-close:hover {
-        background-color: #e5e7eb;
-        color: #374151;
-      }
-
-      .video-modal-body {
-        padding: 24px;
-      }
-
-      .video-container {
-        text-align: center;
-      }
-
-      .video-container p {
-        margin: 0 0 20px;
-        color: #6b7280;
-      }
-
-      .complete-video-btn {
-        background: #10b981;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s;
-      }
-
-      .complete-video-btn:hover {
-        background: #059669;
-      }
-
-      .pay-btn {
-        background: #f59e0b;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s;
-        width: 100%;
-      }
-
-      .pay-btn:hover {
-        background: #d97706;
-      }
     </style>
   </head>
   <body>
@@ -729,18 +494,19 @@
       function viewPDF() {
         console.log("=== VIEW PDF CALLED ===");
         console.log("savedHtmlFilename:", savedHtmlFilename);
-        
+
         if (savedHtmlFilename) {
           console.log("Calling showPDFModal()");
           showPDFModal();
           // Show download button after user clicks View
-          document.getElementById("downloadPdfBtn").style.display = "inline-block";
+          document.getElementById("downloadPdfBtn").style.display =
+            "inline-block";
           console.log("Download button now visible");
         } else {
           console.log("No saved HTML filename, showing notification");
           showNotification("Please save your document first!", true);
         }
-        
+
         console.log("=== END VIEW PDF ===");
       }
 
@@ -897,114 +663,13 @@
       }
 
       function showPaymentPrompt() {
-        const modal = document.createElement("div");
-        modal.className = "payment-modal";
-        modal.innerHTML = `
-          <div class="payment-modal-overlay" onclick="closePaymentModal()">
-            <div class="payment-modal-content" onclick="event.stopPropagation()">
-              <div class="payment-modal-header">
-                <h3>Download PDF</h3>
-                <button onclick="closePaymentModal()" class="payment-modal-close">&times;</button>
-              </div>
-              <div class="payment-modal-body">
-                <p>Choose how you'd like to download your PDF:</p>
-                <div class="payment-options">
-                  <button onclick="watchVideo()" class="payment-option video-option">
-                    <div class="option-icon">📺</div>
-                    <div class="option-text">
-                      <h4>Watch Video</h4>
-                      <p>Watch a short ad to download</p>
-                    </div>
-                  </button>
-                  <button onclick="payDollar()" class="payment-option pay-option">
-                    <div class="option-icon">💳</div>
-                    <div class="option-text">
-                      <h4>Pay $1</h4>
-                      <p>Quick payment to download</p>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(modal);
-      }
-
-      function closePaymentModal() {
-        const modal = document.querySelector(".payment-modal");
-        if (modal) {
-          modal.remove();
-        }
-      }
-
-      function watchVideo() {
-        closePaymentModal();
-        showVideoModal();
-      }
-
-      function payDollar() {
-        closePaymentModal();
-        showPaymentModal();
-      }
-
-      function showVideoModal() {
-        const modal = document.createElement("div");
-        modal.className = "video-modal";
-        modal.innerHTML = `
-          <div class="video-modal-overlay" onclick="closeVideoModal()">
-            <div class="video-modal-content" onclick="event.stopPropagation()">
-              <div class="video-modal-header">
-                <h3>Watch Video</h3>
-                <button onclick="closeVideoModal()" class="video-modal-close">&times;</button>
-              </div>
-              <div class="video-modal-body">
-                <div class="video-container">
-                  <p>Video will play here...</p>
-                  <button onclick="completeVideo()" class="complete-video-btn">Complete Video</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(modal);
-      }
-
-      function closeVideoModal() {
-        const modal = document.querySelector(".video-modal");
-        if (modal) {
-          modal.remove();
-        }
-      }
-
-      function completeVideo() {
-        closeVideoModal();
-        generatePDF();
-      }
-
-      function showPaymentModal() {
-        const modal = document.createElement("div");
-        modal.className = "payment-modal";
-        modal.innerHTML = `
-          <div class="payment-modal-overlay" onclick="closePaymentModal()">
-            <div class="payment-modal-content" onclick="event.stopPropagation()">
-              <div class="payment-modal-header">
-                <h3>Payment</h3>
-                <button onclick="closePaymentModal()" class="payment-modal-close">&times;</button>
-              </div>
-              <div class="payment-modal-body">
-                <p>Pay $1 to download your PDF</p>
-                <button onclick="completePayment()" class="pay-btn">Pay $1</button>
-              </div>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(modal);
-      }
-
-      function completePayment() {
-        closePaymentModal();
-        generatePDF();
+        // Use the existing monetization modal system
+        window.parent.postMessage({
+          type: 'OPEN_MONETIZATION_MODAL',
+          fileName: '{{ filename }}',
+          fileType: 'PDF',
+          downloadUrl: '#'
+        }, '*');
       }
 
       async function downloadPDF() {

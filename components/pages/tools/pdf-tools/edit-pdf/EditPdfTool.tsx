@@ -40,6 +40,29 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
     handlePaymentComplete,
   } = useMonetization();
 
+  // Listen for messages from iframe
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data.type === "OPEN_MONETIZATION_MODAL") {
+        const { fileName, fileType } = event.data;
+        openMonetizationModal(fileName, fileType, "#");
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [openMonetizationModal]);
+
+  // Handle monetization completion - trigger PDF generation
+  const handleMonetizationComplete = () => {
+    const iframe = document.querySelector("iframe");
+    if (iframe?.contentWindow) {
+      // Call generatePDF function directly in iframe
+      iframe.contentWindow.generatePDF();
+    }
+    closeMonetizationModal();
+  };
+
   if (!uploadedFile) {
     return (
       <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
@@ -97,8 +120,8 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
         <MonetizationModal
           isOpen={monetizationState.isModalOpen}
           onClose={closeMonetizationModal}
-          onAdComplete={handleAdComplete}
-          onPaymentComplete={handlePaymentComplete}
+          onAdComplete={handleMonetizationComplete}
+          onPaymentComplete={handleMonetizationComplete}
           fileName={monetizationState.fileName}
           fileType={monetizationState.fileType}
         />
