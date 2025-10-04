@@ -482,9 +482,6 @@
                 "inline-block";
               document.getElementById("downloadPdfBtn").style.display =
                 "inline-block";
-              showNotification(
-                "Document ready! You can now view or download your PDF."
-              );
             } else {
               showNotification("Error saving document: " + data.message, true);
             }
@@ -503,8 +500,8 @@
       }
 
       function showPDFModal() {
-        const modal = document.createElement('div');
-        modal.className = 'pdf-modal';
+        const modal = document.createElement("div");
+        modal.className = "pdf-modal";
         modal.innerHTML = `
           <div class="pdf-modal-overlay" onclick="closePDFModal()">
             <div class="pdf-modal-content" onclick="event.stopPropagation()">
@@ -519,13 +516,23 @@
           </div>
         `;
         document.body.appendChild(modal);
+        
+        const saveButton = document.querySelector('.actions .btn.primary');
+        const newButton = document.querySelector('.actions .btn.tertiary');
+        if (saveButton) saveButton.style.display = 'none';
+        if (newButton) newButton.style.display = 'none';
       }
 
       function closePDFModal() {
-        const modal = document.querySelector('.pdf-modal');
+        const modal = document.querySelector(".pdf-modal");
         if (modal) {
           modal.remove();
         }
+        
+        const saveButton = document.querySelector('.actions .btn.primary');
+        const newButton = document.querySelector('.actions .btn.tertiary');
+        if (saveButton) saveButton.style.display = 'inline-block';
+        if (newButton) newButton.style.display = 'inline-block';
       }
 
       async function downloadPDF() {
