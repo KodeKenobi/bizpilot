@@ -141,12 +141,26 @@
 
       .element-delete-btn:hover {
         background: #c82333;
-        transform: scale(1.1);
       }
 
       .element-container {
         position: relative;
         display: inline-block;
+        cursor: grab;
+        transition: transform 0.1s ease;
+      }
+
+      .element-container:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .element-container:active {
+        cursor: grabbing;
+      }
+
+      .element-container.dragging {
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       }
 
       .text-formatting-toolbar {
@@ -893,6 +907,277 @@
         }
       }
 
+      // Function to make elements draggable
+      function makeElementDraggable(element) {
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+
+        element.addEventListener("mousedown", function (e) {
+          // Don't drag when clicking on text content or delete button
+          if (
+            e.target.classList.contains("text-element") ||
+            e.target.classList.contains("element-delete-btn")
+          ) {
+            return;
+          }
+
+          // Allow dragging when clicking on drag handle in toolbar, container, or any part of the element
+          // (but not the text content or delete button)
+          console.log("🖱️ Mouse down on element, target:", e.target.className);
+
+          // Check if clicking on drag handle in toolbar
+          if (
+            e.target.innerHTML === "✋" &&
+            e.target.title === "Drag to move"
+          ) {
+            console.log("🖱️ Drag handle in toolbar clicked");
+          }
+
+          isDragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+
+          const rect = element.getBoundingClientRect();
+          initialX = rect.left;
+          initialY = rect.top;
+
+          element.style.cursor = "grabbing";
+          element.style.zIndex = "1000";
+          element.classList.add("dragging");
+
+          console.log("🖱️ Started dragging element");
+          console.log("🖱️ Start position:", startX, startY);
+          console.log("🖱️ Initial position:", initialX, initialY);
+
+          // Add visual feedback for dragging
+          element.style.cursor = "grabbing";
+          element.style.opacity = "0.9";
+          element.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.25)";
+
+          e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", function (e) {
+          if (!isDragging) return;
+
+          const deltaX = e.clientX - startX;
+          const deltaY = e.clientY - startY;
+
+          console.log("🖱️ Mouse move - deltaX:", deltaX, "deltaY:", deltaY);
+
+          // Calculate new position
+          let newX = initialX + deltaX;
+          let newY = initialY + deltaY;
+
+          // Get overlay bounds to keep element within view
+          const overlay = element.closest(".interactive-overlay");
+          if (overlay) {
+            const overlayRect = overlay.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+
+            // Keep element within overlay bounds
+            newX = Math.max(
+              0,
+              Math.min(newX, overlayRect.width - elementRect.width)
+            );
+            newY = Math.max(
+              0,
+              Math.min(newY, overlayRect.height - elementRect.height)
+            );
+          }
+
+          element.style.left = newX + "px";
+          element.style.top = newY + "px";
+
+          // Add some visual feedback during drag
+          element.style.opacity = "0.8";
+        });
+
+        document.addEventListener("mouseup", function () {
+          if (isDragging) {
+            isDragging = false;
+            element.style.cursor = "grab";
+            element.style.zIndex = "20";
+            element.style.opacity = "1";
+            element.style.transform = "scale(1)";
+            element.style.boxShadow = "none";
+            element.classList.remove("dragging");
+            console.log("🖱️ Finished dragging element");
+          }
+        });
+      }
+
+      // Function to show text edit toolbar
+      function showTextEditToolbar(textElement, textContainer) {
+        // Remove existing toolbar if any
+        const existingToolbar = textContainer.querySelector(
+          ".text-formatting-toolbar"
+        );
+        if (existingToolbar) {
+          existingToolbar.remove();
+        }
+
+        // Create new toolbar
+        const toolbar = document.createElement("div");
+        toolbar.className = "text-formatting-toolbar";
+        toolbar.style.position = "absolute";
+        toolbar.style.top = "-35px";
+        toolbar.style.left = "0";
+        toolbar.style.zIndex = "100";
+
+        // Create font family select
+        const fontSelect = document.createElement("select");
+        fontSelect.innerHTML = `
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Courier New">Courier New</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Verdana">Verdana</option>
+        `;
+        fontSelect.value = textElement.style.fontFamily || "Arial";
+
+        // Create font size select
+        const sizeSelect = document.createElement("select");
+        sizeSelect.innerHTML = `
+          <option value="10">10px</option>
+          <option value="12">12px</option>
+          <option value="14">14px</option>
+          <option value="16">16px</option>
+          <option value="18">18px</option>
+          <option value="20">20px</option>
+          <option value="24">24px</option>
+        `;
+        sizeSelect.value = parseInt(textElement.style.fontSize) || 14;
+
+        // Create color input
+        const colorInput = document.createElement("input");
+        colorInput.type = "color";
+        colorInput.value = textElement.style.color || "#000000";
+        colorInput.style.width = "30px";
+        colorInput.style.height = "20px";
+
+        // Create bold button
+        const boldButton = document.createElement("button");
+        boldButton.innerHTML = "B";
+        boldButton.style.fontWeight = "bold";
+        if (textElement.style.fontWeight === "bold") {
+          boldButton.style.backgroundColor = "#007bff";
+          boldButton.style.color = "white";
+        }
+
+        // Create italic button
+        const italicButton = document.createElement("button");
+        italicButton.innerHTML = "I";
+        italicButton.style.fontStyle = "italic";
+        if (textElement.style.fontStyle === "italic") {
+          italicButton.style.backgroundColor = "#007bff";
+          italicButton.style.color = "white";
+        }
+
+        // Create done button
+        const doneButton = document.createElement("button");
+        doneButton.innerHTML = "✓";
+        doneButton.style.background = "#007bff";
+        doneButton.style.color = "white";
+
+        // Create drag handle for edit toolbar
+        const dragHandle = document.createElement("button");
+        dragHandle.className = "toolbar-control";
+        dragHandle.innerHTML = "✋";
+        dragHandle.title = "Drag to move";
+        dragHandle.style.backgroundColor = "#007bff";
+        dragHandle.style.color = "white";
+        console.log("✅ Created drag handle for edit toolbar");
+
+        // Add drag functionality to the drag handle
+        dragHandle.addEventListener("mousedown", function (e) {
+          console.log("🖱️ Drag handle in edit toolbar clicked");
+          e.stopPropagation();
+          // Trigger drag on the container
+          const event = new MouseEvent("mousedown", {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            bubbles: true,
+          });
+          textContainer.dispatchEvent(event);
+        });
+
+        // Apply formatting function
+        const applyFormatting = () => {
+          textElement.style.fontFamily = fontSelect.value;
+          textElement.style.fontSize = sizeSelect.value + "px";
+          textElement.style.color = colorInput.value;
+        };
+
+        // Event listeners
+        fontSelect.addEventListener("change", applyFormatting);
+        sizeSelect.addEventListener("change", applyFormatting);
+        colorInput.addEventListener("change", applyFormatting);
+
+        boldButton.addEventListener("click", () => {
+          textElement.style.fontWeight =
+            textElement.style.fontWeight === "bold" ? "normal" : "bold";
+          boldButton.style.backgroundColor =
+            textElement.style.fontWeight === "bold" ? "#007bff" : "";
+          boldButton.style.color =
+            textElement.style.fontWeight === "bold" ? "white" : "";
+        });
+
+        italicButton.addEventListener("click", () => {
+          textElement.style.fontStyle =
+            textElement.style.fontStyle === "italic" ? "normal" : "italic";
+          italicButton.style.backgroundColor =
+            textElement.style.fontStyle === "italic" ? "#007bff" : "";
+          italicButton.style.color =
+            textElement.style.fontStyle === "italic" ? "white" : "";
+        });
+
+        doneButton.addEventListener("click", () => {
+          toolbar.remove();
+          textElement.readOnly = true;
+          textElement.style.border = "none";
+          textElement.style.background = "transparent";
+        });
+
+        // Prevent toolbar clicks from bubbling
+        toolbar.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+
+        [
+          fontSelect,
+          sizeSelect,
+          colorInput,
+          boldButton,
+          italicButton,
+          dragHandle,
+          doneButton,
+        ].forEach((control) => {
+          control.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        });
+
+        // Assemble toolbar
+        toolbar.appendChild(fontSelect);
+        toolbar.appendChild(sizeSelect);
+        toolbar.appendChild(colorInput);
+        toolbar.appendChild(boldButton);
+        toolbar.appendChild(italicButton);
+        toolbar.appendChild(dragHandle);
+        toolbar.appendChild(doneButton);
+
+        // Insert toolbar before text element
+        textContainer.insertBefore(toolbar, textElement);
+
+        // Make text editable
+        textElement.readOnly = false;
+        textElement.style.border = "1px solid #007bff";
+        textElement.style.background = "rgba(0, 123, 255, 0.1)";
+        textElement.focus();
+        textElement.select();
+      }
+
       // Function to add text element
       function addTextElement(e, overlay) {
         console.log("📝 Adding text element...");
@@ -967,12 +1252,36 @@
         doneButton.style.background = "#007bff";
         console.log("✅ Created done button");
 
+        // Create drag handle for toolbar
+        const dragHandle = document.createElement("button");
+        dragHandle.className = "toolbar-control";
+        dragHandle.innerHTML = "✋";
+        dragHandle.title = "Drag to move";
+        dragHandle.style.backgroundColor = "#007bff";
+        dragHandle.style.color = "white";
+        console.log("✅ Created drag handle for toolbar");
+
+        // Add drag functionality to the drag handle
+        dragHandle.addEventListener("mousedown", function (e) {
+          console.log("🖱️ Drag handle in toolbar clicked");
+          e.stopPropagation();
+          // Trigger drag on the container
+          const container = textContainer;
+          const event = new MouseEvent("mousedown", {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            bubbles: true,
+          });
+          container.dispatchEvent(event);
+        });
+
         // Assemble toolbar
         toolbar.appendChild(fontSelect);
         toolbar.appendChild(sizeSelect);
         toolbar.appendChild(colorInput);
         toolbar.appendChild(boldButton);
         toolbar.appendChild(italicButton);
+        toolbar.appendChild(dragHandle);
         toolbar.appendChild(doneButton);
 
         // Prevent toolbar clicks from creating new text elements
@@ -999,6 +1308,7 @@
           colorInput,
           boldButton,
           italicButton,
+          dragHandle,
           doneButton,
         ].forEach((control) => {
           control.addEventListener("click", function (e) {
@@ -1142,6 +1452,16 @@
           textContainer.appendChild(deleteBtn);
           console.log("✅ Delete button added to container");
 
+          // Make text element draggable
+          makeElementDraggable(textContainer);
+
+          // Add click handler to edit text
+          textElement.addEventListener("click", function (e) {
+            e.stopPropagation();
+            console.log("📝 Text element clicked for editing");
+            showTextEditToolbar(textElement, textContainer);
+          });
+
           // Deactivate text tool after adding text
           currentEditType = "select";
           console.log(
@@ -1283,6 +1603,16 @@
           );
         });
 
+        // Make signature element draggable
+        makeElementDraggable(signatureContainer);
+
+        // Add click handler to edit signature
+        signatureElement.addEventListener("click", function (e) {
+          e.stopPropagation();
+          console.log("✍️ Signature element clicked for editing");
+          // You can add signature editing functionality here if needed
+        });
+
         // Assemble and add to overlay
         signatureContainer.appendChild(signatureElement);
         overlay.appendChild(signatureContainer);
@@ -1419,6 +1749,16 @@
             );
           };
           input.click();
+        });
+
+        // Make image element draggable
+        makeElementDraggable(imageContainer);
+
+        // Add click handler to edit image
+        imageElement.addEventListener("click", function (e) {
+          e.stopPropagation();
+          console.log("🖼️ Image element clicked for editing");
+          // You can add image editing functionality here if needed
         });
 
         // Assemble and add to overlay
