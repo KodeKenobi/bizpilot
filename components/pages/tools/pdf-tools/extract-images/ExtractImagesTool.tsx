@@ -26,6 +26,7 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
   handleFileUpload,
 }) => {
   const [selectedImage, setSelectedImage] = useState<any>(null);
+
   const [showImageModal, setShowImageModal] = useState(false);
   const {
     monetizationState,
@@ -34,6 +35,11 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
     handleAdComplete,
     handlePaymentComplete,
   } = useMonetization();
+
+  const disableContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    return false;
+  };
 
   const openImageModal = (img: any, index: number) => {
     setSelectedImage({ ...img, index });
@@ -130,8 +136,11 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
                       <img
                         src={`data:image/png;base64,${img.data}`}
                         alt={`Image ${img.image_index} from page ${img.page}`}
-                        className="w-full h-32 object-contain bg-white rounded cursor-pointer"
+                        className="w-full h-32 object-contain bg-white rounded cursor-pointer select-none"
                         onClick={() => openImageModal(img, index)}
+                        onContextMenu={disableContextMenu}
+                        style={{ userSelect: 'none' }}
+                        draggable={false}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover/image:bg-opacity-30 transition-all rounded flex items-center justify-center">
                         <button
@@ -266,7 +275,10 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
                 <img
                   src={`data:image/png;base64,${selectedImage.data}`}
                   alt={`Image ${selectedImage.image_index} from page ${selectedImage.page}`}
-                  className="max-w-full max-h-[70vh] object-contain"
+                  className="max-w-full max-h-[70vh] object-contain select-none"
+                  onContextMenu={disableContextMenu}
+                  style={{ userSelect: 'none' }}
+                  draggable={false}
                 />
               </div>
 
