@@ -54,14 +54,22 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
   }, [openMonetizationModal]);
 
   // Handle monetization completion - trigger PDF generation
-  const handleMonetizationComplete = () => {
+  const handleMonetizationComplete = React.useCallback(() => {
     const iframe = document.querySelector("iframe");
     if (iframe?.contentWindow) {
-      // Call generatePDF function directly in iframe
-      iframe.contentWindow.generatePDF();
+      // Send message to iframe to generate and download PDF automatically
+      iframe.contentWindow.postMessage(
+        {
+          type: "GENERATE_AND_DOWNLOAD_PDF",
+        },
+        "*"
+      );
     }
-    closeMonetizationModal();
-  };
+    // Schedule modal close after current render cycle
+    setTimeout(() => {
+      closeMonetizationModal();
+    }, 0);
+  }, [closeMonetizationModal]);
 
   if (!uploadedFile) {
     return (

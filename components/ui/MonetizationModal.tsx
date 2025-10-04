@@ -23,7 +23,10 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
         setAdProgress((prev) => {
           if (prev >= 100) {
             clearInterval(interval);
-            onComplete();
+            // Use setTimeout to defer onComplete after render cycle
+            setTimeout(() => {
+              onComplete();
+            }, 0);
             return 100;
           }
           return prev + 2;

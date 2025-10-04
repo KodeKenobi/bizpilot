@@ -283,7 +283,6 @@
         border: none;
         border-radius: 0 0 8px 8px;
       }
-
     </style>
   </head>
   <body>
@@ -420,48 +419,19 @@
       }
 
       function saveEdits() {
-        console.log(
-          "Old PDF editor save function disabled - using new EditFillSignTool instead"
-        );
+        console.log("Saving current document state...");
 
         const saveButton = document.querySelector(".actions .btn.primary");
         const originalText = saveButton.textContent;
         saveButton.textContent = "Saving...";
         saveButton.disabled = true;
 
-        fetch(`/save_edits/{{ filename }}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ edits: edits }),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                `HTTP ${response.status}: ${response.statusText}`
-              );
-            }
-            return response.json();
-          })
-          .then((data) => {
-            if (data.status === "success") {
-              edits = [];
+        // Save HTML version and show View/Download buttons
+        saveHTMLAndShowButtons();
 
-              // Also save HTML version and show View/Download buttons
-              saveHTMLAndShowButtons();
-            } else {
-              showNotification("Error saving edits: " + data.message, true);
-            }
-          })
-          .catch((error) => {
-            console.error("Save edits error:", error);
-            showNotification("Error saving edits: " + error.message, true);
-          })
-          .finally(() => {
-            saveButton.textContent = originalText;
-            saveButton.disabled = false;
-          });
+        // Restore button state
+        saveButton.textContent = originalText;
+        saveButton.disabled = false;
       }
 
       function saveHTMLAndShowButtons() {
@@ -664,13 +634,31 @@
 
       function showPaymentPrompt() {
         // Use the existing monetization modal system
-        window.parent.postMessage({
-          type: 'OPEN_MONETIZATION_MODAL',
-          fileName: '{{ filename }}',
-          fileType: 'PDF',
-          downloadUrl: '#'
-        }, '*');
+        window.parent.postMessage(
+          {
+            type: "OPEN_MONETIZATION_MODAL",
+            fileName: "{{ filename }}",
+            fileType: "PDF",
+            downloadUrl: "#",
+          },
+          "*"
+        );
       }
+
+      // Listen for messages from parent (React component)
+      window.addEventListener("message", function (event) {
+        if (event.data.type === "GENERATE_PDF") {
+          console.log(
+            "Received generate PDF message, starting PDF generation..."
+          );
+          generatePDF();
+        } else if (event.data.type === "GENERATE_AND_DOWNLOAD_PDF") {
+          console.log(
+            "Received generate and download PDF message, starting seamless PDF generation..."
+          );
+          generatePDF();
+        }
+      });
 
       async function downloadPDF() {
         if (!savedHtmlFilename) {
@@ -731,7 +719,7 @@
             });
 
             // Convert canvas to image
-            const imgData = canvas.toDataURL("image/png");
+            const imgData = canvas.toDataURL("image/jpeg", 0.95);
 
             // Calculate dimensions to fit A4 page
             const imgWidth = 210; // A4 width in mm
@@ -744,7 +732,7 @@
             }
 
             // Add image to PDF
-            pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+            pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight);
           }
 
           // Restore original page visibility
@@ -763,7 +751,21 @@
           const filename = `edited_document_${timestamp}.pdf`;
 
           // Download the PDF
-          pdf.save(filename);
+          console.log("About to save PDF:", filename);
+
+          // Try to force download dialog by creating blob and download link
+          const pdfBlob = pdf.output("blob");
+          const url = URL.createObjectURL(pdfBlob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = filename;
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+
+          console.log("PDF download triggered successfully");
 
           showNotification("PDF downloaded successfully!", false);
         } catch (error) {
