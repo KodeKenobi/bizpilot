@@ -339,6 +339,11 @@
           "Old PDF editor save function disabled - using new EditFillSignTool instead"
         );
 
+        const saveButton = document.querySelector('.actions .btn.primary');
+        const originalText = saveButton.textContent;
+        saveButton.textContent = 'Saving...';
+        saveButton.disabled = true;
+
         fetch(`/save_edits/{{ filename }}`, {
           method: "POST",
           headers: {
@@ -368,6 +373,10 @@
           .catch((error) => {
             console.error("Save edits error:", error);
             showNotification("Error saving edits: " + error.message, true);
+          })
+          .finally(() => {
+            saveButton.textContent = originalText;
+            saveButton.disabled = false;
           });
       }
 
