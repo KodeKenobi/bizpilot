@@ -347,6 +347,7 @@
       let currentEditType = null;
       let savedHtmlFilename = null;
       let sessionId = null;
+      let isGeneratingPDF = false;
 
       // Generate session ID on page load
       function generateSessionId() {
@@ -677,14 +678,20 @@
 
       // Listen for messages from parent (React component)
       window.addEventListener("message", function (event) {
-        if (event.data.type === "GENERATE_PDF") {
+        if (
+          event.data.type === "GENERATE_PDF" ||
+          event.data.type === "GENERATE_AND_DOWNLOAD_PDF"
+        ) {
+          // Prevent duplicate execution
+          if (isGeneratingPDF) {
+            console.log(
+              "PDF generation already in progress, ignoring duplicate message"
+            );
+            return;
+          }
+
           console.log(
-            "Received generate PDF message, starting PDF generation..."
-          );
-          generatePDF();
-        } else if (event.data.type === "GENERATE_AND_DOWNLOAD_PDF") {
-          console.log(
-            "Received generate and download PDF message, starting seamless PDF generation..."
+            `Received ${event.data.type} message, starting PDF generation...`
           );
           generatePDF();
         }
@@ -701,6 +708,16 @@
       }
 
       async function generatePDF() {
+        // Prevent duplicate execution
+        if (isGeneratingPDF) {
+          console.log(
+            "PDF generation already in progress, skipping duplicate call"
+          );
+          return;
+        }
+
+        isGeneratingPDF = true;
+
         try {
           const downloadBtn = document.getElementById("downloadPdfBtn");
           const originalText = downloadBtn.textContent;
@@ -812,12 +829,13 @@
           // Restore original zoom on error
           changeZoom(originalZoom);
         } finally {
-          // Always restore button state
+          // Always restore button state and clear generation flag
           const downloadBtn = document.getElementById("downloadPdfBtn");
           if (downloadBtn) {
             downloadBtn.textContent = "Download";
             downloadBtn.disabled = false;
           }
+          isGeneratingPDF = false;
         }
       }
 
