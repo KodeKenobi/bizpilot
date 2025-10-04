@@ -632,17 +632,17 @@
           if (iframeDoc) {
             const saveButton = iframeDoc.querySelector(".actions .btn.primary");
             const newButton = iframeDoc.querySelector(".actions .btn.tertiary");
-            
+
             console.log("Save button found in iframe:", saveButton);
             console.log("New button found in iframe:", newButton);
-            
+
             if (saveButton) {
               saveButton.style.setProperty("display", "none", "important");
               console.log("Save button hidden in iframe");
             } else {
               console.log("Save button not found in iframe");
             }
-            
+
             if (newButton) {
               newButton.style.setProperty("display", "none", "important");
               console.log("New button hidden in iframe");
