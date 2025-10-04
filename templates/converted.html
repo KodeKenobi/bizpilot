@@ -38,9 +38,8 @@
       .pdf-page {
         position: relative;
         margin: 20px auto;
-        background: white;
-        border: 1px solid #ddd;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
         transform-origin: top left;
         max-width: 100%;
         height: auto;
@@ -258,7 +257,7 @@
     <script>
       let currentPage = 1;
       const totalPages = parseInt("{{ pages|length }}");
-      let currentZoom = 0.8;
+      let currentZoom = 1;
       let edits = [];
       let currentEditElement = null;
       let currentEditType = null;

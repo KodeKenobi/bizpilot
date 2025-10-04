@@ -84,7 +84,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
               Upload New PDF
             </button>
           </div>
-          <div className="bg-white h-[700px]">
+          <div className="bg-white" style={{ height: "110vh" }}>
             <iframe
               src={editorUrl}
               className="w-full h-full border-0"
