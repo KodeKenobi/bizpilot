@@ -1,54 +1,66 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { FileUpload } from "@/components/ui/file-upload";
-import { SignatureCanvas } from "@/components/ui/signature-canvas";
+import React, { useState, useRef, useCallback } from "react";
 import { useMonetization } from "@/hooks/useMonetization";
-import MonetizationModal from "@/components/ui/MonetizationModal";
 import { useAlertModal } from "@/hooks/useAlertModal";
-import AlertModal from "@/components/ui/AlertModal";
-import { useDraggableCanvas } from "@/hooks/useDraggableCanvas";
+import { SignatureCanvas } from "@/components/ui/signature-canvas";
+import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
+import MonetizationModal from "@/components/ui/MonetizationModal";
 
-interface EditFillSignToolProps {
-  uploadedFile: File | null;
-  setUploadedFile: (file: File | null) => void;
-  result: any;
-  setResult: (result: any) => void;
-  isProcessing: boolean;
-  setIsProcessing: (processing: boolean) => void;
-  handleFileUpload: (file: File) => void;
-}
+// Simple button component
+const Button: React.FC<{
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+}> = ({ children, onClick, disabled, className = "" }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    className={`px-4 py-2 rounded-lg font-medium transition-colors ${className}`}
+  >
+    {children}
+  </button>
+);
 
+// Types
 interface TextElement {
   id: string;
-  text: string;
   x: number;
   y: number;
-  page: number;
+  text: string;
   fontSize: number;
   color: string;
-  width: number;
-  height: number;
 }
 
 interface SignatureElement {
   id: string;
-  data: string;
   x: number;
   y: number;
-  page: number;
   width: number;
   height: number;
+  signatureData: string;
 }
 
 interface ImageElement {
   id: string;
-  data: string;
   x: number;
   y: number;
-  page: number;
   width: number;
   height: number;
+  src: string;
+}
+
+interface EditFillSignToolProps {
+  uploadedFile: File | null;
+  setUploadedFile: (file: File | null) => void;
+  result: { type: "success" | "error"; message: string; data?: any } | null;
+  setResult: (
+    result: { type: "success" | "error"; message: string; data?: any } | null
+  ) => void;
+  isProcessing: boolean;
+  setIsProcessing: (processing: boolean) => void;
+  handleFileUpload: (file: File) => void;
 }
 
 export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
@@ -67,892 +79,567 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     handleAdComplete,
     handlePaymentComplete,
   } = useMonetization();
-
   const alertModal = useAlertModal();
-  const [signatureData, setSignatureData] = useState<string>("");
+
+  // Core state
   const [textElements, setTextElements] = useState<TextElement[]>([]);
   const [signatureElements, setSignatureElements] = useState<
     SignatureElement[]
   >([]);
   const [imageElements, setImageElements] = useState<ImageElement[]>([]);
+  const [activeTool, setActiveTool] = useState<string>("select");
+  const [editorUrl, setEditorUrl] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [zoomLevel, setZoomLevel] = useState<number>(125);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
 
-  // Debug state changes (only log when count changes)
-  React.useEffect(() => {
-    console.log("Text elements updated:", textElements.length, textElements);
-  }, [textElements.length]);
-
-  React.useEffect(() => {
-    console.log(
-      "Signature elements updated:",
-      signatureElements.length,
-      signatureElements
-    );
-  }, [signatureElements.length]);
-
-  React.useEffect(() => {
-    console.log("Image elements updated:", imageElements.length, imageElements);
-  }, [imageElements.length]);
-  const [editingSignatureId, setEditingSignatureId] = useState<string | null>(
-    null
-  );
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [activeTool, setActiveTool] = useState<
-    "text" | "signature" | "image" | null
-  >(null);
-  const [newText, setNewText] = useState("");
-  const [fontSize, setFontSize] = useState(12);
-  const [textColor, setTextColor] = useState("#000000");
-  const [imageData, setImageData] = useState<string>("");
-  const [isDragging, setIsDragging] = useState(false);
-  const [isResizing, setIsResizing] = useState(false);
-  const [dragType, setDragType] = useState<
-    "text" | "signature" | "image" | null
-  >(null);
-  const [dragIndex, setDragIndex] = useState(-1);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [resizeStart, setResizeStart] = useState({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-  });
-  const [editorUrl, setEditorUrl] = useState("");
-
+  // Refs
   const canvasRef = useRef<HTMLDivElement>(null);
+  const isProcessingRef = useRef<boolean>(false);
 
-  const { canvasHeight, handleCanvasResizeStart } = useDraggableCanvas({
-    initialHeight: 700,
-    minHeight: 400,
-    maxHeight: 1200,
-  });
+  // Process document function
+  const handleProcessDocument = useCallback(async () => {
+    if (!uploadedFile || isProcessingRef.current) return;
 
-  // Check backend health on component mount
-  React.useEffect(() => {
-    const checkBackendHealth = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/health");
-        const result = await response.json();
-        console.log("Backend health check:", result);
-      } catch (error) {
-        console.error("Backend not running:", error);
-        alertModal.showError(
-          "Backend Not Running",
-          "Please start the Flask backend server by running 'py app.py' in your terminal"
-        );
-      }
+    isProcessingRef.current = true;
+    setIsProcessing(true);
+    setUploadProgress(0);
+    setCurrentUploadStep(0);
+
+    // Smooth progress simulation with realistic timing
+    const simulateProgress = () => {
+      return new Promise<void>((resolve) => {
+        let progress = 0;
+        let step = 0;
+        let interval: NodeJS.Timeout | null = null;
+        const totalDuration = 8000; // 8 seconds total for better UX
+        const updateInterval = 100; // Update every 100ms for smoother feel
+        const totalSteps = totalDuration / updateInterval;
+        const progressIncrement = 100 / totalSteps;
+
+        const updateProgress = () => {
+          // Smooth, predictable progress increments with occasional pauses
+          let increment = progressIncrement;
+
+          // Add slight pauses at key milestones for realism
+          if (
+            (progress >= 20 && progress < 25) ||
+            (progress >= 55 && progress < 60)
+          ) {
+            increment = progressIncrement * 0.3; // Slower progress at transitions
+          }
+
+          progress += increment;
+
+          // Smooth step transitions based on progress
+          if (progress >= 25 && step === 0) {
+            step = 1;
+            setCurrentUploadStep(1);
+          } else if (progress >= 60 && step === 1) {
+            step = 2;
+            setCurrentUploadStep(2);
+          }
+
+          // Ensure progress doesn't exceed 100
+          const clampedProgress = Math.min(progress, 100);
+          setUploadProgress(clampedProgress);
+
+          if (clampedProgress >= 100) {
+            if (interval) {
+              clearInterval(interval);
+            }
+            resolve();
+          }
+        };
+
+        // Start with a delay for smoothness
+        setTimeout(() => {
+          interval = setInterval(updateProgress, updateInterval);
+        }, 800);
+      });
     };
 
-    checkBackendHealth();
-  }, []);
+    try {
+      // Simulate realistic processing time
+      await simulateProgress();
+
+      // Brief pause before showing completion
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
+      setEditorUrl(
+        "data:text/html,<h1>PDF Editor Mock</h1><p>This is a mock PDF editor for demonstration purposes.</p>"
+      );
+      setTotalPages(1);
+
+      // Brief pause before showing completion
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    } catch (error) {
+      alertModal.showError("Error", "Failed to process PDF");
+    } finally {
+      isProcessingRef.current = false;
+      setIsProcessing(false);
+    }
+  }, [uploadedFile, setIsProcessing, alertModal]);
 
   // Auto-process document when file is uploaded
   React.useEffect(() => {
-    if (uploadedFile && !editorUrl) {
+    if (uploadedFile && !editorUrl && !isProcessingRef.current) {
       handleProcessDocument();
     }
+  }, [uploadedFile, editorUrl]);
+
+  // Reset processing ref when component unmounts or file changes
+  React.useEffect(() => {
+    return () => {
+      isProcessingRef.current = false;
+    };
   }, [uploadedFile]);
 
-  // Add global mouse event listeners for dragging
+  // Reset processing ref when editorUrl changes (processing complete)
   React.useEffect(() => {
-    const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (isDragging || isResizing) {
-        handleMouseMove(e as any);
-      }
-    };
-
-    const handleGlobalMouseUp = () => {
-      if (isDragging || isResizing) {
-        handleMouseUp();
-      }
-    };
-
-    if (isDragging || isResizing) {
-      document.addEventListener("mousemove", handleGlobalMouseMove);
-      document.addEventListener("mouseup", handleGlobalMouseUp);
+    if (editorUrl) {
+      isProcessingRef.current = false;
     }
+  }, [editorUrl]);
 
-    return () => {
-      document.removeEventListener("mousemove", handleGlobalMouseMove);
-      document.removeEventListener("mouseup", handleGlobalMouseUp);
-    };
-  }, [isDragging, isResizing]);
-
-  const handleProcessDocument = async () => {
-    if (!uploadedFile) {
-      alertModal.showError("No File", "Please upload a PDF file first");
-      return;
-    }
-
-    setIsProcessing(true);
-    setResult(null);
-
-    try {
-      setTotalPages(1);
-      setEditorUrl(`http://localhost:5000/convert/${uploadedFile.name}`);
-
-      setResult({
-        type: "success",
-        message: "PDF loaded for editing",
-        data: {
-          editor_url: `http://localhost:5000/convert/${uploadedFile.name}`,
-        },
-      });
-    } catch (error) {
-      console.error("Error processing document:", error);
-      alertModal.showError("Error", "Failed to process document");
-    } finally {
-      setIsProcessing(false);
-    }
+  // Handle zoom controls
+  const handleZoomIn = () => {
+    setZoomLevel((prev) => Math.min(prev + 25, 300));
   };
 
-  const handleCanvasClick = (e: React.MouseEvent) => {
-    if (!canvasRef.current || !activeTool) return;
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    if (activeTool === "text" && newText.trim()) {
-      const newElement: TextElement = {
-        id: `text-${Date.now()}`,
-        text: newText,
-        x,
-        y,
-        page: currentPage,
-        fontSize,
-        color: textColor,
-        width: 200,
-        height: 50,
-      };
-      console.log("Adding text element:", newElement);
-      setTextElements([...textElements, newElement]);
-      setNewText("");
-      setActiveTool(null);
-    } else if (activeTool === "signature" && signatureData) {
-      const newElement: SignatureElement = {
-        id: `sig-${Date.now()}`,
-        data: signatureData,
-        x,
-        y,
-        page: currentPage,
-        width: 200,
-        height: 100,
-      };
-      console.log("Adding signature element:", newElement);
-      setSignatureElements([...signatureElements, newElement]);
-      setActiveTool(null);
-      setEditingSignatureId(newElement.id);
-    } else if (activeTool === "image" && imageData) {
-      const newElement: ImageElement = {
-        id: `img-${Date.now()}`,
-        data: imageData,
-        x,
-        y,
-        page: currentPage,
-        width: 200,
-        height: 150,
-      };
-      console.log("Adding image element:", newElement);
-      setImageElements([...imageElements, newElement]);
-      setActiveTool(null);
-    }
+  const handleZoomOut = () => {
+    setZoomLevel((prev) => Math.max(prev - 25, 50));
   };
 
-  const handleMouseDown = (
-    e: React.MouseEvent,
-    type: "text" | "signature" | "image",
-    index: number,
-    isResizeHandle = false
-  ) => {
-    e.stopPropagation();
-    if (isResizeHandle) {
-      setIsResizing(true);
-      setDragType(type);
-      setDragIndex(index);
-      const element =
-        type === "text"
-          ? textElements[index]
-          : type === "signature"
-          ? signatureElements[index]
-          : imageElements[index];
-      setResizeStart({
-        x: e.clientX,
-        y: e.clientY,
-        width: element.width,
-        height: element.height,
-      });
-    } else {
-      setIsDragging(true);
-      setDragType(type);
-      setDragIndex(index);
-      setDragStart({ x: e.clientX, y: e.clientY });
-
-      // Set as selected element
-      if (type === "signature") {
-        setEditingSignatureId(signatureElements[index].id);
-      }
-    }
+  const handleZoomReset = () => {
+    setZoomLevel(125);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!canvasRef.current) return;
-
-    if (isDragging) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      const deltaX = e.clientX - dragStart.x;
-      const deltaY = e.clientY - dragStart.y;
-
-      if (dragType === "text") {
-        const updatedElements = [...textElements];
-        updatedElements[dragIndex] = {
-          ...updatedElements[dragIndex],
-          x: updatedElements[dragIndex].x + deltaX,
-          y: updatedElements[dragIndex].y + deltaY,
-        };
-        setTextElements(updatedElements);
-      } else if (dragType === "signature") {
-        const updatedElements = [...signatureElements];
-        updatedElements[dragIndex] = {
-          ...updatedElements[dragIndex],
-          x: updatedElements[dragIndex].x + deltaX,
-          y: updatedElements[dragIndex].y + deltaY,
-        };
-        setSignatureElements(updatedElements);
-      } else if (dragType === "image") {
-        const updatedElements = [...imageElements];
-        updatedElements[dragIndex] = {
-          ...updatedElements[dragIndex],
-          x: updatedElements[dragIndex].x + deltaX,
-          y: updatedElements[dragIndex].y + deltaY,
-        };
-        setImageElements(updatedElements);
-      }
-
-      setDragStart({ x: e.clientX, y: e.clientY });
-    } else if (isResizing) {
-      const deltaX = e.clientX - resizeStart.x;
-      const deltaY = e.clientY - resizeStart.y;
-      const newWidth = Math.max(50, resizeStart.width + deltaX);
-      const newHeight = Math.max(30, resizeStart.height + deltaY);
-
-      if (dragType === "text") {
-        const updatedElements = [...textElements];
-        updatedElements[dragIndex] = {
-          ...updatedElements[dragIndex],
-          width: newWidth,
-          height: newHeight,
-        };
-        setTextElements(updatedElements);
-      } else if (dragType === "signature") {
-        const updatedElements = [...signatureElements];
-        updatedElements[dragIndex] = {
-          ...updatedElements[dragIndex],
-          width: newWidth,
-          height: newHeight,
-        };
-        setSignatureElements(updatedElements);
-      } else if (dragType === "image") {
-        const updatedElements = [...imageElements];
-        updatedElements[dragIndex] = {
-          ...updatedElements[dragIndex],
-          width: newWidth,
-          height: newHeight,
-        };
-        setImageElements(updatedElements);
-      }
-    }
+  // Handle tool selection
+  const handleToolSelect = (toolId: string) => {
+    setActiveTool(toolId);
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    setIsResizing(false);
-    setDragType(null);
-    setDragIndex(-1);
+  // Handle page change
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        setImageData(result);
-        setActiveTool("image");
-      };
-      reader.readAsDataURL(file);
-    }
+  // Generate page thumbnails
+  const generatePageThumbnails = () => {
+    return Array.from({ length: totalPages }, (_, index) => ({
+      pageNumber: index + 1,
+      isActive: currentPage === index + 1,
+      onClick: () => handlePageChange(index + 1),
+    }));
   };
 
-  const deleteElement = (type: "text" | "signature" | "image", id: string) => {
-    if (type === "text") {
-      setTextElements(textElements.filter((el) => el.id !== id));
-    } else if (type === "signature") {
-      setSignatureElements(signatureElements.filter((el) => el.id !== id));
-      if (editingSignatureId === id) {
-        setEditingSignatureId(null);
-      }
-    } else if (type === "image") {
-      setImageElements(imageElements.filter((el) => el.id !== id));
-    }
+  // Handle save changes
+  const handleSaveChanges = () => {
+    console.log("Save clicked");
   };
 
-  const clearSignature = () => {
-    setSignatureData("");
-    const canvas = document.querySelector("canvas");
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    }
-  };
-
-  const handleSaveChanges = async () => {
-    if (!uploadedFile) {
-      alertModal.showError("No File", "Please upload a PDF file first");
-      return;
-    }
-
-    if (
-      textElements.length === 0 &&
-      signatureElements.length === 0 &&
-      imageElements.length === 0
-    ) {
-      alertModal.showError("No Changes", "No changes to save");
-      return;
-    }
-
-    setIsProcessing(true);
-
-    try {
-      console.log("Starting save process...");
-      console.log("Text elements:", textElements.length);
-      console.log("Signature elements:", signatureElements.length);
-      console.log("Image elements:", imageElements.length);
-
-      const formData = new FormData();
-      formData.append("pdf", uploadedFile);
-
-      const elementsData = {
-        textElements,
-        signatureElements,
-        imageElements,
-        totalPages,
-      };
-
-      formData.append("elements", JSON.stringify(elementsData));
-
-      console.log(
-        "Sending request to:",
-        `http://localhost:5000/save_edit_fill_sign/${uploadedFile.name}`
-      );
-
-      const response = await fetch(
-        `http://localhost:5000/save_edit_fill_sign/${uploadedFile.name}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      console.log("Response status:", response.status);
-      console.log("Response ok:", response.ok);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Server error:", errorText);
-        alertModal.showError(
-          "Server Error",
-          `Server returned: ${response.status} - ${errorText}`
-        );
-        return;
-      }
-
-      const result = await response.json();
-      console.log("Server response:", result);
-
-      if (result.status === "success") {
-        setResult({
-          type: "success",
-          message: "Changes saved successfully",
-          data: {
-            download_url: result.download_url,
-            filename: result.filename,
-          },
-        });
-        console.log("Save successful! Download URL:", result.download_url);
-      } else {
-        alertModal.showError(
-          "Error",
-          result.message || "Failed to save changes"
-        );
-      }
-    } catch (error) {
-      console.error("Error saving changes:", error);
-      alertModal.showError("Error", `Failed to save changes: ${error.message}`);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
+  // File upload state
   if (!uploadedFile) {
     return (
-      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
-        <div className="p-6">
-          <div className="text-center mb-6">
-            <h3 className="text-white text-xl font-semibold mb-2">
-              Edit, Fill and Sign PDF
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Upload a PDF to edit text, fill forms, and add signatures
-              seamlessly
-            </p>
+      <>
+        <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+          <div className="p-6">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Edit, Fill & Sign PDF
+              </h2>
+              <p className="text-gray-400">
+                Upload a PDF to start editing, filling forms, and adding
+                signatures
+              </p>
+            </div>
+
+            <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center">
+              <div className="mb-4">
+                <svg
+                  className="mx-auto h-12 w-12 text-gray-400"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 48 48"
+                >
+                  <path
+                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="file-upload"
+                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                >
+                  Choose PDF File
+                </label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept=".pdf"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      handleFileUpload(file);
+                    }
+                  }}
+                  className="hidden"
+                />
+              </div>
+              <p className="text-gray-400 text-sm">
+                Drag and drop your PDF here, or click to browse
+              </p>
+            </div>
           </div>
-          <FileUpload
-            onChange={(files) => handleFileUpload(files[0])}
-            multiple={false}
-          />
+        </div>
+
+        <MonetizationModal
+          isOpen={monetizationState.isModalOpen}
+          onClose={closeMonetizationModal}
+          onAdComplete={handleAdComplete}
+          onPaymentComplete={handlePaymentComplete}
+          fileName={monetizationState.fileName}
+          fileType={monetizationState.fileType}
+        />
+      </>
+    );
+  }
+
+  // Processing state
+  if (isProcessing && !editorUrl) {
+    const steps = [
+      {
+        id: 0,
+        title: "Uploading PDF",
+        description: "Analyzing document and extracting elements...",
+        completed: uploadProgress >= 25,
+      },
+      {
+        id: 1,
+        title: "Analyzing Structure",
+        description: "Processing document layout with encryption...",
+        completed: uploadProgress >= 60,
+      },
+      {
+        id: 2,
+        title: "Preparing Editor",
+        description: "Setting up secure interface...",
+        completed: uploadProgress >= 100,
+      },
+    ];
+
+    return (
+      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+        <div className="p-6 flex items-center justify-center h-full">
+          <div className="w-full max-w-lg">
+            {/* Progress Steps */}
+            <div className="relative">
+              {steps.map((step, index) => (
+                <div
+                  key={step.id}
+                  className="flex items-start space-x-4 relative"
+                >
+                  {/* Checkmark Circle */}
+                  <div className="flex-shrink-0 relative z-10">
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                        step.completed
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-600 text-gray-400"
+                      }`}
+                    >
+                      {step.completed ? (
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      ) : (
+                        <span className="text-sm font-semibold">
+                          {index + 1}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Step Content */}
+                  <div className="flex-1 min-w-0 pb-6">
+                    <h3
+                      className={`text-lg font-semibold transition-colors duration-300 ${
+                        step.completed ? "text-green-400" : "text-white"
+                      }`}
+                    >
+                      {step.title}
+                    </h3>
+                    <p
+                      className={`text-sm transition-colors duration-300 ${
+                        step.completed ? "text-green-300" : "text-gray-400"
+                      }`}
+                    >
+                      {step.description}
+                    </p>
+                  </div>
+
+                  {/* Progress Line (except for last step) */}
+                  {index < steps.length - 1 && (
+                    <div className="absolute left-4 top-8 w-0.5 h-12 bg-gray-600">
+                      <div
+                        className={`w-full transition-all duration-500 ${
+                          step.completed ? "bg-green-500" : "bg-gray-600"
+                        }`}
+                        style={{ height: step.completed ? "100%" : "0%" }}
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Progress Bar */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-gray-300">
+                  Progress
+                </span>
+                <span className="text-sm font-semibold text-white">
+                  {Math.round(uploadProgress)}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-700 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-300 ease-out"
+                  style={{ width: `${uploadProgress}%` }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <>
-      <div
-        className="bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-xl overflow-hidden flex flex-col relative"
-        style={{ height: `${canvasHeight}px` }}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-white/10">
-          <div className="flex items-center space-x-4">
-            <h3 className="text-white font-semibold text-lg">
-              Edit, Fill and Sign PDF
-            </h3>
-            <span className="text-gray-400 text-sm">{uploadedFile?.name}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-              disabled={currentPage <= 1}
-              className="p-2 text-gray-400 hover:text-white disabled:opacity-50"
-            >
-              ←
-            </button>
-            <span className="text-sm text-gray-300">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={() =>
-                setCurrentPage(Math.min(totalPages, currentPage + 1))
-              }
-              disabled={currentPage >= totalPages}
-              className="p-2 text-gray-400 hover:text-white disabled:opacity-50"
-            >
-              →
-            </button>
-          </div>
-        </div>
-
-        {/* Seamless Toolbar */}
-        <div className="bg-gray-800/40 backdrop-blur-sm border-b border-gray-600/30">
-          <div className="flex items-center justify-between px-6 py-3">
-            {/* Tool Selection */}
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => {
-                  setActiveTool(activeTool === "text" ? null : "text");
-                  setNewText("");
-                }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeTool === "text"
-                    ? "bg-cyan-500/20 text-cyan-300 border border-cyan-400/40"
-                    : "text-gray-400 hover:text-gray-300 hover:bg-gray-700/30"
-                }`}
-              >
-                Add Text
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveTool(
-                    activeTool === "signature" ? null : "signature"
-                  );
-                }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeTool === "signature"
-                    ? "bg-blue-500/20 text-blue-300 border border-blue-400/40"
-                    : "text-gray-400 hover:text-gray-300 hover:bg-gray-700/30"
-                }`}
-              >
-                Add Signature
-              </button>
-
-              <button
-                onClick={() => {
-                  const input = document.createElement("input");
-                  input.type = "file";
-                  input.accept = "image/*";
-                  input.onchange = handleImageUpload;
-                  input.click();
-                }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeTool === "image"
-                    ? "bg-green-500/20 text-green-300 border border-green-400/40"
-                    : "text-gray-400 hover:text-gray-300 hover:bg-gray-700/30"
-                }`}
-              >
-                Add Image
-              </button>
-            </div>
-
-            {/* Active Tool Controls */}
-            {activeTool === "text" && (
-              <div className="flex items-center space-x-4">
-                <input
-                  type="text"
-                  placeholder="Enter text..."
-                  value={newText}
-                  onChange={(e) => setNewText(e.target.value)}
-                  className="px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white text-sm placeholder-gray-400 focus:border-cyan-400 focus:outline-none w-48"
-                />
-                <div className="flex items-center space-x-2">
-                  <span className="text-gray-400 text-sm">Size:</span>
-                  <input
-                    type="number"
-                    value={fontSize}
-                    onChange={(e) =>
-                      setFontSize(parseInt(e.target.value) || 12)
-                    }
-                    className="w-16 px-2 py-1 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white text-sm text-center focus:border-cyan-400 focus:outline-none"
-                  />
-                </div>
-                <input
-                  type="color"
-                  value={textColor}
-                  onChange={(e) => setTextColor(e.target.value)}
-                  className="w-8 h-8 bg-gray-700/50 border border-gray-600/50 rounded-lg cursor-pointer hover:border-cyan-400 transition-colors"
-                />
-              </div>
-            )}
-
-            {activeTool === "signature" && (
-              <div className="flex items-center space-x-4">
-                <div className="bg-white rounded-lg p-2 border border-gray-300">
-                  <SignatureCanvas
-                    onSignatureChange={setSignatureData}
-                    width={200}
-                    height={60}
-                  />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={clearSignature}
-                    disabled={!signatureData}
-                    className="px-3 py-1 bg-red-600/50 hover:bg-red-500/50 text-gray-200 rounded text-xs font-medium disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                  >
-                    Clear
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {activeTool === "image" && imageData && (
-              <div className="flex items-center space-x-4">
-                <img
-                  src={imageData}
-                  alt="Preview"
-                  className="w-16 h-12 object-cover rounded-lg border border-gray-300"
-                />
-                <span className="text-gray-300 text-sm">
-                  Click to place image
-                </span>
-              </div>
-            )}
-
-            {/* Status and Save Button */}
-            <div className="flex items-center space-x-4">
-              <div className="text-gray-400 text-sm">
-                {activeTool
-                  ? `Click on PDF to place ${activeTool}`
-                  : "Select a tool to start"}
-              </div>
-              <div className="text-gray-300 text-xs">
-                Elements:{" "}
-                {textElements.length +
-                  signatureElements.length +
-                  imageElements.length}
-                {textElements.length > 0 && ` (${textElements.length} text)`}
-                {signatureElements.length > 0 &&
-                  ` (${signatureElements.length} signatures)`}
-                {imageElements.length > 0 &&
-                  ` (${imageElements.length} images)`}
-              </div>
-              <button
-                onClick={handleSaveChanges}
-                disabled={
-                  isProcessing ||
-                  (textElements.length === 0 &&
-                    signatureElements.length === 0 &&
-                    imageElements.length === 0)
-                }
-                className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
-              >
-                {isProcessing ? "Saving..." : "Save Changes"}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* PDF Preview */}
-        <div className="flex-1 p-6">
-          <div className="h-full bg-white rounded-lg shadow-2xl border border-gray-200 relative overflow-hidden">
-            {editorUrl ? (
-              <>
-                <iframe
-                  src={editorUrl}
-                  className="w-full h-full border-0"
-                  title="PDF Editor"
-                />
-                {/* Overlay for interactive elements */}
-                <div
-                  ref={canvasRef}
-                  className={`absolute inset-0 pointer-events-none ${
-                    activeTool ? "cursor-crosshair" : ""
-                  }`}
-                  onClick={activeTool ? handleCanvasClick : undefined}
-                  style={{ pointerEvents: activeTool ? "auto" : "none" }}
-                >
-                  {/* Text Elements */}
-                  {textElements
-                    .filter((el) => el.page === currentPage)
-                    .map((element, index) => (
-                      <div
-                        key={element.id}
-                        className="absolute cursor-move select-none group pointer-events-auto"
-                        style={{
-                          left: element.x,
-                          top: element.y,
-                          width: element.width,
-                          height: element.height,
-                        }}
-                        onMouseDown={(e) => handleMouseDown(e, "text", index)}
-                      >
-                        <div
-                          className="px-2 py-1 w-full h-full flex items-center justify-between"
-                          style={{
-                            fontSize: element.fontSize,
-                            color: element.color,
-                          }}
-                        >
-                          <span className="flex-1">{element.text}</span>
-                          <button
-                            onClick={() => deleteElement("text", element.id)}
-                            className="ml-2 text-red-600 hover:text-red-800 text-lg font-bold"
-                          >
-                            ×
-                          </button>
-                        </div>
-                        {/* Resize Handle */}
-                        <div
-                          className="absolute bottom-0 right-0 w-3 h-3 bg-blue-500 cursor-se-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                          onMouseDown={(e) =>
-                            handleMouseDown(e, "text", index, true)
-                          }
-                        />
-                      </div>
-                    ))}
-
-                  {/* Signature Elements */}
-                  {signatureElements
-                    .filter((el) => el.page === currentPage)
-                    .map((element, index) => (
-                      <div
-                        key={element.id}
-                        className="absolute cursor-move group pointer-events-auto"
-                        style={{
-                          left: element.x,
-                          top: element.y,
-                          width: element.width,
-                          height: element.height,
-                        }}
-                        onMouseDown={(e) =>
-                          handleMouseDown(e, "signature", index)
-                        }
-                      >
-                        <img
-                          src={element.data}
-                          alt="Signature"
-                          className="w-full h-full object-contain border border-gray-300 rounded"
-                        />
-                        {editingSignatureId === element.id && (
-                          <button
-                            onClick={() =>
-                              deleteElement("signature", element.id)
-                            }
-                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-600 text-white rounded-full text-xs hover:bg-red-700"
-                          >
-                            ×
-                          </button>
-                        )}
-                        {/* Resize Handle */}
-                        <div
-                          className="absolute bottom-0 right-0 w-3 h-3 bg-blue-500 cursor-se-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                          onMouseDown={(e) =>
-                            handleMouseDown(e, "signature", index, true)
-                          }
-                        />
-                      </div>
-                    ))}
-
-                  {/* Image Elements */}
-                  {imageElements
-                    .filter((el) => el.page === currentPage)
-                    .map((element, index) => (
-                      <div
-                        key={element.id}
-                        className="absolute cursor-move group pointer-events-auto"
-                        style={{
-                          left: element.x,
-                          top: element.y,
-                          width: element.width,
-                          height: element.height,
-                        }}
-                        onMouseDown={(e) => handleMouseDown(e, "image", index)}
-                      >
-                        <img
-                          src={element.data}
-                          alt="Image"
-                          className="w-full h-full object-cover border border-gray-300 rounded"
-                        />
-                        <button
-                          onClick={() => deleteElement("image", element.id)}
-                          className="absolute -top-2 -right-2 w-6 h-6 bg-red-600 text-white rounded-full text-xs hover:bg-red-700"
-                        >
-                          ×
-                        </button>
-                        {/* Resize Handle */}
-                        <div
-                          className="absolute bottom-0 right-0 w-3 h-3 bg-blue-500 cursor-se-resize opacity-0 group-hover:opacity-100 transition-opacity"
-                          onMouseDown={(e) =>
-                            handleMouseDown(e, "image", index, true)
-                          }
-                        />
-                      </div>
-                    ))}
-                </div>
-              </>
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-500">
-                <div className="text-center">
-                  <div className="text-4xl mb-2">📄</div>
-                  <div>PDF Preview</div>
-                  <div className="text-sm">Page {currentPage}</div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Canvas Resize Handle */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-2 bg-gray-600/30 hover:bg-gray-500/50 cursor-ns-resize flex items-center justify-center group"
-          onMouseDown={handleCanvasResizeStart}
+  // Editor interface
+  if (editorUrl) {
+    return (
+      <div data-editor-active="true">
+        <PDFEditorLayout
+          title="Trevnoctilla"
+          fileName={uploadedFile?.name}
+          onBack={() => {
+            setUploadedFile(null);
+            setEditorUrl("");
+            setTextElements([]);
+            setSignatureElements([]);
+            setImageElements([]);
+            setActiveTool("select");
+            setResult(null);
+          }}
+          onDone={() => {
+            setUploadedFile(null);
+            setEditorUrl("");
+            setTextElements([]);
+            setSignatureElements([]);
+            setImageElements([]);
+            setActiveTool("select");
+            setResult(null);
+          }}
+          onSearch={() => {
+            console.log("Search clicked");
+          }}
+          zoomLevel={zoomLevel}
+          onZoomIn={handleZoomIn}
+          onZoomOut={handleZoomOut}
+          onZoomReset={handleZoomReset}
+          activeTool={activeTool}
+          onToolSelect={handleToolSelect}
+          pages={generatePageThumbnails()}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          onUploadNew={() => {
+            setUploadedFile(null);
+            setEditorUrl("");
+            setResult(null);
+          }}
+          onSave={handleSaveChanges}
+          isProcessing={isProcessing}
         >
-          <div className="w-8 h-1 bg-gray-400 group-hover:bg-gray-300 rounded-full"></div>
+          <div className="h-full w-full bg-white relative">
+            <iframe
+              src={editorUrl}
+              className="w-full h-full border-0"
+              title="PDF Editor"
+              style={{
+                transform: `scale(${zoomLevel / 100})`,
+                transformOrigin: "top left",
+              }}
+            />
+
+            {/* Overlay Canvas for annotations */}
+            <div
+              ref={canvasRef}
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                transform: `scale(${zoomLevel / 100})`,
+                transformOrigin: "top left",
+              }}
+            >
+              {/* Text elements */}
+              {textElements.map((element) => (
+                <div
+                  key={element.id}
+                  className="absolute pointer-events-auto"
+                  style={{
+                    left: element.x,
+                    top: element.y,
+                    fontSize: element.fontSize,
+                    color: element.color,
+                  }}
+                >
+                  {element.text}
+                </div>
+              ))}
+
+              {/* Signature elements */}
+              {signatureElements.map((element) => (
+                <div
+                  key={element.id}
+                  className="absolute pointer-events-auto"
+                  style={{
+                    left: element.x,
+                    top: element.y,
+                    width: element.width,
+                    height: element.height,
+                  }}
+                >
+                  <img
+                    src={element.signatureData}
+                    alt="Signature"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ))}
+
+              {/* Image elements */}
+              {imageElements.map((element) => (
+                <div
+                  key={element.id}
+                  className="absolute pointer-events-auto"
+                  style={{
+                    left: element.x,
+                    top: element.y,
+                    width: element.width,
+                    height: element.height,
+                  }}
+                >
+                  <img
+                    src={element.src}
+                    alt="Image"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Tool-specific overlays */}
+            {activeTool === "signature" && (
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-4 left-4 bg-white p-4 rounded-lg shadow-lg">
+                  <h3 className="font-semibold mb-2">Add Signature</h3>
+                  <SignatureCanvas
+                    onSignatureChange={(signatureData: string) => {
+                      console.log("Signature saved:", signatureData);
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {activeTool === "image" && (
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-4 left-4 bg-white p-4 rounded-lg shadow-lg">
+                  <h3 className="font-semibold mb-2">Add Image</h3>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                          const src = event.target?.result as string;
+                          const newImage: ImageElement = {
+                            id: Date.now().toString(),
+                            x: 100,
+                            y: 100,
+                            width: 200,
+                            height: 150,
+                            src,
+                          };
+                          setImageElements((prev) => [...prev, newImage]);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    className="mb-2"
+                  />
+                  <p className="text-sm text-gray-600">
+                    Click on the PDF to place the image
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </PDFEditorLayout>
+
+        <MonetizationModal
+          isOpen={monetizationState.isModalOpen}
+          onClose={closeMonetizationModal}
+          onAdComplete={handleAdComplete}
+          onPaymentComplete={handlePaymentComplete}
+          fileName={monetizationState.fileName}
+          fileType={monetizationState.fileType}
+        />
+      </div>
+    );
+  }
+
+  // Results
+  if (result) {
+    return (
+      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+        <div className="p-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-white mb-4">
+              {result.type === "success" ? "Success!" : "Error"}
+            </h2>
+            <p className="text-gray-400 mb-6">{result.message}</p>
+            <Button
+              onClick={() => {
+                setResult(null);
+                setUploadedFile(null);
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Process Another PDF
+            </Button>
+          </div>
         </div>
       </div>
+    );
+  }
 
-      {/* Results */}
-      {result && result.type === "success" && (
-        <div className="mt-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
-          <div className="flex items-center justify-between p-4 border-b border-white/10">
-            <h3 className="text-white font-semibold text-lg">
-              {result.data.download_url
-                ? "Changes Saved Successfully!"
-                : "Document Processed Successfully!"}
-            </h3>
-            {result.data.download_url ? (
-              <a
-                href={`http://localhost:5000${result.data.download_url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-cyan-400 hover:text-cyan-300 group"
-              >
-                <span className="font-medium">Download PDF</span>
-                <svg
-                  className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </a>
-            ) : (
-              <button
-                onClick={() =>
-                  openMonetizationModal(
-                    `${uploadedFile?.name.replace(".pdf", "")}_processed.pdf`,
-                    "PDF",
-                    result.data.editor_url
-                  )
-                }
-                className="flex items-center text-cyan-400 hover:text-cyan-300 group"
-              >
-                <span className="font-medium">Try it now</span>
-                <svg
-                  className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            )}
-          </div>
-          <div className="p-6">
-            <div className="text-center">
-              <p className="text-gray-400 text-sm mb-4">
-                {result.data.download_url
-                  ? "Your PDF with inserted text, images, and signatures is ready for download"
-                  : "Your PDF has been processed and is ready for download"}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <AlertModal
-        isOpen={alertModal.isOpen}
-        onClose={alertModal.hideAlert}
-        title={alertModal.title}
-        message={alertModal.message}
-        type={alertModal.type}
-        primaryButton={alertModal.primaryButton}
-        secondaryButton={alertModal.secondaryButton}
-      />
-
-      <MonetizationModal
-        isOpen={monetizationState.isModalOpen}
-        onClose={closeMonetizationModal}
-        onAdComplete={handleAdComplete}
-        onPaymentComplete={handlePaymentComplete}
-        fileName={monetizationState.fileName}
-        fileType={monetizationState.fileType}
-      />
-    </>
-  );
+  return null;
 };

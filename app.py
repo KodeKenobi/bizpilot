@@ -1496,7 +1496,7 @@ def save_edit_fill_sign(filename):
                 else:
                     color_rgb = (0, 0, 0)
                 
-                # Insert text at the specified position
+                # Insert text at the specified position (coordinates are already in PDF space)
                 page.insert_text((x, y), text, fontsize=font_size, color=color_rgb)
         
         # Process signature elements
