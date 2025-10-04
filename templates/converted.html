@@ -519,7 +519,7 @@
                 <button onclick="closePDFModal()" class="pdf-modal-close">&times;</button>
               </div>
               <div class="pdf-modal-body">
-                <iframe src="/view_html/${savedHtmlFilename}" class="pdf-modal-iframe"></iframe>
+                <iframe src="/view_html/${savedHtmlFilename}" class="pdf-modal-iframe" onload="hideIframeToolbar(this)"></iframe>
               </div>
             </div>
           </div>
@@ -533,16 +533,18 @@
         console.log("Save button found:", saveButton);
         console.log("New button found:", newButton);
 
-
         if (saveButton) {
           console.log("Save button current display:", saveButton.style.display);
           console.log(
             "Save button computed display:",
             window.getComputedStyle(saveButton).display
           );
-          saveButton.style.setProperty('display', 'none', 'important');
+          saveButton.style.setProperty("display", "none", "important");
           console.log("Save button display set to:", saveButton.style.display);
-          console.log("Save button computed display after: ", window.getComputedStyle(saveButton).display);
+          console.log(
+            "Save button computed display after: ",
+            window.getComputedStyle(saveButton).display
+          );
         } else {
           console.log("Save button NOT FOUND!");
         }
@@ -553,9 +555,12 @@
             "New button computed display:",
             window.getComputedStyle(newButton).display
           );
-          newButton.style.setProperty('display', 'none', 'important');
+          newButton.style.setProperty("display", "none", "important");
           console.log("New button display set to:", newButton.style.display);
-          console.log("New button computed display after: ", window.getComputedStyle(newButton).display);
+          console.log(
+            "New button computed display after: ",
+            window.getComputedStyle(newButton).display
+          );
         } else {
           console.log("New button NOT FOUND!");
         }
@@ -580,18 +585,20 @@
         console.log("Save button found for restore:", saveButton);
         console.log("New button found for restore:", newButton);
 
-
         if (saveButton) {
           console.log(
             "Save button current display before restore:",
             saveButton.style.display
           );
-          saveButton.style.setProperty('display', 'inline-block', 'important');
+          saveButton.style.setProperty("display", "inline-block", "important");
           console.log(
             "Save button display restored to:",
             saveButton.style.display
           );
-          console.log("Save button computed display after restore: ", window.getComputedStyle(saveButton).display);
+          console.log(
+            "Save button computed display after restore: ",
+            window.getComputedStyle(saveButton).display
+          );
         } else {
           console.log("Save button NOT FOUND for restore!");
         }
@@ -601,17 +608,42 @@
             "New button current display before restore:",
             newButton.style.display
           );
-          newButton.style.setProperty('display', 'inline-block', 'important');
+          newButton.style.setProperty("display", "inline-block", "important");
           console.log(
             "New button display restored to:",
             newButton.style.display
           );
-          console.log("New button computed display after restore: ", window.getComputedStyle(newButton).display);
+          console.log(
+            "New button computed display after restore: ",
+            window.getComputedStyle(newButton).display
+          );
         } else {
           console.log("New button NOT FOUND for restore!");
         }
 
         console.log("=== END CLOSING PDF MODAL ===");
+      }
+
+      function hideIframeToolbar(iframe) {
+        console.log("=== HIDING IFRAME TOOLBAR ===");
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+          if (iframeDoc) {
+            const toolbar = iframeDoc.querySelector('.toolbar');
+            if (toolbar) {
+              console.log("Found toolbar in iframe:", toolbar);
+              toolbar.style.setProperty('display', 'none', 'important');
+              console.log("Iframe toolbar hidden");
+            } else {
+              console.log("Toolbar not found in iframe");
+            }
+          } else {
+            console.log("Cannot access iframe document");
+          }
+        } catch (error) {
+          console.log("Error accessing iframe:", error);
+        }
+        console.log("=== END HIDING IFRAME TOOLBAR ===");
       }
 
       async function downloadPDF() {
