@@ -254,6 +254,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   const handleToolSelect = (toolId: string) => {
     console.log("🔧 Tool selected:", toolId);
     console.log("🔧 Previous active tool:", activeTool);
+    console.log("🔧 Tool type check - is sign tool:", toolId === "sign");
     setActiveTool(toolId);
 
     // Send message to iframe to set edit mode
@@ -264,6 +265,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
       console.log("📤 Iframe found:", iframe);
       console.log("📤 Iframe contentWindow:", iframe.contentWindow);
+      console.log("📤 Iframe src:", iframe.src);
       iframe.contentWindow.postMessage(
         {
           type: "SET_EDIT_MODE",
@@ -275,6 +277,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     } else {
       console.log("❌ Iframe not found or no contentWindow");
       console.log("❌ Iframe element:", iframe);
+      console.log("❌ Available iframes:", document.querySelectorAll("iframe"));
     }
   };
 
@@ -627,18 +630,6 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
                       {step.description}
                     </p>
                   </div>
-
-                  {/* Progress Line (except for last step) */}
-                  {index < steps.length - 1 && (
-                    <div className="absolute left-4 top-8 w-0.5 h-12 bg-gray-600">
-                      <div
-                        className={`w-full transition-all duration-500 ${
-                          step.completed ? "bg-green-500" : "bg-gray-600"
-                        }`}
-                        style={{ height: step.completed ? "100%" : "0%" }}
-                      />
-                    </div>
-                  )}
                 </div>
               ))}
             </div>

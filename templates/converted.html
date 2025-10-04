@@ -163,6 +163,189 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
       }
 
+      /* Signature Modal Styles */
+      .modal {
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .modal-header h3 {
+        margin: 0;
+        color: #333;
+      }
+
+      .close {
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        color: #aaa;
+      }
+
+      .close:hover {
+        color: #000;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      .signature-canvas-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .signature-controls {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      .btn-danger {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #c82333;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background-color: #545b62;
+      }
+
+      /* Resize handles for elements */
+      .resize-handle {
+        position: absolute;
+        background: #007bff;
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      .element-container:hover .resize-handle {
+        opacity: 1;
+      }
+
+      .element-container.editing .resize-handle {
+        opacity: 1;
+      }
+
+      .resize-handle.nw {
+        top: -6px;
+        left: -6px;
+        cursor: nw-resize;
+      }
+
+      .resize-handle.ne {
+        top: -6px;
+        right: -6px;
+        cursor: ne-resize;
+      }
+
+      .resize-handle.sw {
+        bottom: -6px;
+        left: -6px;
+        cursor: sw-resize;
+      }
+
+      .resize-handle.se {
+        bottom: -6px;
+        right: -6px;
+        cursor: se-resize;
+      }
+
+      .resize-handle.n {
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: n-resize;
+      }
+
+      .resize-handle.s {
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: s-resize;
+      }
+
+      .resize-handle.w {
+        top: 50%;
+        left: -6px;
+        transform: translateY(-50%);
+        cursor: w-resize;
+      }
+
+      .resize-handle.e {
+        top: 50%;
+        right: -6px;
+        transform: translateY(-50%);
+        cursor: e-resize;
+      }
+
+      .element-container.resizing {
+        user-select: none;
+      }
+
+      .element-container.resizing * {
+        pointer-events: none;
+      }
+
       .text-formatting-toolbar {
         position: absolute;
         top: -35px;
@@ -361,6 +544,37 @@
       {% endfor %}
     </div>
 
+    <!-- Signature Modal -->
+    <div id="signatureModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Create Signature</h3>
+          <span class="close" onclick="closeSignatureModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="signature-canvas-container">
+            <canvas
+              id="signatureCanvas"
+              width="400"
+              height="200"
+              style="border: 2px solid #ccc; cursor: crosshair"
+            ></canvas>
+          </div>
+          <div class="signature-controls">
+            <button onclick="clearSignature()" class="btn btn-danger">
+              Clear
+            </button>
+            <button onclick="saveSignature()" class="btn btn-primary">
+              Save Signature
+            </button>
+            <button onclick="closeSignatureModal()" class="btn btn-secondary">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- HTML to PDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -369,8 +583,11 @@
       let currentPage = 1;
       const totalPages = parseInt("{{ pages|length }}");
       let currentZoom = 1;
-      let edits = [];
       let currentEditElement = null;
+      let signatureCanvas = null;
+      let isDrawing = false;
+      let hasSignature = false;
+      let edits = [];
       let currentEditType = null;
       let savedHtmlFilename = null;
       let sessionId = null;
@@ -418,9 +635,10 @@
             "pageInfo"
           ).textContent = `${currentPage}/${totalPages}`;
 
-          document.getElementById("prevPage").disabled = currentPage === 1;
-          document.getElementById("nextPage").disabled =
-            currentPage === totalPages;
+          const prevPageBtn = document.getElementById("prevPage");
+          const nextPageBtn = document.getElementById("nextPage");
+          if (prevPageBtn) prevPageBtn.disabled = currentPage === 1;
+          if (nextPageBtn) nextPageBtn.disabled = currentPage === totalPages;
         }
       }
 
@@ -703,29 +921,83 @@
         );
       }
 
+      // Add document click listener for debugging
+      document.addEventListener("click", function (e) {
+        console.log("🖱️ Document clicked - target:", e.target);
+        console.log("🖱️ Document clicked - currentEditType:", currentEditType);
+        console.log(
+          "🖱️ Document clicked - overlays:",
+          document.querySelectorAll(".interactive-overlay").length
+        );
+      });
+
       // Listen for messages from parent (React component)
       window.addEventListener("message", function (event) {
         console.log("📨 Iframe received message:", event.data);
 
         if (event.data.type === "SET_EDIT_MODE") {
           console.log("🎯 Setting edit mode to:", event.data.mode);
+          console.log("🎯 Previous edit type:", currentEditType);
           currentEditType = event.data.mode;
+          console.log("🎯 New edit type set:", currentEditType);
+          console.log("🎯 Is sign mode:", currentEditType === "sign");
 
-          // Show/hide overlay based on edit mode
+          // Get overlays first
           const overlays = document.querySelectorAll(".interactive-overlay");
-          overlays.forEach((overlay) => {
-            if (
-              event.data.mode === "text" ||
-              event.data.mode === "sign" ||
-              event.data.mode === "image"
-            ) {
-              overlay.style.pointerEvents = "auto";
-              overlay.style.zIndex = "10";
-            } else {
+          console.log("🎯 Found overlays:", overlays.length);
+
+          // Immediately create element when tool is selected
+          if (event.data.mode === "text") {
+            console.log("📝 Creating text element immediately");
+            createTextElementImmediately();
+            // Disable overlays after creating element to prevent multiple creation
+            overlays.forEach((overlay, index) => {
               overlay.style.pointerEvents = "none";
               overlay.style.zIndex = "1";
-            }
-          });
+              console.log(`🎯 Overlay ${index} disabled after text creation`);
+            });
+          } else if (event.data.mode === "sign") {
+            console.log("✍️ Creating signature element immediately");
+            createSignatureElementImmediately();
+            // Disable overlays after creating element
+            overlays.forEach((overlay, index) => {
+              overlay.style.pointerEvents = "none";
+              overlay.style.zIndex = "1";
+              console.log(
+                `🎯 Overlay ${index} disabled after signature creation`
+              );
+            });
+          } else if (event.data.mode === "image") {
+            console.log("🖼️ Creating image element immediately");
+            createImageElementImmediately();
+            // Disable overlays after creating element
+            overlays.forEach((overlay, index) => {
+              overlay.style.pointerEvents = "none";
+              overlay.style.zIndex = "1";
+              console.log(`🎯 Overlay ${index} disabled after image creation`);
+            });
+          } else {
+            // For other modes, enable/disable overlays as needed
+            overlays.forEach((overlay, index) => {
+              if (
+                event.data.mode === "text" ||
+                event.data.mode === "sign" ||
+                event.data.mode === "image"
+              ) {
+                overlay.style.pointerEvents = "auto";
+                overlay.style.zIndex = "10";
+                console.log(
+                  `🎯 Overlay ${index} enabled for ${event.data.mode} mode`
+                );
+              } else {
+                overlay.style.pointerEvents = "none";
+                overlay.style.zIndex = "1";
+                console.log(
+                  `🎯 Overlay ${index} disabled for ${event.data.mode} mode`
+                );
+              }
+            });
+          }
 
           // Send confirmation back to parent
           window.parent.postMessage(
@@ -913,12 +1185,39 @@
         let startX, startY, initialX, initialY;
 
         element.addEventListener("mousedown", function (e) {
-          // Don't drag when clicking on text content or delete button
-          if (
-            e.target.classList.contains("text-element") ||
-            e.target.classList.contains("element-delete-btn")
-          ) {
+          // Don't drag when clicking on delete button
+          if (e.target.classList.contains("element-delete-btn")) {
             return;
+          }
+
+          // Don't drag when clicking on text element itself (for editing)
+          if (e.target.classList.contains("text-element")) {
+            console.log(
+              "📝 Clicked on text element - allowing edit, preventing drag"
+            );
+            return;
+          }
+
+          // Don't drag when a tool is still active, UNLESS it's an empty text element or drag handle
+          if (
+            currentEditType === "text" ||
+            currentEditType === "sign" ||
+            currentEditType === "image"
+          ) {
+            // Allow dragging if clicking on drag handle
+            if (
+              e.target.innerHTML === "✋" &&
+              e.target.title === "Drag to move"
+            ) {
+              console.log(
+                "🖱️ Drag handle clicked - allowing drag even with active tool"
+              );
+            } else {
+              console.log(
+                "🚫 Tool is active - preventing drag to avoid creating new elements"
+              );
+              return;
+            }
           }
 
           // Allow dragging when clicking on drag handle in toolbar, container, or any part of the element
@@ -937,9 +1236,18 @@
           startX = e.clientX;
           startY = e.clientY;
 
-          const rect = element.getBoundingClientRect();
-          initialX = rect.left;
-          initialY = rect.top;
+          // Get current position relative to overlay
+          const overlay = element.closest(".interactive-overlay");
+          if (overlay) {
+            const overlayRect = overlay.getBoundingClientRect();
+            const elementRect = element.getBoundingClientRect();
+
+            initialX = elementRect.left - overlayRect.left;
+            initialY = elementRect.top - overlayRect.top;
+          } else {
+            initialX = parseInt(element.style.left) || 0;
+            initialY = parseInt(element.style.top) || 0;
+          }
 
           element.style.cursor = "grabbing";
           element.style.zIndex = "1000";
@@ -965,29 +1273,31 @@
 
           console.log("🖱️ Mouse move - deltaX:", deltaX, "deltaY:", deltaY);
 
-          // Calculate new position
-          let newX = initialX + deltaX;
-          let newY = initialY + deltaY;
-
           // Get overlay bounds to keep element within view
           const overlay = element.closest(".interactive-overlay");
           if (overlay) {
             const overlayRect = overlay.getBoundingClientRect();
-            const elementRect = element.getBoundingClientRect();
+
+            // Calculate new position relative to overlay
+            let newX = initialX + deltaX;
+            let newY = initialY + deltaY;
 
             // Keep element within overlay bounds
+            const elementWidth = element.offsetWidth;
+            const elementHeight = element.offsetHeight;
+
             newX = Math.max(
               0,
-              Math.min(newX, overlayRect.width - elementRect.width)
+              Math.min(newX, overlayRect.width - elementWidth)
             );
             newY = Math.max(
               0,
-              Math.min(newY, overlayRect.height - elementRect.height)
+              Math.min(newY, overlayRect.height - elementHeight)
             );
-          }
 
-          element.style.left = newX + "px";
-          element.style.top = newY + "px";
+            element.style.left = newX + "px";
+            element.style.top = newY + "px";
+          }
 
           // Add some visual feedback during drag
           element.style.opacity = "0.8";
@@ -1009,6 +1319,9 @@
 
       // Function to show text edit toolbar
       function showTextEditToolbar(textElement, textContainer) {
+        // Add editing class to show resize handles
+        textContainer.classList.add("editing");
+
         // Remove existing toolbar if any
         const existingToolbar = textContainer.querySelector(
           ".text-formatting-toolbar"
@@ -1092,14 +1405,20 @@
         // Add drag functionality to the drag handle
         dragHandle.addEventListener("mousedown", function (e) {
           console.log("🖱️ Drag handle in edit toolbar clicked");
+          e.preventDefault();
           e.stopPropagation();
-          // Trigger drag on the container
-          const event = new MouseEvent("mousedown", {
+
+          // Trigger drag on the container by simulating a mousedown event
+          const container = textContainer;
+          const dragEvent = new MouseEvent("mousedown", {
             clientX: e.clientX,
             clientY: e.clientY,
             bubbles: true,
+            cancelable: true,
           });
-          textContainer.dispatchEvent(event);
+
+          // Dispatch the event on the container to trigger its drag logic
+          container.dispatchEvent(dragEvent);
         });
 
         // Apply formatting function
@@ -1137,6 +1456,11 @@
           textElement.readOnly = true;
           textElement.style.border = "none";
           textElement.style.background = "transparent";
+          // Remove editing class to hide resize handles
+          textContainer.classList.remove("editing");
+          // Deactivate tool to allow dragging
+          currentEditType = "select";
+          console.log("✅ Tool deactivated after Done button click");
         });
 
         // Prevent toolbar clicks from bubbling
@@ -1264,15 +1588,20 @@
         // Add drag functionality to the drag handle
         dragHandle.addEventListener("mousedown", function (e) {
           console.log("🖱️ Drag handle in toolbar clicked");
+          e.preventDefault();
           e.stopPropagation();
-          // Trigger drag on the container
+
+          // Trigger drag on the container by simulating a mousedown event
           const container = textContainer;
-          const event = new MouseEvent("mousedown", {
+          const dragEvent = new MouseEvent("mousedown", {
             clientX: e.clientX,
             clientY: e.clientY,
             bubbles: true,
+            cancelable: true,
           });
-          container.dispatchEvent(event);
+
+          // Dispatch the event on the container to trigger its drag logic
+          container.dispatchEvent(dragEvent);
         });
 
         // Assemble toolbar
@@ -1443,6 +1772,11 @@
           textElement.style.border = "none";
           textElement.style.background = "transparent";
           textElement.readOnly = true;
+          // Remove editing class to hide resize handles
+          textContainer.classList.remove("editing");
+          // Deactivate tool to allow dragging
+          currentEditType = "select";
+          console.log("✅ Tool deactivated after text finalization");
           console.log(
             "✅ Text element finalized - readOnly:",
             textElement.readOnly
@@ -1455,11 +1789,32 @@
           // Make text element draggable
           makeElementDraggable(textContainer);
 
+          // Add resize handles
+          addResizeHandles(textContainer);
+
           // Add click handler to edit text
           textElement.addEventListener("click", function (e) {
-            e.stopPropagation();
             console.log("📝 Text element clicked for editing");
+
+            // If text element is empty, don't show toolbar yet - allow dragging
+            if (!textElement.value || textElement.value.trim() === "") {
+              console.log(
+                "📝 Text element is empty - allowing drag without toolbar"
+              );
+              // Don't stop propagation so overlay can detect this as existing element
+              return;
+            }
+
+            // Only stop propagation if we're showing the toolbar
+            e.stopPropagation();
             showTextEditToolbar(textElement, textContainer);
+          });
+
+          // Add mousedown handler to prevent drag when clicking on text element
+          textElement.addEventListener("mousedown", function (e) {
+            console.log("📝 Text element mousedown - preventing drag");
+            e.preventDefault();
+            e.stopPropagation();
           });
 
           // Deactivate text tool after adding text
@@ -1488,6 +1843,9 @@
         console.log("📝 Text container children:", textContainer.children);
         console.log("📝 Overlay children count:", overlay.children.length);
 
+        // Ensure signature modal is closed when creating text
+        closeSignatureModal();
+
         // Focus and select text
         textElement.focus();
         textElement.select();
@@ -1498,12 +1856,435 @@
         console.log("📝 Initial formatting applied");
       }
 
+      // Signature Canvas Functions
+      function initializeSignatureCanvas() {
+        signatureCanvas = document.getElementById("signatureCanvas");
+        if (!signatureCanvas) return;
+
+        const ctx = signatureCanvas.getContext("2d");
+        if (!ctx) return;
+
+        // Set canvas size
+        signatureCanvas.width = 400;
+        signatureCanvas.height = 200;
+
+        // Set drawing styles
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        // Clear canvas with white background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, 400, 200);
+
+        // Add event listeners
+        signatureCanvas.addEventListener("mousedown", function (e) {
+          console.log("✍️ Mouse down on signature canvas");
+          startDrawing(e);
+        });
+        signatureCanvas.addEventListener("mousemove", function (e) {
+          if (isDrawing) {
+            console.log(
+              "✍️ Mouse move on signature canvas, isDrawing:",
+              isDrawing
+            );
+            draw(e);
+          }
+        });
+        signatureCanvas.addEventListener("mouseup", function (e) {
+          console.log("✍️ Mouse up on signature canvas");
+          stopDrawing();
+        });
+
+        // Also handle mouseup on document to catch cases where mouse leaves canvas
+        // Use a flag to prevent multiple listeners
+        if (!window.signatureMouseUpHandlerAdded) {
+          document.addEventListener("mouseup", handleGlobalMouseUp);
+          window.signatureMouseUpHandlerAdded = true;
+        }
+        signatureCanvas.addEventListener("mouseleave", function (e) {
+          console.log("✍️ Mouse leave on signature canvas");
+          stopDrawing();
+        });
+      }
+
+      function startDrawing(e) {
+        console.log("✍️ Starting signature drawing");
+        isDrawing = true;
+        const rect = signatureCanvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ctx = signatureCanvas.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        console.log("✍️ Drawing started at:", x, y);
+      }
+
+      function draw(e) {
+        if (!isDrawing) {
+          console.log("✍️ Drawing stopped - isDrawing is false");
+          return;
+        }
+
+        const rect = signatureCanvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ctx = signatureCanvas.getContext("2d");
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        console.log("✍️ Drawing at:", x, y);
+      }
+
+      function stopDrawing() {
+        console.log("✍️ Stopping signature drawing, isDrawing was:", isDrawing);
+        if (isDrawing) {
+          isDrawing = false;
+          hasSignature = true;
+          console.log("✍️ Drawing stopped successfully");
+
+          // Additional safety: ensure drawing is completely stopped
+          const ctx = signatureCanvas.getContext("2d");
+          ctx.beginPath(); // Start a new path to break any continuous drawing
+        } else {
+          console.log("✍️ Drawing was already stopped");
+        }
+      }
+
+      // Global mouseup handler to ensure drawing stops
+      function handleGlobalMouseUp(e) {
+        if (isDrawing) {
+          console.log("✍️ Global mouse up - stopping drawing");
+          stopDrawing();
+        }
+      }
+
+      function clearSignature() {
+        if (!signatureCanvas) {
+          console.log("✍️ Signature canvas not available for clearing");
+          return;
+        }
+        const ctx = signatureCanvas.getContext("2d");
+        if (!ctx) {
+          console.log("✍️ Could not get canvas context for clearing");
+          return;
+        }
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, 400, 200);
+        hasSignature = false;
+        console.log("✍️ Signature cleared");
+      }
+
+      function saveSignature() {
+        if (!hasSignature || !currentEditElement) return;
+
+        const signatureData = signatureCanvas.toDataURL("image/png");
+        const img = document.createElement("img");
+        img.src = signatureData;
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "100%";
+        img.style.objectFit = "contain";
+
+        // Replace the signature element content
+        currentEditElement.innerHTML = "";
+        currentEditElement.appendChild(img);
+
+        // Save edit data
+        const rect = currentEditElement.getBoundingClientRect();
+        const containerRect = currentEditElement
+          .closest(".element-container")
+          .getBoundingClientRect();
+        const x =
+          containerRect.left -
+          currentEditElement.closest(".pdf-page").getBoundingClientRect().left;
+        const y =
+          containerRect.top -
+          currentEditElement.closest(".pdf-page").getBoundingClientRect().top;
+
+        edits.push({
+          type: "add_signature",
+          page: currentPage,
+          x: x,
+          y: y,
+          data: signatureData,
+          width: 200,
+          height: 100,
+        });
+
+        console.log("✍️ Signature saved:", {
+          x,
+          y,
+          data: signatureData.substring(0, 50) + "...",
+        });
+
+        // Close modal and deactivate tool
+        closeSignatureModal();
+        currentEditType = "select";
+
+        // Send message to parent
+        window.parent.postMessage(
+          {
+            type: "EDIT_MODE_SET",
+            mode: "select",
+          },
+          "*"
+        );
+      }
+
+      function openSignatureModal(element) {
+        currentEditElement = element;
+        const modal = document.getElementById("signatureModal");
+        modal.style.display = "block";
+        modal.style.visibility = "visible";
+        modal.style.pointerEvents = "auto";
+        initializeSignatureCanvas();
+
+        console.log("✍️ Signature modal opened");
+
+        // Ensure the modal doesn't interfere with text input
+        modal.addEventListener("keydown", function (e) {
+          // Only prevent default for specific keys, not all keys
+          if (e.key === "Escape") {
+            closeSignatureModal();
+            e.preventDefault();
+          }
+        });
+      }
+
+      function closeSignatureModal() {
+        const modal = document.getElementById("signatureModal");
+        modal.style.display = "none";
+        modal.style.visibility = "hidden";
+        modal.style.pointerEvents = "none";
+        currentEditElement = null;
+        clearSignature();
+
+        // Ensure focus returns to the document
+        document.body.focus();
+        console.log("✍️ Signature modal closed and focus returned");
+      }
+
+      // Functions to create elements immediately when tool is selected
+      function createTextElementImmediately() {
+        console.log("📝 Creating text element immediately");
+        const overlays = document.querySelectorAll(".interactive-overlay");
+        if (overlays.length === 0) {
+          console.log("❌ No overlays found for text element");
+          return;
+        }
+
+        // Use the first overlay (current page)
+        const overlay = overlays[0];
+        const rect = overlay.getBoundingClientRect();
+
+        // Position element in the upper-center area for better UX
+        // Use 1/3 from top instead of center to avoid bottom placement
+        const x = rect.width / 2 - 100; // Center horizontally, offset for element width
+        const y = rect.height / 3; // 1/3 from top instead of center
+
+        // Create a mock click event at the better position
+        const mockEvent = {
+          clientX: rect.left + x + 100, // Adjust for the offset
+          clientY: rect.top + y,
+          target: overlay,
+        };
+
+        console.log("📝 Positioning text element at:", x, y);
+        addTextElement(mockEvent, overlay);
+      }
+
+      function createSignatureElementImmediately() {
+        console.log("✍️ Creating signature element immediately");
+        const overlays = document.querySelectorAll(".interactive-overlay");
+        if (overlays.length === 0) {
+          console.log("❌ No overlays found for signature element");
+          return;
+        }
+
+        // Use the first overlay (current page)
+        const overlay = overlays[0];
+        const rect = overlay.getBoundingClientRect();
+
+        // Position element in the upper-center area for better UX
+        // Use 1/3 from top instead of center to avoid bottom placement
+        const x = rect.width / 2 - 75; // Center horizontally, offset for signature width
+        const y = rect.height / 3; // 1/3 from top instead of center
+
+        // Create a mock click event at the better position
+        const mockEvent = {
+          clientX: rect.left + x + 75, // Adjust for the offset
+          clientY: rect.top + y,
+          target: overlay,
+        };
+
+        console.log("✍️ Positioning signature element at:", x, y);
+        addSignatureElement(mockEvent, overlay);
+      }
+
+      function createImageElementImmediately() {
+        console.log("🖼️ Creating image element immediately");
+        const overlays = document.querySelectorAll(".interactive-overlay");
+        if (overlays.length === 0) {
+          console.log("❌ No overlays found for image element");
+          return;
+        }
+
+        // Use the first overlay (current page)
+        const overlay = overlays[0];
+        const rect = overlay.getBoundingClientRect();
+
+        // Position element in the upper-center area for better UX
+        // Use 1/3 from top instead of center to avoid bottom placement
+        const x = rect.width / 2 - 100; // Center horizontally, offset for image width
+        const y = rect.height / 3; // 1/3 from top instead of center
+
+        // Create a mock click event at the better position
+        const mockEvent = {
+          clientX: rect.left + x + 100, // Adjust for the offset
+          clientY: rect.top + y,
+          target: overlay,
+        };
+
+        console.log("🖼️ Positioning image element at:", x, y);
+        addImageElement(mockEvent, overlay);
+      }
+
+      // Resize functionality for elements
+      function addResizeHandles(element) {
+        console.log("🔧 Adding resize handles to element");
+
+        // Remove existing resize handles
+        const existingHandles = element.querySelectorAll(".resize-handle");
+        existingHandles.forEach((handle) => handle.remove());
+
+        // Create resize handles
+        const handles = [
+          { class: "nw", cursor: "nw-resize" },
+          { class: "ne", cursor: "ne-resize" },
+          { class: "sw", cursor: "sw-resize" },
+          { class: "se", cursor: "se-resize" },
+          { class: "n", cursor: "n-resize" },
+          { class: "s", cursor: "s-resize" },
+          { class: "w", cursor: "w-resize" },
+          { class: "e", cursor: "e-resize" },
+        ];
+
+        handles.forEach((handleData) => {
+          const handle = document.createElement("div");
+          handle.className = `resize-handle ${handleData.class}`;
+          handle.style.cursor = handleData.cursor;
+          element.appendChild(handle);
+
+          // Add resize functionality
+          handle.addEventListener("mousedown", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            startResize(element, handle, e);
+          });
+        });
+      }
+
+      function startResize(element, handle, e) {
+        console.log("🔧 Starting resize operation");
+
+        element.classList.add("resizing");
+        const rect = element.getBoundingClientRect();
+        const startX = e.clientX;
+        const startY = e.clientY;
+        const startWidth = rect.width;
+        const startHeight = rect.height;
+        const startLeft = rect.left;
+        const startTop = rect.top;
+
+        const handleClass = handle.className.split(" ")[1]; // Get the direction class
+
+        function handleMouseMove(e) {
+          const deltaX = e.clientX - startX;
+          const deltaY = e.clientY - startY;
+
+          let newWidth = startWidth;
+          let newHeight = startHeight;
+          let newLeft = startLeft;
+          let newTop = startTop;
+
+          // Calculate new dimensions based on handle direction
+          switch (handleClass) {
+            case "se":
+              newWidth = Math.max(50, startWidth + deltaX);
+              newHeight = Math.max(30, startHeight + deltaY);
+              break;
+            case "sw":
+              newWidth = Math.max(50, startWidth - deltaX);
+              newHeight = Math.max(30, startHeight + deltaY);
+              newLeft = startLeft + deltaX;
+              break;
+            case "ne":
+              newWidth = Math.max(50, startWidth + deltaX);
+              newHeight = Math.max(30, startHeight - deltaY);
+              newTop = startTop + deltaY;
+              break;
+            case "nw":
+              newWidth = Math.max(50, startWidth - deltaX);
+              newHeight = Math.max(30, startHeight - deltaY);
+              newLeft = startLeft + deltaX;
+              newTop = startTop + deltaY;
+              break;
+            case "e":
+              newWidth = Math.max(50, startWidth + deltaX);
+              break;
+            case "w":
+              newWidth = Math.max(50, startWidth - deltaX);
+              newLeft = startLeft + deltaX;
+              break;
+            case "s":
+              newHeight = Math.max(30, startHeight + deltaY);
+              break;
+            case "n":
+              newHeight = Math.max(30, startHeight - deltaY);
+              newTop = startTop + deltaY;
+              break;
+          }
+
+          // Apply new dimensions
+          element.style.width = newWidth + "px";
+          element.style.height = newHeight + "px";
+          element.style.left = newLeft + "px";
+          element.style.top = newTop + "px";
+
+          // Update the content element inside
+          const contentElement = element.querySelector(
+            ".signature-element, .text-element, .image-element"
+          );
+          if (contentElement) {
+            contentElement.style.width = "100%";
+            contentElement.style.height = "100%";
+          }
+        }
+
+        function handleMouseUp() {
+          console.log("🔧 Resize operation completed");
+          element.classList.remove("resizing");
+          document.removeEventListener("mousemove", handleMouseMove);
+          document.removeEventListener("mouseup", handleMouseUp);
+        }
+
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+      }
+
       // Function to add signature element
       function addSignatureElement(e, overlay) {
         console.log("✍️ Adding signature element...");
+        console.log("✍️ Event:", e);
+        console.log("✍️ Overlay:", overlay);
+        console.log("✍️ Current edit type:", currentEditType);
         const rect = overlay.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
+        console.log("✍️ Click position - x:", x, "y:", y);
+        console.log("✍️ Overlay rect:", rect);
 
         // Create signature container
         const signatureContainer = document.createElement("div");
@@ -1574,43 +2355,45 @@
         });
 
         signatureElement.addEventListener("click", function () {
-          // Open signature modal or prompt
-          const signature = prompt("Enter signature text:");
-          if (signature) {
-            signatureElement.innerHTML = signature;
-            edits.push({
-              type: "add_signature",
-              page: currentPage,
-              x: x,
-              y: y,
-              text: signature,
-            });
-          }
-
-          // Add delete button to container
-          signatureContainer.appendChild(deleteBtn);
-
-          // Deactivate signature tool after adding signature
-          currentEditType = "select";
-
-          // Send message to parent to deactivate signature tool
-          window.parent.postMessage(
-            {
-              type: "EDIT_MODE_SET",
-              mode: "select",
-            },
-            "*"
-          );
+          // Open signature modal
+          openSignatureModal(signatureElement);
         });
+
+        // Add delete button to container
+        signatureContainer.appendChild(deleteBtn);
+
+        // Deactivate signature tool after adding signature element
+        currentEditType = "select";
+
+        // Send message to parent to deactivate signature tool
+        window.parent.postMessage(
+          {
+            type: "EDIT_MODE_SET",
+            mode: "select",
+          },
+          "*"
+        );
 
         // Make signature element draggable
         makeElementDraggable(signatureContainer);
 
+        // Add resize handles
+        addResizeHandles(signatureContainer);
+
         // Add click handler to edit signature
         signatureElement.addEventListener("click", function (e) {
+          e.preventDefault();
           e.stopPropagation();
           console.log("✍️ Signature element clicked for editing");
-          // You can add signature editing functionality here if needed
+          // Open signature modal
+          openSignatureModal(signatureElement);
+        });
+
+        // Add mousedown handler to prevent drag when clicking on signature element
+        signatureElement.addEventListener("mousedown", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log("✍️ Signature element mousedown - preventing drag");
         });
 
         // Assemble and add to overlay
@@ -1753,6 +2536,9 @@
 
         // Make image element draggable
         makeElementDraggable(imageContainer);
+
+        // Add resize handles
+        addResizeHandles(imageContainer);
 
         // Add click handler to edit image
         imageElement.addEventListener("click", function (e) {
@@ -1907,6 +2693,13 @@
           overlay.style.pointerEvents = "none";
           overlay.style.zIndex = "1";
 
+          // Add a simple test click listener to see if overlays are clickable
+          overlay.addEventListener("click", function (e) {
+            console.log("🧪 TEST: Overlay clicked directly!");
+            console.log("🧪 TEST: Event target:", e.target);
+            console.log("🧪 TEST: Current edit type:", currentEditType);
+          });
+
           overlay.addEventListener("click", function (e) {
             console.log(
               "🖱️ Overlay clicked, currentEditType:",
@@ -1914,6 +2707,12 @@
             );
             console.log("🖱️ Click target:", e.target);
             console.log("🖱️ Click target class:", e.target.className);
+            console.log("🖱️ Overlay element:", overlay);
+            console.log(
+              "🖱️ Overlay pointer-events:",
+              overlay.style.pointerEvents
+            );
+            console.log("🖱️ Overlay z-index:", overlay.style.zIndex);
 
             // Check if click is on toolbar or its children
             if (e.target.closest(".text-formatting-toolbar")) {
@@ -1941,10 +2740,14 @@
               overlay.style.pointerEvents = "none";
               overlay.style.zIndex = "1";
             } else if (currentEditType === "sign") {
+              console.log("✍️ Sign tool active - calling addSignatureElement");
               addSignatureElement(e, overlay);
               // Immediately disable overlay to prevent multiple clicks
               overlay.style.pointerEvents = "none";
               overlay.style.zIndex = "1";
+              console.log(
+                "✍️ Overlay disabled after signature element creation"
+              );
             } else if (currentEditType === "image") {
               addImageElement(e, overlay);
               // Immediately disable overlay to prevent multiple clicks
@@ -1955,9 +2758,11 @@
           });
         });
 
-        document.getElementById("prevPage").disabled = true;
-        if (totalPages === 1) {
-          document.getElementById("nextPage").disabled = true;
+        const prevPageBtn = document.getElementById("prevPage");
+        const nextPageBtn = document.getElementById("nextPage");
+        if (prevPageBtn) prevPageBtn.disabled = true;
+        if (nextPageBtn) {
+          nextPageBtn.disabled = totalPages === 1;
         }
       });
     </script>
