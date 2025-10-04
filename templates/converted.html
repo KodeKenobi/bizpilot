@@ -67,10 +67,25 @@
         cursor: pointer;
         border: none;
         outline: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        pointer-events: none;
       }
 
       .editable-image:hover {
         border: none;
+      }
+
+      /* Prevent right-click context menu on images */
+      .editable-image {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
       .interactive-overlay {
@@ -93,13 +108,97 @@
         cursor: text;
         font-size: 14px;
         color: #000;
-        z-index: 20;
+        z-index: 50;
+        pointer-events: auto;
       }
 
       .text-element:focus {
         outline: none;
         border: 2px solid #007bff;
         background: rgba(0, 123, 255, 0.1);
+      }
+
+      .element-delete-btn {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 20px;
+        height: 20px;
+        background: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        display: block;
+        z-index: 200;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        opacity: 1;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        pointer-events: auto;
+      }
+
+      .element-delete-btn:hover {
+        background: #c82333;
+        transform: scale(1.1);
+      }
+
+      .element-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .text-formatting-toolbar {
+        position: absolute;
+        top: -35px;
+        left: 0;
+        background: #333;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 5px;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        pointer-events: auto;
+      }
+
+      .text-formatting-toolbar select,
+      .text-formatting-toolbar input {
+        background: #444;
+        color: white;
+        border: 1px solid #666;
+        border-radius: 3px;
+        padding: 2px 5px;
+        font-size: 12px;
+        pointer-events: auto;
+        z-index: 101;
+        position: relative;
+      }
+
+      .text-formatting-toolbar select:focus,
+      .text-formatting-toolbar input:focus {
+        outline: none;
+        border-color: #007bff;
+      }
+
+      .text-formatting-toolbar button {
+        background: #555;
+        color: white;
+        border: 1px solid #666;
+        border-radius: 3px;
+        padding: 2px 6px;
+        font-size: 12px;
+        cursor: pointer;
+        pointer-events: auto;
+        z-index: 101;
+        position: relative;
+      }
+
+      .text-formatting-toolbar button:hover {
+        background: #666;
       }
 
       .signature-element {
@@ -116,6 +215,12 @@
         font-size: 12px;
         color: #007bff;
         z-index: 20;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-touch-callout: none;
+        pointer-events: auto;
       }
 
       .image-element {
@@ -132,6 +237,12 @@
         font-size: 12px;
         color: #007bff;
         z-index: 20;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-touch-callout: none;
+        pointer-events: auto;
       }
 
       .pdf-modal {
@@ -785,43 +896,286 @@
       // Function to add text element
       function addTextElement(e, overlay) {
         console.log("📝 Adding text element...");
+        console.log("📝 Click event:", e);
+        console.log("📝 Overlay element:", overlay);
         const rect = overlay.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
+        console.log("📝 Click position - x:", x, "y:", y);
+        console.log("📝 Overlay rect:", rect);
 
+        // Create text element container
+        const textContainer = document.createElement("div");
+        textContainer.className = "element-container";
+        textContainer.style.position = "absolute";
+        textContainer.style.left = x + "px";
+        textContainer.style.top = y + "px";
+        textContainer.style.zIndex = "20";
+        console.log("📝 Created text container at position:", x, y);
+
+        // Create formatting toolbar
+        const toolbar = document.createElement("div");
+        toolbar.className = "text-formatting-toolbar";
+
+        // Font family selector
+        const fontSelect = document.createElement("select");
+        fontSelect.innerHTML = `
+          <option value="Arial">Arial</option>
+          <option value="Times New Roman">Times New Roman</option>
+          <option value="Helvetica">Helvetica</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Verdana">Verdana</option>
+          <option value="Courier New">Courier New</option>
+          <option value="Comic Sans MS">Comic Sans MS</option>
+        `;
+        console.log("🎨 Created font select dropdown");
+
+        // Font size selector
+        const sizeSelect = document.createElement("select");
+        sizeSelect.innerHTML = `
+          <option value="10">10px</option>
+          <option value="12">12px</option>
+          <option value="14" selected>14px</option>
+          <option value="16">16px</option>
+          <option value="18">18px</option>
+          <option value="20">20px</option>
+          <option value="24">24px</option>
+          <option value="28">28px</option>
+          <option value="32">32px</option>
+        `;
+
+        // Color picker
+        const colorInput = document.createElement("input");
+        colorInput.type = "color";
+        colorInput.value = "#000000";
+        colorInput.style.width = "30px";
+        colorInput.style.height = "20px";
+
+        // Bold button
+        const boldButton = document.createElement("button");
+        boldButton.innerHTML = "B";
+        boldButton.style.fontWeight = "bold";
+
+        // Italic button
+        const italicButton = document.createElement("button");
+        italicButton.innerHTML = "I";
+        italicButton.style.fontStyle = "italic";
+
+        // Done button
+        const doneButton = document.createElement("button");
+        doneButton.innerHTML = "✓";
+        doneButton.style.background = "#007bff";
+        console.log("✅ Created done button");
+
+        // Assemble toolbar
+        toolbar.appendChild(fontSelect);
+        toolbar.appendChild(sizeSelect);
+        toolbar.appendChild(colorInput);
+        toolbar.appendChild(boldButton);
+        toolbar.appendChild(italicButton);
+        toolbar.appendChild(doneButton);
+
+        // Prevent toolbar clicks from creating new text elements
+        toolbar.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+        toolbar.addEventListener("mousedown", function (e) {
+          e.stopPropagation();
+        });
+        toolbar.addEventListener("mouseup", function (e) {
+          e.stopPropagation();
+        });
+        toolbar.addEventListener("mouseover", function (e) {
+          e.stopPropagation();
+        });
+        toolbar.addEventListener("mouseout", function (e) {
+          e.stopPropagation();
+        });
+
+        // Prevent all toolbar controls from bubbling up
+        [
+          fontSelect,
+          sizeSelect,
+          colorInput,
+          boldButton,
+          italicButton,
+          doneButton,
+        ].forEach((control) => {
+          control.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+          control.addEventListener("mousedown", function (e) {
+            e.stopPropagation();
+          });
+          control.addEventListener("mouseup", function (e) {
+            e.stopPropagation();
+          });
+        });
+
+        // Create text element
         const textElement = document.createElement("textarea");
         textElement.className = "text-element";
-        textElement.style.left = x + "px";
-        textElement.style.top = y + "px";
+        textElement.style.position = "relative";
+        textElement.style.left = "0";
+        textElement.style.top = "0";
+        textElement.style.width = "200px";
+        textElement.style.height = "30px";
         textElement.placeholder = "Enter text...";
         textElement.value = "New Text";
+        console.log("📝 Created text element:", textElement);
 
-        textElement.addEventListener("blur", function () {
+        // Create delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "element-delete-btn";
+        deleteBtn.innerHTML = "×";
+        deleteBtn.title = "Delete element";
+        console.log("🗑️ Created delete button for text element");
+
+        // Add protection against drag and selection (but allow text editing)
+        textElement.addEventListener("dragstart", function (e) {
+          e.preventDefault();
+          return false;
+        });
+
+        textElement.addEventListener("selectstart", function (e) {
+          // Allow text selection within the textarea for editing
+          return true;
+        });
+
+        // Set HTML attributes for protection
+        textElement.setAttribute("draggable", "false");
+        textElement.setAttribute("ondragstart", "return false;");
+
+        // Delete button event handler
+        deleteBtn.addEventListener("click", function (e) {
+          console.log("🗑️ Delete button clicked for text element");
+          e.preventDefault();
+          e.stopPropagation();
+          if (confirm("Are you sure you want to delete this text element?")) {
+            textContainer.remove();
+            // Remove from edits array if it was saved
+            const editIndex = edits.findIndex(
+              (edit) =>
+                edit.type === "add_text" &&
+                edit.page === currentPage &&
+                edit.x === x &&
+                edit.y === y
+            );
+            if (editIndex !== -1) {
+              edits.splice(editIndex, 1);
+            }
+          }
+        });
+
+        // Apply formatting functions
+        const applyFormatting = () => {
+          textElement.style.fontFamily = fontSelect.value;
+          textElement.style.fontSize = sizeSelect.value + "px";
+          textElement.style.color = colorInput.value;
+        };
+
+        // Event listeners for formatting
+        fontSelect.addEventListener("change", applyFormatting);
+        sizeSelect.addEventListener("change", applyFormatting);
+        colorInput.addEventListener("change", applyFormatting);
+
+        boldButton.addEventListener("click", () => {
+          textElement.style.fontWeight =
+            textElement.style.fontWeight === "bold" ? "normal" : "bold";
+        });
+
+        italicButton.addEventListener("click", () => {
+          textElement.style.fontStyle =
+            textElement.style.fontStyle === "italic" ? "normal" : "italic";
+        });
+
+        // Done button - finalize text
+        doneButton.addEventListener("click", () => {
+          console.log("✅ Done button clicked!");
+          console.log("✅ Text value:", textElement.value);
+          console.log("✅ Text trimmed:", textElement.value.trim());
           if (textElement.value.trim()) {
-            edits.push({
+            const editData = {
               type: "add_text",
               page: currentPage,
               x: x,
               y: y,
               text: textElement.value,
-            });
+              fontFamily: textElement.style.fontFamily,
+              fontSize: textElement.style.fontSize,
+              color: textElement.style.color,
+              fontWeight: textElement.style.fontWeight,
+              fontStyle: textElement.style.fontStyle,
+            };
+            console.log("✅ Saving edit data:", editData);
+            edits.push(editData);
+            console.log("✅ Total edits count:", edits.length);
 
             // Send message to parent
-            window.parent.postMessage(
-              {
-                type: "TEXT_ADDED",
-                text: textElement.value,
-                x: x,
-                y: y,
-              },
-              "*"
-            );
+            const messageData = {
+              type: "TEXT_ADDED",
+              text: textElement.value,
+              x: x,
+              y: y,
+              fontFamily: textElement.style.fontFamily,
+              fontSize: textElement.style.fontSize,
+              color: textElement.style.color,
+              fontWeight: textElement.style.fontWeight,
+              fontStyle: textElement.style.fontStyle,
+            };
+            console.log("📤 Sending message to parent:", messageData);
+            window.parent.postMessage(messageData, "*");
           }
+
+          // Remove toolbar and finalize
+          console.log("✅ Removing toolbar and finalizing text");
+          toolbar.remove();
+          textElement.style.border = "none";
+          textElement.style.background = "transparent";
+          textElement.readOnly = true;
+          console.log(
+            "✅ Text element finalized - readOnly:",
+            textElement.readOnly
+          );
+
+          // Add delete button to container
+          textContainer.appendChild(deleteBtn);
+          console.log("✅ Delete button added to container");
+
+          // Deactivate text tool after adding text
+          currentEditType = "select";
+          console.log(
+            "✅ Deactivating text tool, currentEditType:",
+            currentEditType
+          );
+
+          // Send message to parent to deactivate text tool
+          window.parent.postMessage(
+            {
+              type: "EDIT_MODE_SET",
+              mode: "select",
+            },
+            "*"
+          );
+          console.log("✅ Sent EDIT_MODE_SET message to parent");
         });
 
-        overlay.appendChild(textElement);
+        // Assemble and add to overlay
+        textContainer.appendChild(toolbar);
+        textContainer.appendChild(textElement);
+        overlay.appendChild(textContainer);
+        console.log("📝 Added text element to DOM");
+        console.log("📝 Text container children:", textContainer.children);
+        console.log("📝 Overlay children count:", overlay.children.length);
+
+        // Focus and select text
         textElement.focus();
         textElement.select();
+        console.log("📝 Text element focused and selected");
+
+        // Apply initial formatting
+        applyFormatting();
+        console.log("📝 Initial formatting applied");
       }
 
       // Function to add signature element
@@ -831,11 +1185,73 @@
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
+        // Create signature container
+        const signatureContainer = document.createElement("div");
+        signatureContainer.className = "element-container";
+        signatureContainer.style.position = "absolute";
+        signatureContainer.style.left = x + "px";
+        signatureContainer.style.top = y + "px";
+        signatureContainer.style.zIndex = "20";
+
         const signatureElement = document.createElement("div");
         signatureElement.className = "signature-element";
-        signatureElement.style.left = x + "px";
-        signatureElement.style.top = y + "px";
+        signatureElement.style.position = "relative";
+        signatureElement.style.left = "0";
+        signatureElement.style.top = "0";
         signatureElement.innerHTML = "Signature";
+
+        // Create delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "element-delete-btn";
+        deleteBtn.innerHTML = "×";
+        deleteBtn.title = "Delete signature";
+        console.log("🗑️ Created delete button for signature element");
+
+        // Add protection against drag and selection
+        signatureElement.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        });
+
+        signatureElement.addEventListener("dragstart", function (e) {
+          e.preventDefault();
+          return false;
+        });
+
+        signatureElement.addEventListener("selectstart", function (e) {
+          e.preventDefault();
+          return false;
+        });
+
+        // Set HTML attributes for protection
+        signatureElement.setAttribute("draggable", "false");
+        signatureElement.setAttribute("oncontextmenu", "return false;");
+        signatureElement.setAttribute("ondragstart", "return false;");
+        signatureElement.setAttribute("onselectstart", "return false;");
+
+        // Delete button event handler
+        deleteBtn.addEventListener("click", function (e) {
+          console.log("🗑️ Delete button clicked for signature element");
+          e.preventDefault();
+          e.stopPropagation();
+          if (
+            confirm("Are you sure you want to delete this signature element?")
+          ) {
+            signatureContainer.remove();
+            // Remove from edits array if it was saved
+            const editIndex = edits.findIndex(
+              (edit) =>
+                edit.type === "add_signature" &&
+                edit.page === currentPage &&
+                edit.x === x &&
+                edit.y === y
+            );
+            if (editIndex !== -1) {
+              edits.splice(editIndex, 1);
+            }
+          }
+        });
 
         signatureElement.addEventListener("click", function () {
           // Open signature modal or prompt
@@ -850,9 +1266,26 @@
               text: signature,
             });
           }
+
+          // Add delete button to container
+          signatureContainer.appendChild(deleteBtn);
+
+          // Deactivate signature tool after adding signature
+          currentEditType = "select";
+
+          // Send message to parent to deactivate signature tool
+          window.parent.postMessage(
+            {
+              type: "EDIT_MODE_SET",
+              mode: "select",
+            },
+            "*"
+          );
         });
 
-        overlay.appendChild(signatureElement);
+        // Assemble and add to overlay
+        signatureContainer.appendChild(signatureElement);
+        overlay.appendChild(signatureContainer);
       }
 
       // Function to add image element
@@ -862,11 +1295,71 @@
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
+        // Create image container
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "element-container";
+        imageContainer.style.position = "absolute";
+        imageContainer.style.left = x + "px";
+        imageContainer.style.top = y + "px";
+        imageContainer.style.zIndex = "20";
+
         const imageElement = document.createElement("div");
         imageElement.className = "image-element";
-        imageElement.style.left = x + "px";
-        imageElement.style.top = y + "px";
+        imageElement.style.position = "relative";
+        imageElement.style.left = "0";
+        imageElement.style.top = "0";
         imageElement.innerHTML = "Image";
+
+        // Create delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "element-delete-btn";
+        deleteBtn.innerHTML = "×";
+        deleteBtn.title = "Delete image";
+        console.log("🗑️ Created delete button for image element");
+
+        // Add protection against drag and selection for the container
+        imageElement.addEventListener("contextmenu", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        });
+
+        imageElement.addEventListener("dragstart", function (e) {
+          e.preventDefault();
+          return false;
+        });
+
+        imageElement.addEventListener("selectstart", function (e) {
+          e.preventDefault();
+          return false;
+        });
+
+        // Set HTML attributes for protection
+        imageElement.setAttribute("draggable", "false");
+        imageElement.setAttribute("oncontextmenu", "return false;");
+        imageElement.setAttribute("ondragstart", "return false;");
+        imageElement.setAttribute("onselectstart", "return false;");
+
+        // Delete button event handler
+        deleteBtn.addEventListener("click", function (e) {
+          console.log("🗑️ Delete button clicked for image element");
+          e.preventDefault();
+          e.stopPropagation();
+          if (confirm("Are you sure you want to delete this image element?")) {
+            imageContainer.remove();
+            // Remove from edits array if it was saved
+            const editIndex = edits.findIndex(
+              (edit) =>
+                edit.type === "add_image" &&
+                edit.page === currentPage &&
+                edit.x === x &&
+                edit.y === y
+            );
+            if (editIndex !== -1) {
+              edits.splice(editIndex, 1);
+            }
+          }
+        });
 
         imageElement.addEventListener("click", function () {
           const input = document.createElement("input");
@@ -877,7 +1370,28 @@
             if (file) {
               const reader = new FileReader();
               reader.onload = function (e) {
-                imageElement.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 100%;">`;
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.style.maxWidth = "100%";
+                img.style.maxHeight = "100%";
+
+                // Apply protection to new image
+                img.addEventListener("contextmenu", function (e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  return false;
+                });
+                img.addEventListener("dragstart", function (e) {
+                  e.preventDefault();
+                  return false;
+                });
+                img.setAttribute("draggable", "false");
+                img.setAttribute("oncontextmenu", "return false;");
+                img.setAttribute("ondragstart", "return false;");
+
+                imageElement.innerHTML = "";
+                imageElement.appendChild(img);
+
                 edits.push({
                   type: "add_image",
                   page: currentPage,
@@ -888,12 +1402,73 @@
               };
               reader.readAsDataURL(file);
             }
+
+            // Add delete button to container
+            imageContainer.appendChild(deleteBtn);
+
+            // Deactivate image tool after adding image
+            currentEditType = "select";
+
+            // Send message to parent to deactivate image tool
+            window.parent.postMessage(
+              {
+                type: "EDIT_MODE_SET",
+                mode: "select",
+              },
+              "*"
+            );
           };
           input.click();
         });
 
-        overlay.appendChild(imageElement);
+        // Assemble and add to overlay
+        imageContainer.appendChild(imageElement);
+        overlay.appendChild(imageContainer);
       }
+
+      // Global protection against right-click and image saving
+      document.addEventListener("contextmenu", function (e) {
+        // Allow right-click on form elements and text inputs
+        if (
+          e.target.tagName === "INPUT" ||
+          e.target.tagName === "TEXTAREA" ||
+          e.target.tagName === "SELECT"
+        ) {
+          return;
+        }
+        e.preventDefault();
+        return false;
+      });
+
+      // Prevent drag and drop of images
+      document.addEventListener("dragstart", function (e) {
+        if (e.target.tagName === "IMG") {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Prevent keyboard shortcuts for saving
+      document.addEventListener("keydown", function (e) {
+        // Prevent Ctrl+S, Ctrl+Shift+S, F12 (dev tools)
+        if (
+          (e.ctrlKey && e.key === "s") ||
+          (e.ctrlKey && e.shiftKey && e.key === "S") ||
+          e.key === "F12" ||
+          (e.ctrlKey && e.shiftKey && e.key === "I")
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Disable text selection on images
+      document.addEventListener("selectstart", function (e) {
+        if (e.target.tagName === "IMG") {
+          e.preventDefault();
+          return false;
+        }
+      });
 
       document.addEventListener("DOMContentLoaded", function () {
         console.log("📄 Template loaded with total pages:", totalPages);
@@ -932,6 +1507,36 @@
 
         // Handle image replacement
         document.querySelectorAll(".editable-image").forEach((element) => {
+          // Prevent right-click context menu
+          element.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          });
+
+          // Prevent drag and drop
+          element.addEventListener("dragstart", function (e) {
+            e.preventDefault();
+            return false;
+          });
+
+          // Prevent image saving via keyboard shortcuts
+          element.addEventListener("keydown", function (e) {
+            if (e.ctrlKey && (e.key === "s" || e.key === "S")) {
+              e.preventDefault();
+              return false;
+            }
+          });
+
+          // Disable image saving methods
+          element.setAttribute("draggable", "false");
+          element.setAttribute("oncontextmenu", "return false;");
+          element.setAttribute("ondragstart", "return false;");
+          element.setAttribute(
+            "onload",
+            "this.ondragstart=function(){return false};"
+          );
+
           element.addEventListener("click", function () {
             const input = document.createElement("input");
             input.type = "file";
@@ -967,14 +1572,44 @@
               "🖱️ Overlay clicked, currentEditType:",
               currentEditType
             );
+            console.log("🖱️ Click target:", e.target);
+            console.log("🖱️ Click target class:", e.target.className);
+
+            // Check if click is on toolbar or its children
+            if (e.target.closest(".text-formatting-toolbar")) {
+              console.log("🚫 Click on toolbar, ignoring overlay handler");
+              return;
+            }
+
+            // Check if click is on existing elements
+            if (
+              e.target.closest(".text-element") ||
+              e.target.closest(".signature-element") ||
+              e.target.closest(".image-element") ||
+              e.target.closest(".element-container")
+            ) {
+              console.log(
+                "🚫 Click on existing element, ignoring overlay handler"
+              );
+              return;
+            }
 
             // Only handle clicks if we're in an active editing mode
             if (currentEditType === "text") {
               addTextElement(e, overlay);
+              // Immediately disable overlay to prevent multiple clicks
+              overlay.style.pointerEvents = "none";
+              overlay.style.zIndex = "1";
             } else if (currentEditType === "sign") {
               addSignatureElement(e, overlay);
+              // Immediately disable overlay to prevent multiple clicks
+              overlay.style.pointerEvents = "none";
+              overlay.style.zIndex = "1";
             } else if (currentEditType === "image") {
               addImageElement(e, overlay);
+              // Immediately disable overlay to prevent multiple clicks
+              overlay.style.pointerEvents = "none";
+              overlay.style.zIndex = "1";
             }
             // If no active editing mode, let the click pass through to underlying elements
           });

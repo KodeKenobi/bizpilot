@@ -253,6 +253,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   // Handle tool selection
   const handleToolSelect = (toolId: string) => {
     console.log("🔧 Tool selected:", toolId);
+    console.log("🔧 Previous active tool:", activeTool);
     setActiveTool(toolId);
 
     // Send message to iframe to set edit mode
@@ -261,6 +262,8 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
       console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
+      console.log("📤 Iframe found:", iframe);
+      console.log("📤 Iframe contentWindow:", iframe.contentWindow);
       iframe.contentWindow.postMessage(
         {
           type: "SET_EDIT_MODE",
@@ -268,8 +271,10 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         },
         "*"
       );
+      console.log("📤 Message sent successfully");
     } else {
       console.log("❌ Iframe not found or no contentWindow");
+      console.log("❌ Iframe element:", iframe);
     }
   };
 
@@ -287,8 +292,21 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         // Handle PDF generation completion
       } else if (event.data.type === "TEXT_ADDED") {
         console.log("📝 Text added:", event.data);
+        console.log("📝 Text content:", event.data.text);
+        console.log("📝 Text position:", event.data.x, event.data.y);
+        console.log("📝 Text formatting:", {
+          fontFamily: event.data.fontFamily,
+          fontSize: event.data.fontSize,
+          color: event.data.color,
+          fontWeight: event.data.fontWeight,
+          fontStyle: event.data.fontStyle,
+        });
       } else if (event.data.type === "EDIT_MODE_SET") {
         console.log("🎯 Edit mode set in iframe:", event.data.mode);
+        console.log("🎯 Previous React active tool:", activeTool);
+        // Update the active tool in React to match iframe state
+        setActiveTool(event.data.mode);
+        console.log("🎯 React active tool updated to:", event.data.mode);
       } else {
         console.log("❓ Unknown message type:", event.data.type);
       }
