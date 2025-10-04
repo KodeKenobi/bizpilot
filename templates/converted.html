@@ -199,6 +199,90 @@
       .btn.tertiary:hover {
         background: #1e7e34;
       }
+
+      .pdf-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+      }
+
+      .pdf-modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .pdf-modal-content {
+        background: white;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 1200px;
+        height: 90%;
+        max-height: 800px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .pdf-modal-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f9fafb;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .pdf-modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+      }
+
+      .pdf-modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #6b7280;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+      }
+
+      .pdf-modal-close:hover {
+        background-color: #e5e7eb;
+        color: #374151;
+      }
+
+      .pdf-modal-body {
+        flex: 1;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .pdf-modal-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 0 0 8px 8px;
+      }
     </style>
   </head>
   <body>
@@ -339,9 +423,9 @@
           "Old PDF editor save function disabled - using new EditFillSignTool instead"
         );
 
-        const saveButton = document.querySelector('.actions .btn.primary');
+        const saveButton = document.querySelector(".actions .btn.primary");
         const originalText = saveButton.textContent;
-        saveButton.textContent = 'Saving...';
+        saveButton.textContent = "Saving...";
         saveButton.disabled = true;
 
         fetch(`/save_edits/{{ filename }}`, {
@@ -361,7 +445,6 @@
           })
           .then((data) => {
             if (data.status === "success") {
-              showNotification("Edits saved successfully!");
               edits = [];
 
               // Also save HTML version and show View/Download buttons
@@ -413,9 +496,35 @@
 
       function viewPDF() {
         if (savedHtmlFilename) {
-          window.open(`/view_html/${savedHtmlFilename}`, "_blank");
+          showPDFModal();
         } else {
           showNotification("Please save your document first!", true);
+        }
+      }
+
+      function showPDFModal() {
+        const modal = document.createElement('div');
+        modal.className = 'pdf-modal';
+        modal.innerHTML = `
+          <div class="pdf-modal-overlay" onclick="closePDFModal()">
+            <div class="pdf-modal-content" onclick="event.stopPropagation()">
+              <div class="pdf-modal-header">
+                <h3>PDF Preview</h3>
+                <button onclick="closePDFModal()" class="pdf-modal-close">&times;</button>
+              </div>
+              <div class="pdf-modal-body">
+                <iframe src="/view_html/${savedHtmlFilename}" class="pdf-modal-iframe"></iframe>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+
+      function closePDFModal() {
+        const modal = document.querySelector('.pdf-modal');
+        if (modal) {
+          modal.remove();
         }
       }
 
