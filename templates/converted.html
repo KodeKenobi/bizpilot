@@ -492,14 +492,23 @@
       }
 
       function viewPDF() {
+        console.log("=== VIEW PDF CALLED ===");
+        console.log("savedHtmlFilename:", savedHtmlFilename);
+        
         if (savedHtmlFilename) {
+          console.log("Calling showPDFModal()");
           showPDFModal();
         } else {
+          console.log("No saved HTML filename, showing notification");
           showNotification("Please save your document first!", true);
         }
+        
+        console.log("=== END VIEW PDF ===");
       }
 
       function showPDFModal() {
+        console.log("=== SHOWING PDF MODAL ===");
+        
         const modal = document.createElement("div");
         modal.className = "pdf-modal";
         modal.innerHTML = `
@@ -516,23 +525,69 @@
           </div>
         `;
         document.body.appendChild(modal);
+        console.log("Modal added to DOM");
+
+        const saveButton = document.querySelector(".actions .btn.primary");
+        const newButton = document.querySelector(".actions .btn.tertiary");
         
-        const saveButton = document.querySelector('.actions .btn.primary');
-        const newButton = document.querySelector('.actions .btn.tertiary');
-        if (saveButton) saveButton.style.display = 'none';
-        if (newButton) newButton.style.display = 'none';
+        console.log("Save button found:", saveButton);
+        console.log("New button found:", newButton);
+        
+        if (saveButton) {
+          console.log("Save button current display:", saveButton.style.display);
+          console.log("Save button computed display:", window.getComputedStyle(saveButton).display);
+          saveButton.style.display = "none";
+          console.log("Save button display set to:", saveButton.style.display);
+        } else {
+          console.log("Save button NOT FOUND!");
+        }
+        
+        if (newButton) {
+          console.log("New button current display:", newButton.style.display);
+          console.log("New button computed display:", window.getComputedStyle(newButton).display);
+          newButton.style.display = "none";
+          console.log("New button display set to:", newButton.style.display);
+        } else {
+          console.log("New button NOT FOUND!");
+        }
+        
+        console.log("=== END SHOWING PDF MODAL ===");
       }
 
       function closePDFModal() {
+        console.log("=== CLOSING PDF MODAL ===");
+        
         const modal = document.querySelector(".pdf-modal");
         if (modal) {
           modal.remove();
+          console.log("Modal removed from DOM");
+        } else {
+          console.log("Modal NOT FOUND for removal!");
+        }
+
+        const saveButton = document.querySelector(".actions .btn.primary");
+        const newButton = document.querySelector(".actions .btn.tertiary");
+        
+        console.log("Save button found for restore:", saveButton);
+        console.log("New button found for restore:", newButton);
+        
+        if (saveButton) {
+          console.log("Save button current display before restore:", saveButton.style.display);
+          saveButton.style.display = "inline-block";
+          console.log("Save button display restored to:", saveButton.style.display);
+        } else {
+          console.log("Save button NOT FOUND for restore!");
         }
         
-        const saveButton = document.querySelector('.actions .btn.primary');
-        const newButton = document.querySelector('.actions .btn.tertiary');
-        if (saveButton) saveButton.style.display = 'inline-block';
-        if (newButton) newButton.style.display = 'inline-block';
+        if (newButton) {
+          console.log("New button current display before restore:", newButton.style.display);
+          newButton.style.display = "inline-block";
+          console.log("New button display restored to:", newButton.style.display);
+        } else {
+          console.log("New button NOT FOUND for restore!");
+        }
+        
+        console.log("=== END CLOSING PDF MODAL ===");
       }
 
       async function downloadPDF() {
