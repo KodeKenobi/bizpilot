@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify
+from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify, Response
 from flask_cors import CORS
 import os
 import fitz
@@ -118,6 +118,43 @@ def pdf_preview():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/api/pdf_info/<filename>")
+def get_pdf_info(filename):
+    """Get PDF information including page count"""
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    try:
+        doc = fitz.open(filepath)
+        page_count = len(doc)
+        doc.close()
+        return jsonify({
+            "filename": filename,
+            "page_count": page_count
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/pdf_thumbnail/<filename>/<int:page_num>")
+def get_pdf_thumbnail(filename, page_num):
+    """Get thumbnail image for a specific page"""
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    try:
+        doc = fitz.open(filepath)
+        if page_num < 1 or page_num > len(doc):
+            return jsonify({"error": "Invalid page number"}), 400
+        
+        page = doc[page_num - 1]  # Convert to 0-based index
+        
+        # Create thumbnail with reasonable size
+        mat = fitz.Matrix(0.3, 0.3)  # Scale down to 30% for thumbnail
+        pix = page.get_pixmap(matrix=mat)
+        img_data = pix.tobytes("png")
+        
+        doc.close()
+        
+        return Response(img_data, mimetype="image/png")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/convert/<filename>")
 def convert_pdf(filename):
     print(f"DEBUG: Convert endpoint called with filename: {filename}")
@@ -193,6 +230,81 @@ def convert_pdf(filename):
         print(f"DEBUG: Rendering template with {len(pages_data)} pages")
         
         return render_template("converted.html", 
+                             filename=filename, 
+                             pages=pages_data)
+    
+    except Exception as e:
+        return f"Error converting PDF: {str(e)}", 500
+
+@app.route("/editor/<filename>")
+def convert_pdf_for_editor(filename):
+    print(f"DEBUG: Editor endpoint called with filename: {filename}")
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    print(f"DEBUG: File path: {filepath}")
+    print(f"DEBUG: File exists: {os.path.exists(filepath)}")
+    
+    try:
+        doc = fitz.open(filepath)
+        print(f"DEBUG: PDF opened successfully, total pages: {len(doc)}")
+        pages_data = []
+        image_counter = 0
+        
+        # Show all pages for editor
+        page_range = range(len(doc))
+        print(f"DEBUG: Showing all pages, range: {list(range(1, len(doc) + 1))}")
+        
+        for page_idx in page_range:
+            print(f"DEBUG: Processing page {page_idx + 1}")
+            page = doc[page_idx]
+            page_dict = page.get_text("dict")
+            print(f"DEBUG: Page {page_idx + 1} has {len(page_dict['blocks'])} blocks")
+            
+            page_html = f'<div class="pdf-page" data-page="{page_idx + 1}">'
+            
+            for block in page_dict["blocks"]:
+                if "lines" in block:
+                    for line in block["lines"]:
+                        line_html = '<div class="text-line">'
+                        for span in line["spans"]:
+                            text = span["text"]
+                            if text.strip():
+                                bbox = span["bbox"]
+                                font = span["font"]
+                                size = span["size"]
+                                flags = span["flags"]
+                                
+                                style = f"position: absolute; left: {bbox[0]}px; top: {bbox[1]}px; font-size: {size}px; font-family: {font};"
+                                if flags & 2**4:
+                                    style += " font-weight: bold;"
+                                if flags & 2**1:
+                                    style += " font-style: italic;"
+                                
+                                line_html += f'<span class="text-span editable-text" data-text="{text}" style="{style}">{text}</span>'
+                        line_html += '</div>'
+                        page_html += line_html
+                
+                elif "image" in block:
+                    image_counter += 1
+                    bbox = block["bbox"]
+                    image_data = block["image"]
+                    image_base64 = base64.b64encode(image_data).decode()
+                    
+                    style = f"position: absolute; left: {bbox[0]}px; top: {bbox[1]}px; width: {bbox[2] - bbox[0]}px; height: {bbox[3] - bbox[1]}px;"
+                    page_html += f'<img class="editable-image" data-image-id="{image_counter}" src="data:image/png;base64,{image_base64}" style="{style}">'
+            
+            page_html += '</div>'
+            pages_data.append({
+                'html': page_html,
+                'width': page.rect.width,
+                'height': page.rect.height
+            })
+            print(f"DEBUG: Page {page_idx + 1} HTML length: {len(page_html)}")
+        
+        doc.close()
+        print(f"DEBUG: Total pages processed: {len(pages_data)}")
+        print(f"DEBUG: Rendering editor template with {len(pages_data)} pages")
+        
+        return render_template("editor.html", 
                              filename=filename, 
                              pages=pages_data)
     
@@ -1213,11 +1325,68 @@ def convert_pdf_to_html():
             html_content += page.get_text("html")
         doc.close()
         
+        # Wrap in proper HTML document structure
+        full_html = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Document</title>
+    <style>
+        body {{
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }}
+        .pdf-container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }}
+        .pdf-page {{
+            position: relative;
+            background: white;
+            transform-origin: top left;
+        }}
+        .text-span {{
+            position: absolute;
+            white-space: nowrap;
+        }}
+        .editable-text {{
+            cursor: text;
+            border: 1px solid transparent;
+            padding: 2px;
+            margin: -2px;
+        }}
+        .editable-text:hover {{
+            border: 1px dashed #007bff;
+            background: rgba(0, 123, 255, 0.1);
+        }}
+        .editable-image {{
+            position: absolute;
+            cursor: pointer;
+        }}
+        .editable-image:hover {{
+            outline: 2px dashed #007bff;
+        }}
+    </style>
+</head>
+<body>
+    <div class="pdf-container">
+        {html_content}
+    </div>
+</body>
+</html>"""
+        
         # Save HTML
         html_filename = f"{file.filename.replace('.pdf', '')}_converted.html"
         html_filepath = os.path.join(HTML_FOLDER, html_filename)
         with open(html_filepath, 'w', encoding='utf-8') as f:
-            f.write(html_content)
+            f.write(full_html)
         
         return jsonify({
             "status": "success",

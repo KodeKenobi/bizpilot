@@ -91,7 +91,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   const [editorUrl, setEditorUrl] = useState<string>("");
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [zoomLevel, setZoomLevel] = useState<number>(125);
+  const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
 
@@ -168,14 +168,40 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       // Brief pause before showing completion
       await new Promise((resolve) => setTimeout(resolve, 800));
 
-      setEditorUrl(
-        "data:text/html,<h1>PDF Editor Mock</h1><p>This is a mock PDF editor for demonstration purposes.</p>"
-      );
-      setTotalPages(1);
+      // Save PDF file first, then convert using template
+      const formData = new FormData();
+      formData.append("pdf", uploadedFile);
+
+      const uploadResponse = await fetch("/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error("Failed to upload PDF");
+      }
+
+      // Use the uploaded file name directly for the convert endpoint
+      const filename = uploadedFile.name;
+
+      // Get PDF info including page count
+      const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
+      if (pdfInfoResponse.ok) {
+        const pdfInfo = await pdfInfoResponse.json();
+        console.log("📄 PDF info:", pdfInfo);
+        setTotalPages(pdfInfo.page_count);
+      } else {
+        console.warn("Failed to get PDF info, defaulting to 1 page");
+        setTotalPages(1);
+      }
+
+      // Set the converted HTML URL using the original template approach
+      setEditorUrl(`/convert/${filename}`);
 
       // Brief pause before showing completion
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
+      console.error("PDF conversion error:", error);
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -197,6 +223,13 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     };
   }, [uploadedFile]);
 
+  // Clean up when component unmounts or editorUrl changes
+  React.useEffect(() => {
+    return () => {
+      // No cleanup needed for HTML URLs
+    };
+  }, [editorUrl]);
+
   // Reset processing ref when editorUrl changes (processing complete)
   React.useEffect(() => {
     if (editorUrl) {
@@ -214,31 +247,215 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   };
 
   const handleZoomReset = () => {
-    setZoomLevel(125);
+    setZoomLevel(100);
   };
 
   // Handle tool selection
   const handleToolSelect = (toolId: string) => {
+    console.log("🔧 Tool selected:", toolId);
     setActiveTool(toolId);
+
+    // Send message to iframe to set edit mode
+    const iframe = document.querySelector(
+      'iframe[title="PDF Editor"]'
+    ) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
+      iframe.contentWindow.postMessage(
+        {
+          type: "SET_EDIT_MODE",
+          mode: toolId,
+        },
+        "*"
+      );
+    } else {
+      console.log("❌ Iframe not found or no contentWindow");
+    }
   };
+
+  // Listen for messages from iframe
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      console.log("📨 Message received from iframe:", event.data);
+
+      if (event.data.type === "SAVE_COMPLETE") {
+        console.log("✅ PDF saved successfully:", event.data.filename);
+        // Handle save completion - could show success message or redirect
+        alertModal.showSuccess("Success", "PDF saved successfully!");
+      } else if (event.data.type === "PDF_GENERATED") {
+        console.log("✅ PDF generation completed");
+        // Handle PDF generation completion
+      } else if (event.data.type === "TEXT_ADDED") {
+        console.log("📝 Text added:", event.data);
+      } else if (event.data.type === "EDIT_MODE_SET") {
+        console.log("🎯 Edit mode set in iframe:", event.data.mode);
+      } else {
+        console.log("❓ Unknown message type:", event.data.type);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [alertModal]);
 
   // Handle page change
   const handlePageChange = (pageNumber: number) => {
+    console.log("📄 Changing to page:", pageNumber);
     setCurrentPage(pageNumber);
+
+    // Send message to iframe to change page
+    const iframe = document.querySelector(
+      'iframe[title="PDF Editor"]'
+    ) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      console.log("📤 Sending CHANGE_PAGE message to iframe:", pageNumber);
+      iframe.contentWindow.postMessage(
+        {
+          type: "CHANGE_PAGE",
+          pageNumber: pageNumber,
+        },
+        "*"
+      );
+    } else {
+      console.log("❌ Iframe not found for page change");
+    }
   };
 
   // Generate page thumbnails
   const generatePageThumbnails = () => {
+    if (!uploadedFile) return [];
+
     return Array.from({ length: totalPages }, (_, index) => ({
       pageNumber: index + 1,
       isActive: currentPage === index + 1,
+      thumbnailUrl: `/api/pdf_thumbnail/${uploadedFile.name}/${index + 1}`,
       onClick: () => handlePageChange(index + 1),
     }));
   };
 
   // Handle save changes
   const handleSaveChanges = () => {
-    console.log("Save clicked");
+    console.log("Save clicked - triggering PDF generation");
+
+    // Send message to iframe to generate and download PDF
+    const iframe = document.querySelector(
+      'iframe[title="PDF Editor"]'
+    ) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        {
+          type: "GENERATE_AND_DOWNLOAD_PDF",
+        },
+        "*"
+      );
+    }
+  };
+
+  // Handle canvas click for adding elements
+  const handleCanvasClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    console.log("🖱️ Canvas clicked, activeTool:", activeTool);
+
+    if (activeTool === "text") {
+      console.log("📝 Adding text element...");
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (rect) {
+        const x = (e.clientX - rect.left) / (zoomLevel / 100);
+        const y = (e.clientY - rect.top) / (zoomLevel / 100);
+
+        console.log("📍 Click position:", { x, y, zoomLevel });
+
+        const newText: TextElement = {
+          id: Date.now().toString(),
+          x,
+          y,
+          text: "New Text",
+          fontSize: 16,
+          color: "#000000",
+        };
+        console.log("➕ Adding text element:", newText);
+        setTextElements((prev) => [...prev, newText]);
+      } else {
+        console.log("❌ Canvas ref not found");
+      }
+    } else if (activeTool === "image") {
+      console.log("🖼️ Image tool active, but handling is in overlay");
+    } else {
+      console.log("ℹ️ Other tool active:", activeTool);
+    }
+  };
+
+  // Handle dragging elements
+  const handleElementDrag = (
+    elementId: string,
+    type: "text" | "signature" | "image"
+  ) => {
+    return (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const startX = e.clientX;
+      const startY = e.clientY;
+
+      // Get initial position of the element
+      let initialX = 0;
+      let initialY = 0;
+
+      if (type === "text") {
+        const element = textElements.find((el) => el.id === elementId);
+        if (element) {
+          initialX = element.x;
+          initialY = element.y;
+        }
+      } else if (type === "signature") {
+        const element = signatureElements.find((el) => el.id === elementId);
+        if (element) {
+          initialX = element.x;
+          initialY = element.y;
+        }
+      } else if (type === "image") {
+        const element = imageElements.find((el) => el.id === elementId);
+        if (element) {
+          initialX = element.x;
+          initialY = element.y;
+        }
+      }
+
+      const handleMouseMove = (moveEvent: MouseEvent) => {
+        const deltaX = (moveEvent.clientX - startX) / (zoomLevel / 100);
+        const deltaY = (moveEvent.clientY - startY) / (zoomLevel / 100);
+
+        const newX = initialX + deltaX;
+        const newY = initialY + deltaY;
+
+        if (type === "text") {
+          setTextElements((prev) =>
+            prev.map((el) =>
+              el.id === elementId ? { ...el, x: newX, y: newY } : el
+            )
+          );
+        } else if (type === "signature") {
+          setSignatureElements((prev) =>
+            prev.map((el) =>
+              el.id === elementId ? { ...el, x: newX, y: newY } : el
+            )
+          );
+        } else if (type === "image") {
+          setImageElements((prev) =>
+            prev.map((el) =>
+              el.id === elementId ? { ...el, x: newX, y: newY } : el
+            )
+          );
+        }
+      };
+
+      const handleMouseUp = () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    };
   };
 
   // File upload state
@@ -476,131 +693,26 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
           onSave={handleSaveChanges}
           isProcessing={isProcessing}
         >
-          <div className="h-full w-full bg-white relative">
-            <iframe
-              src={editorUrl}
-              className="w-full h-full border-0"
-              title="PDF Editor"
-              style={{
-                transform: `scale(${zoomLevel / 100})`,
-                transformOrigin: "top left",
-              }}
-            />
-
-            {/* Overlay Canvas for annotations */}
+          <div className="h-full w-full bg-white relative overflow-auto">
             <div
-              ref={canvasRef}
-              className="absolute inset-0 pointer-events-none"
+              className="relative"
               style={{
-                transform: `scale(${zoomLevel / 100})`,
-                transformOrigin: "top left",
+                width: `${100 / (zoomLevel / 100)}%`,
+                height: `${100 / (zoomLevel / 100)}%`,
+                minWidth: "100%",
+                minHeight: "100%",
               }}
             >
-              {/* Text elements */}
-              {textElements.map((element) => (
-                <div
-                  key={element.id}
-                  className="absolute pointer-events-auto"
-                  style={{
-                    left: element.x,
-                    top: element.y,
-                    fontSize: element.fontSize,
-                    color: element.color,
-                  }}
-                >
-                  {element.text}
-                </div>
-              ))}
-
-              {/* Signature elements */}
-              {signatureElements.map((element) => (
-                <div
-                  key={element.id}
-                  className="absolute pointer-events-auto"
-                  style={{
-                    left: element.x,
-                    top: element.y,
-                    width: element.width,
-                    height: element.height,
-                  }}
-                >
-                  <img
-                    src={element.signatureData}
-                    alt="Signature"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              ))}
-
-              {/* Image elements */}
-              {imageElements.map((element) => (
-                <div
-                  key={element.id}
-                  className="absolute pointer-events-auto"
-                  style={{
-                    left: element.x,
-                    top: element.y,
-                    width: element.width,
-                    height: element.height,
-                  }}
-                >
-                  <img
-                    src={element.src}
-                    alt="Image"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              ))}
+              <iframe
+                src={editorUrl}
+                className="w-full h-full border-0"
+                title="PDF Editor"
+                style={{
+                  transform: `scale(${zoomLevel / 100})`,
+                  transformOrigin: "top left",
+                }}
+              />
             </div>
-
-            {/* Tool-specific overlays */}
-            {activeTool === "signature" && (
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-4 left-4 bg-white p-4 rounded-lg shadow-lg">
-                  <h3 className="font-semibold mb-2">Add Signature</h3>
-                  <SignatureCanvas
-                    onSignatureChange={(signatureData: string) => {
-                      console.log("Signature saved:", signatureData);
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-
-            {activeTool === "image" && (
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-4 left-4 bg-white p-4 rounded-lg shadow-lg">
-                  <h3 className="font-semibold mb-2">Add Image</h3>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                          const src = event.target?.result as string;
-                          const newImage: ImageElement = {
-                            id: Date.now().toString(),
-                            x: 100,
-                            y: 100,
-                            width: 200,
-                            height: 150,
-                            src,
-                          };
-                          setImageElements((prev) => [...prev, newImage]);
-                        };
-                        reader.readAsDataURL(file);
-                      }
-                    }}
-                    className="mb-2"
-                  />
-                  <p className="text-sm text-gray-600">
-                    Click on the PDF to place the image
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
         </PDFEditorLayout>
 

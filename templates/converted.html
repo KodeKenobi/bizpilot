@@ -3,36 +3,24 @@
   <head>
     <title>PDF to HTML - {{ filename }}</title>
     <style>
+      html,
       body {
         margin: 0;
-        padding: 20px;
+        padding: 0;
         font-family: Arial, sans-serif;
         background-color: #f5f5f5;
-      }
-
-      .header {
-        background: white;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .header h1 {
-        margin: 0 0 10px 0;
-        color: #333;
-      }
-
-      .header p {
-        margin: 0;
-        color: #666;
+        overflow: auto;
+        width: 100%;
+        height: 100%;
       }
 
       .pdf-container {
         background: white;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
+        overflow: visible;
+        min-width: 100%;
+        min-height: 100%;
       }
 
       .pdf-page {
@@ -41,8 +29,9 @@
         /* background: white;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
         transform-origin: top left;
-        max-width: 100%;
+        width: 100%;
         height: auto;
+        min-width: 800px;
       }
 
       .pdf-page.hidden {
@@ -65,6 +54,8 @@
         padding: 0;
         outline: none;
         background: transparent;
+        position: relative;
+        z-index: 15; /* Higher than overlay to ensure clickability */
       }
 
       .editable-text:hover {
@@ -82,122 +73,65 @@
         border: none;
       }
 
-      .toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 16px;
-        background: #2a2a2a;
-        border-bottom: 1px solid #444;
-        position: sticky;
+      .interactive-overlay {
+        position: absolute;
         top: 0;
-        z-index: 100;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Allow clicks to pass through to underlying elements */
+        z-index: 5;
       }
 
-      .nav-controls {
+      .text-element {
+        position: absolute;
+        background: transparent;
+        border: 1px solid #007bff;
+        padding: 2px;
+        min-width: 50px;
+        min-height: 20px;
+        cursor: text;
+        font-size: 14px;
+        color: #000;
+        z-index: 20;
+      }
+
+      .text-element:focus {
+        outline: none;
+        border: 2px solid #007bff;
+        background: rgba(0, 123, 255, 0.1);
+      }
+
+      .signature-element {
+        position: absolute;
+        background: rgba(0, 123, 255, 0.1);
+        border: 1px dashed #007bff;
+        padding: 10px;
+        min-width: 100px;
+        min-height: 50px;
+        cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 12px;
-      }
-
-      .nav-controls button {
-        background: #444;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background 0.2s;
-      }
-
-      .nav-controls button:hover {
-        background: #555;
-      }
-
-      .nav-controls button:disabled {
-        background: #333;
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
-
-      .nav-controls #pageInfo {
-        color: white;
-        font-weight: 500;
-        font-size: 14px;
-        min-width: 40px;
-        text-align: center;
-      }
-
-      .zoom-controls {
-        display: flex;
-        gap: 4px;
-        margin-left: 16px;
-      }
-
-      .zoom-controls button {
-        background: #444;
-        color: white;
-        border: none;
-        padding: 4px 8px;
-        border-radius: 3px;
-        cursor: pointer;
+        justify-content: center;
         font-size: 12px;
-        transition: background 0.2s;
+        color: #007bff;
+        z-index: 20;
       }
 
-      .zoom-controls button:hover {
-        background: #555;
-      }
-
-      .actions {
-        display: flex;
-        gap: 8px;
-      }
-
-      .btn {
-        padding: 6px 12px;
-        border: none;
-        border-radius: 4px;
+      .image-element {
+        position: absolute;
+        background: rgba(0, 123, 255, 0.1);
+        border: 1px dashed #007bff;
+        padding: 10px;
+        min-width: 100px;
+        min-height: 50px;
         cursor: pointer;
-        font-size: 13px;
-        font-weight: 500;
-        text-decoration: none;
-        transition: all 0.2s;
-        display: inline-block;
-      }
-
-      .btn.primary {
-        background: #007bff;
-        color: white;
-      }
-
-      .btn.primary:hover {
-        background: #0056b3;
-      }
-
-      .btn.secondary {
-        background: #6c757d;
-        color: white;
-      }
-
-      .btn.secondary:hover {
-        background: #545b62;
-      }
-
-      .btn.secondary:disabled {
-        background: #495057;
-        cursor: not-allowed;
-        opacity: 0.6;
-      }
-
-      .btn.tertiary {
-        background: #28a745;
-        color: white;
-      }
-
-      .btn.tertiary:hover {
-        background: #1e7e34;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #007bff;
+        z-index: 20;
       }
 
       .pdf-modal {
@@ -286,41 +220,6 @@
     </style>
   </head>
   <body>
-    <div class="toolbar">
-      <div class="nav-controls">
-        <button id="prevPage" onclick="changePage(-1)">←</button>
-        <span id="pageInfo">1/{{ pages|length }}</span>
-        <button id="nextPage" onclick="changePage(1)">→</button>
-        <div class="zoom-controls">
-          <button onclick="changeZoom(0.5)">50%</button>
-          <button onclick="changeZoom(1)">100%</button>
-          <button onclick="changeZoom(1.5)">150%</button>
-          <button onclick="changeZoom(2)">200%</button>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button onclick="saveEdits()" class="btn primary">Save Changes</button>
-        <button
-          onclick="viewPDF()"
-          class="btn secondary"
-          id="viewPdfBtn"
-          style="display: none"
-        >
-          View
-        </button>
-        <button
-          onclick="downloadPDF()"
-          class="btn secondary"
-          id="downloadPdfBtn"
-          style="display: none"
-        >
-          Download
-        </button>
-        <a href="/" class="btn tertiary">New</a>
-      </div>
-    </div>
-
     <div class="pdf-container">
       {% for page in pages %}
       <div
@@ -330,6 +229,9 @@
         data-height="{{ page.height }}"
       >
         {{ page.html|safe }}
+
+        <!-- Interactive overlay for editing -->
+        <div class="interactive-overlay" id="overlay-{{ loop.index }}"></div>
       </div>
       {% endfor %}
     </div>
@@ -678,7 +580,46 @@
 
       // Listen for messages from parent (React component)
       window.addEventListener("message", function (event) {
-        if (
+        console.log("📨 Iframe received message:", event.data);
+
+        if (event.data.type === "SET_EDIT_MODE") {
+          console.log("🎯 Setting edit mode to:", event.data.mode);
+          currentEditType = event.data.mode;
+
+          // Show/hide overlay based on edit mode
+          const overlays = document.querySelectorAll(".interactive-overlay");
+          overlays.forEach((overlay) => {
+            if (
+              event.data.mode === "text" ||
+              event.data.mode === "sign" ||
+              event.data.mode === "image"
+            ) {
+              overlay.style.pointerEvents = "auto";
+              overlay.style.zIndex = "10";
+            } else {
+              overlay.style.pointerEvents = "none";
+              overlay.style.zIndex = "1";
+            }
+          });
+
+          // Send confirmation back to parent
+          window.parent.postMessage(
+            {
+              type: "EDIT_MODE_SET",
+              mode: event.data.mode,
+            },
+            "*"
+          );
+        } else if (event.data.type === "CHANGE_PAGE") {
+          console.log("📄 Changing to page:", event.data.pageNumber);
+          // Hide current page
+          document.getElementById(`page-${currentPage}`).style.display = "none";
+          // Show new page
+          currentPage = event.data.pageNumber;
+          document.getElementById(`page-${currentPage}`).style.display =
+            "block";
+          console.log("📄 Now showing page:", currentPage);
+        } else if (
           event.data.type === "GENERATE_PDF" ||
           event.data.type === "GENERATE_AND_DOWNLOAD_PDF"
         ) {
@@ -694,6 +635,8 @@
             `Received ${event.data.type} message, starting PDF generation...`
           );
           generatePDF();
+        } else {
+          console.log("❓ Unknown message type in iframe:", event.data.type);
         }
       });
 
@@ -839,13 +782,137 @@
         }
       }
 
+      // Function to add text element
+      function addTextElement(e, overlay) {
+        console.log("📝 Adding text element...");
+        const rect = overlay.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const textElement = document.createElement("textarea");
+        textElement.className = "text-element";
+        textElement.style.left = x + "px";
+        textElement.style.top = y + "px";
+        textElement.placeholder = "Enter text...";
+        textElement.value = "New Text";
+
+        textElement.addEventListener("blur", function () {
+          if (textElement.value.trim()) {
+            edits.push({
+              type: "add_text",
+              page: currentPage,
+              x: x,
+              y: y,
+              text: textElement.value,
+            });
+
+            // Send message to parent
+            window.parent.postMessage(
+              {
+                type: "TEXT_ADDED",
+                text: textElement.value,
+                x: x,
+                y: y,
+              },
+              "*"
+            );
+          }
+        });
+
+        overlay.appendChild(textElement);
+        textElement.focus();
+        textElement.select();
+      }
+
+      // Function to add signature element
+      function addSignatureElement(e, overlay) {
+        console.log("✍️ Adding signature element...");
+        const rect = overlay.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const signatureElement = document.createElement("div");
+        signatureElement.className = "signature-element";
+        signatureElement.style.left = x + "px";
+        signatureElement.style.top = y + "px";
+        signatureElement.innerHTML = "Signature";
+
+        signatureElement.addEventListener("click", function () {
+          // Open signature modal or prompt
+          const signature = prompt("Enter signature text:");
+          if (signature) {
+            signatureElement.innerHTML = signature;
+            edits.push({
+              type: "add_signature",
+              page: currentPage,
+              x: x,
+              y: y,
+              text: signature,
+            });
+          }
+        });
+
+        overlay.appendChild(signatureElement);
+      }
+
+      // Function to add image element
+      function addImageElement(e, overlay) {
+        console.log("🖼️ Adding image element...");
+        const rect = overlay.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const imageElement = document.createElement("div");
+        imageElement.className = "image-element";
+        imageElement.style.left = x + "px";
+        imageElement.style.top = y + "px";
+        imageElement.innerHTML = "Image";
+
+        imageElement.addEventListener("click", function () {
+          const input = document.createElement("input");
+          input.type = "file";
+          input.accept = "image/*";
+          input.onchange = function (e) {
+            const file = e.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                imageElement.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 100%;">`;
+                edits.push({
+                  type: "add_image",
+                  page: currentPage,
+                  x: x,
+                  y: y,
+                  image_data: e.target.result,
+                });
+              };
+              reader.readAsDataURL(file);
+            }
+          };
+          input.click();
+        });
+
+        overlay.appendChild(imageElement);
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
+        console.log("📄 Template loaded with total pages:", totalPages);
+        console.log("📄 Current page:", currentPage);
+
         // Set page dimensions
         document.querySelectorAll(".pdf-page").forEach((page) => {
           const width = page.dataset.width;
           const height = page.dataset.height;
           page.style.width = width + "px";
           page.style.height = height + "px";
+          console.log(
+            "📄 Page",
+            page.dataset.page,
+            "dimensions:",
+            width,
+            "x",
+            height
+          );
         });
 
         // Make text elements directly editable
@@ -886,6 +953,30 @@
               }
             };
             input.click();
+          });
+        });
+
+        // Set up overlay click handlers
+        document.querySelectorAll(".interactive-overlay").forEach((overlay) => {
+          // Start with overlay disabled
+          overlay.style.pointerEvents = "none";
+          overlay.style.zIndex = "1";
+
+          overlay.addEventListener("click", function (e) {
+            console.log(
+              "🖱️ Overlay clicked, currentEditType:",
+              currentEditType
+            );
+
+            // Only handle clicks if we're in an active editing mode
+            if (currentEditType === "text") {
+              addTextElement(e, overlay);
+            } else if (currentEditType === "sign") {
+              addSignatureElement(e, overlay);
+            } else if (currentEditType === "image") {
+              addImageElement(e, overlay);
+            }
+            // If no active editing mode, let the click pass through to underlying elements
           });
         });
 

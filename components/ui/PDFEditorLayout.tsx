@@ -72,7 +72,7 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
   onDone,
   onBack,
   onSearch,
-  zoomLevel = 125,
+  zoomLevel = 100,
   onZoomIn,
   onZoomOut,
   onZoomReset,
