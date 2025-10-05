@@ -152,6 +152,15 @@
         display: inline-block;
         cursor: grab;
         transition: transform 0.1s ease;
+        background: transparent !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        width: fit-content;
+        height: fit-content;
+        min-width: 0;
+        min-height: 0;
+        padding: 8px 8px 8px 0;
+        margin: 0;
       }
 
       .element-container:hover {
@@ -421,16 +430,22 @@
 
       .signature-element {
         position: relative;
-        background: transparent !important;
+        background: none !important;
         background-color: transparent !important;
+        background-image: none !important;
         border: none;
         padding: 0;
+        margin: 0;
         cursor: pointer;
         display: inline-block;
         border-radius: 0;
         font-size: 12px;
         white-space: nowrap;
         color: #007bff;
+        width: fit-content;
+        height: fit-content;
+        min-width: 0;
+        min-height: 0;
         z-index: 20;
         user-select: none;
         -webkit-user-select: none;
@@ -441,16 +456,18 @@
       }
 
       .image-element {
-        position: absolute;
-        background: rgba(0, 123, 255, 0.1);
-        border: 1px dashed #007bff;
-        padding: 10px;
-        min-width: 100px;
-        min-height: 50px;
+        position: relative;
+        background: transparent !important;
+        background-color: transparent !important;
+        background-image: none !important;
+        border: none;
+        padding: 0;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: inline-block;
+        width: fit-content;
+        height: fit-content;
+        min-width: 0;
+        min-height: 0;
         font-size: 12px;
         color: #007bff;
         z-index: 20;
@@ -1085,14 +1102,22 @@
 
         isGeneratingPDF = true;
 
+        // Declare variables outside try block so they're accessible in catch
+        let pagesToProcess = [];
+        let originalDisplays = [];
+        let originalZoom = currentZoom;
+
         try {
           const downloadBtn = document.getElementById("downloadPdfBtn");
+          if (!downloadBtn) {
+            throw new Error("Download button not found");
+          }
           const originalText = downloadBtn.textContent;
           downloadBtn.textContent = "Generating...";
           downloadBtn.disabled = true;
 
           // Reset zoom to 100% for consistent PDF generation
-          const originalZoom = currentZoom;
+          originalZoom = currentZoom;
           changeZoom(1);
 
           // Wait a moment for zoom change to take effect
@@ -1100,8 +1125,8 @@
 
           // Use only the actual PDF pages (not nested elements)
           const totalPages = parseInt("4");
-          const pagesToProcess = [];
-          const originalDisplays = [];
+          pagesToProcess = [];
+          originalDisplays = [];
 
           // Get only the main page containers
           for (let i = 1; i <= totalPages; i++) {
@@ -2878,23 +2903,42 @@
         signatureContainer.style.position = "absolute";
         signatureContainer.style.left = x + "px";
         signatureContainer.style.top = y + "px";
-        signatureContainer.style.width = "auto";
-        signatureContainer.style.height = "auto";
+        signatureContainer.style.width = "fit-content";
+        signatureContainer.style.height = "fit-content";
+        signatureContainer.style.minWidth = "0";
+        signatureContainer.style.minHeight = "0";
+        signatureContainer.style.padding = "8px 8px 8px 0";
+        signatureContainer.style.margin = "0";
         signatureContainer.style.zIndex = "20";
+        signatureContainer.style.setProperty(
+          "background-color",
+          "transparent",
+          "important"
+        );
+        signatureContainer.style.setProperty("background", "none", "important");
 
         const signatureElement = document.createElement("div");
         signatureElement.className = "signature-element";
         signatureElement.style.position = "relative";
         signatureElement.style.left = "0";
         signatureElement.style.top = "0";
-        signatureElement.style.width = "auto";
-        signatureElement.style.height = "auto";
+        signatureElement.style.width = "fit-content";
+        signatureElement.style.height = "fit-content";
         signatureElement.style.display = "inline-block";
         signatureElement.style.padding = "0";
         signatureElement.style.border = "none";
+        signatureElement.style.margin = "0";
+        signatureElement.style.minWidth = "0";
+        signatureElement.style.minHeight = "0";
+        signatureElement.style.setProperty("background", "none", "important");
         signatureElement.style.setProperty(
           "background-color",
           "transparent",
+          "important"
+        );
+        signatureElement.style.setProperty(
+          "background-image",
+          "none",
           "important"
         );
         signatureElement.style.borderRadius = "0";
@@ -3020,13 +3064,37 @@
         imageContainer.style.position = "absolute";
         imageContainer.style.left = x + "px";
         imageContainer.style.top = y + "px";
+        imageContainer.style.width = "fit-content";
+        imageContainer.style.height = "fit-content";
+        imageContainer.style.minWidth = "0";
+        imageContainer.style.minHeight = "0";
+        imageContainer.style.padding = "8px 8px 8px 0";
+        imageContainer.style.margin = "0";
         imageContainer.style.zIndex = "20";
+        imageContainer.style.setProperty(
+          "background-color",
+          "transparent",
+          "important"
+        );
+        imageContainer.style.setProperty("background", "none", "important");
 
         const imageElement = document.createElement("div");
         imageElement.className = "image-element";
         imageElement.style.position = "relative";
         imageElement.style.left = "0";
         imageElement.style.top = "0";
+        imageElement.style.width = "fit-content";
+        imageElement.style.height = "fit-content";
+        imageElement.style.padding = "0";
+        imageElement.style.border = "none";
+        imageElement.style.margin = "0";
+        imageElement.style.setProperty("background", "none", "important");
+        imageElement.style.setProperty(
+          "background-color",
+          "transparent",
+          "important"
+        );
+        imageElement.style.setProperty("background-image", "none", "important");
         imageElement.innerHTML = "Image";
 
         // Create delete button
