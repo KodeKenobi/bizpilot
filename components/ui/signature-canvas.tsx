@@ -6,16 +6,22 @@ interface SignatureCanvasProps {
   onSignatureChange: (signatureData: string) => void;
   width?: number;
   height?: number;
+  showSizeControls?: boolean;
+  onSizeChange?: (width: number, height: number) => void;
 }
 
 export const SignatureCanvas = ({
   onSignatureChange,
   width = 400,
   height = 200,
+  showSizeControls = false,
+  onSizeChange,
 }: SignatureCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [hasSignature, setHasSignature] = useState(false);
+  const [canvasWidth, setCanvasWidth] = useState(width);
+  const [canvasHeight, setCanvasHeight] = useState(height);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -25,8 +31,8 @@ export const SignatureCanvas = ({
     if (!ctx) return;
 
     // Set canvas size
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
 
     // Set drawing styles
     ctx.strokeStyle = "#000000";
@@ -36,7 +42,13 @@ export const SignatureCanvas = ({
 
     // Clear canvas with white background
     ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  }, [canvasWidth, canvasHeight]);
+
+  // Update canvas size when props change
+  useEffect(() => {
+    setCanvasWidth(width);
+    setCanvasHeight(height);
   }, [width, height]);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -96,13 +108,54 @@ export const SignatureCanvas = ({
     if (!ctx) return;
 
     ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     setHasSignature(false);
     onSignatureChange("");
   };
 
+  const handleSizeChange = (newWidth: number, newHeight: number) => {
+    setCanvasWidth(newWidth);
+    setCanvasHeight(newHeight);
+    if (onSizeChange) {
+      onSizeChange(newWidth, newHeight);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center space-y-4">
+      {showSizeControls && (
+        <div className="flex gap-4 items-center">
+          <div className="flex flex-col items-center">
+            <label className="text-sm text-gray-600 mb-1">Width</label>
+            <input
+              type="range"
+              min="200"
+              max="800"
+              value={canvasWidth}
+              onChange={(e) =>
+                handleSizeChange(parseInt(e.target.value), canvasHeight)
+              }
+              className="w-20"
+            />
+            <span className="text-xs text-gray-500">{canvasWidth}px</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <label className="text-sm text-gray-600 mb-1">Height</label>
+            <input
+              type="range"
+              min="100"
+              max="400"
+              value={canvasHeight}
+              onChange={(e) =>
+                handleSizeChange(canvasWidth, parseInt(e.target.value))
+              }
+              className="w-20"
+            />
+            <span className="text-xs text-gray-500">{canvasHeight}px</span>
+          </div>
+        </div>
+      )}
+
       <div className="border-2 border-gray-300 rounded-lg overflow-hidden shadow-sm">
         <canvas
           ref={canvasRef}
@@ -111,7 +164,7 @@ export const SignatureCanvas = ({
           onMouseMove={draw}
           onMouseUp={stopDrawing}
           onMouseLeave={stopDrawing}
-          style={{ width: `${width}px`, height: `${height}px` }}
+          style={{ width: `${canvasWidth}px`, height: `${canvasHeight}px` }}
         />
       </div>
 

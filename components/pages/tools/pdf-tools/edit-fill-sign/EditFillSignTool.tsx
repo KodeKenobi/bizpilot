@@ -94,6 +94,14 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizingElement, setResizingElement] = useState<string | null>(null);
+  const [resizeStart, setResizeStart] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  });
 
   // Refs
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -273,6 +281,17 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         },
         "*"
       );
+
+      // If signature tool is selected, send additional message to control modal behavior
+      if (toolId === "sign") {
+        iframe.contentWindow.postMessage(
+          {
+            type: "CONFIGURE_SIGNATURE_MODAL",
+            showOnce: true,
+          },
+          "*"
+        );
+      }
       console.log("📤 Message sent successfully");
     } else {
       console.log("❌ Iframe not found or no contentWindow");
@@ -310,6 +329,8 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         // Update the active tool in React to match iframe state
         setActiveTool(event.data.mode);
         console.log("🎯 React active tool updated to:", event.data.mode);
+      } else if (event.data.type === "SIGNATURE_ADDED") {
+        console.log("✍️ Signature added:", event.data);
       } else {
         console.log("❓ Unknown message type:", event.data.type);
       }
@@ -470,6 +491,60 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       };
 
       const handleMouseUp = () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+    };
+  };
+
+  // Handle resizing signature elements
+  const handleSignatureResize = (elementId: string) => {
+    return (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const element = signatureElements.find((el) => el.id === elementId);
+      if (!element) return;
+
+      setIsResizing(true);
+      setResizingElement(elementId);
+      setResizeStart({
+        x: e.clientX,
+        y: e.clientY,
+        width: element.width,
+        height: element.height,
+      });
+
+      const handleMouseMove = (moveEvent: MouseEvent) => {
+        if (!isResizing || resizingElement !== elementId) return;
+
+        const deltaX = (moveEvent.clientX - resizeStart.x) / (zoomLevel / 100);
+        const deltaY = (moveEvent.clientY - resizeStart.y) / (zoomLevel / 100);
+
+        const newWidth = Math.max(
+          50,
+          Math.min(300, resizeStart.width + deltaX)
+        );
+        const newHeight = Math.max(
+          25,
+          Math.min(150, resizeStart.height + deltaY)
+        );
+
+        setSignatureElements((prev) =>
+          prev.map((el) =>
+            el.id === elementId
+              ? { ...el, width: newWidth, height: newHeight }
+              : el
+          )
+        );
+      };
+
+      const handleMouseUp = () => {
+        setIsResizing(false);
+        setResizingElement(null);
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
       };

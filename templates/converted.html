@@ -134,13 +134,17 @@
         display: block;
         z-index: 200;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        opacity: 1;
+        opacity: 0;
         transition: opacity 0.2s ease, transform 0.2s ease;
         pointer-events: auto;
       }
 
       .element-delete-btn:hover {
         background: #c82333;
+      }
+
+      .element-container:hover .element-delete-btn {
+        opacity: 1;
       }
 
       .element-container {
@@ -279,11 +283,24 @@
       }
 
       .element-container:hover .resize-handle {
-        opacity: 1;
+        opacity: 1 !important;
       }
 
       .element-container.editing .resize-handle {
         opacity: 1;
+      }
+
+      .element-container .resize-handle.se {
+        opacity: 0;
+      }
+
+      .element-container:hover .resize-handle.se {
+        opacity: 1 !important;
+      }
+
+      .resize-handle:hover {
+        background: #0056b3;
+        transform: scale(1.1);
       }
 
       .resize-handle.nw {
@@ -346,6 +363,10 @@
         pointer-events: none;
       }
 
+      .element-container.resizing .resize-handle {
+        pointer-events: all;
+      }
+
       .text-formatting-toolbar {
         position: absolute;
         top: -35px;
@@ -399,17 +420,16 @@
       }
 
       .signature-element {
-        position: absolute;
-        background: rgba(0, 123, 255, 0.1);
-        border: 1px dashed #007bff;
-        padding: 10px;
-        min-width: 100px;
-        min-height: 50px;
+        position: relative;
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none;
+        padding: 0;
         cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: inline-block;
+        border-radius: 0;
         font-size: 12px;
+        white-space: nowrap;
         color: #007bff;
         z-index: 20;
         user-select: none;
@@ -1032,6 +1052,13 @@
             `Received ${event.data.type} message, starting PDF generation...`
           );
           generatePDF();
+        } else if (event.data.type === "CONFIGURE_SIGNATURE_MODAL") {
+          console.log("✍️ Configuring signature modal behavior:", event.data);
+          // Set a flag to control signature modal behavior
+          window.signatureModalConfigured = true;
+          window.signatureModalShowOnce = event.data.showOnce || false;
+          // Reset the used flag when configuring for a new signature
+          window.signatureModalUsed = false;
         } else {
           console.log("❓ Unknown message type in iframe:", event.data.type);
         }
@@ -1214,6 +1241,22 @@
             return;
           }
 
+          // Check if currently resizing
+          if (window.isResizing) {
+            console.log("🔧 Currently resizing, ignoring mousedown");
+            console.log("📊 Drag blocked - resize in progress");
+            return;
+          }
+
+          // Check if clicking on resize handle or its children
+          if (
+            e.target.classList.contains("resize-handle") ||
+            e.target.closest(".resize-handle")
+          ) {
+            console.log("🔧 Clicked on resize handle - preventing drag");
+            return;
+          }
+
           // Don't drag when clicking on delete button
           if (e.target.classList.contains("element-delete-btn")) {
             return;
@@ -1223,6 +1266,14 @@
           if (e.target.classList.contains("text-element")) {
             console.log(
               "📝 Clicked on text element - allowing edit, preventing drag"
+            );
+            return;
+          }
+
+          // Don't drag when clicking on signature element itself (for editing)
+          if (e.target.classList.contains("signature-element")) {
+            console.log(
+              "✍️ Clicked on signature element - allowing edit, preventing drag"
             );
             return;
           }
@@ -1255,6 +1306,12 @@
                 );
                 return;
               }
+            }
+            // Allow dragging if it's a signature element (signatures can always be moved)
+            else if (e.target.classList.contains("signature-element")) {
+              console.log(
+                "✍️ Signature element - allowing drag even with active tool"
+              );
             } else {
               console.log(
                 "🚫 Tool is active - preventing drag to avoid creating new elements"
@@ -1312,7 +1369,7 @@
         });
 
         document.addEventListener("mousemove", function (e) {
-          if (!isDragging) return;
+          if (!isDragging || window.isResizing) return;
 
           const deltaX = e.clientX - startX;
           const deltaY = e.clientY - startY;
@@ -1352,7 +1409,7 @@
         });
 
         document.addEventListener("mouseup", function () {
-          if (isDragging) {
+          if (isDragging && !window.isResizing) {
             isDragging = false;
             window.isDragging = false;
             element.style.cursor = "grab";
@@ -1548,7 +1605,7 @@
           console.log("🖱️ Started dragging from edit toolbar drag handle");
 
           function handleMouseMove(e) {
-            if (!window.isDragging) return;
+            if (!window.isDragging || window.isResizing) return;
 
             console.log("🖱️ Mouse move during drag");
             console.log("📊 Element click count:", textContainer.clickCount);
@@ -1910,7 +1967,7 @@
           console.log("🖱️ Started dragging from toolbar drag handle");
 
           function handleMouseMove(e) {
-            if (!window.isDragging) return;
+            if (!window.isDragging || window.isResizing) return;
 
             console.log("🖱️ Mouse move during drag");
             console.log("📊 Element click count:", textContainer.clickCount);
@@ -2505,15 +2562,41 @@
           },
           "*"
         );
+
+        // Send signature added message to parent
+        window.parent.postMessage(
+          {
+            type: "SIGNATURE_ADDED",
+            x: x,
+            y: y,
+            data: signatureData,
+          },
+          "*"
+        );
       }
 
       function openSignatureModal(element) {
+        // Check if signature modal should only show once and has already been used
+        if (
+          window.signatureModalConfigured &&
+          window.signatureModalShowOnce &&
+          window.signatureModalUsed
+        ) {
+          console.log(
+            "✍️ Signature modal configured to show once and already used - not opening"
+          );
+          return;
+        }
+
         currentEditElement = element;
         const modal = document.getElementById("signatureModal");
         modal.style.display = "block";
         modal.style.visibility = "visible";
         modal.style.pointerEvents = "auto";
         initializeSignatureCanvas();
+
+        // Mark that the signature modal has been used
+        window.signatureModalUsed = true;
 
         console.log("✍️ Signature modal opened");
 
@@ -2627,41 +2710,96 @@
 
       // Resize functionality for elements
       function addResizeHandles(element) {
-        console.log("🔧 Adding resize handles to element");
+        console.log("🔧 Adding resize handle to element");
+        console.log("🔧 Element:", element);
+        console.log("🔧 Element classList:", element.classList);
 
         // Remove existing resize handles
         const existingHandles = element.querySelectorAll(".resize-handle");
+        console.log("🔧 Existing handles found:", existingHandles.length);
         existingHandles.forEach((handle) => handle.remove());
 
-        // Create resize handles
-        const handles = [
-          { class: "nw", cursor: "nw-resize" },
-          { class: "ne", cursor: "ne-resize" },
-          { class: "sw", cursor: "sw-resize" },
-          { class: "se", cursor: "se-resize" },
-          { class: "n", cursor: "n-resize" },
-          { class: "s", cursor: "s-resize" },
-          { class: "w", cursor: "w-resize" },
-          { class: "e", cursor: "e-resize" },
-        ];
+        // Create single corner resize handle
+        const handle = document.createElement("div");
+        handle.className = "resize-handle se";
+        handle.style.cursor = "se-resize";
+        handle.style.position = "absolute";
+        handle.style.bottom = "-6px";
+        handle.style.right = "-6px";
+        handle.style.width = "12px";
+        handle.style.height = "12px";
+        handle.style.backgroundColor = "#3b82f6";
+        handle.style.border = "2px solid white";
+        handle.style.borderRadius = "50%";
+        handle.style.zIndex = "1000";
+        handle.style.pointerEvents = "all";
+        handle.style.opacity = "0";
+        handle.style.visibility = "visible";
+        element.appendChild(handle);
+        console.log("🔧 Resize handle created and added:", handle);
 
-        handles.forEach((handleData) => {
-          const handle = document.createElement("div");
-          handle.className = `resize-handle ${handleData.class}`;
-          handle.style.cursor = handleData.cursor;
-          element.appendChild(handle);
+        // Add resize functionality
+        handle.addEventListener("mousedown", function (e) {
+          console.log("🔧 Resize handle mousedown event triggered");
+          console.log("🔧 Event target:", e.target);
+          console.log("🔧 Event target classList:", e.target.classList);
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
 
-          // Add resize functionality
-          handle.addEventListener("mousedown", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            startResize(element, handle, e);
-          });
+          // Prevent the parent container from starting drag
+          if (element.clickCount) {
+            element.clickCount = 0;
+          }
+
+          // Set flags to prevent drag
+          window.isResizing = true;
+          window.isDragging = false;
+
+          startResize(element, e);
+        });
+
+        // Add mouseover to show resize cursor
+        handle.addEventListener("mouseenter", function (e) {
+          console.log("🔧 Resize handle mouseenter");
+          document.body.style.cursor = "se-resize";
+        });
+
+        handle.addEventListener("mouseleave", function (e) {
+          console.log("🔧 Resize handle mouseleave");
+          document.body.style.cursor = "default";
+        });
+
+        // Also prevent other mouse events on the resize handle
+        handle.addEventListener("click", function (e) {
+          console.log("🔧 Resize handle click - preventing all propagation");
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          return false;
+        });
+
+        handle.addEventListener("mouseup", function (e) {
+          console.log("🔧 Resize handle mouseup - allowing resize to end");
+          // Don't prevent propagation - let the document mouseup handler end the resize
+          // Just prevent the signature modal from opening
+          // No stopPropagation() - let the event bubble up to document mouseup handler
+        });
+
+        // Prevent context menu on resize handle
+        handle.addEventListener("contextmenu", function (e) {
+          console.log("🔧 Resize handle contextmenu - preventing");
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          return false;
         });
       }
 
-      function startResize(element, handle, e) {
+      function startResize(element, e) {
         console.log("🔧 Starting resize operation");
+        console.log("🔧 Element:", element);
+        console.log("🔧 Event:", e);
 
         element.classList.add("resizing");
         const rect = element.getBoundingClientRect();
@@ -2669,77 +2807,51 @@
         const startY = e.clientY;
         const startWidth = rect.width;
         const startHeight = rect.height;
-        const startLeft = rect.left;
-        const startTop = rect.top;
 
-        const handleClass = handle.className.split(" ")[1]; // Get the direction class
+        console.log("🔧 Start dimensions:", startWidth, startHeight);
+        console.log("🔧 Start position:", startX, startY);
 
         function handleMouseMove(e) {
+          console.log("🔧 Resize mousemove event");
+          e.preventDefault();
+          e.stopPropagation();
+
           const deltaX = e.clientX - startX;
           const deltaY = e.clientY - startY;
 
-          let newWidth = startWidth;
-          let newHeight = startHeight;
-          let newLeft = startLeft;
-          let newTop = startTop;
+          // Calculate new dimensions (bottom-right corner resize)
+          const newWidth = Math.max(50, startWidth + deltaX);
+          const newHeight = Math.max(30, startHeight + deltaY);
 
-          // Calculate new dimensions based on handle direction
-          switch (handleClass) {
-            case "se":
-              newWidth = Math.max(50, startWidth + deltaX);
-              newHeight = Math.max(30, startHeight + deltaY);
-              break;
-            case "sw":
-              newWidth = Math.max(50, startWidth - deltaX);
-              newHeight = Math.max(30, startHeight + deltaY);
-              newLeft = startLeft + deltaX;
-              break;
-            case "ne":
-              newWidth = Math.max(50, startWidth + deltaX);
-              newHeight = Math.max(30, startHeight - deltaY);
-              newTop = startTop + deltaY;
-              break;
-            case "nw":
-              newWidth = Math.max(50, startWidth - deltaX);
-              newHeight = Math.max(30, startHeight - deltaY);
-              newLeft = startLeft + deltaX;
-              newTop = startTop + deltaY;
-              break;
-            case "e":
-              newWidth = Math.max(50, startWidth + deltaX);
-              break;
-            case "w":
-              newWidth = Math.max(50, startWidth - deltaX);
-              newLeft = startLeft + deltaX;
-              break;
-            case "s":
-              newHeight = Math.max(30, startHeight + deltaY);
-              break;
-            case "n":
-              newHeight = Math.max(30, startHeight - deltaY);
-              newTop = startTop + deltaY;
-              break;
-          }
+          console.log("🔧 New dimensions:", newWidth, newHeight);
 
           // Apply new dimensions
           element.style.width = newWidth + "px";
           element.style.height = newHeight + "px";
-          element.style.left = newLeft + "px";
-          element.style.top = newTop + "px";
 
           // Update the content element inside
           const contentElement = element.querySelector(
             ".signature-element, .text-element, .image-element"
           );
           if (contentElement) {
-            contentElement.style.width = "100%";
-            contentElement.style.height = "100%";
+            // For signature elements, keep auto sizing
+            if (contentElement.classList.contains("signature-element")) {
+              contentElement.style.width = "auto";
+              contentElement.style.height = "auto";
+            } else {
+              // For other elements, fill the container
+              contentElement.style.width = "100%";
+              contentElement.style.height = "100%";
+            }
+            console.log("🔧 Updated content element size");
           }
         }
 
         function handleMouseUp() {
           console.log("🔧 Resize operation completed");
           element.classList.remove("resizing");
+          window.isResizing = false;
+          document.body.style.cursor = "default";
           document.removeEventListener("mousemove", handleMouseMove);
           document.removeEventListener("mouseup", handleMouseUp);
         }
@@ -2766,6 +2878,8 @@
         signatureContainer.style.position = "absolute";
         signatureContainer.style.left = x + "px";
         signatureContainer.style.top = y + "px";
+        signatureContainer.style.width = "auto";
+        signatureContainer.style.height = "auto";
         signatureContainer.style.zIndex = "20";
 
         const signatureElement = document.createElement("div");
@@ -2773,6 +2887,19 @@
         signatureElement.style.position = "relative";
         signatureElement.style.left = "0";
         signatureElement.style.top = "0";
+        signatureElement.style.width = "auto";
+        signatureElement.style.height = "auto";
+        signatureElement.style.display = "inline-block";
+        signatureElement.style.padding = "0";
+        signatureElement.style.border = "none";
+        signatureElement.style.setProperty(
+          "background-color",
+          "transparent",
+          "important"
+        );
+        signatureElement.style.borderRadius = "0";
+        signatureElement.style.fontSize = "14px";
+        signatureElement.style.whiteSpace = "nowrap";
         signatureElement.innerHTML = "Signature";
 
         // Create delete button
@@ -2828,8 +2955,20 @@
           }
         });
 
-        signatureElement.addEventListener("click", function () {
-          // Open signature modal
+        signatureElement.addEventListener("click", function (e) {
+          // Check if clicking on resize handle or its children
+          if (
+            e.target.classList.contains("resize-handle") ||
+            e.target.closest(".resize-handle")
+          ) {
+            console.log(
+              "🔧 Clicked on resize handle - preventing signature modal"
+            );
+            return;
+          }
+
+          // Only open signature modal if not clicking on resize handle
+          console.log("✍️ Clicked on signature element - opening modal");
           openSignatureModal(signatureElement);
         });
 
@@ -2854,20 +2993,13 @@
         // Add resize handles
         addResizeHandles(signatureContainer);
 
-        // Add click handler to edit signature
-        signatureElement.addEventListener("click", function (e) {
+        // Add double-click handler to edit signature
+        signatureElement.addEventListener("dblclick", function (e) {
           e.preventDefault();
           e.stopPropagation();
-          console.log("✍️ Signature element clicked for editing");
+          console.log("✍️ Signature element double-clicked for editing");
           // Open signature modal
           openSignatureModal(signatureElement);
-        });
-
-        // Add mousedown handler to prevent drag when clicking on signature element
-        signatureElement.addEventListener("mousedown", function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log("✍️ Signature element mousedown - preventing drag");
         });
 
         // Assemble and add to overlay
