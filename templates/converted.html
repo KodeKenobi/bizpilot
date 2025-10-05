@@ -1586,12 +1586,31 @@
             );
             console.log("📊 Element click count:", textContainer.clickCount);
             console.log("📊 Edit toolbar drag session completed for element");
+
+            // Only process if we're actually dragging
+            if (!window.isDragging) {
+              console.log("📊 Not dragging, ignoring mouse up");
+              return;
+            }
+
             window.isDragging = false;
             container.style.cursor = "grab";
             container.style.zIndex = "20";
             container.classList.remove("dragging");
-            document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseup", handleMouseUp);
+
+            // Remove event listeners
+            document.removeEventListener("mousemove", handleMouseMove, true);
+            document.removeEventListener("mouseup", handleMouseUp, true);
+
+            // Remove global mouse up handler
+            if (window.globalMouseUpHandler) {
+              document.removeEventListener(
+                "mouseup",
+                window.globalMouseUpHandler,
+                false
+              );
+              window.globalMouseUpHandler = null;
+            }
 
             // Clear global handlers
             window.currentDragHandlers = null;
@@ -1610,6 +1629,16 @@
           // Add event listeners with capture to ensure they're triggered
           document.addEventListener("mousemove", handleMouseMove, true);
           document.addEventListener("mouseup", handleMouseUp, true);
+
+          // Add global mouse up handler as backup
+          const globalMouseUp = function (e) {
+            if (window.isDragging) {
+              console.log("🖱️ Global mouse up - stopping drag");
+              handleMouseUp(e);
+            }
+          };
+          window.globalMouseUpHandler = globalMouseUp;
+          document.addEventListener("mouseup", globalMouseUp, false);
         });
 
         // Apply formatting function
@@ -1917,12 +1946,31 @@
             console.log("🖱️ Mouse up on toolbar drag handle - stopping drag");
             console.log("📊 Element click count:", textContainer.clickCount);
             console.log("📊 Drag session completed for element");
+
+            // Only process if we're actually dragging
+            if (!window.isDragging) {
+              console.log("📊 Not dragging, ignoring mouse up");
+              return;
+            }
+
             window.isDragging = false;
             container.style.cursor = "grab";
             container.style.zIndex = "20";
             container.classList.remove("dragging");
-            document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseup", handleMouseUp);
+
+            // Remove event listeners
+            document.removeEventListener("mousemove", handleMouseMove, true);
+            document.removeEventListener("mouseup", handleMouseUp, true);
+
+            // Remove global mouse up handler
+            if (window.globalMouseUpHandler) {
+              document.removeEventListener(
+                "mouseup",
+                window.globalMouseUpHandler,
+                false
+              );
+              window.globalMouseUpHandler = null;
+            }
 
             // Clear global handlers
             window.currentDragHandlers = null;
@@ -1941,6 +1989,16 @@
           // Add event listeners with capture to ensure they're triggered
           document.addEventListener("mousemove", handleMouseMove, true);
           document.addEventListener("mouseup", handleMouseUp, true);
+
+          // Add global mouse up handler as backup
+          const globalMouseUp = function (e) {
+            if (window.isDragging) {
+              console.log("🖱️ Global mouse up - stopping drag");
+              handleMouseUp(e);
+            }
+          };
+          window.globalMouseUpHandler = globalMouseUp;
+          document.addEventListener("mouseup", globalMouseUp, false);
         });
 
         // Assemble toolbar
@@ -2226,21 +2284,41 @@
 
         // Add event listeners
         signatureCanvas.addEventListener("mousedown", function (e) {
-          console.log("✍️ Mouse down on signature canvas");
+          console.log("✍️ ===== MOUSE DOWN EVENT ON CANVAS =====");
+          console.log("✍️ Event type:", e.type);
+          console.log("✍️ Mouse button:", e.button);
+          console.log("✍️ Screen position:", e.clientX, e.clientY);
+          console.log("✍️ Event target:", e.target);
+          console.log("✍️ Canvas element:", signatureCanvas);
+          console.log("✍️ Calling startDrawing()...");
           startDrawing(e);
+          console.log("✍️ ===== MOUSE DOWN EVENT ON CANVAS =====");
         });
         signatureCanvas.addEventListener("mousemove", function (e) {
+          console.log("✍️ ===== MOUSE MOVE EVENT ON CANVAS =====");
+          console.log("✍️ Event type:", e.type);
+          console.log("✍️ Screen position:", e.clientX, e.clientY);
+          console.log("✍️ isDrawing flag:", isDrawing);
+          console.log("✍️ Event target:", e.target);
+
           if (isDrawing) {
-            console.log(
-              "✍️ Mouse move on signature canvas, isDrawing:",
-              isDrawing
-            );
+            console.log("✍️ Drawing is active - calling draw()");
             draw(e);
+          } else {
+            console.log("✍️ Drawing is not active - ignoring mousemove");
           }
+          console.log("✍️ ===== MOUSE MOVE EVENT ON CANVAS =====");
         });
         signatureCanvas.addEventListener("mouseup", function (e) {
-          console.log("✍️ Mouse up on signature canvas");
+          console.log("✍️ ===== MOUSE UP EVENT ON CANVAS =====");
+          console.log("✍️ Event type:", e.type);
+          console.log("✍️ Mouse button:", e.button);
+          console.log("✍️ Screen position:", e.clientX, e.clientY);
+          console.log("✍️ Event target:", e.target);
+          console.log("✍️ isDrawing flag before stop:", isDrawing);
+          console.log("✍️ Calling stopDrawing()...");
           stopDrawing();
+          console.log("✍️ ===== MOUSE UP EVENT ON CANVAS =====");
         });
 
         // Also handle mouseup on document to catch cases where mouse leaves canvas
@@ -2256,21 +2334,40 @@
       }
 
       function startDrawing(e) {
-        console.log("✍️ Starting signature drawing");
+        console.log("✍️ ===== SIGNATURE DRAWING STARTED =====");
+        console.log("✍️ Mouse down event:", e.type);
+        console.log("✍️ Mouse down at screen position:", e.clientX, e.clientY);
+        console.log("✍️ Mouse down button:", e.button);
+        console.log("✍️ Event target:", e.target);
+        console.log("✍️ Canvas element:", signatureCanvas);
+
         isDrawing = true;
         const rect = signatureCanvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
+        console.log("✍️ Canvas bounding rect:", rect);
+        console.log("✍️ Relative position on canvas:", x, y);
+        console.log("✍️ isDrawing flag set to:", isDrawing);
+        console.log("✍️ Drawing start time:", new Date().toISOString());
+
         const ctx = signatureCanvas.getContext("2d");
         ctx.beginPath();
         ctx.moveTo(x, y);
-        console.log("✍️ Drawing started at:", x, y);
+        console.log("✍️ Canvas context beginPath() and moveTo() called");
+        console.log("✍️ Drawing started at canvas position:", x, y);
+        console.log("✍️ ===== SIGNATURE DRAWING STARTED =====");
       }
 
       function draw(e) {
+        console.log("✍️ DRAW EVENT TRIGGERED");
+        console.log("✍️ isDrawing flag:", isDrawing);
+        console.log("✍️ Mouse move at screen position:", e.clientX, e.clientY);
+        console.log("✍️ Event type:", e.type);
+
         if (!isDrawing) {
-          console.log("✍️ Drawing stopped - isDrawing is false");
+          console.log("✍️ DRAW BLOCKED - isDrawing is false");
+          console.log("✍️ Drawing should not continue");
           return;
         }
 
@@ -2278,33 +2375,58 @@
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
+        console.log("✍️ Canvas rect:", rect);
+        console.log("✍️ Relative position on canvas:", x, y);
+        console.log("✍️ Drawing line to:", x, y);
+
         const ctx = signatureCanvas.getContext("2d");
         ctx.lineTo(x, y);
         ctx.stroke();
-        console.log("✍️ Drawing at:", x, y);
+        console.log("✍️ Line drawn successfully to:", x, y);
       }
 
       function stopDrawing() {
-        console.log("✍️ Stopping signature drawing, isDrawing was:", isDrawing);
+        console.log("✍️ ===== SIGNATURE DRAWING STOPPED =====");
+        console.log("✍️ stopDrawing() called");
+        console.log("✍️ isDrawing flag before stop:", isDrawing);
+        console.log("✍️ Stop time:", new Date().toISOString());
+        console.log("✍️ Event that triggered stop:", event?.type || "unknown");
+
         if (isDrawing) {
           isDrawing = false;
           hasSignature = true;
+          console.log("✍️ isDrawing flag set to:", isDrawing);
+          console.log("✍️ hasSignature flag set to:", hasSignature);
           console.log("✍️ Drawing stopped successfully");
 
           // Additional safety: ensure drawing is completely stopped
           const ctx = signatureCanvas.getContext("2d");
           ctx.beginPath(); // Start a new path to break any continuous drawing
+          console.log("✍️ Canvas context beginPath() called for safety");
+          console.log("✍️ Drawing state fully reset");
         } else {
           console.log("✍️ Drawing was already stopped");
         }
+        console.log("✍️ ===== SIGNATURE DRAWING STOPPED =====");
       }
 
       // Global mouseup handler to ensure drawing stops
       function handleGlobalMouseUp(e) {
+        console.log("✍️ ===== GLOBAL MOUSE UP EVENT =====");
+        console.log("✍️ Event type:", e.type);
+        console.log("✍️ Mouse button:", e.button);
+        console.log("✍️ Screen position:", e.clientX, e.clientY);
+        console.log("✍️ Event target:", e.target);
+        console.log("✍️ isDrawing flag:", isDrawing);
+        console.log("✍️ Canvas element:", signatureCanvas);
+
         if (isDrawing) {
-          console.log("✍️ Global mouse up - stopping drawing");
+          console.log("✍️ Drawing was active - calling stopDrawing()");
           stopDrawing();
+        } else {
+          console.log("✍️ Drawing was not active - no action needed");
         }
+        console.log("✍️ ===== GLOBAL MOUSE UP EVENT =====");
 
         // Reset dragging state on any mouse up
         if (window.isDragging) {
