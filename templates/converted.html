@@ -1184,7 +1184,36 @@
         let isDragging = false;
         let startX, startY, initialX, initialY;
 
+        // Initialize click counter for this element if not exists
+        if (!element.clickCount) {
+          element.clickCount = 0;
+        }
+
+        // Check if element already has drag handles (text elements with toolbars)
+        const hasDragHandles = element.querySelector(
+          '.text-formatting-toolbar .toolbar-control[title="Drag to move"]'
+        );
+        if (hasDragHandles) {
+          console.log(
+            "📊 Element has drag handles - skipping makeElementDraggable"
+          );
+          return;
+        }
+
         element.addEventListener("mousedown", function (e) {
+          element.clickCount++;
+          console.log("🖱️ Element mousedown - makeElementDraggable");
+          console.log("📊 Element click count:", element.clickCount);
+          console.log("📊 Element class:", element.className);
+          console.log("📊 Target class:", e.target.className);
+
+          // Check if already dragging globally
+          if (window.isDragging) {
+            console.log("🖱️ Already dragging globally, ignoring mousedown");
+            console.log("📊 Drag blocked - global drag in progress");
+            return;
+          }
+
           // Don't drag when clicking on delete button
           if (e.target.classList.contains("element-delete-btn")) {
             return;
@@ -1212,6 +1241,20 @@
               console.log(
                 "🖱️ Drag handle clicked - allowing drag even with active tool"
               );
+            }
+            // Allow dragging if it's an empty text element
+            else if (e.target.classList.contains("text-element")) {
+              const textElement = e.target;
+              if (!textElement.value || textElement.value.trim() === "") {
+                console.log(
+                  "📝 Empty text element - allowing drag even with active tool"
+                );
+              } else {
+                console.log(
+                  "🚫 Tool is active and text has content - preventing drag"
+                );
+                return;
+              }
             } else {
               console.log(
                 "🚫 Tool is active - preventing drag to avoid creating new elements"
@@ -1235,6 +1278,8 @@
           isDragging = true;
           startX = e.clientX;
           startY = e.clientY;
+          console.log("📊 Drag started - makeElementDraggable");
+          console.log("📊 Start position:", startX, startY);
 
           // Get current position relative to overlay
           const overlay = element.closest(".interactive-overlay");
@@ -1256,6 +1301,7 @@
           console.log("🖱️ Started dragging element");
           console.log("🖱️ Start position:", startX, startY);
           console.log("🖱️ Initial position:", initialX, initialY);
+          window.isDragging = true;
 
           // Add visual feedback for dragging
           element.style.cursor = "grabbing";
@@ -1272,6 +1318,8 @@
           const deltaY = e.clientY - startY;
 
           console.log("🖱️ Mouse move - deltaX:", deltaX, "deltaY:", deltaY);
+          console.log("📊 Element click count:", element.clickCount);
+          console.log("📊 Current mouse position:", e.clientX, e.clientY);
 
           // Get overlay bounds to keep element within view
           const overlay = element.closest(".interactive-overlay");
@@ -1306,6 +1354,7 @@
         document.addEventListener("mouseup", function () {
           if (isDragging) {
             isDragging = false;
+            window.isDragging = false;
             element.style.cursor = "grab";
             element.style.zIndex = "20";
             element.style.opacity = "1";
@@ -1313,6 +1362,8 @@
             element.style.boxShadow = "none";
             element.classList.remove("dragging");
             console.log("🖱️ Finished dragging element");
+            console.log("📊 Element click count:", element.clickCount);
+            console.log("📊 Drag session completed - makeElementDraggable");
           }
         });
       }
@@ -1393,6 +1444,19 @@
         doneButton.style.background = "#007bff";
         doneButton.style.color = "white";
 
+        // Add event listeners to prevent drag handle from firing
+        doneButton.addEventListener("mousedown", function (e) {
+          console.log(
+            "📊 Edit toolbar Done button mousedown - preventing drag"
+          );
+          e.stopPropagation();
+        });
+
+        doneButton.addEventListener("click", function (e) {
+          console.log("📊 Edit toolbar Done button click - preventing drag");
+          e.stopPropagation();
+        });
+
         // Create drag handle for edit toolbar
         const dragHandle = document.createElement("button");
         dragHandle.className = "toolbar-control";
@@ -1404,21 +1468,148 @@
 
         // Add drag functionality to the drag handle
         dragHandle.addEventListener("mousedown", function (e) {
+          // Initialize click counter for this element if not exists
+          if (!textContainer.clickCount) {
+            textContainer.clickCount = 0;
+          }
+          textContainer.clickCount++;
+
           console.log("🖱️ Drag handle in edit toolbar clicked");
+          console.log("📊 Element click count:", textContainer.clickCount);
+          console.log("📊 Element ID:", textContainer.id || "no-id");
+          console.log("📊 Current drag state:", window.isDragging);
+          console.log(
+            "📊 Active drag handlers:",
+            window.currentDragHandlers ? "exists" : "none"
+          );
+
           e.preventDefault();
           e.stopPropagation();
 
-          // Trigger drag on the container by simulating a mousedown event
-          const container = textContainer;
-          const dragEvent = new MouseEvent("mousedown", {
-            clientX: e.clientX,
-            clientY: e.clientY,
-            bubbles: true,
-            cancelable: true,
-          });
+          // Check if already dragging
+          if (window.isDragging) {
+            console.log("🖱️ Already dragging, ignoring new drag start");
+            console.log("📊 Drag blocked - already in progress");
+            return;
+          }
 
-          // Dispatch the event on the container to trigger its drag logic
-          container.dispatchEvent(dragEvent);
+          // Check if clicking on Done button
+          if (
+            e.target.innerHTML === "✓" &&
+            e.target.style.background === "rgb(0, 123, 255)"
+          ) {
+            console.log("📊 Clicked on Done button - ignoring drag handle");
+            return;
+          }
+
+          // Set global dragging flag
+          window.isDragging = true;
+          console.log("📊 Drag started - global flag set to true");
+
+          // Remove any existing drag listeners first
+          if (window.currentDragHandlers) {
+            console.log("📊 Cleaning up existing drag handlers");
+            document.removeEventListener(
+              "mousemove",
+              window.currentDragHandlers.move
+            );
+            document.removeEventListener(
+              "mouseup",
+              window.currentDragHandlers.up
+            );
+          } else {
+            console.log("📊 No existing drag handlers to clean up");
+          }
+
+          // Directly trigger drag functionality
+          const container = textContainer;
+          let startX = e.clientX;
+          let startY = e.clientY;
+
+          // Get current position relative to overlay
+          const overlay = container.closest(".interactive-overlay");
+          let initialX, initialY;
+
+          if (overlay) {
+            const overlayRect = overlay.getBoundingClientRect();
+            const elementRect = container.getBoundingClientRect();
+
+            initialX = elementRect.left - overlayRect.left;
+            initialY = elementRect.top - overlayRect.top;
+          } else {
+            initialX = parseInt(container.style.left) || 0;
+            initialY = parseInt(container.style.top) || 0;
+          }
+
+          container.style.cursor = "grabbing";
+          container.style.zIndex = "1000";
+          container.classList.add("dragging");
+
+          console.log("🖱️ Started dragging from edit toolbar drag handle");
+
+          function handleMouseMove(e) {
+            if (!window.isDragging) return;
+
+            console.log("🖱️ Mouse move during drag");
+            console.log("📊 Element click count:", textContainer.clickCount);
+            console.log("📊 Mouse position:", e.clientX, e.clientY);
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            console.log("📊 Delta movement:", deltaX, deltaY);
+
+            if (overlay) {
+              const overlayRect = overlay.getBoundingClientRect();
+
+              let newX = initialX + deltaX;
+              let newY = initialY + deltaY;
+
+              const elementWidth = container.offsetWidth;
+              const elementHeight = container.offsetHeight;
+
+              newX = Math.max(
+                0,
+                Math.min(newX, overlayRect.width - elementWidth)
+              );
+              newY = Math.max(
+                0,
+                Math.min(newY, overlayRect.height - elementHeight)
+              );
+
+              container.style.left = newX + "px";
+              container.style.top = newY + "px";
+            }
+          }
+
+          function handleMouseUp(e) {
+            console.log(
+              "🖱️ Mouse up on edit toolbar drag handle - stopping drag"
+            );
+            console.log("📊 Element click count:", textContainer.clickCount);
+            console.log("📊 Edit toolbar drag session completed for element");
+            window.isDragging = false;
+            container.style.cursor = "grab";
+            container.style.zIndex = "20";
+            container.classList.remove("dragging");
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+
+            // Clear global handlers
+            window.currentDragHandlers = null;
+            console.log("📊 Global drag handlers cleared");
+
+            e.preventDefault();
+            e.stopPropagation();
+          }
+
+          // Store handlers globally to prevent conflicts
+          window.currentDragHandlers = {
+            move: handleMouseMove,
+            up: handleMouseUp,
+          };
+
+          // Add event listeners with capture to ensure they're triggered
+          document.addEventListener("mousemove", handleMouseMove, true);
+          document.addEventListener("mouseup", handleMouseUp, true);
         });
 
         // Apply formatting function
@@ -1452,14 +1643,25 @@
         });
 
         doneButton.addEventListener("click", () => {
+          // Reset all drag-related state immediately
+          window.isDragging = false;
+          currentEditType = "select";
+
+          // Remove any active drag classes
+          textContainer.classList.remove("dragging");
+          textContainer.style.cursor = "grab";
+          textContainer.style.zIndex = "20";
+          textContainer.style.opacity = "1";
+          textContainer.style.transform = "scale(1)";
+          textContainer.style.boxShadow = "none";
+
           toolbar.remove();
           textElement.readOnly = true;
           textElement.style.border = "none";
           textElement.style.background = "transparent";
           // Remove editing class to hide resize handles
           textContainer.classList.remove("editing");
-          // Deactivate tool to allow dragging
-          currentEditType = "select";
+
           console.log("✅ Tool deactivated after Done button click");
         });
 
@@ -1574,6 +1776,18 @@
         const doneButton = document.createElement("button");
         doneButton.innerHTML = "✓";
         doneButton.style.background = "#007bff";
+
+        // Add event listeners to prevent drag handle from firing
+        doneButton.addEventListener("mousedown", function (e) {
+          console.log("📊 Done button mousedown - preventing drag");
+          e.stopPropagation();
+        });
+
+        doneButton.addEventListener("click", function (e) {
+          console.log("📊 Done button click - preventing drag");
+          e.stopPropagation();
+        });
+
         console.log("✅ Created done button");
 
         // Create drag handle for toolbar
@@ -1587,21 +1801,146 @@
 
         // Add drag functionality to the drag handle
         dragHandle.addEventListener("mousedown", function (e) {
+          // Initialize click counter for this element if not exists
+          if (!textContainer.clickCount) {
+            textContainer.clickCount = 0;
+          }
+          textContainer.clickCount++;
+
           console.log("🖱️ Drag handle in toolbar clicked");
+          console.log("📊 Element click count:", textContainer.clickCount);
+          console.log("📊 Element ID:", textContainer.id || "no-id");
+          console.log("📊 Current drag state:", window.isDragging);
+          console.log(
+            "📊 Active drag handlers:",
+            window.currentDragHandlers ? "exists" : "none"
+          );
+
           e.preventDefault();
           e.stopPropagation();
 
-          // Trigger drag on the container by simulating a mousedown event
-          const container = textContainer;
-          const dragEvent = new MouseEvent("mousedown", {
-            clientX: e.clientX,
-            clientY: e.clientY,
-            bubbles: true,
-            cancelable: true,
-          });
+          // Check if already dragging
+          if (window.isDragging) {
+            console.log("🖱️ Already dragging, ignoring new drag start");
+            console.log("📊 Drag blocked - already in progress");
+            return;
+          }
 
-          // Dispatch the event on the container to trigger its drag logic
-          container.dispatchEvent(dragEvent);
+          // Check if clicking on Done button
+          if (
+            e.target.innerHTML === "✓" &&
+            e.target.style.background === "rgb(0, 123, 255)"
+          ) {
+            console.log("📊 Clicked on Done button - ignoring drag handle");
+            return;
+          }
+
+          // Set global dragging flag
+          window.isDragging = true;
+          console.log("📊 Drag started - global flag set to true");
+
+          // Remove any existing drag listeners first
+          if (window.currentDragHandlers) {
+            console.log("📊 Cleaning up existing drag handlers");
+            document.removeEventListener(
+              "mousemove",
+              window.currentDragHandlers.move
+            );
+            document.removeEventListener(
+              "mouseup",
+              window.currentDragHandlers.up
+            );
+          } else {
+            console.log("📊 No existing drag handlers to clean up");
+          }
+
+          // Directly trigger drag functionality
+          const container = textContainer;
+          let startX = e.clientX;
+          let startY = e.clientY;
+
+          // Get current position relative to overlay
+          const overlay = container.closest(".interactive-overlay");
+          let initialX, initialY;
+
+          if (overlay) {
+            const overlayRect = overlay.getBoundingClientRect();
+            const elementRect = container.getBoundingClientRect();
+
+            initialX = elementRect.left - overlayRect.left;
+            initialY = elementRect.top - overlayRect.top;
+          } else {
+            initialX = parseInt(container.style.left) || 0;
+            initialY = parseInt(container.style.top) || 0;
+          }
+
+          container.style.cursor = "grabbing";
+          container.style.zIndex = "1000";
+          container.classList.add("dragging");
+
+          console.log("🖱️ Started dragging from toolbar drag handle");
+
+          function handleMouseMove(e) {
+            if (!window.isDragging) return;
+
+            console.log("🖱️ Mouse move during drag");
+            console.log("📊 Element click count:", textContainer.clickCount);
+            console.log("📊 Mouse position:", e.clientX, e.clientY);
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            console.log("📊 Delta movement:", deltaX, deltaY);
+
+            if (overlay) {
+              const overlayRect = overlay.getBoundingClientRect();
+
+              let newX = initialX + deltaX;
+              let newY = initialY + deltaY;
+
+              const elementWidth = container.offsetWidth;
+              const elementHeight = container.offsetHeight;
+
+              newX = Math.max(
+                0,
+                Math.min(newX, overlayRect.width - elementWidth)
+              );
+              newY = Math.max(
+                0,
+                Math.min(newY, overlayRect.height - elementHeight)
+              );
+
+              container.style.left = newX + "px";
+              container.style.top = newY + "px";
+            }
+          }
+
+          function handleMouseUp(e) {
+            console.log("🖱️ Mouse up on toolbar drag handle - stopping drag");
+            console.log("📊 Element click count:", textContainer.clickCount);
+            console.log("📊 Drag session completed for element");
+            window.isDragging = false;
+            container.style.cursor = "grab";
+            container.style.zIndex = "20";
+            container.classList.remove("dragging");
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+
+            // Clear global handlers
+            window.currentDragHandlers = null;
+            console.log("📊 Global drag handlers cleared");
+
+            e.preventDefault();
+            e.stopPropagation();
+          }
+
+          // Store handlers globally to prevent conflicts
+          window.currentDragHandlers = {
+            move: handleMouseMove,
+            up: handleMouseUp,
+          };
+
+          // Add event listeners with capture to ensure they're triggered
+          document.addEventListener("mousemove", handleMouseMove, true);
+          document.addEventListener("mouseup", handleMouseUp, true);
         });
 
         // Assemble toolbar
@@ -1776,6 +2115,8 @@
           textContainer.classList.remove("editing");
           // Deactivate tool to allow dragging
           currentEditType = "select";
+          // Reset global dragging state to prevent stuck dragging
+          window.isDragging = false;
           console.log("✅ Tool deactivated after text finalization");
           console.log(
             "✅ Text element finalized - readOnly:",
@@ -1787,7 +2128,10 @@
           console.log("✅ Delete button added to container");
 
           // Make text element draggable
-          makeElementDraggable(textContainer);
+          // Only make draggable if not already dragging
+          if (!window.isDragging) {
+            makeElementDraggable(textContainer);
+          }
 
           // Add resize handles
           addResizeHandles(textContainer);
@@ -1819,6 +2163,8 @@
 
           // Deactivate text tool after adding text
           currentEditType = "select";
+          // Reset global dragging state
+          window.isDragging = false;
           console.log(
             "✅ Deactivating text tool, currentEditType:",
             currentEditType
@@ -1958,6 +2304,12 @@
         if (isDrawing) {
           console.log("✍️ Global mouse up - stopping drawing");
           stopDrawing();
+        }
+
+        // Reset dragging state on any mouse up
+        if (window.isDragging) {
+          console.log("🖱️ Global mouse up - resetting drag state");
+          window.isDragging = false;
         }
       }
 
