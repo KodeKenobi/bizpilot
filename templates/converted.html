@@ -8,30 +8,34 @@
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
+        background-color: transparent;
         overflow: auto;
         width: 100%;
         height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
       }
 
       .pdf-container {
-        background: white;
+        background: transparent;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         overflow: visible;
         min-width: 100%;
         min-height: 100%;
+        margin: 0 auto;
+        max-width: 100%;
       }
 
       .pdf-page {
         position: relative;
         margin: 20px auto;
-        /* background: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transform-origin: top left;
         width: 100%;
         height: auto;
-        min-width: 800px;
       }
 
       .pdf-page.hidden {
@@ -1056,7 +1060,8 @@
           console.log("📄 Now showing page:", currentPage);
         } else if (
           event.data.type === "GENERATE_PDF" ||
-          event.data.type === "GENERATE_AND_DOWNLOAD_PDF"
+          event.data.type === "GENERATE_AND_DOWNLOAD_PDF" ||
+          event.data.type === "GENERATE_PDF_FOR_PREVIEW"
         ) {
           // Prevent duplicate execution
           if (isGeneratingPDF) {
@@ -1069,7 +1074,10 @@
           console.log(
             `Received ${event.data.type} message, starting PDF generation...`
           );
-          generatePDF();
+
+          // Determine if this is for preview or download
+          const isPreview = event.data.type === "GENERATE_PDF_FOR_PREVIEW";
+          generatePDF(isPreview);
         } else if (event.data.type === "CONFIGURE_SIGNATURE_MODAL") {
           console.log("✍️ Configuring signature modal behavior:", event.data);
           // Set a flag to control signature modal behavior
@@ -1098,7 +1106,7 @@
         showPaymentPrompt();
       }
 
-      async function generatePDF() {
+      async function generatePDF(isPreview = false) {
         // Prevent duplicate execution
         if (isGeneratingPDF) {
           console.log(
@@ -1115,13 +1123,18 @@
         let originalZoom = currentZoom;
 
         try {
-          const downloadBtn = document.getElementById("downloadPdfBtn");
-          if (!downloadBtn) {
-            throw new Error("Download button not found");
+          // Only update download button if not in preview mode
+          let downloadBtn = null;
+          let originalText = "";
+          if (!isPreview) {
+            downloadBtn = document.getElementById("downloadPdfBtn");
+            if (!downloadBtn) {
+              throw new Error("Download button not found");
+            }
+            originalText = downloadBtn.textContent;
+            downloadBtn.textContent = "Generating...";
+            downloadBtn.disabled = true;
           }
-          const originalText = downloadBtn.textContent;
-          downloadBtn.textContent = "Generating...";
-          downloadBtn.disabled = true;
 
           // Reset zoom to 100% for consistent PDF generation
           originalZoom = currentZoom;
@@ -1196,24 +1209,45 @@
             .slice(0, 19);
           const filename = `edited_document_${timestamp}.pdf`;
 
-          // Download the PDF
-          console.log("About to save PDF:", filename);
+          if (isPreview) {
+            // Generate PDF for preview
+            console.log("Generating PDF for preview:", filename);
 
-          // Try to force download dialog by creating blob and download link
-          const pdfBlob = pdf.output("blob");
-          const url = URL.createObjectURL(pdfBlob);
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = filename;
-          link.style.display = "none";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          URL.revokeObjectURL(url);
+            const pdfBlob = pdf.output("blob");
+            const url = URL.createObjectURL(pdfBlob);
 
-          console.log("PDF download triggered successfully");
+            // Send the PDF URL to the parent component
+            window.parent.postMessage(
+              {
+                type: "PDF_GENERATED_FOR_PREVIEW",
+                pdfUrl: url,
+                filename: filename,
+              },
+              "*"
+            );
 
-          showNotification("PDF downloaded successfully!", false);
+            console.log("PDF generated for preview successfully");
+            showNotification("PDF generated for preview!", false);
+          } else {
+            // Download the PDF
+            console.log("About to save PDF:", filename);
+
+            // Try to force download dialog by creating blob and download link
+            const pdfBlob = pdf.output("blob");
+            const url = URL.createObjectURL(pdfBlob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = filename;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            console.log("PDF download triggered successfully");
+
+            showNotification("PDF downloaded successfully!", false);
+          }
         } catch (error) {
           console.error("Error generating PDF:", error);
           showNotification("Error generating PDF: " + error.message, true);
@@ -1229,10 +1263,12 @@
           changeZoom(originalZoom);
         } finally {
           // Always restore button state and clear generation flag
-          const downloadBtn = document.getElementById("downloadPdfBtn");
-          if (downloadBtn) {
-            downloadBtn.textContent = "Download";
-            downloadBtn.disabled = false;
+          if (!isPreview) {
+            const downloadBtn = document.getElementById("downloadPdfBtn");
+            if (downloadBtn) {
+              downloadBtn.textContent = "Download";
+              downloadBtn.disabled = false;
+            }
           }
           isGeneratingPDF = false;
         }

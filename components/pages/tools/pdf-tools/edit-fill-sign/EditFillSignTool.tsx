@@ -121,6 +121,11 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
 
+  // View and download flow state
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [showDownloadButton, setShowDownloadButton] = useState(false);
+  const [generatedPdfUrl, setGeneratedPdfUrl] = useState<string | null>(null);
+
   // Refs
   const canvasRef = useRef<HTMLDivElement>(null);
   const isProcessingRef = useRef<boolean>(false);
@@ -262,6 +267,21 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       isProcessingRef.current = false;
     }
   }, [editorUrl]);
+
+  // Listen for PDF generation messages from iframe
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
+        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
+        setGeneratedPdfUrl(event.data.pdfUrl);
+        setShowViewModal(true);
+        setShowDownloadButton(true); // Show both buttons together
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   // Handle zoom controls
   const handleZoomIn = () => {
@@ -417,20 +437,43 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     }));
   };
 
-  // Handle save changes
+  // Handle save changes - show view button first
   const handleSaveChanges = () => {
-    console.log("Save clicked - triggering PDF generation");
+    console.log("Save clicked - generating PDF for preview");
 
-    // Send message to iframe to generate and download PDF
+    // Send message to iframe to generate PDF (without download)
     const iframe = document.querySelector(
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
       iframe.contentWindow.postMessage(
         {
-          type: "GENERATE_AND_DOWNLOAD_PDF",
+          type: "GENERATE_PDF_FOR_PREVIEW",
         },
         "*"
+      );
+    }
+  };
+
+  // Handle view PDF
+  const handleViewPdf = () => {
+    setShowViewModal(true);
+  };
+
+  // Handle close view modal
+  const handleCloseViewModal = () => {
+    setShowViewModal(false);
+    // Keep both buttons visible after closing modal
+  };
+
+  // Handle download PDF (with monetization)
+  const handleDownloadPdf = () => {
+    if (generatedPdfUrl) {
+      // Trigger monetization modal
+      openMonetizationModal(
+        uploadedFile?.name || "document",
+        "pdf",
+        generatedPdfUrl
       );
     }
   };
@@ -876,6 +919,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
           onZoomReset={handleZoomReset}
           activeTool={activeTool}
           onToolSelect={handleToolSelect}
+          hideDrawingTools={true}
           pages={generatePageThumbnails()}
           currentPage={currentPage}
           onPageChange={handlePageChange}
@@ -886,15 +930,21 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
           }}
           onSave={handleSaveChanges}
           isProcessing={isProcessing}
+          showViewButton={showViewModal}
+          showDownloadButton={showDownloadButton}
+          onViewPdf={handleViewPdf}
+          onDownloadPdf={handleDownloadPdf}
         >
-          <div className="h-full w-full bg-white relative overflow-auto">
+          <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
             <div
-              className="relative"
+              className="relative shadow-2xl"
               style={{
                 width: `${100 / (zoomLevel / 100)}%`,
                 height: `${100 / (zoomLevel / 100)}%`,
                 minWidth: "100%",
                 minHeight: "100%",
+                maxWidth: "100%",
+                maxHeight: "100%",
               }}
             >
               <iframe
@@ -909,6 +959,30 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
             </div>
           </div>
         </PDFEditorLayout>
+
+        {/* PDF View Modal */}
+        {showViewModal && generatedPdfUrl && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] w-full mx-4">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h3 className="text-lg font-semibold">Preview PDF</h3>
+                <button
+                  onClick={handleCloseViewModal}
+                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-4">
+                <iframe
+                  src={generatedPdfUrl}
+                  className="w-full h-[70vh] border-0"
+                  title="PDF Preview"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         <MonetizationModal
           isOpen={monetizationState.isModalOpen}

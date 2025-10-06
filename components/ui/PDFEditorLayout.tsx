@@ -50,6 +50,7 @@ interface PDFEditorLayoutProps {
   tools?: ToolbarTool[];
   activeTool?: string;
   onToolSelect?: (toolId: string) => void;
+  hideDrawingTools?: boolean;
 
   // Page navigation
   pages?: PageThumbnail[];
@@ -64,6 +65,12 @@ interface PDFEditorLayoutProps {
   onUploadNew?: () => void;
   onSave?: () => void;
   isProcessing?: boolean;
+
+  // View and download flow
+  showViewButton?: boolean;
+  showDownloadButton?: boolean;
+  onViewPdf?: () => void;
+  onDownloadPdf?: () => void;
 }
 
 export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
@@ -79,6 +86,7 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
   tools = [],
   activeTool,
   onToolSelect,
+  hideDrawingTools = false,
   pages = [],
   currentPage = 1,
   onPageChange,
@@ -87,6 +95,10 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
   onUploadNew,
   onSave,
   isProcessing = false,
+  showViewButton = false,
+  showDownloadButton = false,
+  onViewPdf,
+  onDownloadPdf,
 }) => {
   const [showPageThumbnails, setShowPageThumbnails] = useState(true);
 
@@ -105,7 +117,22 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
     { id: "ellipse", name: "Ellipse", icon: "⭕" },
   ];
 
-  const allTools = [...defaultTools, ...tools];
+  // Filter out drawing tools if hideDrawingTools is true
+  const filteredDefaultTools = hideDrawingTools
+    ? defaultTools.filter(
+        (tool) =>
+          ![
+            "pencil",
+            "highlight",
+            "eraser",
+            "annotate",
+            "image",
+            "ellipse",
+          ].includes(tool.id)
+      )
+    : defaultTools;
+
+  const allTools = [...filteredDefaultTools, ...tools];
 
   // Get tool icon component
   const getToolIcon = (toolId: string) => {
@@ -399,39 +426,6 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               </svg>
             </button>
           </div>
-
-          {/* Search */}
-          {onSearch && (
-            <button
-              onClick={onSearch}
-              className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-700"
-              title="Search"
-            >
-              <svg
-                className="w-4 h-4 text-gray-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-          )}
-
-          {/* Done Button */}
-          {onDone && (
-            <Button
-              onClick={onDone}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
-            >
-              Done
-            </Button>
-          )}
         </div>
       </div>
 
@@ -490,7 +484,7 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
         <div className="flex-1 flex flex-col min-h-0">
           {/* Toolbar */}
           <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex-shrink-0">
-            <div className="flex items-center space-x-1 overflow-x-auto">
+            <div className="flex items-center justify-center space-x-1 overflow-x-auto">
               {allTools.map((tool) => (
                 <button
                   key={tool.id}
@@ -509,11 +503,6 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
                   <span className="hidden sm:inline">{tool.name}</span>
                 </button>
               ))}
-
-              {/* More tools dropdown indicator */}
-              <div className="w-8 h-8 flex items-center justify-center text-gray-400">
-                <span>▼</span>
-              </div>
             </div>
           </div>
 
@@ -523,7 +512,7 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
       </div>
 
       {/* Bottom Actions Bar */}
-      {(onUploadNew || onSave) && (
+      {(onUploadNew || onSave || showViewButton || showDownloadButton) && (
         <div className="bg-gray-800 border-t border-gray-700 px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -538,13 +527,31 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
             </div>
 
             <div className="flex items-center space-x-3">
-              {onSave && (
+              {onSave && !showViewButton && !showDownloadButton && (
                 <Button
                   onClick={onSave}
                   disabled={isProcessing}
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg disabled:opacity-50"
                 >
                   {isProcessing ? "Saving..." : "Save Changes"}
+                </Button>
+              )}
+
+              {showViewButton && onViewPdf && (
+                <Button
+                  onClick={onViewPdf}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                >
+                  View PDF
+                </Button>
+              )}
+
+              {showDownloadButton && onDownloadPdf && (
+                <Button
+                  onClick={onDownloadPdf}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg ml-3"
+                >
+                  Download PDF
                 </Button>
               )}
             </div>
