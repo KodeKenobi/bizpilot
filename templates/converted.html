@@ -1005,21 +1005,22 @@
               );
             });
           } else if (event.data.mode === "image") {
-            console.log("🖼️ Creating image element immediately");
-            createImageElementImmediately();
-            // Disable overlays after creating element
-            overlays.forEach((overlay, index) => {
-              overlay.style.pointerEvents = "none";
-              overlay.style.zIndex = "1";
-              console.log(`🎯 Overlay ${index} disabled after image creation`);
-            });
+            // COMMENTED OUT: Image functionality temporarily disabled
+            console.log("🖼️ Image tool disabled - functionality commented out");
+            // createImageElementImmediately();
+            // // Disable overlays after creating element
+            // overlays.forEach((overlay, index) => {
+            //   overlay.style.pointerEvents = "none";
+            //   overlay.style.zIndex = "1";
+            //   console.log(`🎯 Overlay ${index} disabled after image creation`);
+            // });
           } else {
             // For other modes, enable/disable overlays as needed
             overlays.forEach((overlay, index) => {
               if (
                 event.data.mode === "text" ||
-                event.data.mode === "sign" ||
-                event.data.mode === "image"
+                event.data.mode === "sign"
+                // COMMENTED OUT: event.data.mode === "image"
               ) {
                 overlay.style.pointerEvents = "auto";
                 overlay.style.zIndex = "10";
@@ -1076,6 +1077,12 @@
           window.signatureModalShowOnce = event.data.showOnce || false;
           // Reset the used flag when configuring for a new signature
           window.signatureModalUsed = false;
+        } else if (event.data.type === "UNDO") {
+          console.log("↶ Undo button clicked");
+          performUndo();
+        } else if (event.data.type === "REDO") {
+          console.log("↷ Redo button clicked");
+          performRedo();
         } else {
           console.log("❓ Unknown message type in iframe:", event.data.type);
         }
@@ -1306,8 +1313,8 @@
           // Don't drag when a tool is still active, UNLESS it's an empty text element or drag handle
           if (
             currentEditType === "text" ||
-            currentEditType === "sign" ||
-            currentEditType === "image"
+            currentEditType === "sign"
+            // COMMENTED OUT: currentEditType === "image"
           ) {
             // Allow dragging if clicking on drag handle
             if (
@@ -2327,6 +2334,9 @@
         overlay.appendChild(textContainer);
         console.log("📝 Added text element to DOM");
         console.log("📝 Text container children:", textContainer.children);
+
+        // Save state for undo/redo
+        saveStateToUndoStack();
         console.log("📝 Overlay children count:", overlay.children.length);
 
         // Ensure signature modal is closed when creating text
@@ -2705,33 +2715,34 @@
         addSignatureElement(mockEvent, overlay);
       }
 
-      function createImageElementImmediately() {
-        console.log("🖼️ Creating image element immediately");
-        const overlays = document.querySelectorAll(".interactive-overlay");
-        if (overlays.length === 0) {
-          console.log("❌ No overlays found for image element");
-          return;
-        }
+      // COMMENTED OUT: Image functionality temporarily disabled
+      // function createImageElementImmediately() {
+      //   console.log("🖼️ Creating image element immediately");
+      //   const overlays = document.querySelectorAll(".interactive-overlay");
+      //   if (overlays.length === 0) {
+      //     console.log("❌ No overlays found for image element");
+      //     return;
+      //   }
 
-        // Use the first overlay (current page)
-        const overlay = overlays[0];
-        const rect = overlay.getBoundingClientRect();
+      //   // Use the first overlay (current page)
+      //   const overlay = overlays[0];
+      //   const rect = overlay.getBoundingClientRect();
 
-        // Position element in the upper-center area for better UX
-        // Use 1/3 from top instead of center to avoid bottom placement
-        const x = rect.width / 2 - 100; // Center horizontally, offset for image width
-        const y = rect.height / 3; // 1/3 from top instead of center
+      //   // Position element in the upper-center area for better UX
+      //   // Use 1/3 from top instead of center to avoid bottom placement
+      //   const x = rect.width / 2 - 100; // Center horizontally, offset for image width
+      //   const y = rect.height / 3; // 1/3 from top instead of center
 
-        // Create a mock click event at the better position
-        const mockEvent = {
-          clientX: rect.left + x + 100, // Adjust for the offset
-          clientY: rect.top + y,
-          target: overlay,
-        };
+      //   // Create a mock click event at the better position
+      //   const mockEvent = {
+      //     clientX: rect.left + x + 100, // Adjust for the offset
+      //     clientY: rect.top + y,
+      //     target: overlay,
+      //   };
 
-        console.log("🖼️ Positioning image element at:", x, y);
-        addImageElement(mockEvent, overlay);
-      }
+      //   console.log("🖼️ Positioning image element at:", x, y);
+      //   addImageElement(mockEvent, overlay);
+      // }
 
       // Resize functionality for elements
       function addResizeHandles(element) {
@@ -2856,7 +2867,8 @@
 
           // Update the content element inside
           const contentElement = element.querySelector(
-            ".signature-element, .text-element, .image-element"
+            ".signature-element, .text-element"
+            // COMMENTED OUT: .image-element
           );
           if (contentElement) {
             // For signature elements, keep auto sizing
@@ -3049,182 +3061,229 @@
         // Assemble and add to overlay
         signatureContainer.appendChild(signatureElement);
         overlay.appendChild(signatureContainer);
+
+        // Save state for undo/redo
+        saveStateToUndoStack();
       }
 
+      // COMMENTED OUT: Image functionality temporarily disabled
       // Function to add image element
-      function addImageElement(e, overlay) {
-        console.log("🖼️ Adding image element...");
-        const rect = overlay.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+      // function addImageElement(e, overlay) {
+      //   console.log("🖼️ Adding image element...");
+      //   const rect = overlay.getBoundingClientRect();
+      //   const x = e.clientX - rect.left;
+      //   const y = e.clientY - rect.top;
 
-        // Create image container
-        const imageContainer = document.createElement("div");
-        imageContainer.className = "element-container";
-        imageContainer.style.position = "absolute";
-        imageContainer.style.left = x + "px";
-        imageContainer.style.top = y + "px";
-        imageContainer.style.width = "fit-content";
-        imageContainer.style.height = "fit-content";
-        imageContainer.style.minWidth = "0";
-        imageContainer.style.minHeight = "0";
-        imageContainer.style.padding = "8px 8px 8px 0";
-        imageContainer.style.margin = "0";
-        imageContainer.style.zIndex = "20";
-        imageContainer.style.setProperty(
-          "background-color",
-          "transparent",
-          "important"
-        );
-        imageContainer.style.setProperty("background", "none", "important");
+      //   // Create image container
+      //   const imageContainer = document.createElement("div");
+      //   imageContainer.className = "element-container";
+      //   imageContainer.style.position = "absolute";
+      //   imageContainer.style.left = x + "px";
+      //   imageContainer.style.top = y + "px";
+      //   imageContainer.style.width = "fit-content";
+      //   imageContainer.style.height = "fit-content";
+      //   imageContainer.style.minWidth = "0";
+      //   imageContainer.style.minHeight = "0";
+      //   imageContainer.style.padding = "8px 8px 8px 0";
+      //   imageContainer.style.margin = "0";
+      //   imageContainer.style.zIndex = "20";
+      //   imageContainer.style.setProperty(
+      //     "background-color",
+      //     "transparent",
+      //     "important"
+      //   );
+      //   imageContainer.style.setProperty("background", "none", "important");
 
-        const imageElement = document.createElement("div");
-        imageElement.className = "image-element";
-        imageElement.style.position = "relative";
-        imageElement.style.left = "0";
-        imageElement.style.top = "0";
-        imageElement.style.width = "fit-content";
-        imageElement.style.height = "fit-content";
-        imageElement.style.padding = "0";
-        imageElement.style.border = "none";
-        imageElement.style.margin = "0";
-        imageElement.style.setProperty("background", "none", "important");
-        imageElement.style.setProperty(
-          "background-color",
-          "transparent",
-          "important"
-        );
-        imageElement.style.setProperty("background-image", "none", "important");
-        imageElement.innerHTML = "Image";
+      //   // Create file input for image selection
+      //   const fileInput = document.createElement("input");
+      //   fileInput.type = "file";
+      //   fileInput.accept = "image/*";
+      //   fileInput.style.display = "none";
 
-        // Create delete button
-        const deleteBtn = document.createElement("button");
-        deleteBtn.className = "element-delete-btn";
-        deleteBtn.innerHTML = "×";
-        deleteBtn.title = "Delete image";
-        console.log("🗑️ Created delete button for image element");
+      //   const imageElement = document.createElement("div");
+      //   imageElement.className = "image-element";
+      //   imageElement.style.position = "relative";
+      //   imageElement.style.left = "0";
+      //   imageElement.style.top = "0";
+      //   imageElement.style.width = "fit-content";
+      //   imageElement.style.height = "fit-content";
+      //   imageElement.style.padding = "0";
+      //   imageElement.style.border = "none";
+      //   imageElement.style.margin = "0";
+      //   imageElement.style.setProperty("background", "none", "important");
+      //   imageElement.style.setProperty(
+      //     "background-color",
+      //     "transparent",
+      //     "important"
+      //   );
+      //   imageElement.style.setProperty("background-image", "none", "important");
+      //   imageElement.innerHTML = "Click to add image";
+      //   imageElement.style.cursor = "pointer";
+      //   imageElement.style.color = "#007bff";
+      //   imageElement.style.fontSize = "12px";
 
-        // Add protection against drag and selection for the container
-        imageElement.addEventListener("contextmenu", function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        });
+      //   // Create delete button
+      //   const deleteBtn = document.createElement("button");
+      //   deleteBtn.className = "element-delete-btn";
+      //   deleteBtn.innerHTML = "×";
+      //   deleteBtn.title = "Delete image";
+      //   console.log("🗑️ Created delete button for image element");
 
-        imageElement.addEventListener("dragstart", function (e) {
-          e.preventDefault();
-          return false;
-        });
+      //   // Add protection against drag and selection for the container
+      //   imageElement.addEventListener("contextmenu", function (e) {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     return false;
+      //   });
 
-        imageElement.addEventListener("selectstart", function (e) {
-          e.preventDefault();
-          return false;
-        });
+      //   imageElement.addEventListener("dragstart", function (e) {
+      //     e.preventDefault();
+      //     return false;
+      //   });
 
-        // Set HTML attributes for protection
-        imageElement.setAttribute("draggable", "false");
-        imageElement.setAttribute("oncontextmenu", "return false;");
-        imageElement.setAttribute("ondragstart", "return false;");
-        imageElement.setAttribute("onselectstart", "return false;");
+      //   imageElement.addEventListener("selectstart", function (e) {
+      //     e.preventDefault();
+      //     return false;
+      //   });
 
-        // Delete button event handler
-        deleteBtn.addEventListener("click", function (e) {
-          console.log("🗑️ Delete button clicked for image element");
-          e.preventDefault();
-          e.stopPropagation();
-          if (confirm("Are you sure you want to delete this image element?")) {
-            imageContainer.remove();
-            // Remove from edits array if it was saved
-            const editIndex = edits.findIndex(
-              (edit) =>
-                edit.type === "add_image" &&
-                edit.page === currentPage &&
-                edit.x === x &&
-                edit.y === y
-            );
-            if (editIndex !== -1) {
-              edits.splice(editIndex, 1);
-            }
-          }
-        });
+      //   // Set HTML attributes for protection
+      //   imageElement.setAttribute("draggable", "false");
+      //   imageElement.setAttribute("oncontextmenu", "return false;");
+      //   imageElement.setAttribute("ondragstart", "return false;");
+      //   imageElement.setAttribute("onselectstart", "return false;");
 
-        imageElement.addEventListener("click", function () {
-          const input = document.createElement("input");
-          input.type = "file";
-          input.accept = "image/*";
-          input.onchange = function (e) {
-            const file = e.target.files[0];
-            if (file) {
-              const reader = new FileReader();
-              reader.onload = function (e) {
-                const img = document.createElement("img");
-                img.src = e.target.result;
-                img.style.maxWidth = "100%";
-                img.style.maxHeight = "100%";
+      //   // Click handler to trigger file selection
+      //   imageElement.addEventListener("click", function (e) {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     fileInput.click();
+      //   });
 
-                // Apply protection to new image
-                img.addEventListener("contextmenu", function (e) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  return false;
-                });
-                img.addEventListener("dragstart", function (e) {
-                  e.preventDefault();
-                  return false;
-                });
-                img.setAttribute("draggable", "false");
-                img.setAttribute("oncontextmenu", "return false;");
-                img.setAttribute("ondragstart", "return false;");
+      //   // File input change handler
+      //   fileInput.addEventListener("change", function (e) {
+      //     const file = e.target.files[0];
+      //     if (file) {
+      //       const reader = new FileReader();
+      //       reader.onload = function (e) {
+      //         const img = document.createElement("img");
+      //         img.src = e.target.result;
+      //         img.style.maxWidth = "200px";
+      //         img.style.maxHeight = "200px";
+      //         img.style.width = "auto";
+      //         img.style.height = "auto";
+      //         img.style.display = "block";
 
-                imageElement.innerHTML = "";
-                imageElement.appendChild(img);
+      //         // Clear the text and add the image
+      //         imageElement.innerHTML = "";
+      //         imageElement.appendChild(img);
 
-                edits.push({
-                  type: "add_image",
-                  page: currentPage,
-                  x: x,
-                  y: y,
-                  image_data: e.target.result,
-                });
-              };
-              reader.readAsDataURL(file);
-            }
+      //         // Update container size to fit the image
+      //         imageContainer.style.width = "fit-content";
+      //         imageContainer.style.height = "fit-content";
+      //       };
+      //       reader.readAsDataURL(file);
+      //     }
+      //   });
 
-            // Add delete button to container
-            imageContainer.appendChild(deleteBtn);
+      //   // Delete button event handler
+      //   deleteBtn.addEventListener("click", function (e) {
+      //     console.log("🗑️ Delete button clicked for image element");
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     if (confirm("Are you sure you want to delete this image element?")) {
+      //       imageContainer.remove();
+      //       // Remove from edits array if it was saved
+      //       const editIndex = edits.findIndex(
+      //         (edit) =>
+      //           edit.type === "add_image" &&
+      //           edit.page === currentPage &&
+      //           edit.x === x &&
+      //           edit.y === y
+      //       );
+      //       if (editIndex !== -1) {
+      //         edits.splice(editIndex, 1);
+      //       }
+      //     }
+      //   });
 
-            // Deactivate image tool after adding image
-            currentEditType = "select";
+      //   imageElement.addEventListener("click", function () {
+      //     const input = document.createElement("input");
+      //     input.type = "file";
+      //     input.accept = "image/*";
+      //     input.onchange = function (e) {
+      //       const file = e.target.files[0];
+      //       if (file) {
+      //         const reader = new FileReader();
+      //         reader.onload = function (e) {
+      //           const img = document.createElement("img");
+      //           img.src = e.target.result;
+      //           img.style.maxWidth = "100%";
+      //           img.style.maxHeight = "100%";
 
-            // Send message to parent to deactivate image tool
-            window.parent.postMessage(
-              {
-                type: "EDIT_MODE_SET",
-                mode: "select",
-              },
-              "*"
-            );
-          };
-          input.click();
-        });
+      //           // Apply protection to new image
+      //           img.addEventListener("contextmenu", function (e) {
+      //             e.preventDefault();
+      //             e.stopPropagation();
+      //             return false;
+      //           });
+      //           img.addEventListener("dragstart", function (e) {
+      //             e.preventDefault();
+      //             return false;
+      //           });
+      //           img.setAttribute("draggable", "false");
+      //           img.setAttribute("oncontextmenu", "return false;");
+      //           img.setAttribute("ondragstart", "return false;");
 
-        // Make image element draggable
-        makeElementDraggable(imageContainer);
+      //           imageElement.innerHTML = "";
+      //           imageElement.appendChild(img);
 
-        // Add resize handles
-        addResizeHandles(imageContainer);
+      //           edits.push({
+      //             type: "add_image",
+      //             page: currentPage,
+      //             x: x,
+      //             y: y,
+      //             image_data: e.target.result,
+      //           });
+      //         };
+      //         reader.readAsDataURL(file);
+      //       }
 
-        // Add click handler to edit image
-        imageElement.addEventListener("click", function (e) {
-          e.stopPropagation();
-          console.log("🖼️ Image element clicked for editing");
-          // You can add image editing functionality here if needed
-        });
+      //       // Add delete button to container
+      //       imageContainer.appendChild(deleteBtn);
 
-        // Assemble and add to overlay
-        imageContainer.appendChild(imageElement);
-        overlay.appendChild(imageContainer);
-      }
+      //       // Deactivate image tool after adding image
+      //       currentEditType = "select";
+
+      //       // Send message to parent to deactivate image tool
+      //       window.parent.postMessage(
+      //         {
+      //           type: "EDIT_MODE_SET",
+      //           mode: "select",
+      //         },
+      //         "*"
+      //       );
+      //     };
+      //     input.click();
+      //   });
+
+      //   // Make image element draggable
+      //   makeElementDraggable(imageContainer);
+
+      //   // Add resize handles
+      //   addResizeHandles(imageContainer);
+
+      //   // Add click handler to edit image
+      //   imageElement.addEventListener("click", function (e) {
+      //     e.stopPropagation();
+      //     console.log("🖼️ Image element clicked for editing");
+      //     // You can add image editing functionality here if needed
+      //   });
+
+      //   // Assemble and add to overlay
+      //   imageContainer.appendChild(fileInput);
+      //   imageContainer.appendChild(imageElement);
+      //   overlay.appendChild(imageContainer);
+      // }
 
       // Global protection against right-click and image saving
       document.addEventListener("contextmenu", function (e) {
@@ -3248,8 +3307,519 @@
         }
       });
 
+      // Undo/Redo state management
+      let undoStack = [];
+      let redoStack = [];
+      let canUndo = false;
+      let canRedo = false;
+
+      // Save current state to undo stack
+      function saveStateToUndoStack() {
+        const currentState = {
+          // Added elements
+          textElements: Array.from(
+            document.querySelectorAll(".text-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.style.left) || 0,
+            y: parseFloat(el.style.top) || 0,
+            text: el.textContent || el.innerHTML,
+            fontSize: parseFloat(el.style.fontSize) || 16,
+            color: el.style.color || "#000000",
+            fontFamily: el.style.fontFamily || "Arial",
+            fontWeight: el.style.fontWeight || "normal",
+            fontStyle: el.style.fontStyle || "normal",
+          })),
+          signatureElements: Array.from(
+            document.querySelectorAll(".signature-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.parentElement.style.left) || 0,
+            y: parseFloat(el.parentElement.style.top) || 0,
+            width: parseFloat(el.parentElement.style.width) || 0,
+            height: parseFloat(el.parentElement.style.height) || 0,
+            signatureData: el.innerHTML,
+          })),
+          imageElements: Array.from(
+            document.querySelectorAll(".image-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.parentElement.style.left) || 0,
+            y: parseFloat(el.parentElement.style.top) || 0,
+            width: parseFloat(el.parentElement.style.width) || 0,
+            height: parseFloat(el.parentElement.style.height) || 0,
+            src: el.querySelector("img")?.src || "",
+          })),
+          // Existing document content
+          documentContent: Array.from(
+            document.querySelectorAll(
+              ".text-span, .editable-text, [contenteditable='true']"
+            )
+          ).map((el) => ({
+            id: el.id || el.className,
+            text: el.textContent || el.innerHTML,
+            tagName: el.tagName,
+            className: el.className,
+            style: el.getAttribute("style") || "",
+            dataText: el.getAttribute("data-text") || "",
+          })),
+        };
+
+        undoStack.push(currentState);
+        redoStack = []; // Clear redo stack when new action is performed
+        canUndo = true;
+        canRedo = false;
+
+        // Limit undo stack size to prevent memory issues
+        if (undoStack.length > 50) {
+          undoStack.shift();
+        }
+
+        console.log(
+          "💾 State saved to undo stack. Stack size:",
+          undoStack.length
+        );
+      }
+
+      // Undo function
+      function performUndo() {
+        console.log("↶ UNDO BUTTON CLICKED");
+        console.log("↶ Current undo stack length:", undoStack.length);
+        console.log("↶ Current redo stack length:", redoStack.length);
+
+        if (undoStack.length === 0) {
+          console.log("❌ Nothing to undo - stack is empty");
+          return;
+        }
+
+        console.log("↶ Performing undo operation...");
+        const currentState = {
+          textElements: Array.from(
+            document.querySelectorAll(".text-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.style.left) || 0,
+            y: parseFloat(el.style.top) || 0,
+            text: el.textContent || el.innerHTML,
+            fontSize: parseFloat(el.style.fontSize) || 16,
+            color: el.style.color || "#000000",
+            fontFamily: el.style.fontFamily || "Arial",
+            fontWeight: el.style.fontWeight || "normal",
+            fontStyle: el.style.fontStyle || "normal",
+          })),
+          signatureElements: Array.from(
+            document.querySelectorAll(".signature-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.parentElement.style.left) || 0,
+            y: parseFloat(el.parentElement.style.top) || 0,
+            width: parseFloat(el.parentElement.style.width) || 0,
+            height: parseFloat(el.parentElement.style.height) || 0,
+            signatureData: el.innerHTML,
+          })),
+          imageElements: Array.from(
+            document.querySelectorAll(".image-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.parentElement.style.left) || 0,
+            y: parseFloat(el.parentElement.style.top) || 0,
+            width: parseFloat(el.parentElement.style.width) || 0,
+            height: parseFloat(el.parentElement.style.height) || 0,
+            src: el.querySelector("img")?.src || "",
+          })),
+        };
+
+        const previousState = undoStack[undoStack.length - 1];
+        console.log("↶ Previous state to restore:", previousState);
+        console.log("↶ Current state being saved to redo:", currentState);
+
+        // Move current state to redo stack
+        redoStack.push(currentState);
+        console.log("↶ Current state moved to redo stack");
+
+        // Restore previous state
+        console.log("↶ Restoring previous state...");
+        restoreState(previousState);
+        console.log("↶ Previous state restored");
+
+        // Remove the state we just used from undo stack
+        undoStack.pop();
+        console.log("↶ Used state removed from undo stack");
+
+        // Update button states
+        canUndo = undoStack.length > 0;
+        canRedo = true;
+
+        console.log("↶ UNDO COMPLETED");
+        console.log("↶ New undo stack length:", undoStack.length);
+        console.log("↶ New redo stack length:", redoStack.length);
+        console.log("↶ Can undo:", canUndo, "Can redo:", canRedo);
+      }
+
+      // Redo function
+      function performRedo() {
+        console.log("↷ REDO BUTTON CLICKED");
+        console.log("↷ Current undo stack length:", undoStack.length);
+        console.log("↷ Current redo stack length:", redoStack.length);
+
+        if (redoStack.length === 0) {
+          console.log("❌ Nothing to redo - redo stack is empty");
+          return;
+        }
+
+        console.log("↷ Performing redo operation...");
+        const currentState = {
+          textElements: Array.from(
+            document.querySelectorAll(".text-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.style.left) || 0,
+            y: parseFloat(el.style.top) || 0,
+            text: el.textContent || el.innerHTML,
+            fontSize: parseFloat(el.style.fontSize) || 16,
+            color: el.style.color || "#000000",
+            fontFamily: el.style.fontFamily || "Arial",
+            fontWeight: el.style.fontWeight || "normal",
+            fontStyle: el.style.fontStyle || "normal",
+          })),
+          signatureElements: Array.from(
+            document.querySelectorAll(".signature-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.parentElement.style.left) || 0,
+            y: parseFloat(el.parentElement.style.top) || 0,
+            width: parseFloat(el.parentElement.style.width) || 0,
+            height: parseFloat(el.parentElement.style.height) || 0,
+            signatureData: el.innerHTML,
+          })),
+          imageElements: Array.from(
+            document.querySelectorAll(".image-element")
+          ).map((el) => ({
+            id: el.id,
+            x: parseFloat(el.parentElement.style.left) || 0,
+            y: parseFloat(el.parentElement.style.top) || 0,
+            width: parseFloat(el.parentElement.style.width) || 0,
+            height: parseFloat(el.parentElement.style.height) || 0,
+            src: el.querySelector("img")?.src || "",
+          })),
+        };
+
+        const nextState = redoStack[redoStack.length - 1];
+        console.log("↷ Next state to restore:", nextState);
+        console.log("↷ Current state being saved to undo:", currentState);
+
+        // Move current state to undo stack
+        undoStack.push(currentState);
+        console.log("↷ Current state moved to undo stack");
+
+        // Restore next state
+        console.log("↷ Restoring next state...");
+        restoreState(nextState);
+        console.log("↷ Next state restored");
+
+        // Remove the state we just used from redo stack
+        redoStack.pop();
+        console.log("↷ Used state removed from redo stack");
+
+        // Update button states
+        canUndo = true;
+        canRedo = redoStack.length > 0;
+
+        console.log("↷ REDO COMPLETED");
+        console.log("↷ New undo stack length:", undoStack.length);
+        console.log("↷ New redo stack length:", redoStack.length);
+        console.log("↷ Can undo:", canUndo, "Can redo:", canRedo);
+      }
+
+      // Restore state function
+      function restoreState(state) {
+        console.log("🔄 Restoring state:", state);
+
+        // Clear all existing elements
+        document
+          .querySelectorAll(".text-element, .signature-element, .image-element")
+          .forEach((el) => {
+            el.parentElement?.remove();
+          });
+
+        // Restore document content
+        if (state.documentContent) {
+          console.log(
+            "🔄 Restoring document content:",
+            state.documentContent.length,
+            "elements"
+          );
+          state.documentContent.forEach((element) => {
+            // Find the element by its identifier
+            const existingElement = document.querySelector(
+              `[data-text="${element.dataText}"], .${
+                element.className.split(" ")[0]
+              }`
+            );
+            if (existingElement) {
+              console.log(
+                "🔄 Restoring element:",
+                element.dataText,
+                "to:",
+                element.text
+              );
+              existingElement.textContent = element.text;
+              existingElement.innerHTML = element.innerHTML;
+              if (element.style) {
+                existingElement.setAttribute("style", element.style);
+              }
+            }
+          });
+        }
+
+        // Restore text elements
+        state.textElements.forEach((element) => {
+          const textContainer = document.createElement("div");
+          textContainer.className = "element-container";
+          textContainer.style.position = "absolute";
+          textContainer.style.left = element.x + "px";
+          textContainer.style.top = element.y + "px";
+          textContainer.style.width = "fit-content";
+          textContainer.style.height = "fit-content";
+          textContainer.style.zIndex = "20";
+
+          const textElement = document.createElement("div");
+          textElement.className = "text-element";
+          textElement.id = element.id;
+          textElement.contentEditable = "true";
+          textElement.style.position = "relative";
+          textElement.style.left = "0";
+          textElement.style.top = "0";
+          textElement.style.fontSize = element.fontSize + "px";
+          textElement.style.color = element.color;
+          textElement.style.fontFamily = element.fontFamily;
+          textElement.style.fontWeight = element.fontWeight;
+          textElement.style.fontStyle = element.fontStyle;
+          textElement.style.padding = "4px";
+          textElement.style.border = "1px solid transparent";
+          textElement.style.borderRadius = "4px";
+          textElement.style.minWidth = "50px";
+          textElement.style.minHeight = "20px";
+          textElement.style.cursor = "text";
+          textElement.style.outline = "none";
+          textElement.style.backgroundColor = "transparent";
+          textElement.innerHTML = element.text;
+
+          // Add delete button
+          const deleteBtn = document.createElement("button");
+          deleteBtn.className = "element-delete-btn";
+          deleteBtn.innerHTML = "×";
+          deleteBtn.title = "Delete text";
+
+          deleteBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (confirm("Are you sure you want to delete this text element?")) {
+              textContainer.remove();
+            }
+          });
+
+          textContainer.appendChild(textElement);
+          textContainer.appendChild(deleteBtn);
+
+          // Make draggable
+          makeElementDraggable(textContainer);
+
+          // Add to overlay
+          const overlay = document.querySelector(".interactive-overlay");
+          if (overlay) {
+            overlay.appendChild(textContainer);
+          }
+        });
+
+        // Restore signature elements
+        state.signatureElements.forEach((element) => {
+          const signatureContainer = document.createElement("div");
+          signatureContainer.className = "element-container";
+          signatureContainer.style.position = "absolute";
+          signatureContainer.style.left = element.x + "px";
+          signatureContainer.style.top = element.y + "px";
+          signatureContainer.style.width = element.width + "px";
+          signatureContainer.style.height = element.height + "px";
+          signatureContainer.style.zIndex = "20";
+
+          const signatureElement = document.createElement("div");
+          signatureElement.className = "signature-element";
+          signatureElement.id = element.id;
+          signatureElement.style.position = "relative";
+          signatureElement.style.left = "0";
+          signatureElement.style.top = "0";
+          signatureElement.style.width = "auto";
+          signatureElement.style.height = "auto";
+          signatureElement.style.padding = "0";
+          signatureElement.style.border = "none";
+          signatureElement.style.margin = "0";
+          signatureElement.style.backgroundColor = "transparent";
+          signatureElement.innerHTML = element.signatureData;
+
+          // Add delete button
+          const deleteBtn = document.createElement("button");
+          deleteBtn.className = "element-delete-btn";
+          deleteBtn.innerHTML = "×";
+          deleteBtn.title = "Delete signature";
+
+          deleteBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (
+              confirm("Are you sure you want to delete this signature element?")
+            ) {
+              signatureContainer.remove();
+            }
+          });
+
+          signatureContainer.appendChild(signatureElement);
+          signatureContainer.appendChild(deleteBtn);
+
+          // Make draggable
+          makeElementDraggable(signatureContainer);
+
+          // Add resize handles
+          addResizeHandles(signatureContainer);
+
+          // Add to overlay
+          const overlay = document.querySelector(".interactive-overlay");
+          if (overlay) {
+            overlay.appendChild(signatureContainer);
+          }
+        });
+
+        // Restore image elements
+        state.imageElements.forEach((element) => {
+          const imageContainer = document.createElement("div");
+          imageContainer.className = "element-container";
+          imageContainer.style.position = "absolute";
+          imageContainer.style.left = element.x + "px";
+          imageContainer.style.top = element.y + "px";
+          imageContainer.style.width = element.width + "px";
+          imageContainer.style.height = element.height + "px";
+          imageContainer.style.zIndex = "20";
+
+          const imageElement = document.createElement("div");
+          imageElement.className = "image-element";
+          imageElement.id = element.id;
+          imageElement.style.position = "relative";
+          imageElement.style.left = "0";
+          imageElement.style.top = "0";
+          imageElement.style.width = "fit-content";
+          imageElement.style.height = "fit-content";
+          imageElement.style.padding = "0";
+          imageElement.style.border = "none";
+          imageElement.style.margin = "0";
+          imageElement.style.backgroundColor = "transparent";
+
+          if (element.src) {
+            const img = document.createElement("img");
+            img.src = element.src;
+            img.style.maxWidth = "200px";
+            img.style.maxHeight = "200px";
+            img.style.width = "auto";
+            img.style.height = "auto";
+            img.style.display = "block";
+            imageElement.appendChild(img);
+          } else {
+            imageElement.innerHTML = "Click to add image";
+          }
+
+          // Add delete button
+          const deleteBtn = document.createElement("button");
+          deleteBtn.className = "element-delete-btn";
+          deleteBtn.innerHTML = "×";
+          deleteBtn.title = "Delete image";
+
+          deleteBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (
+              confirm("Are you sure you want to delete this image element?")
+            ) {
+              imageContainer.remove();
+            }
+          });
+
+          imageContainer.appendChild(imageElement);
+          imageContainer.appendChild(deleteBtn);
+
+          // Make draggable
+          makeElementDraggable(imageContainer);
+
+          // Add resize handles
+          addResizeHandles(imageContainer);
+
+          // Add to overlay
+          const overlay = document.querySelector(".interactive-overlay");
+          if (overlay) {
+            overlay.appendChild(imageContainer);
+          }
+        });
+      }
+
+      // Save state when document content is edited
+      document.addEventListener("input", function (e) {
+        // Check if the edited element is part of the document content
+        if (
+          e.target.matches(
+            '.text-span, .editable-text, [contenteditable="true"]'
+          )
+        ) {
+          console.log("📝 Document content edited:");
+          console.log("📝 Element:", e.target);
+          console.log("📝 Element class:", e.target.className);
+          console.log("📝 Element text:", e.target.textContent);
+          console.log("📝 Element innerHTML:", e.target.innerHTML);
+          console.log("📝 Element style:", e.target.getAttribute("style"));
+          console.log(
+            "📝 Element data-text:",
+            e.target.getAttribute("data-text")
+          );
+          console.log("📝 Saving state for undo/redo");
+          saveStateToUndoStack();
+        }
+      });
+
+      // Save state when document content loses focus (user finished editing)
+      document.addEventListener(
+        "blur",
+        function (e) {
+          if (
+            e.target.matches(
+              '.text-span, .editable-text, [contenteditable="true"]'
+            )
+          ) {
+            console.log("📝 Document content editing finished:");
+            console.log("📝 Element:", e.target);
+            console.log("📝 Final text:", e.target.textContent);
+            console.log("📝 Final innerHTML:", e.target.innerHTML);
+            console.log("📝 Saving final state for undo/redo");
+            saveStateToUndoStack();
+          }
+        },
+        true
+      );
+
       // Prevent keyboard shortcuts for saving
       document.addEventListener("keydown", function (e) {
+        // Handle undo/redo keyboard shortcuts
+        if (e.ctrlKey && e.key === "z" && !e.shiftKey) {
+          e.preventDefault();
+          performUndo();
+          return false;
+        }
+
+        if (
+          (e.ctrlKey && e.key === "y") ||
+          (e.ctrlKey && e.shiftKey && e.key === "Z")
+        ) {
+          e.preventDefault();
+          performRedo();
+          return false;
+        }
+
         // Prevent Ctrl+S, Ctrl+Shift+S, F12 (dev tools)
         if (
           (e.ctrlKey && e.key === "s") ||
@@ -3398,7 +3968,7 @@
             if (
               e.target.closest(".text-element") ||
               e.target.closest(".signature-element") ||
-              e.target.closest(".image-element") ||
+              // COMMENTED OUT: e.target.closest(".image-element") ||
               e.target.closest(".element-container")
             ) {
               console.log(
@@ -3423,10 +3993,14 @@
                 "✍️ Overlay disabled after signature element creation"
               );
             } else if (currentEditType === "image") {
-              addImageElement(e, overlay);
-              // Immediately disable overlay to prevent multiple clicks
-              overlay.style.pointerEvents = "none";
-              overlay.style.zIndex = "1";
+              // COMMENTED OUT: Image functionality temporarily disabled
+              console.log(
+                "🖼️ Image tool disabled - functionality commented out"
+              );
+              // addImageElement(e, overlay);
+              // // Immediately disable overlay to prevent multiple clicks
+              // overlay.style.pointerEvents = "none";
+              // overlay.style.zIndex = "1";
             }
             // If no active editing mode, let the click pass through to underlying elements
           });

@@ -103,6 +103,24 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     height: 0,
   });
 
+  // Undo/Redo state
+  const [undoStack, setUndoStack] = useState<
+    Array<{
+      textElements: TextElement[];
+      signatureElements: SignatureElement[];
+      imageElements: ImageElement[];
+    }>
+  >([]);
+  const [redoStack, setRedoStack] = useState<
+    Array<{
+      textElements: TextElement[];
+      signatureElements: SignatureElement[];
+      imageElements: ImageElement[];
+    }>
+  >([]);
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
+
   // Refs
   const canvasRef = useRef<HTMLDivElement>(null);
   const isProcessingRef = useRef<boolean>(false);
@@ -263,6 +281,30 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     console.log("🔧 Tool selected:", toolId);
     console.log("🔧 Previous active tool:", activeTool);
     console.log("🔧 Tool type check - is sign tool:", toolId === "sign");
+
+    // Handle undo/redo buttons
+    if (toolId === "undo") {
+      // Send message to iframe to perform undo
+      const iframe = document.querySelector(
+        'iframe[title="PDF Editor"]'
+      ) as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: "UNDO" }, "*");
+      }
+      return;
+    }
+
+    if (toolId === "redo") {
+      // Send message to iframe to perform redo
+      const iframe = document.querySelector(
+        'iframe[title="PDF Editor"]'
+      ) as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: "REDO" }, "*");
+      }
+      return;
+    }
+
     setActiveTool(toolId);
 
     // Send message to iframe to set edit mode
@@ -552,6 +594,74 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
     };
+  };
+
+  // Undo/Redo helper functions
+  const saveStateToUndoStack = () => {
+    const currentState = {
+      textElements: [...textElements],
+      signatureElements: [...signatureElements],
+      imageElements: [...imageElements],
+    };
+
+    setUndoStack((prev) => [...prev, currentState]);
+    setRedoStack([]); // Clear redo stack when new action is performed
+    setCanUndo(true);
+    setCanRedo(false);
+  };
+
+  const handleUndo = () => {
+    if (undoStack.length === 0) return;
+
+    const currentState = {
+      textElements: [...textElements],
+      signatureElements: [...signatureElements],
+      imageElements: [...imageElements],
+    };
+
+    const previousState = undoStack[undoStack.length - 1];
+
+    // Move current state to redo stack
+    setRedoStack((prev) => [...prev, currentState]);
+
+    // Restore previous state
+    setTextElements(previousState.textElements);
+    setSignatureElements(previousState.signatureElements);
+    setImageElements(previousState.imageElements);
+
+    // Remove the state we just used from undo stack
+    setUndoStack((prev) => prev.slice(0, -1));
+
+    // Update button states
+    setCanUndo(undoStack.length > 1);
+    setCanRedo(true);
+  };
+
+  const handleRedo = () => {
+    if (redoStack.length === 0) return;
+
+    const currentState = {
+      textElements: [...textElements],
+      signatureElements: [...signatureElements],
+      imageElements: [...imageElements],
+    };
+
+    const nextState = redoStack[redoStack.length - 1];
+
+    // Move current state to undo stack
+    setUndoStack((prev) => [...prev, currentState]);
+
+    // Restore next state
+    setTextElements(nextState.textElements);
+    setSignatureElements(nextState.signatureElements);
+    setImageElements(nextState.imageElements);
+
+    // Remove the state we just used from redo stack
+    setRedoStack((prev) => prev.slice(0, -1));
+
+    // Update button states
+    setCanUndo(true);
+    setCanRedo(redoStack.length > 1);
   };
 
   // File upload state
