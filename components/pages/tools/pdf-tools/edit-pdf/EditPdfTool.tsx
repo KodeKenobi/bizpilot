@@ -65,6 +65,8 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
   const [zoomLevel, setZoomLevel] = useState<number>(125);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [hasViewedPdf, setHasViewedPdf] = useState(false);
+  const [isInPreviewMode, setIsInPreviewMode] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState<boolean>(false);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
@@ -188,8 +190,18 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
           onSave={() => {
             // Implement save functionality
             console.log("Save clicked");
+            setHasViewedPdf(true);
+          }}
+          onViewPdf={() => {
+            console.log("View PDF clicked");
+            setIsInPreviewMode(true);
+          }}
+          onDownloadPdf={() => {
+            console.log("Download PDF clicked");
           }}
           isProcessing={isProcessing}
+          hasViewedPdf={hasViewedPdf}
+          isInPreviewMode={isInPreviewMode}
         >
           <div className="h-full w-full bg-white">
             <iframe

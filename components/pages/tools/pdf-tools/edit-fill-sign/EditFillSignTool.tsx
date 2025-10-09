@@ -123,8 +123,11 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
 
   // View and download flow state
   const [showViewModal, setShowViewModal] = useState(false);
+  const [showViewButton, setShowViewButton] = useState(false);
   const [showDownloadButton, setShowDownloadButton] = useState(false);
+  const [hasViewedPdf, setHasViewedPdf] = useState(false);
   const [generatedPdfUrl, setGeneratedPdfUrl] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Refs
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -268,21 +271,6 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
     }
   }, [editorUrl]);
 
-  // Listen for PDF generation messages from iframe
-  React.useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
-        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
-        setGeneratedPdfUrl(event.data.pdfUrl);
-        setShowViewModal(true);
-        setShowDownloadButton(true); // Show both buttons together
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, []);
-
   // Handle zoom controls
   const handleZoomIn = () => {
     setZoomLevel((prev) => Math.min(prev + 25, 300));
@@ -393,6 +381,29 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         console.log("🎯 React active tool updated to:", event.data.mode);
       } else if (event.data.type === "SIGNATURE_ADDED") {
         console.log("✍️ Signature added:", event.data);
+      } else if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
+        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
+
+        // Convert blob URL to data URL for iframe compatibility
+        console.log("📄 Converting blob to data URL for iframe...");
+        fetch(event.data.pdfUrl)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              console.log("✅ Data URL ready for iframe");
+              setGeneratedPdfUrl(reader.result as string);
+            };
+            reader.readAsDataURL(blob);
+          })
+          .catch((error) => {
+            console.error("❌ Error converting blob:", error);
+            setGeneratedPdfUrl(event.data.pdfUrl);
+          });
+
+        setShowViewButton(true); // Show View button
+        setShowDownloadButton(true); // Show Download button
+        setIsSaving(false); // Clear loading state
       } else {
         console.log("❓ Unknown message type:", event.data.type);
       }
@@ -440,6 +451,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   // Handle save changes - show view button first
   const handleSaveChanges = () => {
     console.log("Save clicked - generating PDF for preview");
+    setIsSaving(true);
 
     // Send message to iframe to generate PDF (without download)
     const iframe = document.querySelector(
@@ -457,7 +469,9 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
 
   // Handle view PDF
   const handleViewPdf = () => {
+    console.log("🔍 Setting showViewModal to true");
     setShowViewModal(true);
+    setHasViewedPdf(true);
   };
 
   // Handle close view modal
@@ -889,80 +903,87 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   if (editorUrl) {
     return (
       <div data-editor-active="true">
-        <PDFEditorLayout
-          title="Trevnoctilla"
-          fileName={uploadedFile?.name}
-          onBack={() => {
-            setUploadedFile(null);
-            setEditorUrl("");
-            setTextElements([]);
-            setSignatureElements([]);
-            setImageElements([]);
-            setActiveTool("select");
-            setResult(null);
-          }}
-          onDone={() => {
-            setUploadedFile(null);
-            setEditorUrl("");
-            setTextElements([]);
-            setSignatureElements([]);
-            setImageElements([]);
-            setActiveTool("select");
-            setResult(null);
-          }}
-          onSearch={() => {
-            console.log("Search clicked");
-          }}
-          zoomLevel={zoomLevel}
-          onZoomIn={handleZoomIn}
-          onZoomOut={handleZoomOut}
-          onZoomReset={handleZoomReset}
-          activeTool={activeTool}
-          onToolSelect={handleToolSelect}
-          hideDrawingTools={true}
-          pages={generatePageThumbnails()}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-          onUploadNew={() => {
-            setUploadedFile(null);
-            setEditorUrl("");
-            setResult(null);
-          }}
-          onSave={handleSaveChanges}
-          isProcessing={isProcessing}
-          showViewButton={showViewModal}
-          showDownloadButton={showDownloadButton}
-          onViewPdf={handleViewPdf}
-          onDownloadPdf={handleDownloadPdf}
-        >
-          <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
-            <div
-              className="relative shadow-2xl"
-              style={{
-                width: `${100 / (zoomLevel / 100)}%`,
-                height: `${100 / (zoomLevel / 100)}%`,
-                minWidth: "100%",
-                minHeight: "100%",
-                maxWidth: "100%",
-                maxHeight: "100%",
-              }}
-            >
-              <iframe
-                src={editorUrl}
-                className="w-full h-full border-0"
-                title="PDF Editor"
+        {(() => {
+          console.log("🔍 Checking showViewModal:", showViewModal);
+          return !showViewModal;
+        })() && (
+          <PDFEditorLayout
+            title="Trevnoctilla"
+            fileName={uploadedFile?.name}
+            onBack={() => {
+              setUploadedFile(null);
+              setEditorUrl("");
+              setTextElements([]);
+              setSignatureElements([]);
+              setImageElements([]);
+              setActiveTool("select");
+              setResult(null);
+            }}
+            onDone={() => {
+              setUploadedFile(null);
+              setEditorUrl("");
+              setTextElements([]);
+              setSignatureElements([]);
+              setImageElements([]);
+              setActiveTool("select");
+              setResult(null);
+            }}
+            onSearch={() => {
+              console.log("Search clicked");
+            }}
+            zoomLevel={zoomLevel}
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            onZoomReset={handleZoomReset}
+            activeTool={activeTool}
+            onToolSelect={handleToolSelect}
+            hideDrawingTools={true}
+            pages={generatePageThumbnails()}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            onUploadNew={() => {
+              setUploadedFile(null);
+              setEditorUrl("");
+              setResult(null);
+            }}
+            onSave={handleSaveChanges}
+            isProcessing={isSaving}
+            showViewButton={showViewButton}
+            showDownloadButton={showDownloadButton}
+            hasViewedPdf={hasViewedPdf}
+            isInPreviewMode={false}
+            onViewPdf={handleViewPdf}
+            onDownloadPdf={handleDownloadPdf}
+          >
+            <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
+              <div
+                className="relative shadow-2xl"
                 style={{
-                  transform: `scale(${zoomLevel / 100})`,
-                  transformOrigin: "top left",
+                  width: `${100 / (zoomLevel / 100)}%`,
+                  height: `${100 / (zoomLevel / 100)}%`,
+                  minWidth: "100%",
+                  minHeight: "100%",
+                  maxWidth: "100%",
+                  maxHeight: "100%",
                 }}
-              />
+              >
+                <iframe
+                  src={editorUrl}
+                  className="w-full h-full border-0"
+                  title="PDF Editor"
+                  style={{
+                    transform: `scale(${zoomLevel / 100})`,
+                    transformOrigin: "top left",
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        </PDFEditorLayout>
+          </PDFEditorLayout>
+        )}
 
         {/* PDF View Modal */}
         {showViewModal && generatedPdfUrl && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
             <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] w-full mx-4">
               <div className="flex items-center justify-between p-4 border-b">
                 <h3 className="text-lg font-semibold">Preview PDF</h3>
@@ -974,11 +995,17 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
                 </button>
               </div>
               <div className="p-4">
-                <iframe
-                  src={generatedPdfUrl}
-                  className="w-full h-[70vh] border-0"
-                  title="PDF Preview"
-                />
+                <div className="w-full h-[70vh] border border-gray-300 rounded-lg overflow-hidden">
+                  <iframe
+                    src={generatedPdfUrl}
+                    className="w-full h-full border-0"
+                    title="PDF Preview"
+                    style={{
+                      marginTop: "-40px",
+                      height: "calc(100% + 40px)",
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>

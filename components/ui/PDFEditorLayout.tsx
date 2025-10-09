@@ -71,6 +71,10 @@ interface PDFEditorLayoutProps {
   showDownloadButton?: boolean;
   onViewPdf?: () => void;
   onDownloadPdf?: () => void;
+
+  // State management
+  hasViewedPdf?: boolean;
+  isInPreviewMode?: boolean;
 }
 
 export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
@@ -99,6 +103,8 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
   showDownloadButton = false,
   onViewPdf,
   onDownloadPdf,
+  hasViewedPdf = false,
+  isInPreviewMode = false,
 }) => {
   const [showPageThumbnails, setShowPageThumbnails] = useState(true);
 
@@ -527,7 +533,8 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
             </div>
 
             <div className="flex items-center space-x-3">
-              {onSave && !showViewButton && !showDownloadButton && (
+              {/* Always show Save Changes button */}
+              {onSave && (
                 <Button
                   onClick={onSave}
                   disabled={isProcessing}
@@ -537,7 +544,8 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
                 </Button>
               )}
 
-              {showViewButton && onViewPdf && (
+              {/* Show View button after save or if explicitly shown */}
+              {(showViewButton || hasViewedPdf) && onViewPdf && (
                 <Button
                   onClick={onViewPdf}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
@@ -546,10 +554,11 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
                 </Button>
               )}
 
-              {showDownloadButton && onDownloadPdf && (
+              {/* Show Download button only in editor mode after user has viewed PDF */}
+              {hasViewedPdf && !isInPreviewMode && onDownloadPdf && (
                 <Button
                   onClick={onDownloadPdf}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg ml-3"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg"
                 >
                   Download PDF
                 </Button>

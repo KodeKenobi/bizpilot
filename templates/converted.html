@@ -785,10 +785,10 @@
         if (savedHtmlFilename) {
           console.log("Calling showPDFModal()");
           showPDFModal();
-          // Show download button after user clicks View
-          document.getElementById("downloadPdfBtn").style.display =
-            "inline-block";
-          console.log("Download button now visible");
+          // Don't show download button in preview mode
+          // document.getElementById("downloadPdfBtn").style.display =
+          //   "inline-block";
+          console.log("Download button hidden in preview mode");
         } else {
           console.log("No saved HTML filename, showing notification");
           showNotification("Please save your document first!", true);
