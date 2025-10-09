@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { FileUpload } from "@/components/ui/file-upload";
+import { PDFFileUpload } from "@/components/ui/PDFFileUpload";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
 
@@ -98,22 +98,12 @@ export const ExtractTextTool: React.FC<ExtractTextToolProps> = ({
 
   if (!uploadedFile) {
     return (
-      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
-        <div className="p-6">
-          <div className="text-center mb-6">
-            <h3 className="text-white text-xl font-semibold mb-2">
-              Extract Text from PDF
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Upload a PDF file to extract text content
-            </p>
-          </div>
-          <FileUpload
-            onChange={(files) => handleFileUpload(files[0])}
-            multiple={false}
-          />
-        </div>
-      </div>
+      <PDFFileUpload
+        title="Extract Text from PDF"
+        description="Upload a PDF file to extract text content"
+        onFileSelect={handleFileUpload}
+        accept=".pdf"
+      />
     );
   }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { FileUpload } from "@/components/ui/file-upload";
+import { PDFFileUpload } from "@/components/ui/PDFFileUpload";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
 import { motion, AnimatePresence } from "framer-motion";
@@ -68,22 +68,12 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
 
   if (!uploadedFile) {
     return (
-      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
-        <div className="p-6">
-          <div className="text-center mb-6">
-            <h3 className="text-white text-xl font-semibold mb-2">
-              Extract Images from PDF
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Upload a PDF file to extract all images
-            </p>
-          </div>
-          <FileUpload
-            onChange={(files) => handleFileUpload(files[0])}
-            multiple={false}
-          />
-        </div>
-      </div>
+      <PDFFileUpload
+        title="Extract Images from PDF"
+        description="Upload a PDF file to extract all images"
+        onFileSelect={handleFileUpload}
+        accept=".pdf"
+      />
     );
   }
 
@@ -139,7 +129,7 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
                         className="w-full h-32 object-contain bg-white rounded cursor-pointer select-none"
                         onClick={() => openImageModal(img, index)}
                         onContextMenu={disableContextMenu}
-                        style={{ userSelect: 'none' }}
+                        style={{ userSelect: "none" }}
                         draggable={false}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover/image:bg-opacity-30 transition-all rounded flex items-center justify-center">
@@ -277,7 +267,7 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
                   alt={`Image ${selectedImage.image_index} from page ${selectedImage.page}`}
                   className="max-w-full max-h-[70vh] object-contain select-none"
                   onContextMenu={disableContextMenu}
-                  style={{ userSelect: 'none' }}
+                  style={{ userSelect: "none" }}
                   draggable={false}
                 />
               </div>
