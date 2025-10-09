@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play, CreditCard, Download, Star, CheckCircle } from "lucide-react";
 
@@ -16,15 +16,32 @@ interface MonetizationModalProps {
 const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
   const [adProgress, setAdProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const hasCompletedRef = useRef(false);
 
   useEffect(() => {
-    if (isPlaying) {
+    console.log(
+      "🎬 useEffect triggered - isPlaying:",
+      isPlaying,
+      "hasCompleted:",
+      hasCompletedRef.current
+    );
+    if (isPlaying && !hasCompletedRef.current) {
+      console.log("🎬 Starting interval");
       const interval = setInterval(() => {
         setAdProgress((prev) => {
           if (prev >= 100) {
+            if (hasCompletedRef.current) {
+              console.log("🎬 Already completed, skipping");
+              return 100;
+            }
+            console.log(
+              "🎬 Progress reached 100%, clearing interval and setting completed flag"
+            );
             clearInterval(interval);
+            hasCompletedRef.current = true;
             // Use setTimeout to defer onComplete after render cycle
             setTimeout(() => {
+              console.log("🎬 Ad progress 100% - calling onComplete");
               onComplete();
             }, 0);
             return 100;
@@ -32,11 +49,17 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
           return prev + 2;
         });
       }, 100);
-      return () => clearInterval(interval);
+      return () => {
+        console.log("🎬 Cleaning up interval");
+        clearInterval(interval);
+      };
     }
   }, [isPlaying, onComplete]);
 
   const startAd = () => {
+    console.log("🎬 startAd called");
+    hasCompletedRef.current = false;
+    setAdProgress(0);
     setIsPlaying(true);
   };
 
@@ -181,11 +204,13 @@ export default function MonetizationModal({
   );
 
   const handleAdComplete = () => {
+    console.log("🎬 MonetizationModal handleAdComplete called");
     onAdComplete();
     onClose();
   };
 
   const handlePaymentComplete = () => {
+    console.log("💳 MonetizationModal handlePaymentComplete called");
     onPaymentComplete();
     onClose();
   };

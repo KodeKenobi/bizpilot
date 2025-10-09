@@ -482,13 +482,20 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
 
   // Handle download PDF (with monetization)
   const handleDownloadPdf = () => {
+    console.log("📥 handleDownloadPdf called");
+    console.log("📥 generatedPdfUrl:", generatedPdfUrl);
+    console.log("📥 uploadedFile?.name:", uploadedFile?.name);
+
     if (generatedPdfUrl) {
+      console.log("📥 Opening monetization modal");
       // Trigger monetization modal
       openMonetizationModal(
         uploadedFile?.name || "document",
         "pdf",
         generatedPdfUrl
       );
+    } else {
+      console.log("📥 No generatedPdfUrl, cannot download");
     }
   };
 
@@ -779,15 +786,6 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
             </div>
           </div>
         </div>
-
-        <MonetizationModal
-          isOpen={monetizationState.isModalOpen}
-          onClose={closeMonetizationModal}
-          onAdComplete={handleAdComplete}
-          onPaymentComplete={handlePaymentComplete}
-          fileName={monetizationState.fileName}
-          fileType={monetizationState.fileType}
-        />
       </>
     );
   }
@@ -903,10 +901,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
   if (editorUrl) {
     return (
       <div data-editor-active="true">
-        {(() => {
-          console.log("🔍 Checking showViewModal:", showViewModal);
-          return !showViewModal;
-        })() && (
+        <div style={{ display: showViewModal ? "none" : "block" }}>
           <PDFEditorLayout
             title="Trevnoctilla"
             fileName={uploadedFile?.name}
@@ -979,7 +974,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
               </div>
             </div>
           </PDFEditorLayout>
-        )}
+        </div>
 
         {/* PDF View Modal */}
         {showViewModal && generatedPdfUrl && (
