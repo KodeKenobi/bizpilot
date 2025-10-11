@@ -621,25 +621,24 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
             onViewPdf={handleViewPdf}
             onDownloadPdf={handleDownloadPdf}
           >
-            <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
+            <div className="h-full w-full bg-gray-900 relative overflow-hidden">
               <div
-                className="relative shadow-2xl"
+                className="w-full h-full"
                 style={{
-                  width: `${100 / (zoomLevel / 100)}%`,
-                  height: `${100 / (zoomLevel / 100)}%`,
-                  minWidth: "100%",
-                  minHeight: "100%",
-                  maxWidth: "100%",
-                  maxHeight: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <iframe
                   src={editorUrl}
-                  className="w-full h-full border-0"
+                  className="border-0"
                   title="PDF Editor"
                   style={{
-                    transform: `scale(${zoomLevel / 100})`,
-                    transformOrigin: "top left",
+                    width: "100vw",
+                    height: "100vh",
+                    transform: `scale(${Math.min(zoomLevel / 100, 0.8)})`,
+                    transformOrigin: "center center",
                   }}
                 />
               </div>
@@ -647,29 +646,27 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
           </PDFEditorLayout>
         </div>
 
-        {/* PDF View Modal */}
+        {/* PDF View Modal - Mobile Responsive */}
         {showViewModal && generatedPdfUrl && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
-            <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] w-full mx-4">
-              <div className="flex items-center justify-between p-4 border-b">
-                <h3 className="text-lg font-semibold">Preview PDF</h3>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-1 sm:p-4">
+            <div className="bg-white rounded-lg shadow-xl w-full h-full max-w-full max-h-full flex flex-col">
+              <div className="flex items-center justify-between p-2 sm:p-4 border-b">
+                <h3 className="text-lg sm:text-xl font-semibold">
+                  Preview PDF
+                </h3>
                 <button
                   onClick={handleCloseViewModal}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  className="text-gray-500 hover:text-gray-700 text-xl sm:text-2xl"
                 >
                   ×
                 </button>
               </div>
-              <div className="p-4">
-                <div className="w-full h-[70vh] border border-gray-300 rounded-lg overflow-hidden">
+              <div className="flex-1 p-1 sm:p-4 overflow-hidden">
+                <div className="w-full h-full border border-gray-300 rounded-lg overflow-hidden">
                   <iframe
                     src={generatedPdfUrl}
                     className="w-full h-full border-0"
                     title="PDF Preview"
-                    style={{
-                      marginTop: "-40px",
-                      height: "calc(100% + 40px)",
-                    }}
                   />
                 </div>
               </div>

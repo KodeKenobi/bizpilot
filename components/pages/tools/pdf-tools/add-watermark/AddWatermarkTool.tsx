@@ -685,25 +685,24 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
             onViewPdf={handleViewPdf}
             onDownloadPdf={handleDownloadPdf}
           >
-            <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
+            <div className="h-full w-full bg-gray-900 relative overflow-hidden">
               <div
-                className="relative shadow-2xl"
+                className="w-full h-full"
                 style={{
-                  width: `${100 / (zoomLevel / 100)}%`,
-                  height: `${100 / (zoomLevel / 100)}%`,
-                  minWidth: "100%",
-                  minHeight: "100%",
-                  maxWidth: "100%",
-                  maxHeight: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <iframe
                   src={editorUrl}
-                  className="w-full h-full border-0"
+                  className="border-0"
                   title="PDF Editor"
                   style={{
-                    transform: `scale(${zoomLevel / 100})`,
-                    transformOrigin: "top left",
+                    width: "100vw",
+                    height: "100vh",
+                    transform: `scale(${Math.min(zoomLevel / 100, 0.8)})`,
+                    transformOrigin: "center center",
                   }}
                 />
               </div>

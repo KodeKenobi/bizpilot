@@ -42,6 +42,27 @@
         display: none;
       }
 
+      /* Mobile-specific styles */
+      @media (max-width: 768px) {
+        html,
+        body {
+          display: block;
+          justify-content: unset;
+          align-items: unset;
+        }
+
+        .pdf-container {
+          margin: 0;
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        .pdf-page {
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+
       .text-line {
         position: relative;
         white-space: nowrap;

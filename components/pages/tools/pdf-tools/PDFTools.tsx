@@ -16,13 +16,6 @@ import { AddSignatureTool } from "./add-signature/AddSignatureTool";
 import { AddWatermarkTool } from "./add-watermark/AddWatermarkTool";
 import { SplitPdfTool } from "./split-pdf/SplitPdfTool";
 import { MergePdfsTool } from "./merge-pdfs/MergePdfsTool";
-import { PdfToWordTool } from "./pdf-to-word/PdfToWordTool";
-import { PdfToHtmlTool } from "./pdf-to-html/PdfToHtmlTool";
-import { PdfToImagesTool } from "./pdf-to-images/PdfToImagesTool";
-import { WordToPdfTool } from "./word-to-pdf/WordToPdfTool";
-import { HtmlToPdfTool } from "./html-to-pdf/HtmlToPdfTool";
-import { ImageToPdfTool } from "./image-to-pdf/ImageToPdfTool";
-import { CompressTool } from "./compress/CompressTool";
 
 const toolCategories = [
   {
@@ -47,26 +40,6 @@ const toolCategories = [
       { id: "split-pdf", label: "Split PDF into Individual Pages" },
       { id: "merge-pdfs", label: "Merge Multiple PDFs into One" },
     ],
-  },
-  {
-    title: "Convert PDFs",
-    tools: [
-      { id: "pdf-to-word", label: "Upload PDF → Get Word Document" },
-      { id: "pdf-to-html", label: "Upload PDF → Get HTML File" },
-      { id: "pdf-to-images", label: "Upload PDF → Get Image Files" },
-    ],
-  },
-  {
-    title: "Convert to PDFs",
-    tools: [
-      { id: "word-to-pdf", label: "Upload Word → Get PDF" },
-      { id: "html-to-pdf", label: "Upload HTML → Get PDF" },
-      { id: "image-to-pdf", label: "Upload Image → Get PDF" },
-    ],
-  },
-  {
-    title: "Optimize",
-    tools: [{ id: "compress", label: "Compress PDF File Size" }],
   },
 ];
 
@@ -205,20 +178,6 @@ export default function PDFTools() {
             setUploadedFiles={setUploadedFiles}
           />
         );
-      case "pdf-to-word":
-        return <PdfToWordTool {...commonProps} />;
-      case "pdf-to-html":
-        return <PdfToHtmlTool {...commonProps} />;
-      case "pdf-to-images":
-        return <PdfToImagesTool {...commonProps} />;
-      case "word-to-pdf":
-        return <WordToPdfTool {...commonProps} />;
-      case "html-to-pdf":
-        return <HtmlToPdfTool {...commonProps} />;
-      case "image-to-pdf":
-        return <ImageToPdfTool {...commonProps} />;
-      case "compress":
-        return <CompressTool {...commonProps} />;
       default:
         return <div>Tool not found</div>;
     }

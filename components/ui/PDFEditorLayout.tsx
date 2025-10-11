@@ -345,18 +345,18 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
 
   return (
     <div className="fixed inset-0 bg-gray-900 flex flex-col">
-      {/* Top Header */}
-      <div className="bg-gray-800 border-b border-gray-700 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+      {/* Top Header - Mobile Responsive */}
+      <div className="bg-gray-800 border-b border-gray-700 px-2 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           {/* Back Button */}
           {onBack && (
             <button
               onClick={onBack}
-              className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-700"
+              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded hover:bg-gray-700"
               title="Back"
             >
               <svg
-                className="w-5 h-5 text-gray-300"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -373,20 +373,22 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
 
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <span className="font-bold text-white text-2xl">{title}</span>
+            <span className="font-bold text-white text-lg sm:text-2xl">
+              {title}
+            </span>
           </div>
 
-          {/* File name */}
+          {/* File name - Hidden on mobile */}
           {fileName && (
-            <span className="text-sm text-gray-300 truncate max-w-xs">
+            <span className="hidden sm:block text-sm text-gray-300 truncate max-w-xs">
               {fileName}
             </span>
           )}
         </div>
 
-        <div className="flex items-center space-x-4">
-          {/* Zoom Controls */}
-          <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Zoom Controls - Hidden on mobile */}
+          <div className="hidden sm:flex items-center space-x-2">
             <button
               onClick={onZoomOut}
               className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-700"
@@ -432,13 +434,18 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               </svg>
             </button>
           </div>
+
+          {/* Mobile Zoom Display */}
+          <div className="sm:hidden">
+            <span className="text-sm text-gray-300">{zoomLevel}%</span>
+          </div>
         </div>
       </div>
 
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Sidebar - Page Thumbnails */}
+        {/* Left Sidebar - Page Thumbnails - Hidden on mobile */}
         {showPageThumbnails && (
-          <div className="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
+          <div className="hidden lg:flex w-64 bg-gray-800 border-r border-gray-700 flex-col">
             {/* Manage Pages Button */}
             <div className="p-3 border-b border-gray-700">
               <button
@@ -494,7 +501,7 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               (allTools[0]?.id === "sign" ||
                 allTools[0]?.id === "image" ||
                 allTools[0]?.id === "watermark"))) && (
-            <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex-shrink-0">
+            <div className="bg-gray-800 border-b border-gray-700 px-2 sm:px-4 py-2 flex-shrink-0">
               <div className="flex items-center justify-center space-x-1 overflow-x-auto">
                 {allTools.map((tool) => (
                   <button
@@ -503,7 +510,7 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
                       onToolSelect?.(tool.id);
                       tool.onClick?.();
                     }}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                       activeTool === tool.id
                         ? "bg-blue-600 text-white"
                         : "text-gray-300 hover:bg-gray-700"
@@ -523,30 +530,31 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
         </div>
       </div>
 
-      {/* Bottom Actions Bar */}
+      {/* Bottom Actions Bar - Mobile Responsive */}
       {(onUploadNew || onSave || showViewButton || showDownloadButton) && (
-        <div className="bg-gray-800 border-t border-gray-700 px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+        <div className="bg-gray-800 border-t border-gray-700 px-2 sm:px-4 py-2 sm:py-3">
+          <div className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               {onUploadNew && (
                 <Button
                   onClick={onUploadNew}
-                  className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm"
                 >
-                  Upload New PDF
+                  <span className="hidden sm:inline">Upload New PDF</span>
+                  <span className="sm:hidden">New PDF</span>
                 </Button>
               )}
             </div>
 
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto">
               {/* Always show Save Changes button */}
               {onSave && (
                 <Button
                   onClick={onSave}
                   disabled={isProcessing}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg disabled:opacity-50"
+                  className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded-lg disabled:opacity-50 text-sm flex-1 sm:flex-none"
                 >
-                  {isProcessing ? "Saving..." : "Save Changes"}
+                  {isProcessing ? "Saving..." : "Save"}
                 </Button>
               )}
 
@@ -554,9 +562,9 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               {(showViewButton || hasViewedPdf) && onViewPdf && (
                 <Button
                   onClick={onViewPdf}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm flex-1 sm:flex-none"
                 >
-                  View PDF
+                  View
                 </Button>
               )}
 
@@ -564,9 +572,9 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               {hasViewedPdf && !isInPreviewMode && onDownloadPdf && (
                 <Button
                   onClick={onDownloadPdf}
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-3 sm:px-4 py-2 rounded-lg text-sm flex-1 sm:flex-none"
                 >
-                  Download PDF
+                  Download
                 </Button>
               )}
             </div>
