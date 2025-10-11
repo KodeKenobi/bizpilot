@@ -96,13 +96,8 @@ export default function PDFTools() {
     data?: any;
   } | null>(null);
   const [showNotification, setShowNotification] = useState(false);
-  const [showEditor, setShowEditor] = useState(false);
-  const [editorUrl, setEditorUrl] = useState<string>("");
-
   // Reset state when tab changes
   useEffect(() => {
-    setShowEditor(false);
-    setEditorUrl("");
     if (activeTab !== "add-signature") {
       setUploadedFile(null);
     }
@@ -115,15 +110,7 @@ export default function PDFTools() {
     setResult(null);
 
     // Handle different tabs
-    if (activeTab === "edit-pdf") {
-      setEditorUrl(`http://localhost:5000/convert/${file.name}`);
-      setShowEditor(true);
-      setResult({
-        type: "success",
-        message: "PDF loaded in editor",
-        data: { editor_url: `http://localhost:5000/convert/${file.name}` },
-      });
-    } else if (activeTab === "merge-pdfs") {
+    if (activeTab === "merge-pdfs") {
       setUploadedFiles([file]);
     } else {
       // For other tools, process the file
@@ -132,6 +119,8 @@ export default function PDFTools() {
   };
 
   const processFile = async (file: File) => {
+    // This function is now only used for tools that don't have their own processing
+    // Most tools now handle their own processing with the advanced editor pattern
     setIsProcessing(true);
     setResult(null);
 
@@ -150,41 +139,10 @@ export default function PDFTools() {
         case "merge-pdfs":
           endpoint = `/merge_pdfs`;
           break;
-        case "split-pdf":
-          endpoint = `/split_pdf`;
-          break;
-        case "add-signature":
-          endpoint = `/add_signature`;
-          break;
-        case "add-watermark":
-          endpoint = `/add_watermark`;
-          break;
-        case "compress":
-          endpoint = `/compress_pdf`;
-          break;
-        case "pdf-to-word":
-          endpoint = `/convert_pdf_to_word`;
-          break;
-        case "pdf-to-html":
-          endpoint = `/convert_pdf_to_html`;
-          break;
-        case "pdf-to-images":
-          endpoint = `/convert_pdf_to_images`;
-          break;
-        case "word-to-pdf":
-          endpoint = `/convert_word_to_pdf`;
-          break;
-        case "html-to-pdf":
-          endpoint = `/convert_html_to_pdf`;
-          break;
-        case "image-to-pdf":
-          endpoint = `/convert_image_to_pdf`;
-          break;
-        case "edit-fill-sign":
-          // This tool handles its own processing, no backend call needed
-          return;
         default:
-          throw new Error("Unknown tool");
+          // For other tools, they handle their own processing
+          setIsProcessing(false);
+          return;
       }
 
       const response = await fetch(`http://localhost:5000${endpoint}`, {
@@ -230,15 +188,7 @@ export default function PDFTools() {
       case "extract-images":
         return <ExtractImagesTool {...commonProps} />;
       case "edit-pdf":
-        return (
-          <EditPdfTool
-            {...commonProps}
-            showEditor={showEditor}
-            setShowEditor={setShowEditor}
-            editorUrl={editorUrl}
-            setEditorUrl={setEditorUrl}
-          />
-        );
+        return <EditPdfTool {...commonProps} />;
       case "edit-fill-sign":
         return <EditFillSignTool {...commonProps} />;
       case "add-signature":
@@ -273,11 +223,6 @@ export default function PDFTools() {
         return <div>Tool not found</div>;
     }
   };
-
-  // If editor is active, render only the editor
-  if (showEditor && editorUrl) {
-    return renderActiveTool();
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 page-content">

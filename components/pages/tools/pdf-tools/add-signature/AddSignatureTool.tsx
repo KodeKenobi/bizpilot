@@ -1,19 +1,35 @@
 "use client";
 
-import React, { useState } from "react";
-import { FileUpload } from "@/components/ui/file-upload";
-import { SignatureCanvas } from "@/components/ui/signature-canvas";
+import React, { useState, useRef, useCallback } from "react";
 import { useMonetization } from "@/hooks/useMonetization";
-import MonetizationModal from "@/components/ui/MonetizationModal";
 import { useAlertModal } from "@/hooks/useAlertModal";
-import AlertModal from "@/components/ui/AlertModal";
-import { useDraggableCanvas } from "@/hooks/useDraggableCanvas";
+import { SignatureCanvas } from "@/components/ui/signature-canvas";
+import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
+import MonetizationModal from "@/components/ui/MonetizationModal";
+
+// Simple button component
+const Button: React.FC<{
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+}> = ({ children, onClick, disabled, className = "" }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    className={`px-4 py-2 rounded-lg font-medium transition-colors ${className}`}
+  >
+    {children}
+  </button>
+);
 
 interface AddSignatureToolProps {
   uploadedFile: File | null;
   setUploadedFile: (file: File | null) => void;
-  result: any;
-  setResult: (result: any) => void;
+  result: { type: "success" | "error"; message: string; data?: any } | null;
+  setResult: (
+    result: { type: "success" | "error"; message: string; data?: any } | null
+  ) => void;
   isProcessing: boolean;
   setIsProcessing: (processing: boolean) => void;
   handleFileUpload: (file: File) => void;
@@ -28,21 +44,6 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
   setIsProcessing,
   handleFileUpload,
 }) => {
-  const [signatureData, setSignatureData] = useState<string>("");
-  const [pageNumber, setPageNumber] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [signaturePlaced, setSignaturePlaced] = useState<boolean>(false);
-  const [signatureOverlay, setSignatureOverlay] = useState<any>({
-    visible: false,
-    x: 200,
-    y: 200,
-  });
-  const [showSignedPdfViewer, setShowSignedPdfViewer] = useState(false);
-  const [signedPdfUrl, setSignedPdfUrl] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-
-  const alertModal = useAlertModal();
   const {
     monetizationState,
     openMonetizationModal,
@@ -50,387 +51,682 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
     handleAdComplete,
     handlePaymentComplete,
   } = useMonetization();
+  const alertModal = useAlertModal();
 
-  // Use draggable canvas hook
-  const { canvasHeight, handleCanvasResizeStart } = useDraggableCanvas({
-    initialHeight: 600,
-    minHeight: 400,
-    maxHeight: 1000,
-  });
+  // Core state
+  const [signatureData, setSignatureData] = useState<string>("");
+  const [activeTool, setActiveTool] = useState<string>("select");
+  const [editorUrl, setEditorUrl] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [zoomLevel, setZoomLevel] = useState<number>(100);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
+  const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
 
-  const addSignature = async () => {
-    if (!uploadedFile || !signatureData) {
-      setResult({
-        type: "error",
-        message: "Please upload a PDF and create a signature",
-      });
-      return;
-    }
+  // View and download flow state
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [showViewButton, setShowViewButton] = useState(false);
+  const [showDownloadButton, setShowDownloadButton] = useState(false);
+  const [hasViewedPdf, setHasViewedPdf] = useState(false);
+  const [generatedPdfUrl, setGeneratedPdfUrl] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
+  // Refs
+  const isProcessingRef = useRef<boolean>(false);
+
+  // Process document function
+  const handleProcessDocument = useCallback(async () => {
+    if (!uploadedFile || isProcessingRef.current) return;
+
+    isProcessingRef.current = true;
     setIsProcessing(true);
-    setResult(null);
+    setUploadProgress(0);
+    setCurrentUploadStep(0);
+
+    // Smooth progress simulation with realistic timing
+    const simulateProgress = () => {
+      return new Promise<void>((resolve) => {
+        let progress = 0;
+        let step = 0;
+        let interval: NodeJS.Timeout | null = null;
+        const totalDuration = 8000; // 8 seconds total for better UX
+        const updateInterval = 100; // Update every 100ms for smoother feel
+        const totalSteps = totalDuration / updateInterval;
+        const progressIncrement = 100 / totalSteps;
+
+        const updateProgress = () => {
+          // Smooth, predictable progress increments with occasional pauses
+          let increment = progressIncrement;
+
+          // Add slight pauses at key milestones for realism
+          if (
+            (progress >= 20 && progress < 25) ||
+            (progress >= 55 && progress < 60)
+          ) {
+            increment = progressIncrement * 0.3; // Slower progress at transitions
+          }
+
+          progress += increment;
+
+          // Smooth step transitions based on progress
+          if (progress >= 25 && step === 0) {
+            step = 1;
+            setCurrentUploadStep(1);
+          } else if (progress >= 60 && step === 1) {
+            step = 2;
+            setCurrentUploadStep(2);
+          }
+
+          // Ensure progress doesn't exceed 100
+          const clampedProgress = Math.min(progress, 100);
+          setUploadProgress(clampedProgress);
+
+          if (clampedProgress >= 100) {
+            if (interval) {
+              clearInterval(interval);
+            }
+            resolve();
+          }
+        };
+
+        // Start with a delay for smoothness
+        setTimeout(() => {
+          interval = setInterval(updateProgress, updateInterval);
+        }, 800);
+      });
+    };
 
     try {
+      // Simulate realistic processing time
+      await simulateProgress();
+
+      // Brief pause before showing completion
+      await new Promise((resolve) => setTimeout(resolve, 800));
+
+      // Save PDF file first, then convert using template
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
-      formData.append("signature_data", signatureData);
-      formData.append("page_number", pageNumber.toString());
-      formData.append("x_position", signatureOverlay.x.toString());
-      formData.append("y_position", signatureOverlay.y.toString());
 
-      const response = await fetch("http://localhost:5000/add_signature", {
+      const uploadResponse = await fetch("/", {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to add signature");
+      if (!uploadResponse.ok) {
+        throw new Error("Failed to upload PDF");
       }
 
-      const data = await response.json();
-      setResult({
-        type: "success",
-        message: "Signature added successfully!",
-        data: data,
-      });
-      setSignedPdfUrl(data.signed_pdf_url);
+      // Use the uploaded file name directly for the convert endpoint
+      const filename = uploadedFile.name;
+
+      // Get PDF info including page count
+      const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
+      if (pdfInfoResponse.ok) {
+        const pdfInfo = await pdfInfoResponse.json();
+        console.log("📄 PDF info:", pdfInfo);
+        setTotalPages(pdfInfo.page_count);
+      } else {
+        console.warn("Failed to get PDF info, defaulting to 1 page");
+        setTotalPages(1);
+      }
+
+      // Set the converted HTML URL using the original template approach
+      setEditorUrl(`/convert/${filename}`);
+
+      // Brief pause before showing completion
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error("Error adding signature:", error);
-      setResult({
-        type: "error",
-        message: "Error adding signature. Please try again.",
-      });
+      console.error("PDF conversion error:", error);
+      alertModal.showError("Error", "Failed to process PDF");
     } finally {
+      isProcessingRef.current = false;
       setIsProcessing(false);
+    }
+  }, [uploadedFile, setIsProcessing, alertModal]);
+
+  // Auto-process document when file is uploaded
+  React.useEffect(() => {
+    if (uploadedFile && !editorUrl && !isProcessingRef.current) {
+      handleProcessDocument();
+    }
+  }, [uploadedFile, editorUrl]);
+
+  // Reset processing ref when component unmounts or file changes
+  React.useEffect(() => {
+    return () => {
+      isProcessingRef.current = false;
+    };
+  }, [uploadedFile]);
+
+  // Clean up when component unmounts or editorUrl changes
+  React.useEffect(() => {
+    return () => {
+      // No cleanup needed for HTML URLs
+    };
+  }, [editorUrl]);
+
+  // Reset processing ref when editorUrl changes (processing complete)
+  React.useEffect(() => {
+    if (editorUrl) {
+      isProcessingRef.current = false;
+    }
+  }, [editorUrl]);
+
+  // Handle zoom controls
+  const handleZoomIn = () => {
+    setZoomLevel((prev) => Math.min(prev + 25, 300));
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel((prev) => Math.max(prev - 25, 50));
+  };
+
+  const handleZoomReset = () => {
+    setZoomLevel(100);
+  };
+
+  // Handle tool selection
+  const handleToolSelect = (toolId: string) => {
+    console.log("🔧 Tool selected:", toolId);
+    console.log("🔧 Previous active tool:", activeTool);
+
+    // Handle undo/redo buttons
+    if (toolId === "undo") {
+      // Send message to iframe to perform undo
+      const iframe = document.querySelector(
+        'iframe[title="PDF Editor"]'
+      ) as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: "UNDO" }, "*");
+      }
+      return;
+    }
+
+    if (toolId === "redo") {
+      // Send message to iframe to perform redo
+      const iframe = document.querySelector(
+        'iframe[title="PDF Editor"]'
+      ) as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: "REDO" }, "*");
+      }
+      return;
+    }
+
+    setActiveTool(toolId);
+
+    // Send message to iframe to set edit mode
+    const iframe = document.querySelector(
+      'iframe[title="PDF Editor"]'
+    ) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
+      iframe.contentWindow.postMessage(
+        {
+          type: "SET_EDIT_MODE",
+          mode: toolId,
+        },
+        "*"
+      );
+
+      // If signature tool is selected, send additional message to control modal behavior
+      if (toolId === "sign") {
+        iframe.contentWindow.postMessage(
+          {
+            type: "CONFIGURE_SIGNATURE_MODAL",
+            showOnce: true,
+          },
+          "*"
+        );
+      }
+      console.log("📤 Message sent successfully");
+    } else {
+      console.log("❌ Iframe not found or no contentWindow");
     }
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setDragStart({
-      x: e.clientX - signatureOverlay.x,
-      y: e.clientY - signatureOverlay.y,
-    });
+  // Listen for messages from iframe
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      console.log("📨 Message received from iframe:", event.data);
+
+      if (event.data.type === "SAVE_COMPLETE") {
+        console.log("✅ PDF saved successfully:", event.data.filename);
+        alertModal.showSuccess("Success", "PDF saved successfully!");
+      } else if (event.data.type === "PDF_GENERATED") {
+        console.log("✅ PDF generation completed");
+      } else if (event.data.type === "TEXT_ADDED") {
+        console.log("📝 Text added:", event.data);
+      } else if (event.data.type === "EDIT_MODE_SET") {
+        console.log("🎯 Edit mode set in iframe:", event.data.mode);
+        setActiveTool(event.data.mode);
+      } else if (event.data.type === "SIGNATURE_ADDED") {
+        console.log("✍️ Signature added:", event.data);
+      } else if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
+        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
+
+        // Convert blob URL to data URL for iframe compatibility
+        console.log("📄 Converting blob to data URL for iframe...");
+        fetch(event.data.pdfUrl)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              console.log("✅ Data URL ready for iframe");
+              setGeneratedPdfUrl(reader.result as string);
+            };
+            reader.readAsDataURL(blob);
+          })
+          .catch((error) => {
+            console.error("❌ Error converting blob:", error);
+            setGeneratedPdfUrl(event.data.pdfUrl);
+          });
+
+        setShowViewButton(true); // Show View button
+        setShowDownloadButton(true); // Show Download button
+        setIsSaving(false); // Clear loading state
+      } else {
+        console.log("❓ Unknown message type:", event.data.type);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [alertModal]);
+
+  // Handle page change
+  const handlePageChange = (pageNumber: number) => {
+    console.log("📄 Changing to page:", pageNumber);
+    setCurrentPage(pageNumber);
+
+    // Send message to iframe to change page
+    const iframe = document.querySelector(
+      'iframe[title="PDF Editor"]'
+    ) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      console.log("📤 Sending CHANGE_PAGE message to iframe:", pageNumber);
+      iframe.contentWindow.postMessage(
+        {
+          type: "CHANGE_PAGE",
+          pageNumber: pageNumber,
+        },
+        "*"
+      );
+    } else {
+      console.log("❌ Iframe not found for page change");
+    }
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
+  // Generate page thumbnails
+  const generatePageThumbnails = () => {
+    if (!uploadedFile) return [];
 
-    const newX = e.clientX - dragStart.x;
-    const newY = e.clientY - dragStart.y;
-
-    setSignatureOverlay({
-      ...signatureOverlay,
-      x: Math.max(0, Math.min(400, newX)),
-      y: Math.max(0, Math.min(300, newY)),
-    });
+    return Array.from({ length: totalPages }, (_, index) => ({
+      pageNumber: index + 1,
+      isActive: currentPage === index + 1,
+      thumbnailUrl: `/api/pdf_thumbnail/${uploadedFile.name}/${index + 1}`,
+      onClick: () => handlePageChange(index + 1),
+    }));
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-    setSignaturePlaced(true);
+  // Handle save changes - show view button first
+  const handleSaveChanges = () => {
+    console.log("Save clicked - generating PDF for preview");
+    setIsSaving(true);
+
+    // Send message to iframe to generate PDF (without download)
+    const iframe = document.querySelector(
+      'iframe[title="PDF Editor"]'
+    ) as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(
+        {
+          type: "GENERATE_PDF_FOR_PREVIEW",
+        },
+        "*"
+      );
+    }
   };
 
+  // Handle view PDF
+  const handleViewPdf = () => {
+    console.log("🔍 Setting showViewModal to true");
+    setShowViewModal(true);
+    setHasViewedPdf(true);
+  };
+
+  // Handle close view modal
+  const handleCloseViewModal = () => {
+    setShowViewModal(false);
+    // Keep both buttons visible after closing modal
+  };
+
+  // Handle download PDF (with monetization)
+  const handleDownloadPdf = () => {
+    console.log("📥 handleDownloadPdf called");
+    console.log("📥 generatedPdfUrl:", generatedPdfUrl);
+    console.log("📥 uploadedFile?.name:", uploadedFile?.name);
+
+    if (generatedPdfUrl) {
+      console.log("📥 Opening monetization modal");
+      // Trigger monetization modal
+      openMonetizationModal(
+        uploadedFile?.name || "document",
+        "pdf",
+        generatedPdfUrl
+      );
+    } else {
+      console.log("📥 No generatedPdfUrl, cannot download");
+    }
+  };
+
+  // File upload state
   if (!uploadedFile) {
     return (
-      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
-        <div className="p-6">
-          <div className="text-center mb-6">
-            <h3 className="text-white text-xl font-semibold mb-2">
-              Add Digital Signature to PDF
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Upload a PDF file to add your digital signature
-            </p>
+      <>
+        <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+          <div className="p-6">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Add Digital Signature to PDF
+              </h2>
+              <p className="text-gray-400">
+                Upload a PDF file to add your digital signature
+              </p>
+            </div>
+
+            <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center">
+              <div className="mb-4">
+                <svg
+                  className="mx-auto h-12 w-12 text-gray-400"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 48 48"
+                >
+                  <path
+                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="file-upload"
+                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                >
+                  Choose PDF File
+                </label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept=".pdf"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      handleFileUpload(file);
+                    }
+                  }}
+                  className="hidden"
+                />
+              </div>
+              <p className="text-gray-400 text-sm">
+                Drag and drop your PDF here, or click to browse
+              </p>
+            </div>
           </div>
-          <FileUpload
-            onChange={(files) => handleFileUpload(files[0])}
-            multiple={false}
-          />
+        </div>
+      </>
+    );
+  }
+
+  // Processing state
+  if (isProcessing && !editorUrl) {
+    const steps = [
+      {
+        id: 0,
+        title: "Uploading PDF",
+        description: "Analyzing document and extracting elements...",
+        completed: uploadProgress >= 25,
+      },
+      {
+        id: 1,
+        title: "Analyzing Structure",
+        description: "Processing document layout with encryption...",
+        completed: uploadProgress >= 60,
+      },
+      {
+        id: 2,
+        title: "Preparing Editor",
+        description: "Setting up secure interface...",
+        completed: uploadProgress >= 100,
+      },
+    ];
+
+    return (
+      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+        <div className="p-6 flex items-center justify-center h-full">
+          <div className="w-full max-w-lg">
+            {/* Progress Steps */}
+            <div className="relative">
+              {steps.map((step, index) => (
+                <div
+                  key={step.id}
+                  className="flex items-start space-x-4 relative"
+                >
+                  {/* Checkmark Circle */}
+                  <div className="flex-shrink-0 relative z-10">
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                        step.completed
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-600 text-gray-400"
+                      }`}
+                    >
+                      {step.completed ? (
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      ) : (
+                        <span className="text-sm font-semibold">
+                          {index + 1}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Step Content */}
+                  <div className="flex-1 min-w-0 pb-6">
+                    <h3
+                      className={`text-lg font-semibold transition-colors duration-300 ${
+                        step.completed ? "text-green-400" : "text-white"
+                      }`}
+                    >
+                      {step.title}
+                    </h3>
+                    <p
+                      className={`text-sm transition-colors duration-300 ${
+                        step.completed ? "text-green-300" : "text-gray-400"
+                      }`}
+                    >
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Progress Bar */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium text-gray-300">
+                  Progress
+                </span>
+                <span className="text-sm font-semibold text-white">
+                  {Math.round(uploadProgress)}%
+                </span>
+              </div>
+              <div className="w-full bg-gray-700 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-300 ease-out"
+                  style={{ width: `${uploadProgress}%` }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <>
-      <div
-        className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden relative"
-        style={{ height: `${canvasHeight}px` }}
-      >
-        <div className="flex items-center justify-between p-4 border-b border-white/10">
-          <div className="flex items-center space-x-4">
-            <h3 className="text-white font-semibold text-lg">
-              Add Digital Signature
-            </h3>
-            <span className="text-gray-400 text-sm">{uploadedFile?.name}</span>
-          </div>
+  // Editor interface
+  if (editorUrl) {
+    return (
+      <div data-editor-active="true">
+        <div style={{ display: showViewModal ? "none" : "block" }}>
+          <PDFEditorLayout
+            title="Trevnoctilla"
+            fileName={uploadedFile?.name}
+            onBack={() => {
+              setUploadedFile(null);
+              setEditorUrl("");
+              setActiveTool("select");
+              setResult(null);
+            }}
+            onDone={() => {
+              setUploadedFile(null);
+              setEditorUrl("");
+              setActiveTool("select");
+              setResult(null);
+            }}
+            onSearch={() => {
+              console.log("Search clicked");
+            }}
+            zoomLevel={zoomLevel}
+            onZoomIn={handleZoomIn}
+            onZoomOut={handleZoomOut}
+            onZoomReset={handleZoomReset}
+            activeTool={activeTool}
+            onToolSelect={handleToolSelect}
+            hideDrawingTools={true}
+            pages={generatePageThumbnails()}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            onUploadNew={() => {
+              setUploadedFile(null);
+              setEditorUrl("");
+              setResult(null);
+            }}
+            onSave={handleSaveChanges}
+            isProcessing={isSaving}
+            showViewButton={showViewButton}
+            showDownloadButton={showDownloadButton}
+            hasViewedPdf={hasViewedPdf}
+            isInPreviewMode={false}
+            onViewPdf={handleViewPdf}
+            onDownloadPdf={handleDownloadPdf}
+          >
+            <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
+              <div
+                className="relative shadow-2xl"
+                style={{
+                  width: `${100 / (zoomLevel / 100)}%`,
+                  height: `${100 / (zoomLevel / 100)}%`,
+                  minWidth: "100%",
+                  minHeight: "100%",
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                }}
+              >
+                <iframe
+                  src={editorUrl}
+                  className="w-full h-full border-0"
+                  title="PDF Editor"
+                  style={{
+                    transform: `scale(${zoomLevel / 100})`,
+                    transformOrigin: "top left",
+                  }}
+                />
+              </div>
+            </div>
+          </PDFEditorLayout>
         </div>
 
-        <div className="p-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Signature Creation */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-gray-300 text-lg font-medium mb-4">
-                  Create Your Signature
-                </h3>
-                <div className="bg-gray-800/50 rounded-lg p-4">
-                  <SignatureCanvas
-                    onSignatureChange={setSignatureData}
-                    width={400}
-                    height={200}
-                  />
-                </div>
-                {signatureData && (
-                  <div className="mt-4">
-                    <p className="text-green-400 text-sm mb-2">
-                      ✅ Signature created!
-                    </p>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText(signatureData);
-                          alertModal.showSuccess(
-                            "Signature Copied",
-                            "Signature copied to clipboard!"
-                          );
-                        }}
-                        className="px-3 py-1 bg-cyan-500 text-white rounded text-sm hover:bg-cyan-600 transition-colors"
-                      >
-                        Copy Signature
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (signatureData) {
-                            setSignatureOverlay({
-                              visible: true,
-                              x: 200,
-                              y: 200,
-                            });
-                            setSignaturePlaced(false);
-                          }
-                        }}
-                        className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors"
-                      >
-                        Place on Page {pageNumber}
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Page Selection */}
-              <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
-                  Select Page
-                </label>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setPageNumber(Math.max(1, pageNumber - 1))}
-                    disabled={pageNumber <= 1}
-                    className="px-3 py-1 bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    ←
-                  </button>
-                  <span className="px-4 py-1 bg-gray-800 text-white rounded">
-                    Page {pageNumber} of {totalPages || 1}
-                  </span>
-                  <button
-                    onClick={() =>
-                      setPageNumber(Math.min(totalPages || 1, pageNumber + 1))
-                    }
-                    disabled={pageNumber >= (totalPages || 1)}
-                    className="px-3 py-1 bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    →
-                  </button>
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <div>
+        {/* PDF View Modal */}
+        {showViewModal && generatedPdfUrl && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
+            <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] w-full mx-4">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h3 className="text-lg font-semibold">Preview PDF</h3>
                 <button
-                  onClick={addSignature}
-                  disabled={!signatureData || !signaturePlaced || isProcessing}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-3 px-6 rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  onClick={handleCloseViewModal}
+                  className="text-gray-500 hover:text-gray-700 text-2xl"
                 >
-                  {isProcessing
-                    ? "Adding Signature..."
-                    : "Add Signature to PDF"}
+                  ×
                 </button>
               </div>
-            </div>
-
-            {/* PDF Preview */}
-            <div className="space-y-4">
-              <h3 className="text-gray-300 text-lg font-medium">PDF Preview</h3>
-              <div className="bg-gray-900/50 rounded-lg p-4">
-                <div className="relative bg-white rounded border-2 border-dashed border-gray-300 h-64 flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <p className="text-sm">PDF Preview</p>
-                    <p className="text-xs mt-1">Page {pageNumber}</p>
-                  </div>
-
-                  {/* Signature Overlay */}
-                  {signatureOverlay.visible && signatureData && (
-                    <div
-                      className={`absolute border-2 bg-blue-50/20 select-none z-50 transition-none ${
-                        isDragging ? "cursor-grabbing" : "cursor-grab"
-                      }`}
-                      style={{
-                        left: signatureOverlay.x,
-                        top: signatureOverlay.y,
-                        width: 100,
-                        height: 50,
-                      }}
-                      onMouseDown={handleMouseDown}
-                      onMouseMove={handleMouseMove}
-                      onMouseUp={handleMouseUp}
-                      onMouseLeave={handleMouseUp}
-                    >
-                      <img
-                        src={signatureData}
-                        alt="Signature Preview"
-                        className="w-full h-full object-contain pointer-events-none"
-                      />
-                    </div>
-                  )}
+              <div className="p-4">
+                <div className="w-full h-[70vh] border border-gray-300 rounded-lg overflow-hidden">
+                  <iframe
+                    src={generatedPdfUrl}
+                    className="w-full h-full border-0"
+                    title="PDF Preview"
+                    style={{
+                      marginTop: "-40px",
+                      height: "calc(100% + 40px)",
+                    }}
+                  />
                 </div>
-                <p className="text-gray-400 text-xs mt-2 text-center">
-                  Drag the signature to position it on the page
-                </p>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Canvas Resize Handle */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-2 bg-gray-600/30 hover:bg-gray-500/50 cursor-ns-resize flex items-center justify-center group"
-          onMouseDown={handleCanvasResizeStart}
-        >
-          <div className="w-8 h-1 bg-gray-400 group-hover:bg-gray-300 rounded-full"></div>
+        <MonetizationModal
+          isOpen={monetizationState.isModalOpen}
+          onClose={closeMonetizationModal}
+          onAdComplete={handleAdComplete}
+          onPaymentComplete={handlePaymentComplete}
+          fileName={monetizationState.fileName}
+          fileType={monetizationState.fileType}
+        />
+      </div>
+    );
+  }
+
+  // Results
+  if (result) {
+    return (
+      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+        <div className="p-6">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-white mb-4">
+              {result.type === "success" ? "Success!" : "Error"}
+            </h2>
+            <p className="text-gray-400 mb-6">{result.message}</p>
+            <Button
+              onClick={() => {
+                setResult(null);
+                setUploadedFile(null);
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Process Another PDF
+            </Button>
+          </div>
         </div>
       </div>
+    );
+  }
 
-      {/* Results */}
-      {result && result.type === "success" && (
-        <div className="mt-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
-          <div className="flex items-center justify-between p-4 border-b border-white/10">
-            <h3 className="text-white font-semibold text-lg">
-              Signature Added Successfully!
-            </h3>
-            <button
-              onClick={() => setShowSignedPdfViewer(true)}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 px-4 rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 text-sm flex items-center gap-2"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-              View PDF
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Signed PDF Viewer */}
-      {showSignedPdfViewer && signedPdfUrl && (
-        <div className="mt-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
-          <div className="flex items-center justify-between p-4 border-b border-white/10">
-            <h3 className="text-white font-semibold text-lg">Signed PDF</h3>
-            <button
-              onClick={() => setShowSignedPdfViewer(false)}
-              className="text-gray-400 hover:text-white"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="p-6">
-            <div className="bg-white rounded-lg overflow-hidden">
-              <iframe
-                src={signedPdfUrl}
-                className="w-full h-96"
-                title="Signed PDF"
-              />
-            </div>
-            <div className="mt-4 text-center">
-              <button
-                onClick={() =>
-                  openMonetizationModal(
-                    `${uploadedFile?.name.replace(".pdf", "")}_signed.pdf`,
-                    "PDF",
-                    signedPdfUrl
-                  )
-                }
-                className="flex items-center text-cyan-400 hover:text-cyan-300 group mx-auto"
-              >
-                <span className="font-medium">Try it now</span>
-                <svg
-                  className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <AlertModal
-        isOpen={alertModal.isOpen}
-        onClose={alertModal.hideAlert}
-        title={alertModal.title}
-        message={alertModal.message}
-        type={alertModal.type}
-        primaryButton={alertModal.primaryButton}
-        secondaryButton={alertModal.secondaryButton}
-      />
-
-      <MonetizationModal
-        isOpen={monetizationState.isModalOpen}
-        onClose={closeMonetizationModal}
-        onAdComplete={handleAdComplete}
-        onPaymentComplete={handlePaymentComplete}
-        fileName={monetizationState.fileName}
-        fileType={monetizationState.fileType}
-      />
-    </>
-  );
+  return null;
 };

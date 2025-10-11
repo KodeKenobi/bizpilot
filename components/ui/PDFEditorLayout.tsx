@@ -138,7 +138,7 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
       )
     : defaultTools;
 
-  const allTools = [...filteredDefaultTools, ...tools];
+  const allTools = tools.length > 0 ? tools : filteredDefaultTools;
 
   // Get tool icon component
   const getToolIcon = (toolId: string) => {
@@ -488,29 +488,31 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-0">
-          {/* Toolbar */}
-          <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex-shrink-0">
-            <div className="flex items-center justify-center space-x-1 overflow-x-auto">
-              {allTools.map((tool) => (
-                <button
-                  key={tool.id}
-                  onClick={() => {
-                    onToolSelect?.(tool.id);
-                    tool.onClick?.();
-                  }}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                    activeTool === tool.id
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-300 hover:bg-gray-700"
-                  }`}
-                  title={tool.name}
-                >
-                  {getToolIcon(tool.id)}
-                  <span className="hidden sm:inline">{tool.name}</span>
-                </button>
-              ))}
+          {/* Toolbar - Hide if only one tool */}
+          {allTools.length > 1 && (
+            <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex-shrink-0">
+              <div className="flex items-center justify-center space-x-1 overflow-x-auto">
+                {allTools.map((tool) => (
+                  <button
+                    key={tool.id}
+                    onClick={() => {
+                      onToolSelect?.(tool.id);
+                      tool.onClick?.();
+                    }}
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                      activeTool === tool.id
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-300 hover:bg-gray-700"
+                    }`}
+                    title={tool.name}
+                  >
+                    {getToolIcon(tool.id)}
+                    <span className="hidden sm:inline">{tool.name}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Document Area - Full height */}
           <div className="flex-1 bg-gray-900 overflow-hidden">{children}</div>
