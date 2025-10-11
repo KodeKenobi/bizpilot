@@ -3,7 +3,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useMonetization } from "@/hooks/useMonetization";
 import { useAlertModal } from "@/hooks/useAlertModal";
-import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
 import MonetizationModal from "@/components/ui/MonetizationModal";
 
 // Simple button component
@@ -21,6 +20,14 @@ const Button: React.FC<{
     {children}
   </button>
 );
+
+interface PdfFile {
+  id: string;
+  file: File;
+  name: string;
+  size: number;
+  thumbnailUrl?: string;
+}
 
 interface MergePdfsToolProps {
   uploadedFile: File | null;
@@ -56,533 +63,297 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
   } = useMonetization();
   const alertModal = useAlertModal();
 
-  // Core state
-  const [activeTool, setActiveTool] = useState<string>("select");
-  const [editorUrl, setEditorUrl] = useState<string>("");
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [zoomLevel, setZoomLevel] = useState<number>(100);
-  const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
-
-  // View and download flow state
-  const [showViewModal, setShowViewModal] = useState(false);
-  const [showViewButton, setShowViewButton] = useState(false);
-  const [showDownloadButton, setShowDownloadButton] = useState(false);
-  const [hasViewedPdf, setHasViewedPdf] = useState(false);
-  const [generatedPdfUrl, setGeneratedPdfUrl] = useState<string | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
+  // Core state for merge functionality
+  const [pdfFiles, setPdfFiles] = useState<PdfFile[]>([]);
+  const [isMerging, setIsMerging] = useState(false);
+  const [mergeProgress, setMergeProgress] = useState(0);
+  const [mergedPdfUrl, setMergedPdfUrl] = useState<string | null>(null);
+  const [showDownloadOptions, setShowDownloadOptions] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   // Refs
   const isProcessingRef = useRef<boolean>(false);
 
-  // Process document function
-  const handleProcessDocument = useCallback(async () => {
-    if (!uploadedFile || isProcessingRef.current) return;
+  // Handle file upload
+  const handleFileUploadMultiple = useCallback((files: FileList) => {
+    console.log("DEBUG: handleFileUploadMultiple called with files:", files);
+    const newPdfFiles: PdfFile[] = Array.from(files).map((file) => {
+      console.log("DEBUG: Processing file:", file.name, file.size, file.type);
+      return {
+        id: Math.random().toString(36).substr(2, 9),
+        file,
+        name: file.name,
+        size: file.size,
+      };
+    });
 
-    isProcessingRef.current = true;
-    setIsProcessing(true);
-    setUploadProgress(0);
-    setCurrentUploadStep(0);
+    console.log("DEBUG: Created newPdfFiles:", newPdfFiles);
+    setPdfFiles((prev) => {
+      const updated = [...prev, ...newPdfFiles];
+      console.log("DEBUG: Updated pdfFiles:", updated);
+      return updated;
+    });
+  }, []);
 
-    // Smooth progress simulation with realistic timing
-    const simulateProgress = () => {
-      return new Promise<void>((resolve) => {
-        let progress = 0;
-        let step = 0;
-        let interval: NodeJS.Timeout | null = null;
-        const totalDuration = 8000; // 8 seconds total for better UX
-        const updateInterval = 100; // Update every 100ms for smoother feel
-        const totalSteps = totalDuration / updateInterval;
-        const progressIncrement = 100 / totalSteps;
+  // Handle file removal
+  const handleRemoveFile = useCallback((fileId: string) => {
+    setPdfFiles((prev) => prev.filter((file) => file.id !== fileId));
+  }, []);
 
-        const updateProgress = () => {
-          // Smooth, predictable progress increments with occasional pauses
-          let increment = progressIncrement;
+  // Handle file reordering
+  const handleMoveFile = useCallback(
+    (fileId: string, direction: "up" | "down") => {
+      setPdfFiles((prev) => {
+        const currentIndex = prev.findIndex((file) => file.id === fileId);
+        if (currentIndex === -1) return prev;
 
-          // Add slight pauses at key milestones for realism
-          if (
-            (progress >= 20 && progress < 25) ||
-            (progress >= 55 && progress < 60)
-          ) {
-            increment = progressIncrement * 0.3; // Slower progress at transitions
-          }
+        const newIndex =
+          direction === "up" ? currentIndex - 1 : currentIndex + 1;
+        if (newIndex < 0 || newIndex >= prev.length) return prev;
 
-          progress += increment;
-
-          // Smooth step transitions based on progress
-          if (progress >= 25 && step === 0) {
-            step = 1;
-            setCurrentUploadStep(1);
-          } else if (progress >= 60 && step === 1) {
-            step = 2;
-            setCurrentUploadStep(2);
-          }
-
-          // Ensure progress doesn't exceed 100
-          const clampedProgress = Math.min(progress, 100);
-          setUploadProgress(clampedProgress);
-
-          if (clampedProgress >= 100) {
-            if (interval) {
-              clearInterval(interval);
-            }
-            resolve();
-          }
-        };
-
-        // Start with a delay for smoothness
-        setTimeout(() => {
-          interval = setInterval(updateProgress, updateInterval);
-        }, 800);
+        const newFiles = [...prev];
+        [newFiles[currentIndex], newFiles[newIndex]] = [
+          newFiles[newIndex],
+          newFiles[currentIndex],
+        ];
+        return newFiles;
       });
-    };
+    },
+    []
+  );
+
+  // Handle merge PDFs
+  const handleMergePdfs = useCallback(async () => {
+    console.log("DEBUG: handleMergePdfs called with pdfFiles:", pdfFiles);
+
+    if (pdfFiles.length < 2) {
+      alertModal.showError(
+        "Error",
+        "Please upload at least 2 PDF files to merge"
+      );
+      return;
+    }
+
+    // Validate that all files are PDFs
+    const invalidFiles = pdfFiles.filter(
+      (file) => !file.name.toLowerCase().endsWith(".pdf")
+    );
+    if (invalidFiles.length > 0) {
+      alertModal.showError(
+        "Error",
+        `Please ensure all files are PDFs. Invalid files: ${invalidFiles
+          .map((f) => f.name)
+          .join(", ")}`
+      );
+      return;
+    }
+
+    setIsMerging(true);
+    setMergeProgress(0);
 
     try {
-      // Simulate realistic processing time
-      await simulateProgress();
+      // Simulate progress
+      const progressInterval = setInterval(() => {
+        setMergeProgress((prev) => {
+          if (prev >= 90) {
+            clearInterval(progressInterval);
+            return 90;
+          }
+          return prev + 10;
+        });
+      }, 200);
 
-      // Brief pause before showing completion
-      await new Promise((resolve) => setTimeout(resolve, 800));
-
-      // Save PDF file first, then convert using template
+      // Upload files and merge
       const formData = new FormData();
-      formData.append("pdf", uploadedFile);
+      console.log("DEBUG: Preparing to upload files:", pdfFiles);
+      pdfFiles.forEach((pdfFile, index) => {
+        console.log(`DEBUG: Adding file ${index}:`, pdfFile.name, pdfFile.file);
+        formData.append("files", pdfFile.file);
+      });
 
-      const uploadResponse = await fetch("/", {
+      console.log("DEBUG: FormData entries:");
+      const entries = Array.from(formData.entries());
+      entries.forEach(([key, value]) => {
+        console.log(key, value);
+      });
+
+      const response = await fetch("http://localhost:5000/merge_pdfs", {
         method: "POST",
         body: formData,
       });
 
-      if (!uploadResponse.ok) {
-        throw new Error("Failed to upload PDF");
-      }
+      clearInterval(progressInterval);
+      setMergeProgress(100);
 
-      // Use the uploaded file name directly for the convert endpoint
-      const filename = uploadedFile.name;
-
-      // Get PDF info including page count
-      const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
-      if (pdfInfoResponse.ok) {
-        const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 PDF info:", pdfInfo);
-        setTotalPages(pdfInfo.page_count);
-      } else {
-        console.warn("Failed to get PDF info, defaulting to 1 page");
-        setTotalPages(1);
-      }
-
-      // Set the converted HTML URL using the original template approach
-      setEditorUrl(`/convert/${filename}`);
-
-      // Brief pause before showing completion
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    } catch (error) {
-      console.error("PDF conversion error:", error);
-      alertModal.showError("Error", "Failed to process PDF");
-    } finally {
-      isProcessingRef.current = false;
-      setIsProcessing(false);
-    }
-  }, [uploadedFile, setIsProcessing, alertModal]);
-
-  // Auto-process document when file is uploaded
-  React.useEffect(() => {
-    if (uploadedFile && !editorUrl && !isProcessingRef.current) {
-      handleProcessDocument();
-    }
-  }, [uploadedFile, editorUrl]);
-
-  // Reset processing ref when component unmounts or file changes
-  React.useEffect(() => {
-    return () => {
-      isProcessingRef.current = false;
-    };
-  }, [uploadedFile]);
-
-  // Clean up when component unmounts or editorUrl changes
-  React.useEffect(() => {
-    return () => {
-      // No cleanup needed for HTML URLs
-    };
-  }, [editorUrl]);
-
-  // Reset processing ref when editorUrl changes (processing complete)
-  React.useEffect(() => {
-    if (editorUrl) {
-      isProcessingRef.current = false;
-    }
-  }, [editorUrl]);
-
-  // Handle zoom controls
-  const handleZoomIn = () => {
-    setZoomLevel((prev) => Math.min(prev + 25, 300));
-  };
-
-  const handleZoomOut = () => {
-    setZoomLevel((prev) => Math.max(prev - 25, 50));
-  };
-
-  const handleZoomReset = () => {
-    setZoomLevel(100);
-  };
-
-  // Handle tool selection
-  const handleToolSelect = (toolId: string) => {
-    console.log("🔧 Tool selected:", toolId);
-    console.log("🔧 Previous active tool:", activeTool);
-
-    // Handle undo/redo buttons
-    if (toolId === "undo") {
-      // Send message to iframe to perform undo
-      const iframe = document.querySelector(
-        'iframe[title="PDF Editor"]'
-      ) as HTMLIFrameElement;
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ type: "UNDO" }, "*");
-      }
-      return;
-    }
-
-    if (toolId === "redo") {
-      // Send message to iframe to perform redo
-      const iframe = document.querySelector(
-        'iframe[title="PDF Editor"]'
-      ) as HTMLIFrameElement;
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ type: "REDO" }, "*");
-      }
-      return;
-    }
-
-    setActiveTool(toolId);
-
-    // Send message to iframe to set edit mode
-    const iframe = document.querySelector(
-      'iframe[title="PDF Editor"]'
-    ) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
-      iframe.contentWindow.postMessage(
-        {
-          type: "SET_EDIT_MODE",
-          mode: toolId,
-        },
-        "*"
-      );
-
-      // If merge tool is selected, send additional message to configure merge behavior
-      if (toolId === "merge") {
-        iframe.contentWindow.postMessage(
-          {
-            type: "CONFIGURE_MERGE_MODAL",
-            showOnce: true,
-          },
-          "*"
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("DEBUG: Merge failed with status:", response.status);
+        console.error("DEBUG: Error response:", errorText);
+        throw new Error(
+          `Failed to merge PDFs: ${response.status} - ${errorText}`
         );
       }
-      console.log("📤 Message sent successfully");
-    } else {
-      console.log("❌ Iframe not found or no contentWindow");
-    }
-  };
 
-  // Listen for messages from iframe
-  React.useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      console.log("📨 Message received from iframe:", event.data);
+      const result = await response.json();
+      console.log("Merge result:", result);
 
-      if (event.data.type === "SAVE_COMPLETE") {
-        console.log("✅ PDF saved successfully:", event.data.filename);
-        alertModal.showSuccess("Success", "PDF saved successfully!");
-      } else if (event.data.type === "PDF_GENERATED") {
-        console.log("✅ PDF generation completed");
-      } else if (event.data.type === "TEXT_ADDED") {
-        console.log("📝 Text added:", event.data);
-      } else if (event.data.type === "EDIT_MODE_SET") {
-        console.log("🎯 Edit mode set in iframe:", event.data.mode);
-        setActiveTool(event.data.mode);
-      } else if (event.data.type === "PDF_MERGED") {
-        console.log("🔗 PDF merged:", event.data);
-      } else if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
-        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
+      setMergedPdfUrl(`http://localhost:5000${result.download_url}`);
+      setShowDownloadOptions(true);
 
-        // Convert blob URL to data URL for iframe compatibility
-        console.log("📄 Converting blob to data URL for iframe...");
-        fetch(event.data.pdfUrl)
-          .then((response) => response.blob())
-          .then((blob) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-              console.log("✅ Data URL ready for iframe");
-              setGeneratedPdfUrl(reader.result as string);
-            };
-            reader.readAsDataURL(blob);
-          })
-          .catch((error) => {
-            console.error("❌ Error converting blob:", error);
-            setGeneratedPdfUrl(event.data.pdfUrl);
-          });
-
-        setShowViewButton(true); // Show View button
-        setShowDownloadButton(true); // Show Download button
-        setIsSaving(false); // Clear loading state
-      } else {
-        console.log("❓ Unknown message type:", event.data.type);
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [alertModal]);
-
-  // Handle page change
-  const handlePageChange = (pageNumber: number) => {
-    console.log("📄 Changing to page:", pageNumber);
-    setCurrentPage(pageNumber);
-
-    // Send message to iframe to change page
-    const iframe = document.querySelector(
-      'iframe[title="PDF Editor"]'
-    ) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending CHANGE_PAGE message to iframe:", pageNumber);
-      iframe.contentWindow.postMessage(
-        {
-          type: "CHANGE_PAGE",
-          pageNumber: pageNumber,
-        },
-        "*"
+      alertModal.showSuccess(
+        "Success",
+        `Successfully merged ${pdfFiles.length} PDF files!`
       );
-    } else {
-      console.log("❌ Iframe not found for page change");
+    } catch (error) {
+      console.error("Merge error:", error);
+      alertModal.showError("Error", "Failed to merge PDFs");
+    } finally {
+      setIsMerging(false);
     }
-  };
+  }, [pdfFiles, alertModal]);
 
-  // Generate page thumbnails
-  const generatePageThumbnails = () => {
-    if (!uploadedFile) return [];
-
-    return Array.from({ length: totalPages }, (_, index) => ({
-      pageNumber: index + 1,
-      isActive: currentPage === index + 1,
-      thumbnailUrl: `/api/pdf_thumbnail/${uploadedFile.name}/${index + 1}`,
-      onClick: () => handlePageChange(index + 1),
-    }));
-  };
-
-  // Handle save changes - show view button first
-  const handleSaveChanges = () => {
-    console.log("Save clicked - generating PDF for preview");
-    setIsSaving(true);
-
-    // Send message to iframe to generate PDF (without download)
-    const iframe = document.querySelector(
-      'iframe[title="PDF Editor"]'
-    ) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(
-        {
-          type: "GENERATE_PDF_FOR_PREVIEW",
-        },
-        "*"
-      );
+  // Handle download merged PDF (with monetization)
+  const handleDownloadMerged = useCallback(() => {
+    if (mergedPdfUrl) {
+      openMonetizationModal("merged_document.pdf", "pdf", mergedPdfUrl);
     }
-  };
+  }, [mergedPdfUrl, openMonetizationModal]);
 
-  // Handle view PDF
-  const handleViewPdf = () => {
-    console.log("🔍 Setting showViewModal to true");
-    setShowViewModal(true);
-    setHasViewedPdf(true);
-  };
-
-  // Handle close view modal
-  const handleCloseViewModal = () => {
-    setShowViewModal(false);
-    // Keep both buttons visible after closing modal
-  };
-
-  // Handle download PDF (with monetization)
-  const handleDownloadPdf = () => {
-    console.log("📥 handleDownloadPdf called");
-    console.log("📥 generatedPdfUrl:", generatedPdfUrl);
-    console.log("📥 uploadedFile?.name:", uploadedFile?.name);
-
-    if (generatedPdfUrl) {
-      console.log("📥 Opening monetization modal");
-      // Trigger monetization modal
-      openMonetizationModal(
-        uploadedFile?.name || "document",
-        "pdf",
-        generatedPdfUrl
-      );
-    } else {
-      console.log("📥 No generatedPdfUrl, cannot download");
+  // Handle view merged PDF
+  const handleViewMerged = useCallback(() => {
+    if (mergedPdfUrl) {
+      setPreviewImage(mergedPdfUrl);
     }
+  }, [mergedPdfUrl]);
+
+  // Handle monetization completion
+  const handleAdCompleteMerged = useCallback(() => {
+    if (mergedPdfUrl) {
+      const link = document.createElement("a");
+      link.href = mergedPdfUrl;
+      link.download = "merged_document.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    closeMonetizationModal();
+  }, [mergedPdfUrl, closeMonetizationModal]);
+
+  const handlePaymentCompleteMerged = useCallback(() => {
+    if (mergedPdfUrl) {
+      const link = document.createElement("a");
+      link.href = mergedPdfUrl;
+      link.download = "merged_document.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    closeMonetizationModal();
+  }, [mergedPdfUrl, closeMonetizationModal]);
+
+  // Format file size
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
-  // File upload state
-  if (!uploadedFile) {
+  // File upload interface
+  if (pdfFiles.length === 0) {
     return (
-      <>
-        <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
-          <div className="p-6">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-white mb-2">Merge PDFs</h2>
-              <p className="text-gray-400">
-                Upload multiple PDF files to merge into one document
-              </p>
-            </div>
+      <div className="w-full max-w-6xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+        <div className="p-6">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Merge Multiple PDFs
+            </h2>
+            <p className="text-gray-400">
+              Upload multiple PDF files to merge into one document
+            </p>
+          </div>
 
-            <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center">
-              <div className="mb-4">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 48 48"
-                >
-                  <path
-                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="file-upload"
-                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-                >
-                  Choose PDF Files
-                </label>
-                <input
-                  id="file-upload"
-                  type="file"
-                  accept=".pdf"
-                  multiple
-                  onChange={(e) => {
-                    const files = Array.from(e.target.files || []);
-                    if (files.length > 0) {
-                      handleFileUpload(files[0]); // Use first file for editor
-                      setUploadedFiles(files); // Store all files for merge
-                    }
-                  }}
-                  className="hidden"
+          <div className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center">
+            <div className="mb-4">
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 48 48"
+              >
+                <path
+                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
-              </div>
-              <p className="text-gray-400 text-sm">
-                Drag and drop your PDF files here, or click to browse
-              </p>
+              </svg>
             </div>
+            <div className="mb-4">
+              <label
+                htmlFor="file-upload"
+                className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              >
+                Choose PDF Files
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                accept=".pdf"
+                multiple
+                onChange={(e) => {
+                  if (e.target.files) {
+                    handleFileUploadMultiple(e.target.files);
+                  }
+                }}
+                className="hidden"
+              />
+            </div>
+            <p className="text-gray-400 text-sm">
+              Select multiple PDF files to merge together
+            </p>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
   // Processing state
-  if (isProcessing && !editorUrl) {
-    const steps = [
-      {
-        id: 0,
-        title: "Uploading PDFs",
-        description: "Analyzing documents and extracting elements...",
-        completed: uploadProgress >= 25,
-      },
-      {
-        id: 1,
-        title: "Analyzing Structure",
-        description: "Processing document layout with encryption...",
-        completed: uploadProgress >= 60,
-      },
-      {
-        id: 2,
-        title: "Preparing Editor",
-        description: "Setting up secure interface...",
-        completed: uploadProgress >= 100,
-      },
-    ];
-
+  if (isMerging) {
     return (
-      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+      <div className="w-full max-w-6xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
         <div className="p-6 flex items-center justify-center h-full">
           <div className="w-full max-w-lg">
-            {/* Progress Steps */}
-            <div className="relative">
-              {steps.map((step, index) => (
-                <div
-                  key={step.id}
-                  className="flex items-start space-x-4 relative"
-                >
-                  {/* Checkmark Circle */}
-                  <div className="flex-shrink-0 relative z-10">
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                        step.completed
-                          ? "bg-green-500 text-white"
-                          : "bg-gray-600 text-gray-400"
-                      }`}
-                    >
-                      {step.completed ? (
-                        <svg
-                          className="w-5 h-5"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      ) : (
-                        <span className="text-sm font-semibold">
-                          {index + 1}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Step Content */}
-                  <div className="flex-1 min-w-0 pb-6">
-                    <h3
-                      className={`text-lg font-semibold transition-colors duration-300 ${
-                        step.completed ? "text-green-400" : "text-white"
-                      }`}
-                    >
-                      {step.title}
-                    </h3>
-                    <p
-                      className={`text-sm transition-colors duration-300 ${
-                        step.completed ? "text-green-300" : "text-gray-400"
-                      }`}
-                    >
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Merging PDFs
+              </h2>
+              <p className="text-gray-400">
+                Combining {pdfFiles.length} PDF files into one document
+              </p>
             </div>
 
             {/* Progress Bar */}
-            <div className="mb-4">
+            <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm font-medium text-gray-300">
                   Progress
                 </span>
                 <span className="text-sm font-semibold text-white">
-                  {Math.round(uploadProgress)}%
+                  {Math.round(mergeProgress)}%
                 </span>
               </div>
               <div className="w-full bg-gray-700 rounded-full h-3">
                 <div
                   className="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-300 ease-out"
-                  style={{ width: `${uploadProgress}%` }}
+                  style={{ width: `${mergeProgress}%` }}
                 />
               </div>
+            </div>
+
+            <div className="text-center">
+              <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
             </div>
           </div>
         </div>
@@ -590,90 +361,136 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
     );
   }
 
-  // Editor interface
-  if (editorUrl) {
-    return (
-      <div data-editor-active="true">
-        <div style={{ display: showViewModal ? "none" : "block" }}>
-          <PDFEditorLayout
-            title="Trevnoctilla"
-            fileName={uploadedFile?.name}
-            onBack={() => {
-              setUploadedFile(null);
-              setUploadedFiles([]);
-              setEditorUrl("");
-              setActiveTool("select");
-              setResult(null);
-            }}
-            onDone={() => {
-              setUploadedFile(null);
-              setUploadedFiles([]);
-              setEditorUrl("");
-              setActiveTool("select");
-              setResult(null);
-            }}
-            onSearch={() => {
-              console.log("Search clicked");
-            }}
-            zoomLevel={zoomLevel}
-            onZoomIn={handleZoomIn}
-            onZoomOut={handleZoomOut}
-            onZoomReset={handleZoomReset}
-            activeTool={activeTool}
-            onToolSelect={handleToolSelect}
-            hideDrawingTools={true}
-            pages={generatePageThumbnails()}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            onUploadNew={() => {
-              setUploadedFile(null);
-              setUploadedFiles([]);
-              setEditorUrl("");
-              setResult(null);
-            }}
-            onSave={handleSaveChanges}
-            isProcessing={isSaving}
-            showViewButton={showViewButton}
-            showDownloadButton={showDownloadButton}
-            hasViewedPdf={hasViewedPdf}
-            isInPreviewMode={false}
-            onViewPdf={handleViewPdf}
-            onDownloadPdf={handleDownloadPdf}
-          >
-            <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
-              <div
-                className="relative shadow-2xl"
-                style={{
-                  width: `${100 / (zoomLevel / 100)}%`,
-                  height: `${100 / (zoomLevel / 100)}%`,
-                  minWidth: "100%",
-                  minHeight: "100%",
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                }}
-              >
-                <iframe
-                  src={editorUrl}
-                  className="w-full h-full border-0"
-                  title="PDF Editor"
-                  style={{
-                    transform: `scale(${zoomLevel / 100})`,
-                    transformOrigin: "top left",
-                  }}
-                />
-              </div>
-            </div>
-          </PDFEditorLayout>
+  // File management interface
+  return (
+    <div className="w-full max-w-6xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Merge PDFs ({pdfFiles.length} files)
+            </h2>
+            <p className="text-gray-400">
+              Arrange your PDF files in the order you want them merged
+            </p>
+          </div>
+          <div className="flex space-x-3">
+            <label
+              htmlFor="add-more-files"
+              className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg cursor-pointer transition-colors"
+            >
+              Add More Files
+            </label>
+            <input
+              id="add-more-files"
+              type="file"
+              accept=".pdf"
+              multiple
+              onChange={(e) => {
+                if (e.target.files) {
+                  handleFileUploadMultiple(e.target.files);
+                }
+              }}
+              className="hidden"
+            />
+            <Button
+              onClick={handleMergePdfs}
+              disabled={pdfFiles.length < 2}
+              className="bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Merge PDFs
+            </Button>
+          </div>
         </div>
 
-        {/* PDF View Modal */}
-        {showViewModal && generatedPdfUrl && (
+        {/* File List */}
+        <div className="space-y-3 mb-6">
+          {pdfFiles.map((pdfFile, index) => (
+            <div
+              key={pdfFile.id}
+              className="bg-gray-700/50 rounded-lg p-4 flex items-center justify-between"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  {index + 1}
+                </div>
+                <div>
+                  <div className="text-white font-medium">{pdfFile.name}</div>
+                  <div className="text-gray-400 text-sm">
+                    {formatFileSize(pdfFile.size)}
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  onClick={() => handleMoveFile(pdfFile.id, "up")}
+                  disabled={index === 0}
+                  className="bg-gray-600 hover:bg-gray-700 text-white text-sm disabled:opacity-50"
+                >
+                  ↑
+                </Button>
+                <Button
+                  onClick={() => handleMoveFile(pdfFile.id, "down")}
+                  disabled={index === pdfFiles.length - 1}
+                  className="bg-gray-600 hover:bg-gray-700 text-white text-sm disabled:opacity-50"
+                >
+                  ↓
+                </Button>
+                <Button
+                  onClick={() => handleRemoveFile(pdfFile.id)}
+                  className="bg-red-600 hover:bg-red-700 text-white text-sm"
+                >
+                  Remove
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Download Options */}
+        {showDownloadOptions && mergedPdfUrl && (
+          <div className="mt-8 p-6 bg-gray-700/50 rounded-lg">
+            <h3 className="text-xl font-bold text-white mb-4">
+              Merge Complete!
+            </h3>
+            <p className="text-gray-400 mb-6">
+              Your PDFs have been successfully merged. You can now view or
+              download the merged document.
+            </p>
+            <div className="flex space-x-4">
+              <Button
+                onClick={handleViewMerged}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                View Merged PDF
+              </Button>
+              <Button
+                onClick={handleDownloadMerged}
+                className="bg-green-600 hover:bg-green-700 text-white"
+              >
+                Download Merged PDF
+              </Button>
+            </div>
+          </div>
+        )}
+
+        <MonetizationModal
+          isOpen={monetizationState.isModalOpen}
+          onClose={closeMonetizationModal}
+          onAdComplete={handleAdCompleteMerged}
+          onPaymentComplete={handlePaymentCompleteMerged}
+          fileName={monetizationState.fileName}
+          fileType={monetizationState.fileType}
+        />
+
+        {/* Full-screen Preview Modal */}
+        {previewImage && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
             <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] w-full mx-4">
               <div className="flex items-center justify-between p-4 border-b">
-                <h3 className="text-lg font-semibold">Preview PDF</h3>
+                <h3 className="text-lg font-semibold">Preview Merged PDF</h3>
                 <button
-                  onClick={handleCloseViewModal}
+                  onClick={() => setPreviewImage(null)}
                   className="text-gray-500 hover:text-gray-700 text-2xl"
                 >
                   ×
@@ -682,7 +499,7 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
               <div className="p-4">
                 <div className="w-full h-[70vh] border border-gray-300 rounded-lg overflow-hidden">
                   <iframe
-                    src={generatedPdfUrl}
+                    src={previewImage}
                     className="w-full h-full border-0"
                     title="PDF Preview"
                     style={{
@@ -695,44 +512,7 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
             </div>
           </div>
         )}
-
-        <MonetizationModal
-          isOpen={monetizationState.isModalOpen}
-          onClose={closeMonetizationModal}
-          onAdComplete={handleAdComplete}
-          onPaymentComplete={handlePaymentComplete}
-          fileName={monetizationState.fileName}
-          fileType={monetizationState.fileType}
-        />
       </div>
-    );
-  }
-
-  // Results
-  if (result) {
-    return (
-      <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
-        <div className="p-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">
-              {result.type === "success" ? "Success!" : "Error"}
-            </h2>
-            <p className="text-gray-400 mb-6">{result.message}</p>
-            <Button
-              onClick={() => {
-                setResult(null);
-                setUploadedFile(null);
-                setUploadedFiles([]);
-              }}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              Process Another PDF
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 };

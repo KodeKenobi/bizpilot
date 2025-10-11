@@ -926,27 +926,59 @@ def extract_images():
 @app.route("/merge_pdfs", methods=["POST"])
 def merge_pdfs():
     try:
-        files = request.files.getlist('pdfs')
+        print(f"DEBUG: Merge endpoint called")
+        print(f"DEBUG: Request files: {request.files}")
+        print(f"DEBUG: Request form: {request.form}")
+        print(f"DEBUG: Request content type: {request.content_type}")
+        print(f"DEBUG: Request content length: {request.content_length}")
         
-        if len(files) < 2:
-            return jsonify({"status": "error", "message": "At least 2 PDF files are required for merging"}), 400
+        files = request.files.getlist('files')
+        print(f"DEBUG: Files list length: {len(files)}")
+        
+        # Debug each file
+        for i, file in enumerate(files):
+            print(f"DEBUG: File {i}: filename='{file.filename}', content_length={file.content_length}, content_type={file.content_type}")
+            if hasattr(file, 'stream'):
+                print(f"DEBUG: File {i} stream position: {file.stream.tell()}")
+        
+        # Check if files are empty or invalid
+        valid_files = []
+        for i, file in enumerate(files):
+            print(f"DEBUG: File {i}: filename='{file.filename}', content_length={file.content_length}")
+            if file and file.filename and file.filename.strip():
+                valid_files.append(file)
+            else:
+                print(f"DEBUG: Skipping empty/invalid file at index {i}")
+        
+        print(f"DEBUG: Valid files count: {len(valid_files)}")
+        
+        if len(valid_files) < 2:
+            print(f"DEBUG: Not enough valid files: {len(valid_files)}")
+            return jsonify({"status": "error", "message": f"At least 2 valid PDF files are required for merging. Found {len(valid_files)} valid files."}), 400
+        
+        files = valid_files
         
         # Create merged document
         merged_doc = fitz.open()
         
         for file in files:
-            if file.filename.endswith('.pdf'):
+            print(f"DEBUG: Processing file: {file.filename}")
+            if file and file.filename and file.filename.endswith('.pdf'):
                 # Save temporary file
                 temp_path = os.path.join(UPLOAD_FOLDER, f"temp_{file.filename}")
                 file.save(temp_path)
+                print(f"DEBUG: Saved temp file: {temp_path}")
                 
                 # Open and add pages to merged document
                 temp_doc = fitz.open(temp_path)
                 merged_doc.insert_pdf(temp_doc)
                 temp_doc.close()
+                print(f"DEBUG: Added pages from {file.filename}")
                 
                 # Remove temporary file
                 os.remove(temp_path)
+            else:
+                print(f"DEBUG: Skipping invalid file: {file.filename if file else 'None'}")
         
         # Generate merged filename
         merged_filename = f"merged_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
