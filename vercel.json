@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/api/$1"
+    },
+    {
+      "src": "/convert/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/convert/$1"
+    },
+    {
+      "src": "/editor/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/editor/$1"
+    },
+    {
+      "src": "/view_html/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/view_html/$1"
+    },
+    {
+      "src": "/download_converted/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/download_converted/$1"
+    },
+    {
+      "src": "/save_html/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/save_html/$1"
+    },
+    {
+      "src": "/cleanup_session/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/cleanup_session/$1"
+    },
+    {
+      "src": "/split_pdf",
+      "dest": "https://your-flask-backend-url.herokuapp.com/split_pdf"
+    },
+    {
+      "src": "/merge_pdfs",
+      "dest": "https://your-flask-backend-url.herokuapp.com/merge_pdfs"
+    },
+    {
+      "src": "/view_split/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/view_split/$1"
+    },
+    {
+      "src": "/download_split/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/download_split/$1"
+    },
+    {
+      "src": "/extract_text",
+      "dest": "https://your-flask-backend-url.herokuapp.com/extract_text"
+    },
+    {
+      "src": "/extract_images",
+      "dest": "https://your-flask-backend-url.herokuapp.com/extract_images"
+    },
+    {
+      "src": "/download_image/(.*)",
+      "dest": "https://your-flask-backend-url.herokuapp.com/download_image/$1"
+    },
+    {
+      "src": "/generate_pdf",
+      "dest": "https://your-flask-backend-url.herokuapp.com/generate_pdf"
+    },
+    {
+      "src": "/upload",
+      "dest": "https://your-flask-backend-url.herokuapp.com/upload"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://your-flask-backend-url.herokuapp.com"
+  }
+}

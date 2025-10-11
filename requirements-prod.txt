@@ -1,0 +1,12 @@
+# Production requirements for Flask backend
+# This file should be used when deploying the Flask backend separately
+
+Flask==3.1.2
+Flask-CORS==6.0.1
+PyMuPDF==1.26.4
+Pillow==11.3.0
+python-docx==1.2.0
+lxml==6.0.2
+mammoth==1.11.0
+gunicorn==21.2.0
+python-dotenv==1.0.0
