@@ -664,9 +664,12 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
               <div className="flex-1 p-1 sm:p-4 overflow-hidden">
                 <div className="w-full h-full border border-gray-300 rounded-lg overflow-hidden">
                   <iframe
-                    src={generatedPdfUrl}
+                    src={`${generatedPdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                     className="w-full h-full border-0"
                     title="PDF Preview"
+                    style={{
+                      pointerEvents: "auto",
+                    }}
                   />
                 </div>
               </div>

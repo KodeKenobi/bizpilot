@@ -151,7 +151,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="mt-[-120px] flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-6"
+              className="mt-[-120px] flex flex-row items-center justify-center space-x-2 sm:space-x-6"
             >
               <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -159,10 +159,10 @@ export default function LandingPage() {
               >
                 <Link
                   href="/tools"
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 flex items-center space-x-2 group"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 flex items-center space-x-1 sm:space-x-2 group text-sm sm:text-base"
                 >
                   <span>Start Converting</span>
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </motion.div>
               <motion.div
@@ -171,7 +171,7 @@ export default function LandingPage() {
               >
                 <Link
                   href="#demo"
-                  className="text-gray-300 hover:text-white px-8 py-4 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-200"
+                  className="text-gray-300 hover:text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-200 text-sm sm:text-base"
                 >
                   Watch Demo
                 </Link>

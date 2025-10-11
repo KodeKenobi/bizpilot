@@ -510,15 +510,19 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
                       onToolSelect?.(tool.id);
                       tool.onClick?.();
                     }}
-                    className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+                    className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
                       activeTool === tool.id
                         ? "bg-blue-600 text-white"
                         : "text-gray-300 hover:bg-gray-700"
+                    } ${
+                      tool.id === "undo" || tool.id === "redo"
+                        ? "hidden sm:flex"
+                        : ""
                     }`}
                     title={tool.name}
                   >
                     {getToolIcon(tool.id)}
-                    <span className="hidden sm:inline">{tool.name}</span>
+                    <span className="inline">{tool.name}</span>
                   </button>
                 ))}
               </div>

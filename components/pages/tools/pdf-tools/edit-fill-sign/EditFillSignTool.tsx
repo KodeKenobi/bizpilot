@@ -991,7 +991,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
               <div className="p-4">
                 <div className="w-full h-[70vh] border border-gray-300 rounded-lg overflow-hidden">
                   <iframe
-                    src={generatedPdfUrl}
+                    src={`${generatedPdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                     className="w-full h-full border-0"
                     title="PDF Preview"
                     style={{
