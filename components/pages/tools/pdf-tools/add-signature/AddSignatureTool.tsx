@@ -55,7 +55,7 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
 
   // Core state
   const [signatureData, setSignatureData] = useState<string>("");
-  const [activeTool, setActiveTool] = useState<string>("select");
+  const [activeTool, setActiveTool] = useState<string>("sign");
   const [editorUrl, setEditorUrl] = useState<string>("");
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -599,13 +599,13 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
             onBack={() => {
               setUploadedFile(null);
               setEditorUrl("");
-              setActiveTool("select");
+              setActiveTool("sign");
               setResult(null);
             }}
             onDone={() => {
               setUploadedFile(null);
               setEditorUrl("");
-              setActiveTool("select");
+              setActiveTool("sign");
               setResult(null);
             }}
             onSearch={() => {
@@ -617,6 +617,7 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
             onZoomReset={handleZoomReset}
             activeTool={activeTool}
             onToolSelect={handleToolSelect}
+            tools={[{ id: "sign", name: "Sign", icon: "✍" }]}
             hideDrawingTools={true}
             pages={generatePageThumbnails()}
             currentPage={currentPage}

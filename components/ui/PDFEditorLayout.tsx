@@ -488,8 +488,12 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-0">
-          {/* Toolbar - Hide if only one tool */}
-          {allTools.length > 1 && (
+          {/* Toolbar - Hide if only one tool and it's not sign, image, or watermark */}
+          {(allTools.length > 1 ||
+            (allTools.length === 1 &&
+              (allTools[0]?.id === "sign" ||
+                allTools[0]?.id === "image" ||
+                allTools[0]?.id === "watermark"))) && (
             <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex-shrink-0">
               <div className="flex items-center justify-center space-x-1 overflow-x-auto">
                 {allTools.map((tool) => (

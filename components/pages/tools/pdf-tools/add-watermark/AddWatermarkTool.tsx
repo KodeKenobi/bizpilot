@@ -53,13 +53,18 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
   const alertModal = useAlertModal();
 
   // Core state
-  const [activeTool, setActiveTool] = useState<string>("select");
+  const [activeTool, setActiveTool] = useState<string>("image");
   const [editorUrl, setEditorUrl] = useState<string>("");
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
+
+  // Image upload state
+  const [showImageModal, setShowImageModal] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   // View and download flow state
   const [showViewModal, setShowViewModal] = useState(false);
@@ -223,6 +228,42 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
     setZoomLevel(100);
   };
 
+  // Handle image file selection
+  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle image upload and insertion
+  const handleImageUpload = () => {
+    if (selectedImage) {
+      // Send image to iframe for insertion
+      const iframe = document.querySelector(
+        'iframe[title="PDF Editor"]'
+      ) as HTMLIFrameElement;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage(
+          {
+            type: "INSERT_IMAGE",
+            imageData: imagePreview,
+            fileName: selectedImage.name,
+          },
+          "*"
+        );
+      }
+      setShowImageModal(false);
+      setSelectedImage(null);
+      setImagePreview(null);
+    }
+  };
+
   // Handle tool selection
   const handleToolSelect = (toolId: string) => {
     console.log("🔧 Tool selected:", toolId);
@@ -248,6 +289,12 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage({ type: "REDO" }, "*");
       }
+      return;
+    }
+
+    // Handle image tool - show image upload modal
+    if (toolId === "image") {
+      setShowImageModal(true);
       return;
     }
 
@@ -616,6 +663,11 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
             activeTool={activeTool}
             onToolSelect={handleToolSelect}
             hideDrawingTools={true}
+            tools={[
+              { id: "undo", name: "Undo", icon: "↶" },
+              { id: "redo", name: "Redo", icon: "↷" },
+              { id: "image", name: "Image", icon: "🖼" },
+            ]}
             pages={generatePageThumbnails()}
             currentPage={currentPage}
             onPageChange={handlePageChange}
@@ -697,6 +749,95 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
           fileName={monetizationState.fileName}
           fileType={monetizationState.fileType}
         />
+
+        {/* Image Upload Modal */}
+        {showImageModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h3 className="text-lg font-semibold">Upload Image</h3>
+                <button
+                  onClick={() => {
+                    setShowImageModal(false);
+                    setSelectedImage(null);
+                    setImagePreview(null);
+                  }}
+                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-4">
+                {!selectedImage ? (
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                    <div className="mb-4">
+                      <svg
+                        className="mx-auto h-12 w-12 text-gray-400"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                      >
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          strokeWidth={2}
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div className="mb-4">
+                      <label
+                        htmlFor="image-upload"
+                        className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                      >
+                        Choose Image
+                      </label>
+                      <input
+                        id="image-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageSelect}
+                        className="hidden"
+                      />
+                    </div>
+                    <p className="text-gray-500 text-sm">
+                      Select an image to add as watermark
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="text-center">
+                      {imagePreview && (
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="max-w-full max-h-48 mx-auto rounded-lg"
+                        />
+                      )}
+                    </div>
+                    <div className="flex space-x-3">
+                      <button
+                        onClick={() => {
+                          setSelectedImage(null);
+                          setImagePreview(null);
+                        }}
+                        className="flex-1 px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      >
+                        Choose Different Image
+                      </button>
+                      <button
+                        onClick={handleImageUpload}
+                        className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                      >
+                        Insert Image
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
