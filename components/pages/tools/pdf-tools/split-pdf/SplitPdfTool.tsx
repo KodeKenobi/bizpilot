@@ -3,7 +3,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useMonetization } from "@/hooks/useMonetization";
 import { useAlertModal } from "@/hooks/useAlertModal";
-import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
 import MonetizationModal from "@/components/ui/MonetizationModal";
 
 // Simple button component
@@ -34,6 +33,12 @@ interface SplitPdfToolProps {
   handleFileUpload: (file: File) => void;
 }
 
+interface PageInfo {
+  pageNumber: number;
+  thumbnailUrl: string;
+  isSelected: boolean;
+}
+
 export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
   uploadedFile,
   setUploadedFile,
@@ -53,21 +58,17 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
   const alertModal = useAlertModal();
 
   // Core state
-  const [activeTool, setActiveTool] = useState<string>("select");
-  const [editorUrl, setEditorUrl] = useState<string>("");
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [zoomLevel, setZoomLevel] = useState<number>(100);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [pages, setPages] = useState<PageInfo[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [currentUploadStep, setCurrentUploadStep] = useState<number>(0);
-
-  // View and download flow state
-  const [showViewModal, setShowViewModal] = useState(false);
-  const [showViewButton, setShowViewButton] = useState(false);
-  const [showDownloadButton, setShowDownloadButton] = useState(false);
-  const [hasViewedPdf, setHasViewedPdf] = useState(false);
-  const [generatedPdfUrl, setGeneratedPdfUrl] = useState<string | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSplitting, setIsSplitting] = useState<boolean>(false);
+  const [splitProgress, setSplitProgress] = useState<number>(0);
+  const [downloadUrls, setDownloadUrls] = useState<string[]>([]);
+  const [viewUrls, setViewUrls] = useState<string[]>([]);
+  const [showDownloadOptions, setShowDownloadOptions] =
+    useState<boolean>(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   // Refs
   const isProcessingRef = useRef<boolean>(false);
@@ -87,26 +88,23 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
         let progress = 0;
         let step = 0;
         let interval: NodeJS.Timeout | null = null;
-        const totalDuration = 8000; // 8 seconds total for better UX
-        const updateInterval = 100; // Update every 100ms for smoother feel
+        const totalDuration = 5000; // 5 seconds for split PDF
+        const updateInterval = 100;
         const totalSteps = totalDuration / updateInterval;
         const progressIncrement = 100 / totalSteps;
 
         const updateProgress = () => {
-          // Smooth, predictable progress increments with occasional pauses
           let increment = progressIncrement;
 
-          // Add slight pauses at key milestones for realism
           if (
             (progress >= 20 && progress < 25) ||
             (progress >= 55 && progress < 60)
           ) {
-            increment = progressIncrement * 0.3; // Slower progress at transitions
+            increment = progressIncrement * 0.3;
           }
 
           progress += increment;
 
-          // Smooth step transitions based on progress
           if (progress >= 25 && step === 0) {
             step = 1;
             setCurrentUploadStep(1);
@@ -115,7 +113,6 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
             setCurrentUploadStep(2);
           }
 
-          // Ensure progress doesn't exceed 100
           const clampedProgress = Math.min(progress, 100);
           setUploadProgress(clampedProgress);
 
@@ -127,25 +124,21 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
           }
         };
 
-        // Start with a delay for smoothness
         setTimeout(() => {
           interval = setInterval(updateProgress, updateInterval);
-        }, 800);
+        }, 500);
       });
     };
 
     try {
-      // Simulate realistic processing time
       await simulateProgress();
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-      // Brief pause before showing completion
-      await new Promise((resolve) => setTimeout(resolve, 800));
-
-      // Save PDF file first, then convert using template
+      // Upload PDF file
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      const uploadResponse = await fetch("/", {
+      const uploadResponse = await fetch("http://localhost:5000/", {
         method: "POST",
         body: formData,
       });
@@ -154,27 +147,36 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
         throw new Error("Failed to upload PDF");
       }
 
-      // Use the uploaded file name directly for the convert endpoint
       const filename = uploadedFile.name;
 
       // Get PDF info including page count
-      const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
+      const pdfInfoResponse = await fetch(
+        `http://localhost:5000/api/pdf_info/${filename}`
+      );
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
         console.log("📄 PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
+
+        // Generate page thumbnails
+        const pageList: PageInfo[] = Array.from(
+          { length: pdfInfo.page_count },
+          (_, index) => ({
+            pageNumber: index + 1,
+            thumbnailUrl: `http://localhost:5000/api/pdf_thumbnail/${filename}/${
+              index + 1
+            }`,
+            isSelected: true, // Select all pages by default
+          })
+        );
+        setPages(pageList);
       } else {
-        console.warn("Failed to get PDF info, defaulting to 1 page");
-        setTotalPages(1);
+        throw new Error("Failed to get PDF info");
       }
 
-      // Set the converted HTML URL using the original template approach
-      setEditorUrl(`/convert/${filename}`);
-
-      // Brief pause before showing completion
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
-      console.error("PDF conversion error:", error);
+      console.error("PDF processing error:", error);
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -184,10 +186,10 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
 
   // Auto-process document when file is uploaded
   React.useEffect(() => {
-    if (uploadedFile && !editorUrl && !isProcessingRef.current) {
+    if (uploadedFile && totalPages === 0 && !isProcessingRef.current) {
       handleProcessDocument();
     }
-  }, [uploadedFile, editorUrl]);
+  }, [uploadedFile, totalPages, handleProcessDocument]);
 
   // Reset processing ref when component unmounts or file changes
   React.useEffect(() => {
@@ -196,226 +198,142 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
     };
   }, [uploadedFile]);
 
-  // Clean up when component unmounts or editorUrl changes
-  React.useEffect(() => {
-    return () => {
-      // No cleanup needed for HTML URLs
-    };
-  }, [editorUrl]);
-
-  // Reset processing ref when editorUrl changes (processing complete)
-  React.useEffect(() => {
-    if (editorUrl) {
-      isProcessingRef.current = false;
-    }
-  }, [editorUrl]);
-
-  // Handle zoom controls
-  const handleZoomIn = () => {
-    setZoomLevel((prev) => Math.min(prev + 25, 300));
+  // Handle page selection toggle
+  const handlePageToggle = (pageNumber: number) => {
+    setPages((prevPages) =>
+      prevPages.map((page) =>
+        page.pageNumber === pageNumber
+          ? { ...page, isSelected: !page.isSelected }
+          : page
+      )
+    );
   };
 
-  const handleZoomOut = () => {
-    setZoomLevel((prev) => Math.max(prev - 25, 50));
+  // Handle select all pages
+  const handleSelectAll = () => {
+    setPages((prevPages) =>
+      prevPages.map((page) => ({ ...page, isSelected: true }))
+    );
   };
 
-  const handleZoomReset = () => {
-    setZoomLevel(100);
+  // Handle deselect all pages
+  const handleDeselectAll = () => {
+    setPages((prevPages) =>
+      prevPages.map((page) => ({ ...page, isSelected: false }))
+    );
   };
 
-  // Handle tool selection
-  const handleToolSelect = (toolId: string) => {
-    console.log("🔧 Tool selected:", toolId);
-    console.log("🔧 Previous active tool:", activeTool);
+  // Handle split PDF
+  const handleSplitPdf = async () => {
+    const selectedPages = pages.filter((page) => page.isSelected);
 
-    // Handle undo/redo buttons
-    if (toolId === "undo") {
-      // Send message to iframe to perform undo
-      const iframe = document.querySelector(
-        'iframe[title="PDF Editor"]'
-      ) as HTMLIFrameElement;
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ type: "UNDO" }, "*");
-      }
+    if (selectedPages.length === 0) {
+      alertModal.showError("Error", "Please select at least one page to split");
       return;
     }
 
-    if (toolId === "redo") {
-      // Send message to iframe to perform redo
-      const iframe = document.querySelector(
-        'iframe[title="PDF Editor"]'
-      ) as HTMLIFrameElement;
-      if (iframe && iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ type: "REDO" }, "*");
-      }
-      return;
-    }
+    setIsSplitting(true);
+    setSplitProgress(0);
 
-    setActiveTool(toolId);
+    try {
+      const filename = uploadedFile?.name;
+      if (!filename) throw new Error("No filename available");
 
-    // Send message to iframe to set edit mode
-    const iframe = document.querySelector(
-      'iframe[title="PDF Editor"]'
-    ) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
-      iframe.contentWindow.postMessage(
-        {
-          type: "SET_EDIT_MODE",
-          mode: toolId,
+      // Simulate progress
+      const progressInterval = setInterval(() => {
+        setSplitProgress((prev) => {
+          if (prev >= 90) {
+            clearInterval(progressInterval);
+            return 90;
+          }
+          return prev + 10;
+        });
+      }, 200);
+
+      // Call split API
+      const response = await fetch("http://localhost:5000/api/split_pdf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        "*"
-      );
+        body: JSON.stringify({
+          filename: filename,
+          pages: selectedPages.map((page) => page.pageNumber),
+        }),
+      });
 
-      // If split tool is selected, send additional message to configure split behavior
-      if (toolId === "split") {
-        iframe.contentWindow.postMessage(
-          {
-            type: "CONFIGURE_SPLIT_MODAL",
-            showOnce: true,
-          },
-          "*"
-        );
+      clearInterval(progressInterval);
+      setSplitProgress(100);
+
+      if (!response.ok) {
+        throw new Error("Failed to split PDF");
       }
-      console.log("📤 Message sent successfully");
-    } else {
-      console.log("❌ Iframe not found or no contentWindow");
-    }
-  };
 
-  // Listen for messages from iframe
-  React.useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      console.log("📨 Message received from iframe:", event.data);
+      const result = await response.json();
+      setDownloadUrls(result.downloadUrls);
+      setViewUrls(result.viewUrls || []);
+      setShowDownloadOptions(true);
 
-      if (event.data.type === "SAVE_COMPLETE") {
-        console.log("✅ PDF saved successfully:", event.data.filename);
-        alertModal.showSuccess("Success", "PDF saved successfully!");
-      } else if (event.data.type === "PDF_GENERATED") {
-        console.log("✅ PDF generation completed");
-      } else if (event.data.type === "TEXT_ADDED") {
-        console.log("📝 Text added:", event.data);
-      } else if (event.data.type === "EDIT_MODE_SET") {
-        console.log("🎯 Edit mode set in iframe:", event.data.mode);
-        setActiveTool(event.data.mode);
-      } else if (event.data.type === "PDF_SPLIT") {
-        console.log("✂️ PDF split:", event.data);
-      } else if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
-        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
-
-        // Convert blob URL to data URL for iframe compatibility
-        console.log("📄 Converting blob to data URL for iframe...");
-        fetch(event.data.pdfUrl)
-          .then((response) => response.blob())
-          .then((blob) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-              console.log("✅ Data URL ready for iframe");
-              setGeneratedPdfUrl(reader.result as string);
-            };
-            reader.readAsDataURL(blob);
-          })
-          .catch((error) => {
-            console.error("❌ Error converting blob:", error);
-            setGeneratedPdfUrl(event.data.pdfUrl);
-          });
-
-        setShowViewButton(true); // Show View button
-        setShowDownloadButton(true); // Show Download button
-        setIsSaving(false); // Clear loading state
-      } else {
-        console.log("❓ Unknown message type:", event.data.type);
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [alertModal]);
-
-  // Handle page change
-  const handlePageChange = (pageNumber: number) => {
-    console.log("📄 Changing to page:", pageNumber);
-    setCurrentPage(pageNumber);
-
-    // Send message to iframe to change page
-    const iframe = document.querySelector(
-      'iframe[title="PDF Editor"]'
-    ) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending CHANGE_PAGE message to iframe:", pageNumber);
-      iframe.contentWindow.postMessage(
-        {
-          type: "CHANGE_PAGE",
-          pageNumber: pageNumber,
-        },
-        "*"
+      alertModal.showSuccess(
+        "Success",
+        `PDF split into ${selectedPages.length} pages successfully!`
       );
-    } else {
-      console.log("❌ Iframe not found for page change");
+    } catch (error) {
+      console.error("Split PDF error:", error);
+      alertModal.showError("Error", "Failed to split PDF");
+    } finally {
+      setIsSplitting(false);
+      setSplitProgress(0);
     }
   };
 
-  // Generate page thumbnails
-  const generatePageThumbnails = () => {
-    if (!uploadedFile) return [];
-
-    return Array.from({ length: totalPages }, (_, index) => ({
-      pageNumber: index + 1,
-      isActive: currentPage === index + 1,
-      thumbnailUrl: `/api/pdf_thumbnail/${uploadedFile.name}/${index + 1}`,
-      onClick: () => handlePageChange(index + 1),
-    }));
-  };
-
-  // Handle save changes - show view button first
-  const handleSaveChanges = () => {
-    console.log("Save clicked - generating PDF for preview");
-    setIsSaving(true);
-
-    // Send message to iframe to generate PDF (without download)
-    const iframe = document.querySelector(
-      'iframe[title="PDF Editor"]'
-    ) as HTMLIFrameElement;
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage(
-        {
-          type: "GENERATE_PDF_FOR_PREVIEW",
-        },
-        "*"
-      );
+  // Handle download individual page
+  const handleDownloadPage = (pageNumber: number) => {
+    const downloadUrl = downloadUrls[pageNumber - 1];
+    if (downloadUrl) {
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = `page_${pageNumber}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
-  // Handle view PDF
-  const handleViewPdf = () => {
-    console.log("🔍 Setting showViewModal to true");
-    setShowViewModal(true);
-    setHasViewedPdf(true);
+  // Handle download all as ZIP
+  const handleDownloadAll = () => {
+    // This would trigger the monetization modal for the ZIP download
+    const selectedPages = pages.filter((page) => page.isSelected);
+    const fileName = uploadedFile?.name?.replace(".pdf", "") || "split_pages";
+
+    openMonetizationModal(
+      `${fileName}_split_${selectedPages.length}_pages`,
+      "zip",
+      downloadUrls[0] // Use first URL as placeholder
+    );
   };
 
-  // Handle close view modal
-  const handleCloseViewModal = () => {
-    setShowViewModal(false);
-    // Keep both buttons visible after closing modal
+  // Handle individual page download with monetization
+  const handleDownloadPageWithMonetization = (pageNumber: number) => {
+    const fileName = uploadedFile?.name?.replace(".pdf", "") || "page";
+    const selectedPages = pages.filter((page) => page.isSelected);
+
+    openMonetizationModal(
+      `${fileName}_page_${pageNumber}`,
+      "pdf",
+      downloadUrls[pageNumber - 1] || ""
+    );
   };
 
-  // Handle download PDF (with monetization)
-  const handleDownloadPdf = () => {
-    console.log("📥 handleDownloadPdf called");
-    console.log("📥 generatedPdfUrl:", generatedPdfUrl);
-    console.log("📥 uploadedFile?.name:", uploadedFile?.name);
-
-    if (generatedPdfUrl) {
-      console.log("📥 Opening monetization modal");
-      // Trigger monetization modal
-      openMonetizationModal(
-        uploadedFile?.name || "document",
-        "pdf",
-        generatedPdfUrl
-      );
-    } else {
-      console.log("📥 No generatedPdfUrl, cannot download");
+  // Get PDF view URL for preview
+  const getPdfViewUrl = (pageNumber: number) => {
+    // Use the viewUrls array that's populated after splitting
+    if (viewUrls.length > 0 && viewUrls[pageNumber - 1]) {
+      return `http://localhost:5000${viewUrls[pageNumber - 1]}`;
     }
+    // Fallback to constructing URL if viewUrls not available
+    const fileName = uploadedFile?.name?.replace(".pdf", "") || "";
+    return `http://localhost:5000/view_split/${fileName}_page_${pageNumber}.pdf`;
   };
 
   // File upload state
@@ -425,7 +343,9 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
         <div className="w-full max-w-4xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
           <div className="p-6">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-white mb-2">Split PDF</h2>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Split PDF into Individual Pages
+              </h2>
               <p className="text-gray-400">
                 Upload a PDF file to split into separate pages
               </p>
@@ -478,24 +398,24 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
   }
 
   // Processing state
-  if (isProcessing && !editorUrl) {
+  if (isProcessing) {
     const steps = [
       {
         id: 0,
         title: "Uploading PDF",
-        description: "Analyzing document and extracting elements...",
+        description: "Analyzing document structure...",
         completed: uploadProgress >= 25,
       },
       {
         id: 1,
-        title: "Analyzing Structure",
-        description: "Processing document layout with encryption...",
+        title: "Extracting Pages",
+        description: "Processing individual pages...",
         completed: uploadProgress >= 60,
       },
       {
         id: 2,
-        title: "Preparing Editor",
-        description: "Setting up secure interface...",
+        title: "Preparing Interface",
+        description: "Setting up page selection...",
         completed: uploadProgress >= 100,
       },
     ];
@@ -584,87 +504,189 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
     );
   }
 
-  // Editor interface
-  if (editorUrl) {
+  // Page selection interface
+  if (totalPages > 0) {
+    const selectedCount = pages.filter((page) => page.isSelected).length;
+
     return (
-      <div data-editor-active="true">
-        <div style={{ display: showViewModal ? "none" : "block" }}>
-          <PDFEditorLayout
-            title="Trevnoctilla"
-            fileName={uploadedFile?.name}
-            onBack={() => {
-              setUploadedFile(null);
-              setEditorUrl("");
-              setActiveTool("select");
-              setResult(null);
-            }}
-            onDone={() => {
-              setUploadedFile(null);
-              setEditorUrl("");
-              setActiveTool("select");
-              setResult(null);
-            }}
-            onSearch={() => {
-              console.log("Search clicked");
-            }}
-            zoomLevel={zoomLevel}
-            onZoomIn={handleZoomIn}
-            onZoomOut={handleZoomOut}
-            onZoomReset={handleZoomReset}
-            activeTool={activeTool}
-            onToolSelect={handleToolSelect}
-            hideDrawingTools={true}
-            pages={generatePageThumbnails()}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            onUploadNew={() => {
-              setUploadedFile(null);
-              setEditorUrl("");
-              setResult(null);
-            }}
-            onSave={handleSaveChanges}
-            isProcessing={isSaving}
-            showViewButton={showViewButton}
-            showDownloadButton={showDownloadButton}
-            hasViewedPdf={hasViewedPdf}
-            isInPreviewMode={false}
-            onViewPdf={handleViewPdf}
-            onDownloadPdf={handleDownloadPdf}
-          >
-            <div className="h-full w-full bg-gray-900 relative overflow-auto flex items-center justify-center">
-              <div
-                className="relative shadow-2xl"
-                style={{
-                  width: `${100 / (zoomLevel / 100)}%`,
-                  height: `${100 / (zoomLevel / 100)}%`,
-                  minWidth: "100%",
-                  minHeight: "100%",
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                }}
-              >
-                <iframe
-                  src={editorUrl}
-                  className="w-full h-full border-0"
-                  title="PDF Editor"
-                  style={{
-                    transform: `scale(${zoomLevel / 100})`,
-                    transformOrigin: "top left",
-                  }}
-                />
+      <div className="w-full max-w-6xl mx-auto min-h-96 bg-gray-800/40 rounded-lg overflow-hidden">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Select Pages to Split
+              </h2>
+              <p className="text-gray-400">
+                Choose which pages you want to extract from your PDF
+              </p>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="text-sm text-gray-300">
+                {selectedCount} of {totalPages} pages selected
+              </div>
+              <div className="flex space-x-2">
+                <Button
+                  onClick={handleSelectAll}
+                  className="bg-gray-600 hover:bg-gray-700 text-white text-sm"
+                >
+                  Select All
+                </Button>
+                <Button
+                  onClick={handleDeselectAll}
+                  className="bg-gray-600 hover:bg-gray-700 text-white text-sm"
+                >
+                  Deselect All
+                </Button>
               </div>
             </div>
-          </PDFEditorLayout>
+          </div>
+
+          {/* Page Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+            {pages.map((page) => (
+              <div
+                key={page.pageNumber}
+                className={`relative cursor-pointer rounded-lg border-2 transition-all ${
+                  page.isSelected
+                    ? "border-blue-500 bg-blue-900/30"
+                    : "border-gray-600 hover:border-gray-500"
+                }`}
+                onClick={() => handlePageToggle(page.pageNumber)}
+              >
+                <div className="aspect-[3/4] bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden">
+                  <img
+                    src={page.thumbnailUrl}
+                    alt={`Page ${page.pageNumber}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute top-2 left-2">
+                  <div
+                    className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                      page.isSelected ? "bg-blue-500" : "bg-gray-600"
+                    }`}
+                  >
+                    {page.isSelected && (
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-purple-600 text-white text-xs px-2 py-1 rounded-full">
+                    Page {page.pageNumber}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Split Button */}
+          <div className="flex justify-center">
+            <Button
+              onClick={handleSplitPdf}
+              disabled={selectedCount === 0 || isSplitting}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSplitting ? (
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Splitting PDF... {splitProgress}%</span>
+                </div>
+              ) : (
+                `Split ${selectedCount} Page${selectedCount !== 1 ? "s" : ""}`
+              )}
+            </Button>
+          </div>
+
+          {/* Download Options */}
+          {showDownloadOptions && downloadUrls.length > 0 && (
+            <div className="mt-8 p-6 bg-gray-700/50 rounded-lg">
+              <h3 className="text-xl font-bold text-white mb-4">
+                Download Split Pages
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {pages
+                  .filter((page) => page.isSelected)
+                  .map((page) => (
+                    <div key={page.pageNumber} className="text-center">
+                      <div className="aspect-[3/4] bg-gray-600 rounded-lg mb-2 flex items-center justify-center relative group">
+                        <img
+                          src={page.thumbnailUrl}
+                          alt={`Page ${page.pageNumber}`}
+                          className="w-full h-full object-cover rounded-lg"
+                        />
+                        {/* View overlay on hover */}
+                        <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center rounded-lg">
+                          <Button
+                            onClick={() =>
+                              setPreviewImage(getPdfViewUrl(page.pageNumber))
+                            }
+                            className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1"
+                          >
+                            View
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Button
+                          onClick={() =>
+                            setPreviewImage(getPdfViewUrl(page.pageNumber))
+                          }
+                          className="bg-blue-600 hover:bg-blue-700 text-white text-xs w-full"
+                        >
+                          View Page {page.pageNumber}
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            handleDownloadPageWithMonetization(page.pageNumber)
+                          }
+                          className="bg-green-600 hover:bg-green-700 text-white text-xs w-full"
+                        >
+                          Download Page {page.pageNumber}
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              <div className="mt-6 text-center">
+                <Button
+                  onClick={handleDownloadAll}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg font-semibold rounded-lg"
+                >
+                  Download All as ZIP
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* PDF View Modal */}
-        {showViewModal && generatedPdfUrl && (
+        <MonetizationModal
+          isOpen={monetizationState.isModalOpen}
+          onClose={closeMonetizationModal}
+          onAdComplete={handleAdComplete}
+          onPaymentComplete={handlePaymentComplete}
+          fileName={monetizationState.fileName}
+          fileType={monetizationState.fileType}
+        />
+
+        {/* Full-screen Preview Modal */}
+        {previewImage && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
             <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] w-full mx-4">
               <div className="flex items-center justify-between p-4 border-b">
                 <h3 className="text-lg font-semibold">Preview PDF</h3>
                 <button
-                  onClick={handleCloseViewModal}
+                  onClick={() => setPreviewImage(null)}
                   className="text-gray-500 hover:text-gray-700 text-2xl"
                 >
                   ×
@@ -673,7 +695,7 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
               <div className="p-4">
                 <div className="w-full h-[70vh] border border-gray-300 rounded-lg overflow-hidden">
                   <iframe
-                    src={generatedPdfUrl}
+                    src={previewImage}
                     className="w-full h-full border-0"
                     title="PDF Preview"
                     style={{
@@ -686,15 +708,6 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
             </div>
           </div>
         )}
-
-        <MonetizationModal
-          isOpen={monetizationState.isModalOpen}
-          onClose={closeMonetizationModal}
-          onAdComplete={handleAdComplete}
-          onPaymentComplete={handlePaymentComplete}
-          fileName={monetizationState.fileName}
-          fileType={monetizationState.fileType}
-        />
       </div>
     );
   }
@@ -713,6 +726,10 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
               onClick={() => {
                 setResult(null);
                 setUploadedFile(null);
+                setTotalPages(0);
+                setPages([]);
+                setShowDownloadOptions(false);
+                setDownloadUrls([]);
               }}
               className="bg-blue-600 hover:bg-blue-700 text-white"
             >

@@ -144,14 +144,122 @@ def get_pdf_thumbnail(filename, page_num):
         
         page = doc[page_num - 1]  # Convert to 0-based index
         
-        # Create thumbnail with reasonable size
-        mat = fitz.Matrix(0.3, 0.3)  # Scale down to 30% for thumbnail
+        # Check if high quality is requested
+        quality = request.args.get('quality', 'normal')
+        
+        if quality == 'high':
+            # High quality for preview - use higher resolution
+            mat = fitz.Matrix(2.0, 2.0)  # 2x resolution for crisp display
+            pix = page.get_pixmap(matrix=mat)
+            # If too large, scale down proportionally but keep it high quality
+            if pix.width > 2000:
+                scale = 2000 / pix.width
+                mat = fitz.Matrix(2.0 * scale, 2.0 * scale)
+                pix = page.get_pixmap(matrix=mat)
+        else:
+            # Normal thumbnail size
+            mat = fitz.Matrix(0.3, 0.3)  # Scale down to 30% for thumbnail
+        
         pix = page.get_pixmap(matrix=mat)
         img_data = pix.tobytes("png")
         
         doc.close()
         
         return Response(img_data, mimetype="image/png")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/api/split_pdf", methods=["POST"])
+def split_pdf():
+    """Split PDF into individual pages"""
+    try:
+        data = request.get_json()
+        filename = data.get('filename')
+        pages = data.get('pages', [])
+        
+        if not filename or not pages:
+            return jsonify({"error": "Filename and pages are required"}), 400
+        
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        if not os.path.exists(filepath):
+            return jsonify({"error": "PDF file not found"}), 404
+        
+        # Open the PDF
+        doc = fitz.open(filepath)
+        total_pages = len(doc)
+        
+        # Validate page numbers
+        valid_pages = [p for p in pages if 1 <= p <= total_pages]
+        if not valid_pages:
+            return jsonify({"error": "No valid pages to split"}), 400
+        
+        download_urls = []
+        
+        # Create individual PDFs for each selected page
+        for page_num in valid_pages:
+            # Create a new PDF with just this page
+            new_doc = fitz.open()
+            new_doc.insert_pdf(doc, from_page=page_num-1, to_page=page_num-1)
+            
+            # Generate filename for this page
+            base_name = os.path.splitext(filename)[0]
+            page_filename = f"{base_name}_page_{page_num}.pdf"
+            page_filepath = os.path.join(EDITED_FOLDER, page_filename)
+            
+            # Save the page
+            new_doc.save(page_filepath)
+            new_doc.close()
+            
+            # Add download URL
+            download_urls.append(f"/download_split/{page_filename}")
+        
+        doc.close()
+        
+        # Generate view URLs for each split page
+        base_name = os.path.splitext(filename)[0]
+        view_urls = [f"/view_split/{base_name}_page_{page_num}.pdf" for page_num in valid_pages]
+        
+        return jsonify({
+            "success": True,
+            "message": f"PDF split into {len(valid_pages)} pages",
+            "downloadUrls": download_urls,
+            "viewUrls": view_urls,
+            "pages": valid_pages
+        })
+        
+    except Exception as e:
+        print(f"Error splitting PDF: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/download_split/<path:filename>")
+def download_split_page(filename):
+    """Download a split PDF page"""
+    try:
+        # URL decode the filename to handle spaces and special characters
+        from urllib.parse import unquote
+        decoded_filename = unquote(filename)
+        filepath = os.path.join(EDITED_FOLDER, decoded_filename)
+        
+        if not os.path.exists(filepath):
+            return jsonify({"error": f"File not found: {decoded_filename}"}), 404
+        
+        return send_file(filepath, as_attachment=True, download_name=decoded_filename)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/view_split/<path:filename>")
+def view_split_page(filename):
+    """View a split PDF page in browser"""
+    try:
+        # URL decode the filename to handle spaces and special characters
+        from urllib.parse import unquote
+        decoded_filename = unquote(filename)
+        filepath = os.path.join(EDITED_FOLDER, decoded_filename)
+        
+        if not os.path.exists(filepath):
+            return jsonify({"error": f"File not found: {decoded_filename}"}), 404
+        
+        return send_file(filepath, as_attachment=False, download_name=decoded_filename)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -882,75 +990,6 @@ def download_merged(merged_filename):
         return f"Error downloading merged PDF: {str(e)}", 500
 
 
-@app.route('/split_pdf', methods=['POST'])
-def split_pdf():
-    try:
-        if 'pdf' not in request.files:
-            return jsonify({"status": "error", "message": "No PDF file provided"}), 400
-        
-        pdf_file = request.files['pdf']
-        if pdf_file.filename == '':
-            return jsonify({"status": "error", "message": "No file selected"}), 400
-        
-        # Save uploaded PDF
-        original_filename = pdf_file.filename
-        # Create a safe filename by replacing problematic characters
-        safe_filename = "".join(c for c in original_filename if c.isalnum() or c in '._-')
-        if not safe_filename.endswith('.pdf'):
-            safe_filename += '.pdf'
-        pdf_path = os.path.join(UPLOAD_FOLDER, safe_filename)
-        pdf_file.save(pdf_path)
-        
-        # Open PDF document
-        doc = fitz.open(pdf_path)
-        total_pages = len(doc)
-        
-        if total_pages <= 1:
-            doc.close()
-            os.remove(pdf_path)
-            return jsonify({"status": "error", "message": "PDF must have more than 1 page to split"}), 400
-        
-        # Create split folder
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        split_folder = os.path.join(HTML_FOLDER, f"split_{timestamp}")
-        os.makedirs(split_folder, exist_ok=True)
-        
-        split_files = []
-        
-        # Split PDF into individual pages
-        for page_num in range(total_pages):
-            # Create new document with single page
-            new_doc = fitz.open()
-            new_doc.insert_pdf(doc, from_page=page_num, to_page=page_num)
-            
-            # Generate filename for split page
-            base_name = os.path.splitext(safe_filename)[0]
-            split_filename = f"{base_name}_page_{page_num + 1}.pdf"
-            split_path = os.path.join(split_folder, split_filename)
-            
-            # Save split page
-            new_doc.save(split_path)
-            new_doc.close()
-            
-            split_files.append({
-                "filename": split_filename,
-                "page_number": page_num + 1,
-                "download_url": f"/download_split/split_{timestamp}/{split_filename}"
-            })
-        
-        doc.close()
-        os.remove(pdf_path)  # Clean up original uploaded file
-        
-        return jsonify({
-            "status": "success",
-            "message": f"PDF split successfully into {total_pages} pages",
-            "total_pages": total_pages,
-            "split_files": split_files,
-            "split_folder": timestamp
-        })
-        
-    except Exception as e:
-        return jsonify({"status": "error", "message": f"Error splitting PDF: {str(e)}"}), 500
 
 
 @app.route('/download_split/<split_folder>/<split_filename>')
