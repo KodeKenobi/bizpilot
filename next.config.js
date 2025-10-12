@@ -9,6 +9,10 @@ const nextConfig = {
 
     return [
       {
+        source: "/api/upload",
+        destination: `${backendUrl}/`,
+      },
+      {
         source: "/convert/:path*",
         destination: `${backendUrl}/convert/:path*`,
       },

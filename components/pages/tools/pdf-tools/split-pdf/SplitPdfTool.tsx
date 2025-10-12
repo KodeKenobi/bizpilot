@@ -139,7 +139,7 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       formData.append("pdf", uploadedFile);
 
       console.log("🚀 Starting PDF upload to backend...");
-      const uploadResponse = await fetch("/", {
+      const uploadResponse = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });

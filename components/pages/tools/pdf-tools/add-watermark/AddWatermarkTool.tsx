@@ -151,7 +151,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      const uploadResponse = await fetch("/", {
+      const uploadResponse = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
