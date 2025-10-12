@@ -17,7 +17,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
       const hasEditorUrl =
         typeof window !== "undefined" &&
         (window.location.search.includes("editor=true") ||
-          document.querySelector('[data-editor-active="true"]'));
+          !!document.querySelector('[data-editor-active="true"]'));
 
       setIsEditorMode(isInPdfTools && hasEditorUrl);
     };
