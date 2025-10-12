@@ -138,37 +138,39 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      const uploadResponse = await fetch("http://localhost:5000/", {
+      console.log("🚀 Starting PDF upload to backend...");
+      const uploadResponse = await fetch("/", {
         method: "POST",
         body: formData,
       });
 
       if (!uploadResponse.ok) {
+        console.error("❌ PDF upload failed:", uploadResponse.status, uploadResponse.statusText);
         throw new Error("Failed to upload PDF");
       }
 
       const filename = uploadedFile.name;
+      console.log("✅ PDF uploaded successfully:", filename);
 
       // Get PDF info including page count
-      const pdfInfoResponse = await fetch(
-        `http://localhost:5000/api/pdf_info/${filename}`
-      );
+      console.log("📊 Fetching PDF info...");
+      const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
         console.log("📄 PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
 
         // Generate page thumbnails
+        console.log("🖼️ Generating page thumbnails...");
         const pageList: PageInfo[] = Array.from(
           { length: pdfInfo.page_count },
           (_, index) => ({
             pageNumber: index + 1,
-            thumbnailUrl: `http://localhost:5000/api/pdf_thumbnail/${filename}/${
-              index + 1
-            }`,
+            thumbnailUrl: `/api/pdf_thumbnail/${filename}/${index + 1}`,
             isSelected: true, // Select all pages by default
           })
         );
+        console.log("✅ Generated", pageList.length, "page thumbnails");
         setPages(pageList);
       } else {
         throw new Error("Failed to get PDF info");
@@ -251,7 +253,8 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       }, 200);
 
       // Call split API
-      const response = await fetch("http://localhost:5000/api/split_pdf", {
+      console.log("✂️ Calling split API with pages:", selectedPages.map((page) => page.pageNumber));
+      const response = await fetch("/api/split_pdf", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -329,11 +332,14 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
   const getPdfViewUrl = (pageNumber: number) => {
     // Use the viewUrls array that's populated after splitting
     if (viewUrls.length > 0 && viewUrls[pageNumber - 1]) {
-      return `http://localhost:5000${viewUrls[pageNumber - 1]}`;
+      console.log("🔗 Using view URL from array:", viewUrls[pageNumber - 1]);
+      return viewUrls[pageNumber - 1];
     }
     // Fallback to constructing URL if viewUrls not available
     const fileName = uploadedFile?.name?.replace(".pdf", "") || "";
-    return `http://localhost:5000/view_split/${fileName}_page_${pageNumber}.pdf`;
+    const fallbackUrl = `/view_split/${fileName}_page_${pageNumber}.pdf`;
+    console.log("🔗 Using fallback view URL:", fallbackUrl);
+    return fallbackUrl;
   };
 
   // File upload state

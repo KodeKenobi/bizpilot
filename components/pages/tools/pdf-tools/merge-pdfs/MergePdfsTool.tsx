@@ -177,7 +177,8 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
         console.log(key, value);
       });
 
-      const response = await fetch("http://localhost:5000/merge_pdfs", {
+      console.log("🔗 Calling merge API...");
+      const response = await fetch("/merge_pdfs", {
         method: "POST",
         body: formData,
       });
@@ -187,17 +188,17 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("DEBUG: Merge failed with status:", response.status);
-        console.error("DEBUG: Error response:", errorText);
+        console.error("❌ Merge failed with status:", response.status);
+        console.error("❌ Error response:", errorText);
         throw new Error(
           `Failed to merge PDFs: ${response.status} - ${errorText}`
         );
       }
 
       const result = await response.json();
-      console.log("Merge result:", result);
+      console.log("✅ Merge result:", result);
 
-      setMergedPdfUrl(`http://localhost:5000${result.download_url}`);
+      setMergedPdfUrl(result.download_url);
       setShowDownloadOptions(true);
 
       alertModal.showSuccess(

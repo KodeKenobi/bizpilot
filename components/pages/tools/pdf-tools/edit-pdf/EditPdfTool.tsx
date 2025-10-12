@@ -142,6 +142,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Save PDF file first, then convert using template
+      console.log("🚀 [Edit PDF] Starting PDF upload...");
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -151,20 +152,23 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       });
 
       if (!uploadResponse.ok) {
+        console.error("❌ [Edit PDF] Upload failed:", uploadResponse.status, uploadResponse.statusText);
         throw new Error("Failed to upload PDF");
       }
 
       // Use the uploaded file name directly for the convert endpoint
       const filename = uploadedFile.name;
+      console.log("✅ [Edit PDF] Upload successful:", filename);
 
       // Get PDF info including page count
+      console.log("📊 [Edit PDF] Fetching PDF info...");
       const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 PDF info:", pdfInfo);
+        console.log("📄 [Edit PDF] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("Failed to get PDF info, defaulting to 1 page");
+        console.warn("⚠️ [Edit PDF] Failed to get PDF info, defaulting to 1 page");
         setTotalPages(1);
       }
 
@@ -356,7 +360,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
 
   // Handle save changes - show view button first
   const handleSaveChanges = () => {
-    console.log("Save clicked - generating PDF for preview");
+    console.log("💾 [Edit PDF] Save clicked - generating PDF for preview");
     setIsSaving(true);
 
     // Send message to iframe to generate PDF (without download)
@@ -364,12 +368,15 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
+      console.log("📤 [Edit PDF] Sending GENERATE_PDF_FOR_PREVIEW message to iframe");
       iframe.contentWindow.postMessage(
         {
           type: "GENERATE_PDF_FOR_PREVIEW",
         },
         "*"
       );
+    } else {
+      console.error("❌ [Edit PDF] Could not find PDF Editor iframe");
     }
   };
 

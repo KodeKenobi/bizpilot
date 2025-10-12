@@ -144,6 +144,7 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Save PDF file first, then convert using template
+      console.log("🚀 [Add Signature] Starting PDF upload...");
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -153,20 +154,23 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
       });
 
       if (!uploadResponse.ok) {
+        console.error("❌ [Add Signature] Upload failed:", uploadResponse.status, uploadResponse.statusText);
         throw new Error("Failed to upload PDF");
       }
 
       // Use the uploaded file name directly for the convert endpoint
       const filename = uploadedFile.name;
+      console.log("✅ [Add Signature] Upload successful:", filename);
 
       // Get PDF info including page count
+      console.log("📊 [Add Signature] Fetching PDF info...");
       const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 PDF info:", pdfInfo);
+        console.log("📄 [Add Signature] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("Failed to get PDF info, defaulting to 1 page");
+        console.warn("⚠️ [Add Signature] Failed to get PDF info, defaulting to 1 page");
         setTotalPages(1);
       }
 

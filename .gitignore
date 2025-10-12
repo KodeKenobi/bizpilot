@@ -126,3 +126,6 @@ edited/
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+
+# Flask backend (separate repository)
+flask-backend/

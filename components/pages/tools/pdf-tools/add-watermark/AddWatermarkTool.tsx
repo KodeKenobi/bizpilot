@@ -147,6 +147,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Save PDF file first, then convert using template
+      console.log("🚀 [Add Watermark] Starting PDF upload...");
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -156,20 +157,23 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       });
 
       if (!uploadResponse.ok) {
+        console.error("❌ [Add Watermark] Upload failed:", uploadResponse.status, uploadResponse.statusText);
         throw new Error("Failed to upload PDF");
       }
 
       // Use the uploaded file name directly for the convert endpoint
       const filename = uploadedFile.name;
+      console.log("✅ [Add Watermark] Upload successful:", filename);
 
       // Get PDF info including page count
+      console.log("📊 [Add Watermark] Fetching PDF info...");
       const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 PDF info:", pdfInfo);
+        console.log("📄 [Add Watermark] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("Failed to get PDF info, defaulting to 1 page");
+        console.warn("⚠️ [Add Watermark] Failed to get PDF info, defaulting to 1 page");
         setTotalPages(1);
       }
 

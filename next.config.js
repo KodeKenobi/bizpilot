@@ -4,8 +4,9 @@ const nextConfig = {
     domains: ["localhost", "web-production-737b.up.railway.app"],
   },
   async rewrites() {
-    const backendUrl = process.env.BACKEND_URL || 'https://web-production-737b.up.railway.app';
-    
+    const backendUrl =
+      process.env.BACKEND_URL || "https://web-production-737b.up.railway.app";
+
     return [
       {
         source: "/convert/:path*",

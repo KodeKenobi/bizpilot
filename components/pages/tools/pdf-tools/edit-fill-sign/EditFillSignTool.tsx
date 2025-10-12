@@ -203,6 +203,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Save PDF file first, then convert using template
+      console.log("🚀 [Edit Fill Sign] Starting PDF upload...");
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -212,20 +213,23 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       });
 
       if (!uploadResponse.ok) {
+        console.error("❌ [Edit Fill Sign] Upload failed:", uploadResponse.status, uploadResponse.statusText);
         throw new Error("Failed to upload PDF");
       }
 
       // Use the uploaded file name directly for the convert endpoint
       const filename = uploadedFile.name;
+      console.log("✅ [Edit Fill Sign] Upload successful:", filename);
 
       // Get PDF info including page count
+      console.log("📊 [Edit Fill Sign] Fetching PDF info...");
       const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 PDF info:", pdfInfo);
+        console.log("📄 [Edit Fill Sign] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("Failed to get PDF info, defaulting to 1 page");
+        console.warn("⚠️ [Edit Fill Sign] Failed to get PDF info, defaulting to 1 page");
         setTotalPages(1);
       }
 
@@ -450,7 +454,7 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
 
   // Handle save changes - show view button first
   const handleSaveChanges = () => {
-    console.log("Save clicked - generating PDF for preview");
+    console.log("💾 [Edit Fill Sign] Save clicked - generating PDF for preview");
     setIsSaving(true);
 
     // Send message to iframe to generate PDF (without download)
@@ -458,12 +462,15 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
+      console.log("📤 [Edit Fill Sign] Sending GENERATE_PDF_FOR_PREVIEW message to iframe");
       iframe.contentWindow.postMessage(
         {
           type: "GENERATE_PDF_FOR_PREVIEW",
         },
         "*"
       );
+    } else {
+      console.error("❌ [Edit Fill Sign] Could not find PDF Editor iframe");
     }
   };
 
