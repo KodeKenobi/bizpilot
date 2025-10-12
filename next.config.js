@@ -1,51 +1,45 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["localhost"],
+    domains: ["localhost", "web-production-737b.up.railway.app"],
   },
   async rewrites() {
-    // Only proxy to backend in development
-    if (process.env.NODE_ENV === 'development') {
-      const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
-      
-      return [
-        {
-          source: "/convert/:path*",
-          destination: `${backendUrl}/convert/:path*`,
-        },
-        {
-          source: "/editor/:path*",
-          destination: `${backendUrl}/editor/:path*`,
-        },
-        {
-          source: "/api/pdf_info/:path*",
-          destination: `${backendUrl}/api/pdf_info/:path*`,
-        },
-        {
-          source: "/api/pdf_thumbnail/:path*",
-          destination: `${backendUrl}/api/pdf_thumbnail/:path*`,
-        },
-        {
-          source: "/view_html/:path*",
-          destination: `${backendUrl}/view_html/:path*`,
-        },
-        {
-          source: "/download_converted/:path*",
-          destination: `${backendUrl}/download_converted/:path*`,
-        },
-        {
-          source: "/save_html/:path*",
-          destination: `${backendUrl}/save_html/:path*`,
-        },
-        {
-          source: "/cleanup_session/:path*",
-          destination: `${backendUrl}/cleanup_session/:path*`,
-        },
-      ];
-    }
+    const backendUrl = process.env.BACKEND_URL || 'https://web-production-737b.up.railway.app';
     
-    // In production, return empty array (no rewrites)
-    return [];
+    return [
+      {
+        source: "/convert/:path*",
+        destination: `${backendUrl}/convert/:path*`,
+      },
+      {
+        source: "/editor/:path*",
+        destination: `${backendUrl}/editor/:path*`,
+      },
+      {
+        source: "/api/pdf_info/:path*",
+        destination: `${backendUrl}/api/pdf_info/:path*`,
+      },
+      {
+        source: "/api/pdf_thumbnail/:path*",
+        destination: `${backendUrl}/api/pdf_thumbnail/:path*`,
+      },
+      {
+        source: "/view_html/:path*",
+        destination: `${backendUrl}/view_html/:path*`,
+      },
+      {
+        source: "/download_converted/:path*",
+        destination: `${backendUrl}/download_converted/:path*`,
+      },
+      {
+        source: "/save_html/:path*",
+        destination: `${backendUrl}/save_html/:path*`,
+      },
+      {
+        source: "/cleanup_session/:path*",
+        destination: `${backendUrl}/cleanup_session/:path*`,
+      },
+    ];
   },
 };
 
