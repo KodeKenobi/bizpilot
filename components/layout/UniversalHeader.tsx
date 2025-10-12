@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { useNavigation } from "@/contexts/NavigationContext";
 
 export default function UniversalHeader() {
@@ -66,14 +67,14 @@ export default function UniversalHeader() {
             }}
             className="flex items-center space-x-2 text-lg sm:text-xl font-bold text-white hover:text-purple-400 transition-colors"
           >
-            <img 
+            <Image 
               src="/logo.png" 
               alt="Trevnoctilla Logo" 
+              width={32}
+              height={32}
               className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-              onError={(e) => {
-                // Fallback if logo fails to load
-                e.currentTarget.style.display = 'none';
-              }}
+              onLoad={() => console.log("Logo loaded successfully")}
+              onError={() => console.error("Logo failed to load")}
             />
             <span>Trevnoctilla</span>
           </button>

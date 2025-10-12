@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   description:
     "Transform, edit, and optimize your PDFs with professional-grade tools in a sleek, modern interface.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico", type: "image/x-icon" },
+    ],
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
   },
@@ -20,11 +23,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </head>
       <body>
         <LayoutClient>{children}</LayoutClient>
       </body>
