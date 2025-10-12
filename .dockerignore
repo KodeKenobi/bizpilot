@@ -18,6 +18,7 @@ Procfile
 templates/
 uploads/
 Lib/
+lib/site-packages/
 Scripts/
 share/
 __pycache__/
