@@ -64,9 +64,18 @@ export default function UniversalHeader() {
               console.log("Home clicked");
               navigateTo("home");
             }}
-            className="text-lg sm:text-xl font-bold text-white hover:text-purple-400 transition-colors"
+            className="flex items-center space-x-2 text-lg sm:text-xl font-bold text-white hover:text-purple-400 transition-colors"
           >
-            Trevnoctilla
+            <img 
+              src="/logo.png" 
+              alt="Trevnoctilla Logo" 
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+              onError={(e) => {
+                // Fallback if logo fails to load
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            <span>Trevnoctilla</span>
           </button>
         </div>
 
