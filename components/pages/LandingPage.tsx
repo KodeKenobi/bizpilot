@@ -32,15 +32,15 @@ export default function LandingPage() {
   return (
     <>
       <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 page-content">
-        {/* Background Image Layer */}
-        <div
+        {/* Background Image Layer - Temporarily disabled */}
+        {/* <div
           className="absolute inset-0 opacity-30"
           style={{
             background: 'url("/platform-hero-bg.png") no-repeat center top',
             backgroundSize: "contain",
             backgroundPosition: "center -50px",
           }}
-        ></div>
+        ></div> */}
         {/* Background glow orbs */}
         <motion.div
           className="absolute w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[150px] top-[-200px] left-[-200px]"
