@@ -665,28 +665,29 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
           </PDFEditorLayout>
         </div>
 
-        {/* PDF View Modal */}
+        {/* PDF View Modal - Mobile Responsive */}
         {showViewModal && generatedPdfUrl && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
-            <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] w-full mx-4">
-              <div className="flex items-center justify-between p-4 border-b">
-                <h3 className="text-lg font-semibold">Preview PDF</h3>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-1 sm:p-4">
+            <div className="bg-white rounded-lg shadow-xl w-full h-full max-w-full max-h-full flex flex-col">
+              <div className="flex items-center justify-between p-2 sm:p-4 border-b">
+                <h3 className="text-lg sm:text-xl font-semibold">
+                  Preview PDF
+                </h3>
                 <button
                   onClick={handleCloseViewModal}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  className="text-gray-500 hover:text-gray-700 text-xl sm:text-2xl"
                 >
                   ×
                 </button>
               </div>
-              <div className="p-4">
-                <div className="w-full h-[70vh] border border-gray-300 rounded-lg overflow-hidden">
+              <div className="flex-1 p-1 sm:p-4 overflow-hidden">
+                <div className="w-full h-full border border-gray-300 rounded-lg overflow-hidden">
                   <iframe
                     src={`${generatedPdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
                     className="w-full h-full border-0"
                     title="PDF Preview"
                     style={{
-                      marginTop: "-40px",
-                      height: "calc(100% + 40px)",
+                      pointerEvents: "auto",
                     }}
                   />
                 </div>
