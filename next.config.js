@@ -4,38 +4,40 @@ const nextConfig = {
     domains: ["localhost"],
   },
   async rewrites() {
+    const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
+    
     return [
       {
         source: "/convert/:path*",
-        destination: "http://localhost:5000/convert/:path*",
+        destination: `${backendUrl}/convert/:path*`,
       },
       {
         source: "/editor/:path*",
-        destination: "http://localhost:5000/editor/:path*",
+        destination: `${backendUrl}/editor/:path*`,
       },
       {
         source: "/api/pdf_info/:path*",
-        destination: "http://localhost:5000/api/pdf_info/:path*",
+        destination: `${backendUrl}/api/pdf_info/:path*`,
       },
       {
         source: "/api/pdf_thumbnail/:path*",
-        destination: "http://localhost:5000/api/pdf_thumbnail/:path*",
+        destination: `${backendUrl}/api/pdf_thumbnail/:path*`,
       },
       {
         source: "/view_html/:path*",
-        destination: "http://localhost:5000/view_html/:path*",
+        destination: `${backendUrl}/view_html/:path*`,
       },
       {
         source: "/download_converted/:path*",
-        destination: "http://localhost:5000/download_converted/:path*",
+        destination: `${backendUrl}/download_converted/:path*`,
       },
       {
         source: "/save_html/:path*",
-        destination: "http://localhost:5000/save_html/:path*",
+        destination: `${backendUrl}/save_html/:path*`,
       },
       {
         source: "/cleanup_session/:path*",
-        destination: "http://localhost:5000/cleanup_session/:path*",
+        destination: `${backendUrl}/cleanup_session/:path*`,
       },
     ];
   },
