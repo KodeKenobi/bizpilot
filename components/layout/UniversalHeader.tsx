@@ -66,17 +66,9 @@ export default function UniversalHeader() {
             }}
             className="flex items-center space-x-2 text-lg sm:text-xl font-bold text-white hover:text-purple-400 transition-colors"
           >
-            <img 
-              src="/api/logo" 
-              alt="Trevnoctilla Logo" 
-              className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-              onLoad={() => console.log("Logo loaded successfully")}
-              onError={(e) => {
-                console.error("Logo failed to load:", e);
-                // Try fallback to public directory
-                e.currentTarget.src = "/logo.png";
-              }}
-            />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <span className="text-white font-bold text-sm sm:text-base">T</span>
+                  </div>
             <span>Trevnoctilla</span>
           </button>
         </div>
