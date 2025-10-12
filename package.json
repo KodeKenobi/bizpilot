@@ -2,6 +2,7 @@
   "name": "trevnoctilla",
   "version": "0.1.0",
   "private": true,
+  "//": "Force rebuild to clear cache",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
