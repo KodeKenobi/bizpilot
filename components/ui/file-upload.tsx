@@ -1,8 +1,11 @@
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import React, { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
+
+// Simple class name combiner
+const cn = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ');
 
 const mainVariant = {
   initial: {
