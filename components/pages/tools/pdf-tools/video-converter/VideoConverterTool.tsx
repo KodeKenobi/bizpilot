@@ -121,39 +121,49 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     setWarning("");
     setConversionResult(null);
 
-    // Simple progress animation that goes to 90% and waits
-    let currentProgress = 0;
-    let isBackendComplete = false;
+    // Real backend progress tracking
+    let progressInterval: NodeJS.Timeout | undefined;
+    let fallbackProgress = 0;
+    let fallbackInterval: NodeJS.Timeout | undefined;
 
-    const progressStep = () => {
-      if (isBackendComplete) {
-        // Backend is done, smoothly finish to 100%
-        if (currentProgress < 100) {
-          currentProgress += 2; // Faster finish
-          const roundedProgress = Math.round(currentProgress);
-          setProgress(roundedProgress);
-          console.log(
-            `📊 [PROGRESS] Backend complete - finishing: ${roundedProgress}%`
-          );
-          setTimeout(progressStep, 30); // Faster interval
+    // Start fallback progress animation
+    const startFallbackProgress = () => {
+      fallbackInterval = setInterval(() => {
+        if (fallbackProgress < 90) {
+          fallbackProgress += 1;
+          setProgress(fallbackProgress);
+          console.log(`📊 [FALLBACK] Progress: ${fallbackProgress}%`);
         }
-      } else {
-        // Backend still working, slowly progress to 90%
-        if (currentProgress < 90) {
-          currentProgress += 0.8; // Faster increment
-          const roundedProgress = Math.round(currentProgress);
-          setProgress(roundedProgress);
-          console.log(`📊 [PROGRESS] Processing: ${roundedProgress}%`);
-          setTimeout(progressStep, 80); // Faster interval
-        } else {
-          // Stay at 90% until backend completes
-          setProgress(90);
-          console.log(`📊 [PROGRESS] Waiting at 90% for backend completion...`);
-          setTimeout(progressStep, 200); // Much faster polling
-        }
-      }
+      }, 200);
     };
-    progressStep();
+
+    // Poll backend for real progress
+    const pollProgress = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/conversion_progress/${file.name}`);
+        const progressData = await response.json();
+        
+        if (progressData.status === "completed") {
+          clearInterval(progressInterval);
+          clearInterval(fallbackInterval);
+          setProgress(100);
+          console.log(`✅ [BACKEND] Conversion completed at 100%`);
+          return true;
+        } else if (progressData.progress !== undefined) {
+          clearInterval(fallbackInterval);
+          const realProgress = Math.max(progressData.progress, fallbackProgress);
+          setProgress(realProgress);
+          console.log(`📊 [REAL] Backend progress: ${realProgress}%`);
+        }
+      } catch (error) {
+        console.log(`📊 [POLL] Error polling progress: ${error}`);
+      }
+      return false;
+    };
+
+    // Start polling
+    progressInterval = setInterval(pollProgress, 1000);
+    startFallbackProgress();
 
     try {
       const formData = new FormData();
@@ -174,45 +184,34 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       const result = await response.json();
 
       if (result.status === "success") {
-        // Backend is complete, trigger smooth finish
-        console.log(
-          `✅ [BACKEND] Conversion completed successfully at progress: ${Math.round(
-            currentProgress
-          )}%`
-        );
-        isBackendComplete = true;
+        // Clear all intervals
+        if (progressInterval) clearInterval(progressInterval);
+        if (fallbackInterval) clearInterval(fallbackInterval);
+        
+        // Set progress to 100% and show success
+        setProgress(100);
+        console.log(`✅ [BACKEND] Conversion completed successfully`);
+        
+        if (result.original_size) {
+          setOriginalFileSize(result.original_size);
+        }
+        if (result.converted_size) {
+          setConvertedFileSize(result.converted_size);
+        }
+        const downloadUrl = `http://localhost:5000${result.download_url}`;
+        setConversionResult(downloadUrl);
 
-        // Wait for progress to reach 100% before showing success screen
-        const checkProgress = () => {
-          if (currentProgress >= 100) {
-            // Show success screen
-            console.log(
-              `🎉 [SUCCESS] Progress reached 100%, showing success screen`
-            );
-            if (result.original_size) {
-              setOriginalFileSize(result.original_size);
-            }
-            if (result.converted_size) {
-              setConvertedFileSize(result.converted_size);
-            }
-            const downloadUrl = `http://localhost:5000${result.download_url}`;
-            setConversionResult(downloadUrl);
-
-            setTimeout(() => {
-              console.log(
-                `🏁 [COMPLETE] Loading state set to false, conversion complete`
-              );
-              setLoading(false);
-            }, 500);
-          } else {
-            setTimeout(checkProgress, 100);
-          }
-        };
-        checkProgress();
+        setTimeout(() => {
+          console.log(`🏁 [COMPLETE] Loading state set to false, conversion complete`);
+          setLoading(false);
+        }, 500);
       } else {
         throw new Error(result.message || "Conversion failed");
       }
     } catch (error: any) {
+      // Clear all intervals on error
+      if (progressInterval) clearInterval(progressInterval);
+      if (fallbackInterval) clearInterval(fallbackInterval);
       setWarning(`Conversion failed: ${error?.message || "Unknown error"}`);
       setLoading(false);
     }
@@ -414,17 +413,13 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
         <div className="mb-4">
           <div className="w-full bg-gray-700 rounded-full h-2.5 mb-2">
             <div
-              className={`bg-purple-500 h-2.5 rounded-full transition-all duration-300 ease-in-out ${
-                progress >= 90 && !conversionResult ? "animate-pulse" : ""
-              }`}
+              className="bg-purple-500 h-2.5 rounded-full transition-all duration-300 ease-in-out"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
           <div className="text-center">
                 <p className="text-xs text-gray-300 mb-1">
-                  {progress >= 90 && !conversionResult
-                    ? "Finalizing conversion..."
-                    : outputFormat === "mp3"
+                  {outputFormat === "mp3"
                     ? "Extracting audio..."
                     : "Processing video..."}
                 </p>
