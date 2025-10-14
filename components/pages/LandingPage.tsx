@@ -68,7 +68,7 @@ export default function LandingPage() {
         ></motion.div>
 
         {/* Hero Section */}
-        <main className="relative z-20 px-6 lg:px-12 pt-24 pb-32">
+        <main className="relative z-20 px-6 lg:px-12 pt-12 sm:pt-16 lg:pt-24 pb-32">
           <div className="max-w-6xl mx-auto text-center">
             {/* Hero Text Container */}
             <motion.div
@@ -82,7 +82,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.1, delay: 0.05 }}
-                className="text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight mt-14"
+                className="text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight mt-4 sm:mt-8 lg:mt-14"
               >
                 The only file conversion that{" "}
                 <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
@@ -108,7 +108,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.1, delay: 0.15 }}
-              className="max-w-2xl mx-auto"
+              className="max-w-2xl mx-auto px-4 sm:px-0"
             >
               <div className="relative h-80 flex flex-col items-center">
                 {cardOrder.map((card, index) => {
@@ -129,16 +129,18 @@ export default function LandingPage() {
                       }}
                       className="absolute bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-white transition-all duration-300 hover:bg-white/20 hover:border-white/40"
                       style={{
-                        width: `${100 - index * 12}%`,
+                        width: `${Math.max(85, 100 - index * 10)}%`,
                         height: `${80 - index * 12}px`,
                         top: `${index * 8}%`,
                         zIndex: 5 - index,
                         padding: `${16 - index * 2}px 20px`,
                       }}
                     >
-                      <div className="flex items-center justify-center h-full text-center">
-                        <IconComponent className="text-gray-400 w-5 h-5 mr-3" />
-                        <span className="text-sm opacity-90">{card.text}</span>
+                      <div className="flex items-center justify-center h-full text-center px-2">
+                        <IconComponent className="text-gray-400 w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0" />
+                        <span className="text-xs sm:text-sm opacity-90 leading-tight break-words">
+                          {card.text}
+                        </span>
                       </div>
                     </motion.div>
                   );

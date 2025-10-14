@@ -8,6 +8,7 @@ import PDFEditor from "@/components/pages/PDFEditor";
 import VideoConverterPage from "@/components/pages/VideoConverterPage";
 import AudioConverterPage from "@/components/pages/AudioConverterPage";
 import ImageConverterPage from "@/components/pages/ImageConverterPage";
+import QRGeneratorPage from "@/components/pages/QRGeneratorPage";
 
 export default function Home() {
   const { currentPage } = useNavigation();
@@ -27,6 +28,8 @@ export default function Home() {
       return <AudioConverterPage />;
     case "image-converter":
       return <ImageConverterPage />;
+    case "qr-generator":
+      return <QRGeneratorPage />;
     default:
       return <LandingPage />;
   }
