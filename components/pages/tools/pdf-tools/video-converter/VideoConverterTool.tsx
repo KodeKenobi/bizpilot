@@ -121,42 +121,53 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     setWarning("");
     setConversionResult(null);
 
-    // Smooth progress animation that stops at 100%
-    let currentProgress = 0;
+    // Use ONLY backend progress - no fake frontend animation
     let progressInterval: NodeJS.Timeout | undefined;
-    let isBackendComplete = false;
+    let uniqueFilename = "";
 
-    const progressStep = () => {
-      if (isBackendComplete) {
-        // Backend is done, finish to 100% and stop
-        if (currentProgress < 100) {
-          currentProgress += 2;
-          const roundedProgress = Math.round(currentProgress);
-          setProgress(roundedProgress);
-          console.log(`📊 [PROGRESS] Finishing: ${roundedProgress}%`);
-          setTimeout(progressStep, 50);
-        }
-        // Stop here - don't continue past 100%
-      } else {
-        if (currentProgress < 95) {
-          currentProgress += 1.5; // Fast increment
-          const roundedProgress = Math.round(currentProgress);
-          setProgress(roundedProgress);
-          console.log(`📊 [PROGRESS] Processing: ${roundedProgress}%`);
-          setTimeout(progressStep, 100); // Fast interval
+    // Poll backend for real progress
+    const pollProgress = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/conversion_progress/${encodeURIComponent(
+            uniqueFilename || file.name
+          )}`
+        );
+        const progressData = await response.json();
+
+        console.log(`🔍 [DEBUG] Backend response:`, progressData);
+        console.log(
+          `🔍 [DEBUG] Polling URL: http://localhost:5000/conversion_progress/${encodeURIComponent(
+            uniqueFilename || file.name
+          )}`
+        );
+        console.log(
+          `🔍 [DEBUG] Unique filename: ${uniqueFilename || file.name}`
+        );
+
+        if (progressData.status === "completed") {
+          if (progressInterval) clearInterval(progressInterval);
+          setProgress(100);
+          console.log(`✅ [BACKEND] Conversion completed at 100%`);
+          return true;
+        } else if (progressData.progress !== undefined) {
+          setProgress(progressData.progress);
+          console.log(
+            `📊 [REAL] Backend progress: ${progressData.progress}% - ${
+              progressData.message || "No message"
+            }`
+          );
         } else {
-          // Slow down at 95% but keep moving
-          currentProgress += 0.3; // Very slow increment but still moving
-          const roundedProgress = Math.round(currentProgress);
-          setProgress(roundedProgress);
-          console.log(`📊 [PROGRESS] Almost done: ${roundedProgress}%`);
-          setTimeout(progressStep, 150); // Slower but still moving
+          console.log(`⚠️ [DEBUG] No progress data received:`, progressData);
         }
+      } catch (error) {
+        console.log(`📊 [POLL] Error polling progress: ${error}`);
       }
+      return false;
     };
 
-    // Start progress animation
-    progressStep();
+    // Start polling every 1 second
+    progressInterval = setInterval(pollProgress, 1000);
 
     try {
       const formData = new FormData();
@@ -177,8 +188,10 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       const result = await response.json();
 
       if (result.status === "success") {
-        // Mark backend as complete to stop progress animation
-        isBackendComplete = true;
+        // Store unique filename and stop polling
+        uniqueFilename = result.unique_filename || file.name;
+        if (progressInterval) clearInterval(progressInterval);
+        setProgress(100);
         console.log(`✅ [BACKEND] Conversion completed successfully`);
 
         if (result.original_size) {
