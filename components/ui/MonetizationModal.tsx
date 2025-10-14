@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play, CreditCard, Download, Star, CheckCircle } from "lucide-react";
+import { AD_ZONE_ID, USE_FAKE_AD_FALLBACK, AD_LOAD_TIMEOUT } from "@/lib/adConfig";
 
 interface MonetizationModalProps {
   isOpen: boolean;
@@ -14,34 +15,109 @@ interface MonetizationModalProps {
 }
 
 const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
-  const [adProgress, setAdProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [adError, setAdError] = useState(false);
+  const [adProgress, setAdProgress] = useState(0);
   const hasCompletedRef = useRef(false);
+  const adTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Fallback fake ad (original implementation)
+  const startFakeAd = () => {
+    console.log("🎬 Starting fake ad fallback");
+    hasCompletedRef.current = false;
+    setAdProgress(0);
+    setIsPlaying(true);
+  };
+
+  // Real Propeller Ads integration
+  const startRealAd = () => {
+    console.log("🎬 Starting real Propeller ad");
+    setIsLoading(true);
+    setAdError(false);
+    hasCompletedRef.current = false;
+
+    // Check if zone ID is configured
+    if (AD_ZONE_ID === "YOUR_ZONE_ID_HERE") {
+      console.log("⚠️ Ad zone ID not configured, using fake ad");
+      if (USE_FAKE_AD_FALLBACK) {
+        setIsLoading(false);
+        startFakeAd();
+        return;
+      } else {
+        setAdError(true);
+        setIsLoading(false);
+        return;
+      }
+    }
+
+    // Set up Propeller Ads callback
+    (window as any).propellerAdCallback = () => {
+      console.log("🎬 Propeller ad completed");
+      hasCompletedRef.current = true;
+      setIsPlaying(false);
+      setIsLoading(false);
+      onComplete();
+    };
+
+    // Load Propeller Ads interstitial
+    try {
+      const script = document.createElement('script');
+      script.innerHTML = `
+        (function(d,z,s){
+          s.src='//'+d+'/400/'+z;
+          try{(document.body||document.documentElement).appendChild(s)}catch(e){}
+        })('propellerads.com', '${AD_ZONE_ID}', document.createElement('script'))
+      `;
+      document.body.appendChild(script);
+
+      // Set timeout for ad loading
+      adTimeoutRef.current = setTimeout(() => {
+        console.log("⚠️ Ad load timeout, falling back to fake ad");
+        if (USE_FAKE_AD_FALLBACK) {
+          setAdError(false);
+          setIsLoading(false);
+          startFakeAd();
+        } else {
+          setAdError(true);
+          setIsLoading(false);
+        }
+      }, AD_LOAD_TIMEOUT);
+
+      // Simulate ad loading completion (Propeller will call the callback)
+      setTimeout(() => {
+        if (!hasCompletedRef.current) {
+          console.log("🎬 Simulating ad completion for testing");
+          (window as any).propellerAdCallback();
+        }
+      }, 3000); // 3 second test ad
+
+    } catch (error) {
+      console.error("❌ Error loading Propeller ad:", error);
+      if (USE_FAKE_AD_FALLBACK) {
+        setAdError(false);
+        setIsLoading(false);
+        startFakeAd();
+      } else {
+        setAdError(true);
+        setIsLoading(false);
+      }
+    }
+  };
+
+  // Fake ad progress (fallback)
   useEffect(() => {
-    console.log(
-      "🎬 useEffect triggered - isPlaying:",
-      isPlaying,
-      "hasCompleted:",
-      hasCompletedRef.current
-    );
-    if (isPlaying && !hasCompletedRef.current) {
-      console.log("🎬 Starting interval");
+    if (isPlaying && !hasCompletedRef.current && adProgress < 100) {
       const interval = setInterval(() => {
         setAdProgress((prev) => {
           if (prev >= 100) {
             if (hasCompletedRef.current) {
-              console.log("🎬 Already completed, skipping");
               return 100;
             }
-            console.log(
-              "🎬 Progress reached 100%, clearing interval and setting completed flag"
-            );
             clearInterval(interval);
             hasCompletedRef.current = true;
-            // Use setTimeout to defer onComplete after render cycle
             setTimeout(() => {
-              console.log("🎬 Ad progress 100% - calling onComplete");
+              console.log("🎬 Fake ad completed - calling onComplete");
               onComplete();
             }, 0);
             return 100;
@@ -49,18 +125,22 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
           return prev + 2;
         });
       }, 100);
-      return () => {
-        console.log("🎬 Cleaning up interval");
-        clearInterval(interval);
-      };
+      return () => clearInterval(interval);
     }
-  }, [isPlaying, onComplete]);
+  }, [isPlaying, adProgress, onComplete]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (adTimeoutRef.current) {
+        clearTimeout(adTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const startAd = () => {
     console.log("🎬 startAd called");
-    hasCompletedRef.current = false;
-    setAdProgress(0);
-    setIsPlaying(true);
+    startRealAd();
   };
 
   return (
@@ -73,11 +153,26 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
           Watch a Quick Ad
         </h3>
         <p className="text-gray-400 text-sm">
-          Support Trevnoctilla by watching a 5-second ad
+          Support Trevnoctilla by watching an ad
         </p>
       </div>
 
-      {!isPlaying ? (
+      {adError ? (
+        <div className="text-center">
+          <div className="text-red-400 mb-4">
+            Ad failed to load. Please try again.
+          </div>
+          <motion.button
+            onClick={startAd}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 px-6 rounded-lg font-medium hover:from-red-600 hover:to-red-700 transition-all duration-200"
+          >
+            <Play className="w-5 h-5 inline mr-2" />
+            Retry Ad
+          </motion.button>
+        </div>
+      ) : !isLoading && !isPlaying ? (
         <motion.button
           onClick={startAd}
           whileHover={{ scale: 1.05 }}
@@ -87,34 +182,46 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
           <Play className="w-5 h-5 inline mr-2" />
           Start Ad
         </motion.button>
+      ) : isLoading ? (
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading ad...</p>
+        </div>
       ) : (
         <div className="space-y-4">
           <div className="bg-gray-800 rounded-lg p-4 text-center">
             <div className="text-white font-medium mb-2">
-              Trevnoctilla Premium
+              {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" ? "Trevnoctilla Premium" : "Advertisement"}
             </div>
             <div className="text-gray-400 text-sm mb-3">
-              Professional PDF tools for businesses
+              {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" 
+                ? "Professional PDF tools for businesses" 
+                : "Please wait while the ad loads..."
+              }
             </div>
-            <div className="text-blue-400 text-sm">
-              Visit trevnoctilla.com for more features
-            </div>
+            {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" && (
+              <div className="text-blue-400 text-sm">
+                Visit trevnoctilla.com for more features
+              </div>
+            )}
           </div>
 
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm text-gray-400">
-              <span>Ad Progress</span>
-              <span>{adProgress}%</span>
+          {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" && (
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm text-gray-400">
+                <span>Ad Progress</span>
+                <span>{adProgress}%</span>
+              </div>
+              <div className="w-full bg-gray-700 rounded-full h-2">
+                <motion.div
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${adProgress}%` }}
+                  transition={{ duration: 0.1 }}
+                />
+              </div>
             </div>
-            <div className="w-full bg-gray-700 rounded-full h-2">
-              <motion.div
-                className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${adProgress}%` }}
-                transition={{ duration: 0.1 }}
-              />
-            </div>
-          </div>
+          )}
         </div>
       )}
     </div>

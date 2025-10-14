@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LayoutClient from "@/components/layout/LayoutClient";
+import Script from "next/script";
+import { PROPELLER_ADS_URL } from "@/lib/adConfig";
 
 export const metadata: Metadata = {
   title: "Trevnoctilla - Complete PDF Toolkit",
@@ -25,6 +27,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <LayoutClient>{children}</LayoutClient>
+        <Script
+          id="propeller-ads"
+          strategy="afterInteractive"
+          src={PROPELLER_ADS_URL}
+        />
       </body>
     </html>
   );
