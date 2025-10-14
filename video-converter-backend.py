@@ -33,6 +33,9 @@ def get_file_size(filepath):
 def convert_video(input_path, output_path, output_format, quality=80, compression='medium'):
     """Convert video using FFmpeg"""
     try:
+        print(f"DEBUG: Starting conversion from {input_path} to {output_path}")
+        print(f"DEBUG: Output format: {output_format}, Quality: {quality}, Compression: {compression}")
+        
         # Quality settings based on compression level
         quality_settings = {
             'low': '18',
@@ -66,11 +69,27 @@ def convert_video(input_path, output_path, output_format, quality=80, compressio
                 output_path
             ]
         
+        print(f"DEBUG: Running FFmpeg command: {' '.join(cmd)}")
+        
         # Run FFmpeg command
         result = subprocess.run(cmd, capture_output=True, text=True)
         
+        print(f"DEBUG: FFmpeg return code: {result.returncode}")
+        print(f"DEBUG: FFmpeg stdout: {result.stdout}")
+        print(f"DEBUG: FFmpeg stderr: {result.stderr}")
+        
         if result.returncode != 0:
             raise Exception(f"FFmpeg error: {result.stderr}")
+        
+        # Check if output file was created and has content
+        if not os.path.exists(output_path):
+            raise Exception("Output file was not created")
+        
+        output_size = os.path.getsize(output_path)
+        print(f"DEBUG: Output file size: {output_size} bytes")
+        
+        if output_size == 0:
+            raise Exception("Output file is empty")
         
         return True
         
@@ -99,6 +118,8 @@ def convert_video_endpoint():
         quality = int(request.form.get('quality', 80))
         compression = request.form.get('compression', 'medium')
         
+        print(f"DEBUG: Received request - Format: {output_format}, Quality: {quality}, Compression: {compression}")
+        
         # Generate unique filenames
         unique_id = str(uuid.uuid4())[:8]
         original_filename = file.filename
@@ -116,14 +137,21 @@ def convert_video_endpoint():
         
         output_path = os.path.join(UPLOAD_FOLDER, output_filename)
         
+        print(f"DEBUG: Input path: {input_path}")
+        print(f"DEBUG: Output path: {output_path}")
+        
         # Save uploaded file
         file.save(input_path)
+        print(f"DEBUG: File saved successfully")
         
         # Get original file size
         original_size = get_file_size(input_path)
+        print(f"DEBUG: Original file size: {original_size} bytes")
         
         # Convert video
+        print(f"DEBUG: Starting conversion...")
         success = convert_video(input_path, output_path, output_format, quality, compression)
+        print(f"DEBUG: Conversion result: {success}")
         
         if not success:
             # Clean up input file

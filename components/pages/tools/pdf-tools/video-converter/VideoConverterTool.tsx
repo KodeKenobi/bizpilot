@@ -128,18 +128,18 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           setTimeout(progressStep, 50);
         }
       } else {
-        // Backend still working, slowly progress to 90%
-        if (currentProgress < 90) {
-          currentProgress += 0.2;
+        // Backend still working, slowly progress to 85%
+        if (currentProgress < 85) {
+          currentProgress += 0.5;
           const roundedProgress = Math.round(currentProgress);
           setProgress(roundedProgress);
           console.log(`📊 [PROGRESS] Processing: ${roundedProgress}%`);
-          setTimeout(progressStep, 150);
+          setTimeout(progressStep, 100);
         } else {
-          // Stay at 90% until backend completes
-          setProgress(90);
-          console.log(`📊 [PROGRESS] Waiting at 90% for backend completion...`);
-          setTimeout(progressStep, 1000);
+          // Stay at 85% until backend completes
+          setProgress(85);
+          console.log(`📊 [PROGRESS] Waiting at 85% for backend completion...`);
+          setTimeout(progressStep, 500);
         }
       }
     };
@@ -394,14 +394,14 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           <div className="w-full bg-gray-700 rounded-full h-2.5 mb-2">
             <div
               className={`bg-purple-500 h-2.5 rounded-full transition-all duration-300 ease-in-out ${
-                progress >= 90 && !conversionResult ? "animate-pulse" : ""
+                progress >= 85 && !conversionResult ? "animate-pulse" : ""
               }`}
               style={{ width: `${progress}%` }}
             ></div>
           </div>
           <div className="text-center">
             <p className="text-xs text-gray-300 mb-1">
-              {progress >= 90 && !conversionResult
+              {progress >= 85 && !conversionResult
                 ? "Finalizing conversion..."
                 : outputFormat === "mp3"
                 ? "Extracting audio..."
