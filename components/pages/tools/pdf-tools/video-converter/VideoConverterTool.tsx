@@ -34,6 +34,16 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     handlePaymentComplete,
   } = useMonetization();
 
+  const handleAdCompleteWithDownload = () => {
+    handleAdComplete();
+    handleDownloadAfterMonetization();
+  };
+
+  const handlePaymentCompleteWithDownload = () => {
+    handlePaymentComplete();
+    handleDownloadAfterMonetization();
+  };
+
   const [file, setFile] = useState<File | null>(uploadedFile);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -209,6 +219,17 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
   };
 
   const downloadResult = async () => {
+    if (conversionResult) {
+      // Show monetization modal before download
+      openMonetizationModal(
+        file?.name || "video-file",
+        "video",
+        conversionResult
+      );
+    }
+  };
+
+  const handleDownloadAfterMonetization = async () => {
     if (conversionResult) {
       try {
         const response = await fetch(conversionResult);
@@ -499,10 +520,10 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       <MonetizationModal
         isOpen={monetizationState.isModalOpen}
         onClose={closeMonetizationModal}
-        onAdComplete={handleAdComplete}
-        onPaymentComplete={handlePaymentComplete}
-        fileName={monetizationState.fileName}
-        fileType={monetizationState.fileType}
+        onAdComplete={handleAdCompleteWithDownload}
+        onPaymentComplete={handlePaymentCompleteWithDownload}
+        fileName={file?.name || "video-file"}
+        fileType="video"
       />
     </div>
   );

@@ -42,6 +42,16 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
     handlePaymentComplete,
   } = useMonetization();
 
+  const handleAdCompleteWithDownload = () => {
+    handleAdComplete();
+    handleDownloadAfterMonetization();
+  };
+
+  const handlePaymentCompleteWithDownload = () => {
+    handlePaymentComplete();
+    handleDownloadAfterMonetization();
+  };
+
   const [file, setFile] = useState<File | null>(uploadedFile);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -121,19 +131,30 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
 
   const downloadResult = async () => {
     if (conversionResult) {
+      // Show monetization modal before download
+      openMonetizationModal(
+        file?.name || "audio-file",
+        "audio",
+        conversionResult
+      );
+    }
+  };
+
+  const handleDownloadAfterMonetization = async () => {
+    if (conversionResult) {
       try {
         const response = await fetch(conversionResult);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
-        a.download = conversionResult.split('/').pop() || 'converted-audio';
+        a.download = conversionResult.split("/").pop() || "converted-audio";
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
       } catch (error) {
-        console.error('Download failed:', error);
+        console.error("Download failed:", error);
         // Fallback to opening in new tab
         window.open(conversionResult, "_blank");
       }
@@ -537,8 +558,8 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
       <MonetizationModal
         isOpen={monetizationState.isModalOpen}
         onClose={closeMonetizationModal}
-        onAdComplete={handleAdComplete}
-        onPaymentComplete={handlePaymentComplete}
+        onAdComplete={handleAdCompleteWithDownload}
+        onPaymentComplete={handlePaymentCompleteWithDownload}
         fileName={file?.name || "audio-file"}
         fileType="audio"
       />
