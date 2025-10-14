@@ -121,24 +121,37 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     setWarning("");
     setConversionResult(null);
 
-    // Smooth progress animation that never gets stuck
+    // Smooth progress animation that stops at 100%
     let currentProgress = 0;
     let progressInterval: NodeJS.Timeout | undefined;
+    let isBackendComplete = false;
 
     const progressStep = () => {
-      if (currentProgress < 95) {
-        currentProgress += 1.5; // Fast increment
-        const roundedProgress = Math.round(currentProgress);
-        setProgress(roundedProgress);
-        console.log(`📊 [PROGRESS] Processing: ${roundedProgress}%`);
-        setTimeout(progressStep, 100); // Fast interval
+      if (isBackendComplete) {
+        // Backend is done, finish to 100% and stop
+        if (currentProgress < 100) {
+          currentProgress += 2;
+          const roundedProgress = Math.round(currentProgress);
+          setProgress(roundedProgress);
+          console.log(`📊 [PROGRESS] Finishing: ${roundedProgress}%`);
+          setTimeout(progressStep, 50);
+        }
+        // Stop here - don't continue past 100%
       } else {
-        // Slow down at 95% but keep moving
-        currentProgress += 0.3; // Very slow increment but still moving
-        const roundedProgress = Math.round(currentProgress);
-        setProgress(roundedProgress);
-        console.log(`📊 [PROGRESS] Almost done: ${roundedProgress}%`);
-        setTimeout(progressStep, 150); // Slower but still moving
+        if (currentProgress < 95) {
+          currentProgress += 1.5; // Fast increment
+          const roundedProgress = Math.round(currentProgress);
+          setProgress(roundedProgress);
+          console.log(`📊 [PROGRESS] Processing: ${roundedProgress}%`);
+          setTimeout(progressStep, 100); // Fast interval
+        } else {
+          // Slow down at 95% but keep moving
+          currentProgress += 0.3; // Very slow increment but still moving
+          const roundedProgress = Math.round(currentProgress);
+          setProgress(roundedProgress);
+          console.log(`📊 [PROGRESS] Almost done: ${roundedProgress}%`);
+          setTimeout(progressStep, 150); // Slower but still moving
+        }
       }
     };
 
@@ -164,19 +177,9 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       const result = await response.json();
 
       if (result.status === "success") {
-        // Finish progress smoothly to 100%
-        const finishProgress = () => {
-          if (currentProgress < 100) {
-            currentProgress += 2;
-            const roundedProgress = Math.round(currentProgress);
-            setProgress(roundedProgress);
-            console.log(`📊 [PROGRESS] Finishing: ${roundedProgress}%`);
-            setTimeout(finishProgress, 50);
-          } else {
-            console.log(`✅ [BACKEND] Conversion completed successfully`);
-          }
-        };
-        finishProgress();
+        // Mark backend as complete to stop progress animation
+        isBackendComplete = true;
+        console.log(`✅ [BACKEND] Conversion completed successfully`);
 
         if (result.original_size) {
           setOriginalFileSize(result.original_size);
