@@ -8,8 +8,18 @@ import MonetizationModal from "@/components/ui/MonetizationModal";
 interface AudioConverterToolProps {
   uploadedFile: File | null;
   setUploadedFile: (file: File | null) => void;
-  result: string | null;
-  setResult: (result: string | null) => void;
+  result: {
+    type: "success" | "error";
+    message: string;
+    data?: any;
+  } | null;
+  setResult: (
+    result: {
+      type: "success" | "error";
+      message: string;
+      data?: any;
+    } | null
+  ) => void;
   isProcessing: boolean;
   setIsProcessing: (processing: boolean) => void;
   handleFileUpload: (file: File) => void;
@@ -43,7 +53,9 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
   const [channels, setChannels] = useState("stereo");
   const [quality, setQuality] = useState(80);
   const [originalFileSize, setOriginalFileSize] = useState<number | null>(null);
-  const [convertedFileSize, setConvertedFileSize] = useState<number | null>(null);
+  const [convertedFileSize, setConvertedFileSize] = useState<number | null>(
+    null
+  );
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -82,7 +94,17 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "audio/*": [".mp3", ".wav", ".flac", ".aac", ".ogg", ".m4a", ".wma", ".aiff", ".au"],
+      "audio/*": [
+        ".mp3",
+        ".wav",
+        ".flac",
+        ".aac",
+        ".ogg",
+        ".m4a",
+        ".wma",
+        ".aiff",
+        ".au",
+      ],
     },
     multiple: false,
   });
@@ -216,15 +238,15 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
         Universal Audio Converter
       </h3>
       <p className="text-xs sm:text-sm text-gray-300 mb-4">
-        Convert audio between all formats with quality control and advanced processing.
-        Optimize file size and audio quality.
+        Convert audio between all formats with quality control and advanced
+        processing. Optimize file size and audio quality.
       </p>
 
       <div
         {...getRootProps()}
-        className={`dropzone ${
-          isDragActive ? "dropzone-active" : ""
-        } ${file ? "dropzone-has-file" : ""}`}
+        className={`dropzone ${isDragActive ? "dropzone-active" : ""} ${
+          file ? "dropzone-has-file" : ""
+        }`}
       >
         <input {...getInputProps()} />
         <div className="text-center">
@@ -276,7 +298,7 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
         </div>
       )}
 
-      <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+      <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-4">
         <div>
           <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
             Output Format
@@ -481,13 +503,16 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
 
       <div className="text-xs text-gray-400 text-center mt-4 space-y-1">
         <p>
-          Professional audio conversion with advanced quality control and format optimization
+          Professional audio conversion with advanced quality control and format
+          optimization
         </p>
         <p>
-          Max file size: 500MB | All major audio formats supported | High-quality processing
+          Max file size: 500MB | All major audio formats supported |
+          High-quality processing
         </p>
         <p className="hidden sm:block">
-          Convert between MP3, WAV, FLAC, AAC, OGG, M4A, WMA, AIFF, and more with customizable bitrate, sample rate, and channel options
+          Convert between MP3, WAV, FLAC, AAC, OGG, M4A, WMA, AIFF, and more
+          with customizable bitrate, sample rate, and channel options
         </p>
         <p className="sm:hidden">
           Convert between all major audio formats with quality control
