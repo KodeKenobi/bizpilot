@@ -12,7 +12,7 @@ def test_audio_conversion():
     # Test health endpoint first
     print("Testing health endpoint...")
     try:
-        response = requests.get("http://localhost:5001/health")
+        response = requests.get("http://localhost:5000/health")
         print(f"Health check: {response.status_code}")
         print(f"Response: {response.json()}")
     except Exception as e:
@@ -56,7 +56,7 @@ def test_audio_conversion():
                 'quality': '80'
             }
             
-            response = requests.post("http://localhost:5001/convert-audio", files=files, data=data)
+            response = requests.post("http://localhost:5000/convert-audio", files=files, data=data)
             print(f"MP3 conversion status: {response.status_code}")
             print(f"Response: {response.json()}")
             
@@ -64,7 +64,7 @@ def test_audio_conversion():
                 result = response.json()
                 if result.get('status') == 'success':
                     print(f"✅ MP3 conversion successful!")
-                    print(f"Download URL: http://localhost:5001{result['download_url']}")
+                    print(f"Download URL: http://localhost:5000{result['download_url']}")
                 else:
                     print(f"❌ MP3 conversion failed: {result.get('message')}")
             
@@ -84,7 +84,7 @@ def test_audio_conversion():
                 'quality': '100'
             }
             
-            response = requests.post("http://localhost:5001/convert-audio", files=files, data=data)
+            response = requests.post("http://localhost:5000/convert-audio", files=files, data=data)
             print(f"FLAC conversion status: {response.status_code}")
             print(f"Response: {response.json()}")
             
@@ -92,7 +92,7 @@ def test_audio_conversion():
                 result = response.json()
                 if result.get('status') == 'success':
                     print(f"✅ FLAC conversion successful!")
-                    print(f"Download URL: http://localhost:5001{result['download_url']}")
+                    print(f"Download URL: http://localhost:5000{result['download_url']}")
                 else:
                     print(f"❌ FLAC conversion failed: {result.get('message')}")
             
