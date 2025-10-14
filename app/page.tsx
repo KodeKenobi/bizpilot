@@ -7,6 +7,7 @@ import PDFTools from "@/components/pages/tools/pdf-tools/PDFTools";
 import PDFEditor from "@/components/pages/PDFEditor";
 import VideoConverterPage from "@/components/pages/VideoConverterPage";
 import AudioConverterPage from "@/components/pages/AudioConverterPage";
+import ImageConverterPage from "@/components/pages/ImageConverterPage";
 
 export default function Home() {
   const { currentPage } = useNavigation();
@@ -24,6 +25,8 @@ export default function Home() {
       return <VideoConverterPage />;
     case "audio-converter":
       return <AudioConverterPage />;
+    case "image-converter":
+      return <ImageConverterPage />;
     default:
       return <LandingPage />;
   }

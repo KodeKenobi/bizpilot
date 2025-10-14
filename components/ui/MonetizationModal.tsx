@@ -246,7 +246,7 @@ export default function MonetizationModal({
           >
             <button
               onClick={onClose}
-              className="absolute top-2 right-2 p-2 text-gray-400 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200"
+              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white bg-gray-800/80 hover:bg-gray-700/80 rounded-lg transition-all duration-200 border border-gray-700/50"
             >
               <X className="w-5 h-5" />
             </button>
