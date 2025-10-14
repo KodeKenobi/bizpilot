@@ -66,21 +66,26 @@ export default function UniversalHeader() {
             }}
             className="flex items-center space-x-2 text-lg sm:text-xl font-bold text-white hover:text-purple-400 transition-colors"
           >
-                  <img
-                    src="/api/logo"
-                    alt="Trevnoctilla Logo"
-                    className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-                    onLoad={() => console.log("Logo loaded successfully")}
-                    onError={(e) => {
-                      console.error("Logo failed to load:", e);
-                      // Fallback to a simple text logo
-                      e.currentTarget.style.display = 'none';
-                      const fallback = document.createElement('div');
-                      fallback.className = 'w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center';
-                      fallback.innerHTML = '<span class="text-white font-bold text-sm sm:text-base">T</span>';
-                      e.currentTarget.parentNode?.insertBefore(fallback, e.currentTarget);
-                    }}
-                  />
+            <img
+              src="/logo.png"
+              alt="Trevnoctilla Logo"
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+              onLoad={() => console.log("Logo loaded successfully")}
+              onError={(e) => {
+                console.error("Logo failed to load:", e);
+                // Fallback to a simple text logo
+                e.currentTarget.style.display = "none";
+                const fallback = document.createElement("div");
+                fallback.className =
+                  "w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center";
+                fallback.innerHTML =
+                  '<span class="text-white font-bold text-sm sm:text-base">T</span>';
+                e.currentTarget.parentNode?.insertBefore(
+                  fallback,
+                  e.currentTarget
+                );
+              }}
+            />
             <span>Trevnoctilla</span>
           </button>
         </div>
@@ -96,7 +101,7 @@ export default function UniversalHeader() {
             "PDF Tools",
             "QR Generator",
           ].map((item) => (
-            <div key={item}>
+            <div key={item} className="mx-1">
               <button
                 onClick={() => handleNavClick(item)}
                 className={`${

@@ -8,11 +8,11 @@ export const metadata: Metadata = {
     "Transform, edit, and optimize your PDFs with professional-grade tools in a sleek, modern interface.",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon.png", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
     ],
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 

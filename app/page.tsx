@@ -5,6 +5,7 @@ import LandingPage from "@/components/pages/LandingPage";
 import ToolsPage from "@/components/pages/ToolsPage";
 import PDFTools from "@/components/pages/tools/pdf-tools/PDFTools";
 import PDFEditor from "@/components/pages/PDFEditor";
+import VideoConverterPage from "@/components/pages/VideoConverterPage";
 
 export default function Home() {
   const { currentPage } = useNavigation();
@@ -18,6 +19,8 @@ export default function Home() {
       return <PDFTools />;
     case "pdf-editor":
       return <PDFEditor />;
+    case "video-converter":
+      return <VideoConverterPage />;
     default:
       return <LandingPage />;
   }
