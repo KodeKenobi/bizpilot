@@ -237,6 +237,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       </h3>
       <p className="text-xs sm:text-sm text-gray-300 mb-4">
         Convert videos between all formats with compression and quality control.
+        Extract audio to MP3.
       </p>
 
       <div
@@ -337,6 +338,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             <option value="m4v">M4V (iTunes)</option>
             <option value="3gp">3GP (Mobile)</option>
             <option value="ogv">OGV (Ogg)</option>
+            <option value="mp3">MP3 (Audio Only)</option>
           </select>
         </div>
         <div>
@@ -379,8 +381,12 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
         className="btn btn-primary w-full mb-4 text-sm sm:text-base py-3 sm:py-4"
       >
         {loading
-          ? `Converting to ${outputFormat.toUpperCase()}... ${progress}%`
-          : `Convert to ${outputFormat.toUpperCase()}`}
+          ? `${
+              outputFormat === "mp3" ? "Extracting audio to" : "Converting to"
+            } ${outputFormat.toUpperCase()}... ${progress}%`
+          : `${
+              outputFormat === "mp3" ? "Extract Audio to" : "Convert to"
+            } ${outputFormat.toUpperCase()}`}
       </button>
 
       {loading && (
@@ -397,6 +403,8 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             <p className="text-xs text-gray-300 mb-1">
               {progress >= 90 && !conversionResult
                 ? "Finalizing conversion..."
+                : outputFormat === "mp3"
+                ? "Extracting audio..."
                 : "Processing video..."}
             </p>
             <p className="text-xs text-gray-400">{progress}% complete</p>
@@ -407,7 +415,10 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       {conversionResult && (
         <div className="mb-4 p-3 sm:p-4 bg-green-900/20 border border-green-500/50 rounded-lg">
           <p className="text-green-300 text-xs sm:text-sm mb-2">
-            ✅ Conversion completed successfully!
+            ✅{" "}
+            {outputFormat === "mp3"
+              ? "Audio extraction completed successfully!"
+              : "Conversion completed successfully!"}
           </p>
 
           {/* File Size Comparison */}
@@ -459,7 +470,9 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               onClick={downloadResult}
               className="btn btn-primary text-sm sm:text-base px-8 py-3"
             >
-              Download Converted Video
+              {outputFormat === "mp3"
+                ? "Download Audio File"
+                : "Download Converted Video"}
             </button>
           </div>
         </div>
@@ -467,15 +480,19 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
 
       <div className="text-xs text-gray-400 text-center mt-4 space-y-1">
         <p>
-          Safe encrypted video conversion with our advanced algorithmic security
+          Safe encrypted video conversion and audio extraction with our advanced
+          algorithmic security
         </p>
-        <p>Max file size: 500MB | All major formats supported</p>
+        <p>
+          Max file size: 500MB | All major formats supported | MP3 audio
+          extraction
+        </p>
         <p className="hidden sm:block">
-          High-performance conversion with quality control and compression
-          options
+          High-performance conversion with quality control, compression options,
+          and audio extraction
         </p>
         <p className="sm:hidden">
-          High-performance conversion with quality control
+          High-performance conversion with quality control and audio extraction
         </p>
       </div>
 

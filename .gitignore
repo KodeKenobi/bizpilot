@@ -122,6 +122,10 @@ instance/
 uploads/
 edited/
 
+# Large media files
+converted_videos/
+saved_html/
+
 # Lock files
 pnpm-lock.yaml
 package-lock.json
