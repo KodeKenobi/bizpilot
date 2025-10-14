@@ -129,27 +129,27 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       if (isBackendComplete) {
         // Backend is done, smoothly finish to 100%
         if (currentProgress < 100) {
-          currentProgress += 1;
+          currentProgress += 2; // Faster finish
           const roundedProgress = Math.round(currentProgress);
           setProgress(roundedProgress);
           console.log(
             `📊 [PROGRESS] Backend complete - finishing: ${roundedProgress}%`
           );
-          setTimeout(progressStep, 50);
+          setTimeout(progressStep, 30); // Faster interval
         }
       } else {
-        // Backend still working, slowly progress to 85%
-        if (currentProgress < 85) {
-          currentProgress += 0.5;
+        // Backend still working, slowly progress to 90%
+        if (currentProgress < 90) {
+          currentProgress += 0.8; // Faster increment
           const roundedProgress = Math.round(currentProgress);
           setProgress(roundedProgress);
           console.log(`📊 [PROGRESS] Processing: ${roundedProgress}%`);
-          setTimeout(progressStep, 100);
+          setTimeout(progressStep, 80); // Faster interval
         } else {
-          // Stay at 85% until backend completes
-          setProgress(85);
-          console.log(`📊 [PROGRESS] Waiting at 85% for backend completion...`);
-          setTimeout(progressStep, 500);
+          // Stay at 90% until backend completes
+          setProgress(90);
+          console.log(`📊 [PROGRESS] Waiting at 90% for backend completion...`);
+          setTimeout(progressStep, 200); // Much faster polling
         }
       }
     };
@@ -415,19 +415,19 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           <div className="w-full bg-gray-700 rounded-full h-2.5 mb-2">
             <div
               className={`bg-purple-500 h-2.5 rounded-full transition-all duration-300 ease-in-out ${
-                progress >= 85 && !conversionResult ? "animate-pulse" : ""
+                progress >= 90 && !conversionResult ? "animate-pulse" : ""
               }`}
               style={{ width: `${progress}%` }}
             ></div>
           </div>
           <div className="text-center">
-            <p className="text-xs text-gray-300 mb-1">
-              {progress >= 85 && !conversionResult
-                ? "Finalizing conversion..."
-                : outputFormat === "mp3"
-                ? "Extracting audio..."
-                : "Processing video..."}
-            </p>
+                <p className="text-xs text-gray-300 mb-1">
+                  {progress >= 90 && !conversionResult
+                    ? "Finalizing conversion..."
+                    : outputFormat === "mp3"
+                    ? "Extracting audio..."
+                    : "Processing video..."}
+                </p>
             <p className="text-xs text-gray-400">{progress}% complete</p>
           </div>
         </div>
