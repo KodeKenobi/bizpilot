@@ -19,6 +19,8 @@ templates/
 uploads/
 Lib/
 lib/site-packages/
+# Don't exclude our lib directory
+!lib/
 Scripts/
 share/
 __pycache__/
