@@ -119,9 +119,24 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
     setProgress(0);
   };
 
-  const downloadResult = () => {
+  const downloadResult = async () => {
     if (conversionResult) {
-      window.open(conversionResult, "_blank");
+      try {
+        const response = await fetch(conversionResult);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = conversionResult.split('/').pop() || 'converted-audio';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } catch (error) {
+        console.error('Download failed:', error);
+        // Fallback to opening in new tab
+        window.open(conversionResult, "_blank");
+      }
     }
   };
 
