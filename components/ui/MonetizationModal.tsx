@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play, CreditCard, Download, Star, CheckCircle } from "lucide-react";
-import { AD_ZONE_ID, USE_FAKE_AD_FALLBACK, AD_LOAD_TIMEOUT } from "@/lib/adConfig";
+import { AD_ZONE_ID, USE_FAKE_AD_FALLBACK, AD_LOAD_TIMEOUT } from "../../lib/adConfig";
 
 interface MonetizationModalProps {
   isOpen: boolean;

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import LayoutClient from "@/components/layout/LayoutClient";
 import Script from "next/script";
-import { PROPELLER_ADS_URL } from "@/lib/adConfig";
+import { PROPELLER_ADS_URL } from "../lib/adConfig";
 
 export const metadata: Metadata = {
   title: "Trevnoctilla - Complete PDF Toolkit",
