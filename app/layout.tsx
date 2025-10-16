@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     "Transform, edit, and optimize your PDFs with professional-grade tools in a sleek, modern interface.",
   icons: {
     icon: [
-      { url: "/favicon.png", sizes: "any" },
-      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", sizes: "any", type: "image/png" },
     ],
-    shortcut: "/favicon.png",
+    shortcut: "/favicon.ico",
     apple: "/favicon.png",
   },
 };
@@ -25,6 +25,30 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              console.log("🔍 Favicon debugging:");
+              console.log("Current origin:", window.location.origin);
+              console.log("Favicon.png URL:", window.location.origin + "/favicon.png");
+              console.log("Logo.png URL:", window.location.origin + "/logo.png");
+              
+              // Test if files exist
+              fetch("/favicon.png")
+                .then(response => console.log("✅ Favicon.png status:", response.status))
+                .catch(error => console.error("❌ Favicon.png error:", error));
+                
+              fetch("/logo.png")
+                .then(response => console.log("✅ Logo.png status:", response.status))
+                .catch(error => console.error("❌ Logo.png error:", error));
+            `,
+          }}
+        />
+      </head>
       <body>
         <LayoutClient>{children}</LayoutClient>
         <Script
