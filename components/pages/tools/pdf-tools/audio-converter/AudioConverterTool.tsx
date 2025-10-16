@@ -43,13 +43,13 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
   } = useMonetization();
 
   const handleAdCompleteWithDownload = () => {
+    console.log("🎵 AudioConverterTool handleAdCompleteWithDownload called");
     handleAdComplete();
-    handleDownloadAfterMonetization();
   };
 
   const handlePaymentCompleteWithDownload = () => {
+    console.log("💳 AudioConverterTool handlePaymentCompleteWithDownload called");
     handlePaymentComplete();
-    handleDownloadAfterMonetization();
   };
 
   const [file, setFile] = useState<File | null>(uploadedFile);
@@ -130,36 +130,30 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
   };
 
   const downloadResult = async () => {
+    console.log("🎵 AudioConverterTool downloadResult called");
+    console.log("🎵 conversionResult:", conversionResult);
+    console.log("🎵 file?.name:", file?.name);
+    
     if (conversionResult) {
+      console.log("🎵 Opening monetization modal with:", {
+        fileName: file?.name || "audio-file",
+        fileType: "audio",
+        downloadUrl: conversionResult
+      });
+      
       // Show monetization modal before download
       openMonetizationModal(
         file?.name || "audio-file",
         "audio",
         conversionResult
       );
+      
+      console.log("🎵 Monetization modal opened");
+    } else {
+      console.error("🎵 ERROR: conversionResult is null or undefined!");
     }
   };
 
-  const handleDownloadAfterMonetization = async () => {
-    if (conversionResult) {
-      try {
-        const response = await fetch(conversionResult);
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = conversionResult.split("/").pop() || "converted-audio";
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      } catch (error) {
-        console.error("Download failed:", error);
-        // Fallback to opening in new tab
-        window.open(conversionResult, "_blank");
-      }
-    }
-  };
 
   const convert = async () => {
     if (!file) return;
