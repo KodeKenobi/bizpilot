@@ -35,11 +35,17 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
   } = useMonetization();
 
   const handleAdCompleteWithDownload = () => {
+    console.log("🎬 VideoConverterTool handleAdCompleteWithDownload called");
+    console.log("🎬 VideoConverterTool - calling handleAdComplete from useMonetization");
     handleAdComplete();
+    console.log("🎬 VideoConverterTool - handleAdComplete completed");
   };
 
   const handlePaymentCompleteWithDownload = () => {
+    console.log("💳 VideoConverterTool handlePaymentCompleteWithDownload called");
+    console.log("💳 VideoConverterTool - calling handlePaymentComplete from useMonetization");
     handlePaymentComplete();
+    console.log("💳 VideoConverterTool - handlePaymentComplete completed");
   };
 
   const [file, setFile] = useState<File | null>(uploadedFile);
@@ -361,13 +367,27 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
   };
 
   const downloadResult = async () => {
+    console.log("📥 downloadResult called");
+    console.log("📥 conversionResult:", conversionResult);
+    console.log("📥 file?.name:", file?.name);
+    
     if (conversionResult) {
+      console.log("📥 Opening monetization modal with:", {
+        fileName: file?.name || "video-file",
+        fileType: "video",
+        downloadUrl: conversionResult
+      });
+      
       // Show monetization modal before download
       openMonetizationModal(
         file?.name || "video-file",
         "video",
         conversionResult
       );
+      
+      console.log("📥 Monetization modal opened");
+    } else {
+      console.error("📥 ERROR: conversionResult is null or undefined!");
     }
   };
 

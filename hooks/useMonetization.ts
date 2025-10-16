@@ -49,23 +49,41 @@ export const useMonetization = () => {
   };
 
   const handleAdComplete = () => {
-    console.log("🎬 handleAdComplete called");
+    console.log("🎬 useMonetization handleAdComplete called");
     console.log("🎬 hasDownloaded:", hasDownloaded);
     console.log("🎬 monetizationState:", monetizationState);
+    console.log("🎬 monetizationState.downloadUrl:", monetizationState.downloadUrl);
+    console.log("🎬 monetizationState.fileName:", monetizationState.fileName);
 
     if (!hasDownloaded) {
       console.log("🎬 Setting hasDownloaded to true and triggering download");
       setHasDownloaded(true);
+      
+      // Check if downloadUrl exists
+      if (!monetizationState.downloadUrl) {
+        console.error("🎬 ERROR: downloadUrl is empty or undefined!");
+        return;
+      }
+      
       // Trigger download after ad completion
-      const link = document.createElement("a");
-      link.href = monetizationState.downloadUrl;
-      link.download = monetizationState.fileName;
-      console.log("🎬 Download link created:", {
-        href: link.href,
-        download: link.download,
-      });
-      link.click();
-      console.log("🎬 Download link clicked");
+      try {
+        const link = document.createElement("a");
+        link.href = monetizationState.downloadUrl;
+        link.download = monetizationState.fileName;
+        console.log("🎬 Download link created:", {
+          href: link.href,
+          download: link.download,
+        });
+        
+        // Add link to DOM temporarily
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        console.log("🎬 Download link clicked successfully");
+      } catch (error) {
+        console.error("🎬 Error creating or clicking download link:", error);
+      }
     } else {
       console.log("🎬 Download already triggered, skipping");
     }

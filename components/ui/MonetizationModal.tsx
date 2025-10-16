@@ -55,10 +55,16 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
     // Set up Propeller Ads callback
     (window as any).propellerAdCallback = () => {
       console.log("🎬 Propeller ad completed");
+      console.log("🎬 Propeller ad - onComplete function:", onComplete);
       hasCompletedRef.current = true;
       setIsPlaying(false);
       setIsLoading(false);
-      onComplete();
+      try {
+        onComplete();
+        console.log("🎬 Propeller ad - onComplete called successfully");
+      } catch (error) {
+        console.error("🎬 Propeller ad - Error calling onComplete:", error);
+      }
     };
 
     // Load Propeller Ads interstitial
@@ -119,7 +125,13 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
             hasCompletedRef.current = true;
             setTimeout(() => {
               console.log("🎬 Fake ad completed - calling onComplete");
-              onComplete();
+              console.log("🎬 Fake ad - onComplete function:", onComplete);
+              try {
+                onComplete();
+                console.log("🎬 Fake ad - onComplete called successfully");
+              } catch (error) {
+                console.error("🎬 Fake ad - Error calling onComplete:", error);
+              }
             }, 0);
             return 100;
           }
@@ -314,8 +326,23 @@ export default function MonetizationModal({
 
   const handleAdComplete = () => {
     console.log("🎬 MonetizationModal handleAdComplete called");
-    onAdComplete();
-    onClose();
+    console.log("🎬 MonetizationModal - onAdComplete function:", onAdComplete);
+    console.log("🎬 MonetizationModal - onClose function:", onClose);
+    console.log("🎬 MonetizationModal - fileName:", fileName);
+    console.log("🎬 MonetizationModal - fileType:", fileType);
+    console.log("🎬 MonetizationModal - downloadUrl:", downloadUrl);
+    
+    try {
+      console.log("🎬 MonetizationModal - Calling onAdComplete...");
+      onAdComplete();
+      console.log("🎬 MonetizationModal - onAdComplete completed successfully");
+      
+      console.log("🎬 MonetizationModal - Calling onClose...");
+      onClose();
+      console.log("🎬 MonetizationModal - onClose completed successfully");
+    } catch (error) {
+      console.error("🎬 MonetizationModal - Error in handleAdComplete:", error);
+    }
   };
 
   const handlePaymentComplete = () => {
