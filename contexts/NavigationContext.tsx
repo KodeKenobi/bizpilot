@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, ReactNode } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 type Page =
   | "home"
@@ -22,14 +23,51 @@ const NavigationContext = createContext<NavigationContextType | undefined>(
 );
 
 export function NavigationProvider({ children }: { children: ReactNode }) {
-  const [currentPage, setCurrentPage] = useState<Page>("home");
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Determine current page based on pathname
+  const getCurrentPage = (): Page => {
+    if (pathname === "/") return "home";
+    if (pathname === "/tools") return "tools";
+    if (pathname === "/tools/video-converter") return "video-converter";
+    if (pathname === "/tools/audio-converter") return "audio-converter";
+    if (pathname === "/tools/image-converter") return "image-converter";
+    if (pathname === "/tools/pdf-tools") return "pdf-tools";
+    if (pathname === "/tools/qr-generator") return "qr-generator";
+    return "home";
+  };
 
   const navigateTo = (page: Page) => {
-    setCurrentPage(page);
+    switch (page) {
+      case "home":
+        router.push("/");
+        break;
+      case "tools":
+        router.push("/tools");
+        break;
+      case "video-converter":
+        router.push("/tools/video-converter");
+        break;
+      case "audio-converter":
+        router.push("/tools/audio-converter");
+        break;
+      case "image-converter":
+        router.push("/tools/image-converter");
+        break;
+      case "pdf-tools":
+        router.push("/tools/pdf-tools");
+        break;
+      case "qr-generator":
+        router.push("/tools/qr-generator");
+        break;
+      default:
+        router.push("/");
+    }
   };
 
   return (
-    <NavigationContext.Provider value={{ currentPage, navigateTo }}>
+    <NavigationContext.Provider value={{ currentPage: getCurrentPage(), navigateTo }}>
       {children}
     </NavigationContext.Provider>
   );
