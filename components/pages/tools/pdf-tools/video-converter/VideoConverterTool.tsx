@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
@@ -48,7 +48,30 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [warning, setWarning] = useState("");
+  const [currentConversionId, setCurrentConversionId] = useState<string | null>(
+    null
+  );
   const [conversionResult, setConversionResult] = useState<string | null>(null);
+
+  // Handle page refresh/unload - cancel any running conversion
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (currentConversionId && loading) {
+        // Cancel the conversion when user refreshes or leaves the page
+        cancelConversion();
+        event.preventDefault();
+        event.returnValue =
+          "A video conversion is in progress. Are you sure you want to leave?";
+        return "A video conversion is in progress. Are you sure you want to leave?";
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [currentConversionId, loading]);
   const [outputFormat, setOutputFormat] = useState("mp4");
   const [quality, setQuality] = useState(80);
   const [compression, setCompression] = useState("medium");
@@ -87,6 +110,13 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       setConvertedFileSize(null);
       setWarning("");
       setConversionResult(null);
+      console.log(
+        `📊 [SIZE] File selected - Original size: ${videoFile.size} bytes (${(
+          videoFile.size /
+          1024 /
+          1024
+        ).toFixed(2)} MB)`
+      );
     },
     [setUploadedFile]
   );
@@ -110,6 +140,38 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     multiple: false,
   });
 
+  const cancelConversion = async () => {
+    if (!currentConversionId) {
+      console.log("No active conversion to cancel");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/cancel_conversion/${encodeURIComponent(
+          currentConversionId
+        )}`,
+        {
+          method: "POST",
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        console.log("Conversion cancelled successfully");
+        setLoading(false);
+        setProgress(0);
+        setCurrentConversionId(null);
+        setWarning("Conversion cancelled by user");
+      } else {
+        console.log("Failed to cancel conversion:", result.message);
+      }
+    } catch (error) {
+      console.error("Error cancelling conversion:", error);
+    }
+  };
+
   const convert = async () => {
     if (!file) {
       setWarning("Please select a video file first.");
@@ -120,6 +182,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     setProgress(0);
     setWarning("");
     setConversionResult(null);
+    setCurrentConversionId(null);
 
     // Use ONLY backend progress - no fake frontend animation
     let progressInterval: NodeJS.Timeout | undefined;
@@ -128,9 +191,15 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     // Poll backend for real progress
     const pollProgress = async () => {
       try {
+        // Only poll if we have a unique filename from the backend
+        if (!uniqueFilename) {
+          console.log(`🔍 [DEBUG] No unique filename yet, skipping poll`);
+          return false;
+        }
+
         const response = await fetch(
           `http://localhost:5000/conversion_progress/${encodeURIComponent(
-            uniqueFilename || file.name
+            uniqueFilename
           )}`
         );
         const progressData = await response.json();
@@ -138,17 +207,62 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
         console.log(`🔍 [DEBUG] Backend response:`, progressData);
         console.log(
           `🔍 [DEBUG] Polling URL: http://localhost:5000/conversion_progress/${encodeURIComponent(
-            uniqueFilename || file.name
+            uniqueFilename
           )}`
         );
-        console.log(
-          `🔍 [DEBUG] Unique filename: ${uniqueFilename || file.name}`
-        );
+        console.log(`🔍 [DEBUG] Unique filename: ${uniqueFilename}`);
 
         if (progressData.status === "completed") {
           if (progressInterval) clearInterval(progressInterval);
           setProgress(100);
           console.log(`✅ [BACKEND] Conversion completed at 100%`);
+
+          // Set the conversion result for download
+          const downloadUrl = `http://localhost:5000/download_converted_video/${
+            progressData.converted_filename ||
+            uniqueFilename.replace(/\.[^/.]+$/, "_converted.mp4")
+          }`;
+          setConversionResult(downloadUrl);
+
+          // Set converted file size if available
+          if (progressData.converted_size) {
+            setConvertedFileSize(progressData.converted_size);
+            console.log(
+              `📊 [SIZE] Converted file size: ${
+                progressData.converted_size
+              } bytes (${(progressData.converted_size / 1024 / 1024).toFixed(
+                2
+              )} MB)`
+            );
+          }
+
+          // Stop loading
+          setTimeout(() => {
+            console.log(
+              `🏁 [COMPLETE] Loading state set to false, conversion complete`
+            );
+            // Log final size comparison
+            if (originalFileSize && progressData.converted_size) {
+              const compressionRatio =
+                ((originalFileSize - progressData.converted_size) /
+                  originalFileSize) *
+                100;
+              console.log(
+                `📊 [FINAL] Size comparison - Original: ${(
+                  originalFileSize /
+                  1024 /
+                  1024
+                ).toFixed(2)} MB, Converted: ${(
+                  progressData.converted_size /
+                  1024 /
+                  1024
+                ).toFixed(2)} MB, Compression: ${compressionRatio.toFixed(1)}%`
+              );
+            }
+            setLoading(false);
+            setCurrentConversionId(null);
+          }, 500);
+
           return true;
         } else if (progressData.progress !== undefined) {
           setProgress(progressData.progress);
@@ -157,6 +271,18 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               progressData.message || "No message"
             }`
           );
+
+          // Update converted file size if available in progress data
+          if (progressData.converted_size) {
+            setConvertedFileSize(progressData.converted_size);
+            console.log(
+              `📊 [SIZE] Progress converted size: ${
+                progressData.converted_size
+              } bytes (${(progressData.converted_size / 1024 / 1024).toFixed(
+                2
+              )} MB)`
+            );
+          }
         } else {
           console.log(`⚠️ [DEBUG] No progress data received:`, progressData);
         }
@@ -165,9 +291,6 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       }
       return false;
     };
-
-    // Start polling every 1 second
-    progressInterval = setInterval(pollProgress, 1000);
 
     try {
       const formData = new FormData();
@@ -188,27 +311,45 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       const result = await response.json();
 
       if (result.status === "success") {
-        // Store unique filename and stop polling
+        // Store unique filename and start polling
         uniqueFilename = result.unique_filename || file.name;
-        if (progressInterval) clearInterval(progressInterval);
-        setProgress(100);
-        console.log(`✅ [BACKEND] Conversion completed successfully`);
+        setCurrentConversionId(uniqueFilename);
+        console.log(`🔍 [DEBUG] Got unique filename: ${uniqueFilename}`);
+
+        // Start polling every 1 second after getting unique filename
+        progressInterval = setInterval(pollProgress, 1000);
+
+        console.log(`✅ [BACKEND] Conversion started, polling for progress`);
 
         if (result.original_size) {
           setOriginalFileSize(result.original_size);
+          console.log(
+            `📊 [SIZE] Original file size: ${result.original_size} bytes (${(
+              result.original_size /
+              1024 /
+              1024
+            ).toFixed(2)} MB)`
+          );
         }
         if (result.converted_size) {
           setConvertedFileSize(result.converted_size);
-        }
-        const downloadUrl = `http://localhost:5000${result.download_url}`;
-        setConversionResult(downloadUrl);
-
-        setTimeout(() => {
           console.log(
-            `🏁 [COMPLETE] Loading state set to false, conversion complete`
+            `📊 [SIZE] Converted file size: ${result.converted_size} bytes (${(
+              result.converted_size /
+              1024 /
+              1024
+            ).toFixed(2)} MB)`
           );
-          setLoading(false);
-        }, 500);
+        } else {
+          console.log(
+            `📊 [SIZE] Converted file size will be available when conversion completes`
+          );
+        }
+
+        // Don't set conversion result yet - wait for actual completion via polling
+        console.log(
+          `🔄 [INFO] Conversion started, waiting for completion via polling`
+        );
       } else {
         throw new Error(result.message || "Conversion failed");
       }
@@ -217,6 +358,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       if (progressInterval) clearInterval(progressInterval);
       setWarning(`Conversion failed: ${error?.message || "Unknown error"}`);
       setLoading(false);
+      setCurrentConversionId(null);
     }
   };
 
@@ -398,19 +540,30 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
         </div>
       </div>
 
-      <button
-        onClick={convert}
-        disabled={!file || loading}
-        className="btn btn-primary w-full mb-4 text-sm sm:text-base py-3 sm:py-4"
-      >
-        {loading
-          ? `${
-              outputFormat === "mp3" ? "Extracting audio to" : "Converting to"
-            } ${outputFormat.toUpperCase()}... ${progress}%`
-          : `${
-              outputFormat === "mp3" ? "Extract Audio to" : "Convert to"
-            } ${outputFormat.toUpperCase()}`}
-      </button>
+      <div className="flex gap-2 mb-4">
+        <button
+          onClick={convert}
+          disabled={!file || loading}
+          className="btn btn-primary flex-1 text-sm sm:text-base py-3 sm:py-4"
+        >
+          {loading
+            ? `${
+                outputFormat === "mp3" ? "Extracting audio to" : "Converting to"
+              } ${outputFormat.toUpperCase()}... ${progress}%`
+            : `${
+                outputFormat === "mp3" ? "Extract Audio to" : "Convert to"
+              } ${outputFormat.toUpperCase()}`}
+        </button>
+
+        {loading && currentConversionId && (
+          <button
+            onClick={cancelConversion}
+            className="btn btn-secondary text-sm sm:text-base py-3 sm:py-4 px-4"
+          >
+            Cancel
+          </button>
+        )}
+      </div>
 
       {loading && (
         <div className="mb-4">
