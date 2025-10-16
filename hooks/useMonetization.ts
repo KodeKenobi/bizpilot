@@ -48,7 +48,7 @@ export const useMonetization = () => {
     console.log("❌ Modal closed");
   };
 
-  const handleAdComplete = () => {
+  const handleAdComplete = async () => {
     console.log("🎬 useMonetization handleAdComplete called");
     console.log("🎬 hasDownloaded:", hasDownloaded);
     console.log("🎬 monetizationState:", monetizationState);
