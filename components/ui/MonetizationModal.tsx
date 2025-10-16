@@ -3,7 +3,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play, CreditCard, Download, Star, CheckCircle } from "lucide-react";
-import { AD_ZONE_ID, USE_FAKE_AD_FALLBACK, AD_LOAD_TIMEOUT } from "../../lib/adConfig";
+import {
+  AD_ZONE_ID,
+  USE_FAKE_AD_FALLBACK,
+  AD_LOAD_TIMEOUT,
+} from "../../lib/adConfig";
 
 interface MonetizationModalProps {
   isOpen: boolean;
@@ -16,6 +20,9 @@ interface MonetizationModalProps {
 }
 
 const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
+  console.log("🎬 AdComponent rendered");
+  console.log("🎬 AdComponent onComplete function:", onComplete);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [adError, setAdError] = useState(false);
@@ -23,12 +30,25 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
   const hasCompletedRef = useRef(false);
   const adTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  console.log(
+    "🎬 AdComponent state - isLoading:",
+    isLoading,
+    "isPlaying:",
+    isPlaying,
+    "adProgress:",
+    adProgress
+  );
+
   // Fallback fake ad (original implementation)
   const startFakeAd = () => {
     console.log("🎬 Starting fake ad fallback");
+    console.log("🎬 Resetting hasCompletedRef to false");
     hasCompletedRef.current = false;
+    console.log("🎬 Setting adProgress to 0");
     setAdProgress(0);
+    console.log("🎬 Setting isPlaying to true");
     setIsPlaying(true);
+    console.log("🎬 Fake ad initialization complete");
   };
 
   // Real Propeller Ads integration
@@ -69,7 +89,7 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
 
     // Load Propeller Ads interstitial
     try {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.innerHTML = `
         (function(d,z,s){
           s.src='//'+d+'/400/'+z;
@@ -98,7 +118,6 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
           (window as any).propellerAdCallback();
         }
       }, 3000); // 3 second test ad
-
     } catch (error) {
       console.error("❌ Error loading Propeller ad:", error);
       if (USE_FAKE_AD_FALLBACK) {
@@ -115,30 +134,50 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
   // Fake ad progress (fallback)
   useEffect(() => {
     if (isPlaying && !hasCompletedRef.current && adProgress < 100) {
+      console.log("🎬 Starting fake ad progress interval");
       const interval = setInterval(() => {
         setAdProgress((prev) => {
-          if (prev >= 100) {
+          const newProgress = prev + 2;
+          console.log(`🎬 Ad progress: ${newProgress}%`);
+
+          if (newProgress >= 100) {
+            console.log("🎬 Ad progress reached 100%!");
+            console.log("🎬 hasCompletedRef.current:", hasCompletedRef.current);
+
             if (hasCompletedRef.current) {
+              console.log("🎬 Ad already completed, returning 100");
               return 100;
             }
+
+            console.log("🎬 Clearing interval and setting completion flag");
             clearInterval(interval);
             hasCompletedRef.current = true;
+
+            console.log("🎬 Setting timeout to call onComplete");
             setTimeout(() => {
-              console.log("🎬 Fake ad completed - calling onComplete");
+              console.log("🎬 Timeout executed - calling onComplete");
               console.log("🎬 Fake ad - onComplete function:", onComplete);
+              console.log("🎬 onComplete function type:", typeof onComplete);
+              console.log("🎬 onComplete function name:", onComplete?.name);
+
               try {
+                console.log("🎬 About to call onComplete()");
                 onComplete();
-                console.log("🎬 Fake ad - onComplete called successfully");
+                console.log("🎬 onComplete() called successfully");
               } catch (error) {
-                console.error("🎬 Fake ad - Error calling onComplete:", error);
+                console.error("🎬 Error calling onComplete:", error);
+                console.error("🎬 Error stack:", error.stack);
               }
             }, 0);
             return 100;
           }
-          return prev + 2;
+          return newProgress;
         });
       }, 100);
-      return () => clearInterval(interval);
+      return () => {
+        console.log("🎬 Cleaning up ad progress interval");
+        clearInterval(interval);
+      };
     }
   }, [isPlaying, adProgress, onComplete]);
 
@@ -153,8 +192,21 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
 
   const startAd = () => {
     console.log("🎬 startAd called");
+    console.log("🎬 About to call startRealAd()");
     startRealAd();
   };
+
+  // Auto-start the ad when component mounts
+  useEffect(() => {
+    console.log("🎬 AdComponent useEffect - auto-starting ad");
+    console.log(
+      "🎬 Current state - isLoading:",
+      isLoading,
+      "isPlaying:",
+      isPlaying
+    );
+    startAd();
+  }, []);
 
   return (
     <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 rounded-xl p-6 border border-blue-500/30">
@@ -204,13 +256,14 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
         <div className="space-y-4">
           <div className="bg-gray-800 rounded-lg p-4 text-center">
             <div className="text-white font-medium mb-2">
-              {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" ? "Trevnoctilla Premium" : "Advertisement"}
+              {AD_ZONE_ID === "YOUR_ZONE_ID_HERE"
+                ? "Trevnoctilla Premium"
+                : "Advertisement"}
             </div>
             <div className="text-gray-400 text-sm mb-3">
-              {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" 
-                ? "Professional PDF tools for businesses" 
-                : "Please wait while the ad loads..."
-              }
+              {AD_ZONE_ID === "YOUR_ZONE_ID_HERE"
+                ? "Professional PDF tools for businesses"
+                : "Please wait while the ad loads..."}
             </div>
             {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" && (
               <div className="text-blue-400 text-sm">
@@ -331,12 +384,12 @@ export default function MonetizationModal({
     console.log("🎬 MonetizationModal - fileName:", fileName);
     console.log("🎬 MonetizationModal - fileType:", fileType);
     console.log("🎬 MonetizationModal - downloadUrl:", downloadUrl);
-    
+
     try {
       console.log("🎬 MonetizationModal - Calling onAdComplete...");
       onAdComplete();
       console.log("🎬 MonetizationModal - onAdComplete completed successfully");
-      
+
       console.log("🎬 MonetizationModal - Calling onClose...");
       onClose();
       console.log("🎬 MonetizationModal - onClose completed successfully");
@@ -411,7 +464,11 @@ export default function MonetizationModal({
 
                 <div className="space-y-3">
                   <motion.button
-                    onClick={() => setSelectedOption("ad")}
+                    onClick={() => {
+                      console.log("🎬 Watch Ad button clicked");
+                      console.log("🎬 Setting selectedOption to 'ad'");
+                      setSelectedOption("ad");
+                    }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="w-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 text-white py-3 px-6 rounded-lg hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-200"
