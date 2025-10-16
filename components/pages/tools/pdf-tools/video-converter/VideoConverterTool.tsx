@@ -36,12 +36,10 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
 
   const handleAdCompleteWithDownload = () => {
     handleAdComplete();
-    handleDownloadAfterMonetization();
   };
 
   const handlePaymentCompleteWithDownload = () => {
     handlePaymentComplete();
-    handleDownloadAfterMonetization();
   };
 
   const [file, setFile] = useState<File | null>(uploadedFile);
@@ -675,6 +673,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
         onPaymentComplete={handlePaymentCompleteWithDownload}
         fileName={file?.name || "video-file"}
         fileType="video"
+        downloadUrl={monetizationState.downloadUrl}
       />
     </div>
   );

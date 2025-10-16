@@ -12,6 +12,7 @@ interface MonetizationModalProps {
   onPaymentComplete: () => void;
   fileName: string;
   fileType: string;
+  downloadUrl?: string;
 }
 
 const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
@@ -305,6 +306,7 @@ export default function MonetizationModal({
   onPaymentComplete,
   fileName,
   fileType,
+  downloadUrl,
 }: MonetizationModalProps) {
   const [selectedOption, setSelectedOption] = useState<"ad" | "payment" | null>(
     null
@@ -324,10 +326,12 @@ export default function MonetizationModal({
 
   const handleDownload = () => {
     // This will be called after user completes either ad or payment
-    const link = document.createElement("a");
-    link.href = `http://localhost:5000/download_converted/${fileName}`;
-    link.download = fileName;
-    link.click();
+    if (downloadUrl) {
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = fileName;
+      link.click();
+    }
   };
 
   useEffect(() => {
