@@ -63,6 +63,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     null
   );
   const [conversionResult, setConversionResult] = useState<string | null>(null);
+  const [isInitializing, setIsInitializing] = useState(false);
 
   // Handle page refresh/unload - cancel any running conversion
   useEffect(() => {
@@ -172,6 +173,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       if (result.status === "success") {
         console.log("Conversion cancelled successfully");
         setLoading(false);
+        setIsInitializing(false);
         setProgress(0);
         setCurrentConversionId(null);
         setWarning("Conversion cancelled by user");
@@ -190,6 +192,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     }
 
     setLoading(true);
+    setIsInitializing(true);
     setProgress(0);
     setWarning("");
     setConversionResult(null);
@@ -277,6 +280,10 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           return true;
         } else if (progressData.progress !== undefined) {
           setProgress(progressData.progress);
+          // Clear initializing state when we get real progress (> 1%)
+          if (progressData.progress > 1) {
+            setIsInitializing(false);
+          }
           console.log(
             `📊 [REAL] Backend progress: ${progressData.progress}% - ${
               progressData.message || "No message"
@@ -369,6 +376,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       if (progressInterval) clearInterval(progressInterval);
       setWarning(`Conversion failed: ${error?.message || "Unknown error"}`);
       setLoading(false);
+      setIsInitializing(false);
       setCurrentConversionId(null);
     }
   };
@@ -493,6 +501,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               setConvertedFileSize(null);
               setConversionResult(null);
               setProgress(0);
+              setIsInitializing(false);
             }}
             className="text-red-400 hover:text-red-300 text-xs sm:text-sm px-2 py-1 rounded"
           >
@@ -600,11 +609,21 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           </div>
           <div className="text-center">
             <p className="text-xs text-gray-300 mb-1">
-              {outputFormat === "mp3"
-                ? "Extracting audio..."
-                : "Processing video..."}
+              {isInitializing ? (
+                <span className="text-yellow-300">
+                  🔒 Please wait while we securely encrypt your conversion...
+                </span>
+              ) : outputFormat === "mp3" ? (
+                "Extracting audio..."
+              ) : (
+                "Processing video..."
+              )}
             </p>
-            <p className="text-xs text-gray-400">{progress}% complete</p>
+            <p className="text-xs text-gray-400">
+              {isInitializing
+                ? "Initializing secure processing..."
+                : `${progress}% complete`}
+            </p>
           </div>
         </div>
       )}
