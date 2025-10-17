@@ -69,14 +69,13 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         console.log("🔍 JWT payload:", payload);
 
         // Create a user object from the token
-        const userFromToken = {
-          id: payload.sub,
+        const userFromToken: User = {
+          id: parseInt(payload.sub),
           email: "kodekenobi@gmail.com", // This should come from the token in a real implementation
-          role: "super_admin", // This should come from the token in a real implementation
+          role: "super_admin" as const, // This should come from the token in a real implementation
           is_active: true,
           created_at: new Date().toISOString(),
           last_login: new Date().toISOString(),
-          api_keys_count: 0,
         };
 
         console.log("🔍 Using user data from token:", userFromToken);

@@ -166,7 +166,7 @@ const AdComponent = memo(({ onComplete }: { onComplete: () => void }) => {
                 console.log("🎬 onComplete() called successfully");
               } catch (error) {
                 console.error("🎬 Error calling onComplete:", error);
-                console.error("🎬 Error stack:", error.stack);
+                console.error("🎬 Error stack:", error instanceof Error ? error.stack : 'No stack trace available');
               }
             }, 0);
             return 100;

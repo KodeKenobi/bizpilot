@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -18,7 +18,7 @@ const scrollToBottom = () => {
   });
 };
 
-export default function Disclosures() {
+function DisclosuresContent() {
   const searchParams = useSearchParams();
   const [content, setContent] = useState("Terms");
   const [isAtTop, setIsAtTop] = useState(true);
@@ -34,6 +34,8 @@ export default function Disclosures() {
     } else if (contentParam === "privacy") {
       setContent("Privacy");
     } else if (contentParam === "terms") {
+      setContent("Terms");
+    } else {
       setContent("Terms");
     }
   }, [searchParams]);
@@ -438,5 +440,13 @@ export default function Disclosures() {
         </svg>
       </button>
     </div>
+  );
+}
+
+export default function Disclosures() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DisclosuresContent />
+    </Suspense>
   );
 }
