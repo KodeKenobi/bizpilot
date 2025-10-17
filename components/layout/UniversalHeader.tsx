@@ -209,7 +209,7 @@ export default function UniversalHeader() {
             <div className="w-20 h-8 bg-gray-700 rounded-lg animate-pulse"></div>
           ) : user ? (
             <div className="flex items-center space-x-3">
-              {isAdmin && (
+              {isAdmin && currentView !== "client" && (
                 <Link
                   href={isSuperAdmin ? "/admin" : "/dashboard"}
                   className="text-gray-300 hover:text-white transition-colors text-sm"
