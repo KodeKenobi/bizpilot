@@ -3,7 +3,7 @@ export const API_CONFIG = {
   // Use production URL in production, localhost in development
   BASE_URL:
     process.env.NODE_ENV === "production"
-      ? "https://justpdf-backend-production.up.railway.app"
+      ? "https://web-production-737b.up.railway.app"
       : "http://localhost:5000",
 
   // API endpoints
