@@ -51,13 +51,15 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       if (storedUser) {
         try {
           const userData = JSON.parse(storedUser);
-        console.log("🔍 Using stored user data:", userData);
-        console.log("🔍 User email from stored data:", userData.email);
-        setUser(userData);
-        setLoading(false);
-        return;
+          console.log("🔍 Using stored user data:", userData);
+          console.log("🔍 User email from stored data:", userData.email);
+          setUser(userData);
+          setLoading(false);
+          return;
         } catch (error) {
-          console.log("🔍 Failed to parse stored user data, trying JWT fallback");
+          console.log(
+            "🔍 Failed to parse stored user data, trying JWT fallback"
+          );
         }
       }
 

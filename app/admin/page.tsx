@@ -110,7 +110,7 @@ export default function AdminDashboard() {
 
       // Fetch real data from admin API
       const [statsResponse, activityResponse, alertsResponse] =
-        await Promise.all(        [
+        await Promise.all([
           fetch(getApiUrl("/api/admin/stats"), {
             headers: getAuthHeaders(token),
           }),

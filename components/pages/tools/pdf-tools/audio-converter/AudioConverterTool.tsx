@@ -49,7 +49,9 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
   };
 
   const handlePaymentCompleteWithDownload = () => {
-    console.log("💳 AudioConverterTool handlePaymentCompleteWithDownload called");
+    console.log(
+      "💳 AudioConverterTool handlePaymentCompleteWithDownload called"
+    );
     handlePaymentComplete();
   };
 
@@ -134,27 +136,26 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
     console.log("🎵 AudioConverterTool downloadResult called");
     console.log("🎵 conversionResult:", conversionResult);
     console.log("🎵 file?.name:", file?.name);
-    
+
     if (conversionResult) {
       console.log("🎵 Opening monetization modal with:", {
         fileName: file?.name || "audio-file",
         fileType: "audio",
-        downloadUrl: conversionResult
+        downloadUrl: conversionResult,
       });
-      
+
       // Show monetization modal before download
       openMonetizationModal(
         file?.name || "audio-file",
         "audio",
         conversionResult
       );
-      
+
       console.log("🎵 Monetization modal opened");
     } else {
       console.error("🎵 ERROR: conversionResult is null or undefined!");
     }
   };
-
 
   const convert = async () => {
     if (!file) return;
