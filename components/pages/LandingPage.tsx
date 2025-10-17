@@ -372,7 +372,11 @@ export default function LandingPage() {
                   whileHover={{ y: -2 }}
                 >
                   <Link
-                    href={`/${link.toLowerCase()}`}
+                    href={
+                      link === "Support"
+                        ? "mailto:info@trevnoctilla.com"
+                        : `/${link.toLowerCase()}`
+                    }
                     className="hover:text-white transition-colors"
                   >
                     {link}

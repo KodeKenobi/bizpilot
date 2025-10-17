@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play, CreditCard, Download, Star, CheckCircle } from "lucide-react";
 import {
@@ -19,7 +19,7 @@ interface MonetizationModalProps {
   downloadUrl?: string;
 }
 
-const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
+const AdComponent = memo(({ onComplete }: { onComplete: () => void }) => {
   console.log("🎬 AdComponent rendered");
   console.log("🎬 AdComponent onComplete function:", onComplete);
 
@@ -179,7 +179,7 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
         clearInterval(interval);
       };
     }
-  }, [isPlaying, adProgress, onComplete]);
+  }, [isPlaying, adProgress]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -267,7 +267,7 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
             </div>
             {AD_ZONE_ID === "YOUR_ZONE_ID_HERE" && (
               <div className="text-blue-400 text-sm">
-                Visit trevnoctilla.com for more features
+                Contact info@trevnoctilla.com for more features
               </div>
             )}
           </div>
@@ -292,7 +292,7 @@ const AdComponent = ({ onComplete }: { onComplete: () => void }) => {
       )}
     </div>
   );
-};
+});
 
 const PaymentComponent = ({ onComplete }: { onComplete: () => void }) => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -377,7 +377,7 @@ export default function MonetizationModal({
     null
   );
 
-  const handleAdComplete = () => {
+  const handleAdComplete = useCallback(() => {
     console.log("🎬 MonetizationModal handleAdComplete called");
     console.log("🎬 MonetizationModal - onAdComplete function:", onAdComplete);
     console.log("🎬 MonetizationModal - onClose function:", onClose);
@@ -396,13 +396,13 @@ export default function MonetizationModal({
     } catch (error) {
       console.error("🎬 MonetizationModal - Error in handleAdComplete:", error);
     }
-  };
+  }, [onAdComplete, onClose, fileName, fileType, downloadUrl]);
 
-  const handlePaymentComplete = () => {
+  const handlePaymentComplete = useCallback(() => {
     console.log("💳 MonetizationModal handlePaymentComplete called");
     onPaymentComplete();
     onClose();
-  };
+  }, [onPaymentComplete, onClose]);
 
   const handleDownload = () => {
     // This will be called after user completes either ad or payment

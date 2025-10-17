@@ -8,10 +8,11 @@ import { useNavigation } from "@/contexts/NavigationContext";
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const { currentPage } = useNavigation();
   const [isEditorMode, setIsEditorMode] = useState(false);
+  const [isAuthPage, setIsAuthPage] = useState(false);
 
-  // Check for editor mode more reliably
+  // Check for editor mode and auth pages
   useEffect(() => {
-    const checkEditorMode = () => {
+    const checkModes = () => {
       // Check if we're in PDF tools and editor is active
       const isInPdfTools = currentPage === "pdf-tools";
       const hasEditorUrl =
@@ -20,12 +21,18 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
           !!document.querySelector('[data-editor-active="true"]'));
 
       setIsEditorMode(isInPdfTools && hasEditorUrl);
+
+      // Check if we're on auth pages
+      const isOnAuthPage =
+        typeof window !== "undefined" &&
+        window.location.pathname.startsWith("/auth/");
+      setIsAuthPage(isOnAuthPage);
     };
 
-    checkEditorMode();
+    checkModes();
 
     // Listen for changes in the editor state
-    const observer = new MutationObserver(checkEditorMode);
+    const observer = new MutationObserver(checkModes);
     observer.observe(document.body, {
       childList: true,
       subtree: true,
@@ -38,7 +45,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {!isEditorMode && <UniversalHeader />}
+      {!isEditorMode && !isAuthPage && <UniversalHeader />}
       {children}
     </>
   );
