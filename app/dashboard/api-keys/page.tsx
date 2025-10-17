@@ -340,7 +340,7 @@ export default function ApiKeysPage() {
       {/* Show New Key Modal */}
       {showKeyModal && newKey && (
         <ShowKeyModal
-          key={newKey}
+          apiKey={newKey}
           onClose={() => {
             setShowKeyModal(false);
             setNewKey(null);
@@ -454,10 +454,10 @@ function CreateKeyModal({
 }
 
 function ShowKeyModal({
-  key: apiKey,
+  apiKey,
   onClose,
 }: {
-  key: ApiKey;
+  apiKey: ApiKey;
   onClose: () => void;
 }) {
   const [copied, setCopied] = useState(false);
