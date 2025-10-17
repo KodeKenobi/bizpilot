@@ -12,10 +12,15 @@ import {
   AlertCircle,
   CheckCircle,
   Loader,
+  Shield,
+  Settings,
+  BarChart3,
 } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useUser();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,6 +29,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const isSuperAdminEmail = formData.email === "kodekenobi@gmail.com";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,27 +47,20 @@ export default function LoginPage() {
     setSuccess("");
 
     try {
-      // Mock API call - in real implementation, call your authentication API
-      const response = await fetch("/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const success = await login(formData.email, formData.password);
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (success) {
         setSuccess("Login successful! Redirecting...");
-        // Store token in localStorage or cookies
-        localStorage.setItem("auth_token", data.access_token);
-        // Redirect to dashboard
         setTimeout(() => {
-          router.push("/dashboard");
-        }, 1000);
+          // Redirect based on user role
+          if (isSuperAdminEmail) {
+            router.push("/admin");
+          } else {
+            router.push("/dashboard");
+          }
+        }, 1500);
       } else {
-        setError(data.error || "Login failed. Please try again.");
+        setError("Invalid email or password. Please try again.");
       }
     } catch (error) {
       setError("Network error. Please check your connection and try again.");
@@ -239,6 +239,42 @@ export default function LoginPage() {
             </p>
           </div>
         </form>
+
+        {/* Admin Cards for Super Admin */}
+        {isSuperAdminEmail && (
+          <div className="mt-8">
+            <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg p-6">
+              <div className="flex items-center space-x-2 mb-4">
+                <Shield className="h-6 w-6 text-purple-400" />
+                <h3 className="text-lg font-semibold text-white">
+                  Super Admin Access
+                </h3>
+              </div>
+              <p className="text-sm text-gray-300 mb-4">
+                You have super admin privileges. After login, you'll have access
+                to:
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                  <Settings className="h-5 w-5 text-blue-400" />
+                  <span className="text-sm text-gray-300">
+                    System Administration
+                  </span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                  <BarChart3 className="h-5 w-5 text-green-400" />
+                  <span className="text-sm text-gray-300">
+                    Advanced Analytics
+                  </span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                  <Shield className="h-5 w-5 text-purple-400" />
+                  <span className="text-sm text-gray-300">User Management</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

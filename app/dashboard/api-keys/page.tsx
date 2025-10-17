@@ -13,6 +13,8 @@ import {
   Activity,
   AlertCircle,
 } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
+import Link from "next/link";
 
 interface ApiKey {
   id: number;
@@ -25,6 +27,7 @@ interface ApiKey {
 }
 
 export default function ApiKeysPage() {
+  const { user, loading: userLoading } = useUser();
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -33,9 +36,33 @@ export default function ApiKeysPage() {
   const [visibleKeys, setVisibleKeys] = useState<Set<number>>(new Set());
   const [editingKey, setEditingKey] = useState<ApiKey | null>(null);
 
+  // Authentication guard - only redirect if we're sure user is not logged in
   useEffect(() => {
-    fetchApiKeys();
-  }, []);
+    if (!userLoading && !user) {
+      // Check if there's a token in localStorage before redirecting
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        // Only redirect if there's no token at all
+        window.location.href = "/auth/login";
+        return;
+      }
+      // If there's a token but user is not loaded yet, wait a bit more
+      // This gives time for the user context to load when switching views
+      const timeout = setTimeout(() => {
+        if (!user) {
+          window.location.href = "/auth/login";
+        }
+      }, 2000); // Wait 2 seconds before redirecting
+
+      return () => clearTimeout(timeout);
+    }
+  }, [user, userLoading]);
+
+  useEffect(() => {
+    if (user) {
+      fetchApiKeys();
+    }
+  }, [user]);
 
   const fetchApiKeys = async () => {
     try {
@@ -160,10 +187,34 @@ export default function ApiKeysPage() {
     return key.substring(0, 8) + "•".repeat(24) + key.substring(key.length - 8);
   };
 
-  if (loading) {
+  // Show loading while checking authentication
+  if (userLoading || loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-400 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading API keys...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show access denied if not authenticated
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-20 flex items-center justify-center">
+        <div className="text-center p-8 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold text-white mb-2">Access Denied</h2>
+          <p className="text-gray-400 mb-4">
+            You must be logged in to access this page.
+          </p>
+          <Link
+            href="/auth/login"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+          >
+            Login
+          </Link>
+        </div>
       </div>
     );
   }

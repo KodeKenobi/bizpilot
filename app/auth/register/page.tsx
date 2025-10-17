@@ -13,10 +13,15 @@ import {
   AlertCircle,
   CheckCircle,
   Loader,
+  Shield,
+  Settings,
+  BarChart3,
 } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { login } = useUser();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,6 +32,8 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const isSuperAdminEmail = formData.email === "kodekenobi@gmail.com";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -77,8 +84,8 @@ export default function RegisterPage() {
     }
 
     try {
-      // Mock API call - in real implementation, call your authentication API
-      const response = await fetch("/auth/register", {
+      // Call the authentication API
+      const response = await fetch("http://localhost:5000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,11 +99,21 @@ export default function RegisterPage() {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess("Account created successfully! Redirecting to login...");
-        // Redirect to login page
-        setTimeout(() => {
+        setSuccess("Account created successfully! Auto-logging in...");
+        // Auto-login after successful registration
+        const loginSuccess = await login(formData.email, formData.password);
+        if (loginSuccess) {
+          setTimeout(() => {
+            // Redirect based on user role
+            if (isSuperAdminEmail) {
+              router.push("/admin");
+            } else {
+              router.push("/dashboard");
+            }
+          }, 1500);
+        } else {
           router.push("/auth/login");
-        }, 2000);
+        }
       } else {
         setError(data.error || "Registration failed. Please try again.");
       }
@@ -416,6 +433,42 @@ export default function RegisterPage() {
             </p>
           </div>
         </form>
+
+        {/* Admin Cards for Super Admin */}
+        {isSuperAdminEmail && (
+          <div className="mt-8">
+            <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg p-6">
+              <div className="flex items-center space-x-2 mb-4">
+                <Shield className="h-6 w-6 text-purple-400" />
+                <h3 className="text-lg font-semibold text-white">
+                  Super Admin Access
+                </h3>
+              </div>
+              <p className="text-sm text-gray-300 mb-4">
+                You have super admin privileges. After registration, you'll have
+                access to:
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                  <Settings className="h-5 w-5 text-blue-400" />
+                  <span className="text-sm text-gray-300">
+                    System Administration
+                  </span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                  <BarChart3 className="h-5 w-5 text-green-400" />
+                  <span className="text-sm text-gray-300">
+                    Advanced Analytics
+                  </span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg">
+                  <Shield className="h-5 w-5 text-purple-400" />
+                  <span className="text-sm text-gray-300">User Management</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

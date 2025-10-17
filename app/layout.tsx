@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LayoutClient from "@/components/layout/LayoutClient";
+import { UserProvider } from "@/contexts/UserContext";
+import { ViewProvider } from "@/contexts/ViewContext";
 import Script from "next/script";
 import { PROPELLER_ADS_URL } from "../lib/adConfig";
 
@@ -50,7 +52,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <LayoutClient>{children}</LayoutClient>
+        <UserProvider>
+          <ViewProvider>
+            <LayoutClient>{children}</LayoutClient>
+          </ViewProvider>
+        </UserProvider>
         <Script
           id="propeller-ads"
           strategy="afterInteractive"

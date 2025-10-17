@@ -2,11 +2,46 @@
 
 import React, { useState } from "react";
 import { useNavigation } from "@/contexts/NavigationContext";
+import { useUser } from "@/contexts/UserContext";
+import { useView } from "@/contexts/ViewContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  Monitor,
+  User,
+  Shield,
+  UserCircle,
+  LogOut,
+  ChevronDown,
+} from "lucide-react";
 
 export default function UniversalHeader() {
   const { currentPage, navigateTo } = useNavigation();
+  const { user, loading, logout, isAdmin, isSuperAdmin } = useUser();
+  const {
+    currentView,
+    setCurrentView,
+    isSuperAdmin: viewIsSuperAdmin,
+  } = useView();
+  const router = useRouter();
   const [selectedMenuItem, setSelectedMenuItem] = useState("Home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isProfileDropdownOpen) {
+        const target = event.target as Element;
+        if (!target.closest("[data-profile-dropdown]")) {
+          setIsProfileDropdownOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isProfileDropdownOpen]);
 
   // Update selected menu item based on current page
   React.useEffect(() => {
@@ -52,6 +87,20 @@ export default function UniversalHeader() {
     else if (item === "Image Converter") navigateTo("image-converter");
     else if (item === "PDF Tools") navigateTo("pdf-tools");
     else if (item === "QR Generator") navigateTo("qr-generator");
+  };
+
+  const handleViewSwitch = (view: "website" | "client" | "admin") => {
+    setCurrentView(view);
+    if (view === "website") {
+      // Navigate to website home
+      window.location.href = "/";
+    } else if (view === "client") {
+      // Navigate to client dashboard
+      window.location.href = "/dashboard";
+    } else if (view === "admin") {
+      // Navigate to admin dashboard
+      window.location.href = "/admin";
+    }
   };
 
   return (
@@ -118,32 +167,205 @@ export default function UniversalHeader() {
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center space-x-4">
-          <div>
-            <button
-              onClick={() => navigateTo("tools")}
-              className="text-gray-300 hover:text-white transition-colors text-sm"
-            >
-              All Tools
-            </button>
-          </div>
-          <div className="hover:scale-105 transition-transform">
-            <button
-              onClick={() => navigateTo("tools")}
-              className="bg-gradient-to-r from-purple-500/80 to-pink-500/80 backdrop-blur-sm text-white px-4 py-2 rounded-xl hover:from-purple-600/90 hover:to-pink-600/90 transition-all duration-200 border border-white/20 shadow-lg text-sm"
-            >
-              Get Started
-            </button>
-          </div>
+          {/* Switch View Tab for Super Admin */}
+          {isSuperAdmin && user && (
+            <div className="flex items-center space-x-1 bg-gray-800/50 rounded-lg p-1">
+              <button
+                onClick={() => handleViewSwitch("website")}
+                className={`p-2 rounded-md transition-all ${
+                  currentView === "website"
+                    ? "bg-purple-600 text-white"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
+                title="Website View"
+              >
+                <Monitor className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => handleViewSwitch("client")}
+                className={`p-2 rounded-md transition-all ${
+                  currentView === "client"
+                    ? "bg-purple-600 text-white"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
+                title="Client Dashboard"
+              >
+                <User className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => handleViewSwitch("admin")}
+                className={`p-2 rounded-md transition-all ${
+                  currentView === "admin"
+                    ? "bg-purple-600 text-white"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
+                title="Admin Dashboard"
+              >
+                <Shield className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+          {loading ? (
+            <div className="w-20 h-8 bg-gray-700 rounded-lg animate-pulse"></div>
+          ) : user ? (
+            <div className="flex items-center space-x-3">
+              {isAdmin && (
+                <Link
+                  href={isSuperAdmin ? "/admin" : "/dashboard"}
+                  className="text-gray-300 hover:text-white transition-colors text-sm"
+                >
+                  {isSuperAdmin ? "Admin Panel" : "Dashboard"}
+                </Link>
+              )}
+              <div className="flex items-center space-x-2">
+                <div className="relative" data-profile-dropdown>
+                  <button
+                    onClick={() =>
+                      setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                    }
+                    className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors cursor-pointer p-2 rounded-lg border border-purple-500/30 hover:border-purple-400/50"
+                    title="Profile"
+                  >
+                    <UserCircle className="h-5 w-5" />
+                    <ChevronDown className="h-3 w-3" />
+                  </button>
+
+                  {/* Profile Dropdown */}
+                  {isProfileDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-64 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg shadow-xl z-50">
+                      <div className="p-4 border-b border-gray-700">
+                        <div className="flex items-center space-x-3">
+                          <UserCircle className="h-8 w-8 text-purple-400" />
+                          <div>
+                            <p className="text-sm font-medium text-white">
+                              {user.email}
+                            </p>
+                            <p className="text-xs text-gray-400 capitalize">
+                              {user.role}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-2">
+                        <button
+                          onClick={logout}
+                          className="w-full flex items-center space-x-2 px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          <span>Logout</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="hover:scale-105 transition-transform">
+              <Link
+                href="/auth/login"
+                className="bg-gradient-to-r from-purple-500/80 to-pink-500/80 backdrop-blur-sm text-white px-4 py-2 rounded-xl hover:from-purple-600/90 hover:to-pink-600/90 transition-all duration-200 border border-white/20 shadow-lg text-sm"
+              >
+                Login
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Mobile Hamburger Menu */}
         <div className="lg:hidden flex items-center space-x-2">
-          <button
-            onClick={() => navigateTo("tools")}
-            className="bg-gradient-to-r from-purple-500/80 to-pink-500/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs"
-          >
-            Get Started
-          </button>
+          {/* Mobile Switch View for Super Admin */}
+          {isSuperAdmin && user && (
+            <div className="flex items-center space-x-1 bg-gray-800/50 rounded-lg p-1 mr-2">
+              <button
+                onClick={() => handleViewSwitch("website")}
+                className={`p-2 rounded transition-all ${
+                  currentView === "website"
+                    ? "bg-purple-600 text-white"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
+                title="Website View"
+              >
+                <Monitor className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => handleViewSwitch("client")}
+                className={`p-2 rounded transition-all ${
+                  currentView === "client"
+                    ? "bg-purple-600 text-white"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
+                title="Client Dashboard"
+              >
+                <User className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => handleViewSwitch("admin")}
+                className={`p-2 rounded transition-all ${
+                  currentView === "admin"
+                    ? "bg-purple-600 text-white"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
+                title="Admin Dashboard"
+              >
+                <Shield className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+
+          {loading ? (
+            <div className="w-16 h-6 bg-gray-700 rounded-lg animate-pulse"></div>
+          ) : user ? (
+            <div className="flex items-center space-x-2">
+              <div className="relative" data-profile-dropdown>
+                <button
+                  onClick={() =>
+                    setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                  }
+                  className="flex items-center space-x-1 text-gray-300 hover:text-white transition-colors cursor-pointer p-1.5 rounded-lg border border-purple-500/30 hover:border-purple-400/50"
+                  title="Profile"
+                >
+                  <UserCircle className="h-4 w-4" />
+                  <ChevronDown className="h-3 w-3" />
+                </button>
+
+                {/* Mobile Profile Dropdown */}
+                {isProfileDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-lg shadow-xl z-50">
+                    <div className="p-3 border-b border-gray-700">
+                      <div className="flex items-center space-x-2">
+                        <UserCircle className="h-6 w-6 text-purple-400" />
+                        <div>
+                          <p className="text-xs font-medium text-white">
+                            {user.email}
+                          </p>
+                          <p className="text-xs text-gray-400 capitalize">
+                            {user.role}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-2">
+                      <button
+                        onClick={logout}
+                        className="w-full flex items-center space-x-2 px-2 py-1.5 text-xs text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+                      >
+                        <LogOut className="h-3 w-3" />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <Link
+              href="/auth/login"
+              className="bg-gradient-to-r from-purple-500/80 to-pink-500/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs"
+            >
+              Login
+            </Link>
+          )}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
