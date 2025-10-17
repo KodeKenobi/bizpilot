@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from "react";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 interface QRGeneratorToolProps {
   uploadedFile: File | null;
@@ -239,7 +240,7 @@ export const QRGeneratorTool: React.FC<QRGeneratorToolProps> = ({
           requestData.data.text = qrData.content;
       }
 
-      const response = await fetch("http://localhost:5000/generate-qr", {
+      const response = await fetch(getApiUrl("/generate-qr"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -17,6 +17,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
+import { getApiUrl } from "@/lib/config";
 
 export default function LoginPage() {
   const router = useRouter();

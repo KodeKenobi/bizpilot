@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@/contexts/UserContext";
+import { getApiUrl, getAuthHeaders } from "@/lib/config";
 
 interface DashboardStats {
   totalCalls: number;
@@ -99,23 +100,14 @@ export default function DashboardPage() {
       // Fetch real data from API
       const [statsResponse, activityResponse, keysResponse] = await Promise.all(
         [
-          fetch("http://localhost:5000/api/client/stats", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+          fetch(getApiUrl("/api/client/stats"), {
+            headers: getAuthHeaders(token),
           }),
-          fetch("http://localhost:5000/api/client/activity", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+          fetch(getApiUrl("/api/client/activity"), {
+            headers: getAuthHeaders(token),
           }),
-          fetch("http://localhost:5000/api/client/api-keys", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+          fetch(getApiUrl("/api/client/api-keys"), {
+            headers: getAuthHeaders(token),
           }),
         ]
       );

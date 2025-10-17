@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { getApiUrl, getAuthHeaders } from "@/lib/config";
 
 interface User {
   id: number;
@@ -85,11 +86,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       }
 
       console.log("🔍 Making profile request with token");
-      const response = await fetch("http://localhost:5000/auth/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+      const response = await fetch(getApiUrl("/auth/profile"), {
+        headers: getAuthHeaders(token),
       });
 
       console.log("🔍 Profile response status:", response.status);
@@ -115,7 +113,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       console.log("🔐 Attempting login for:", email);
-      const response = await fetch("http://localhost:5000/auth/login", {
+      const response = await fetch(getApiUrl("/auth/login"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

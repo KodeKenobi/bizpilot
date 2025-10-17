@@ -6,6 +6,7 @@ import { FileText, Loader2 } from "lucide-react";
 import { useNavigation } from "@/contexts/NavigationContext";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 // Import individual tool components
 import { ExtractTextTool } from "./extract-text/ExtractTextTool";
@@ -118,7 +119,7 @@ export default function PDFTools() {
           return;
       }
 
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`${getApiUrl("")}${endpoint}`, {
         method: "POST",
         body: formData,
       });

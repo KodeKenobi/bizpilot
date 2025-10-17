@@ -18,6 +18,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
+import { getApiUrl } from "@/lib/config";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -85,7 +86,7 @@ export default function RegisterPage() {
 
     try {
       // Call the authentication API
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch(getApiUrl("/auth/register"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

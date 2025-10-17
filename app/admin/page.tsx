@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@/contexts/UserContext";
+import { getApiUrl, getAuthHeaders } from "@/lib/config";
 
 interface SystemStats {
   totalUsers: number;
@@ -109,24 +110,15 @@ export default function AdminDashboard() {
 
       // Fetch real data from admin API
       const [statsResponse, activityResponse, alertsResponse] =
-        await Promise.all([
-          fetch("http://localhost:5000/api/admin/stats", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+        await Promise.all(        [
+          fetch(getApiUrl("/api/admin/stats"), {
+            headers: getAuthHeaders(token),
           }),
-          fetch("http://localhost:5000/api/admin/activity", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+          fetch(getApiUrl("/api/admin/activity"), {
+            headers: getAuthHeaders(token),
           }),
-          fetch("http://localhost:5000/api/admin/alerts", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+          fetch(getApiUrl("/api/admin/alerts"), {
+            headers: getAuthHeaders(token),
           }),
         ]);
 

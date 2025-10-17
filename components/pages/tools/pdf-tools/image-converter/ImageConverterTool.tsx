@@ -4,6 +4,7 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 interface ImageConverterToolProps {
   uploadedFile: File | null;
@@ -105,7 +106,7 @@ export const ImageConverterTool: React.FC<ImageConverterToolProps> = ({
         });
       }, 200);
 
-      const response = await fetch("http://localhost:5000/convert-image", {
+      const response = await fetch(getApiUrl("/convert-image"), {
         method: "POST",
         body: formData,
       });

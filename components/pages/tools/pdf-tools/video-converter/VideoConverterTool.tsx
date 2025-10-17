@@ -4,6 +4,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 interface VideoConverterToolProps {
   uploadedFile: File | null;
@@ -152,7 +153,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/cancel_conversion/${encodeURIComponent(
+        `${getApiUrl("/cancel_conversion")}/${encodeURIComponent(
           currentConversionId
         )}`,
         {
@@ -202,7 +203,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
         }
 
         const response = await fetch(
-          `http://localhost:5000/conversion_progress/${encodeURIComponent(
+          `${getApiUrl("/conversion_progress")}/${encodeURIComponent(
             uniqueFilename
           )}`
         );
@@ -210,7 +211,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
 
         console.log(`🔍 [DEBUG] Backend response:`, progressData);
         console.log(
-          `🔍 [DEBUG] Polling URL: http://localhost:5000/conversion_progress/${encodeURIComponent(
+          `🔍 [DEBUG] Polling URL: ${getApiUrl("/conversion_progress")}/${encodeURIComponent(
             uniqueFilename
           )}`
         );
@@ -222,7 +223,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           console.log(`✅ [BACKEND] Conversion completed at 100%`);
 
           // Set the conversion result for download
-          const downloadUrl = `http://localhost:5000/download_converted_video/${
+          const downloadUrl = `${getApiUrl("/download_converted_video")}/${
             progressData.converted_filename ||
             uniqueFilename.replace(/\.[^/.]+$/, "_converted.mp4")
           }`;
@@ -303,7 +304,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       formData.append("quality", quality.toString());
       formData.append("compression", compression);
 
-      const response = await fetch("http://localhost:5000/convert-video", {
+      const response = await fetch(getApiUrl("/convert-video"), {
         method: "POST",
         body: formData,
       });

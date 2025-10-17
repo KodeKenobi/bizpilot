@@ -18,6 +18,7 @@ import {
 import { useNavigation } from "@/contexts/NavigationContext";
 import { useMonetization } from "../../hooks/useMonetization";
 import MonetizationModal from "../ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 const tools = [
   { id: "select", label: "Select", icon: MousePointer },
@@ -324,7 +325,7 @@ export default function PDFEditor() {
                       openMonetizationModal(
                         "edited_document.pdf",
                         "PDF",
-                        "http://localhost:5000/download_edited/edited_document.pdf"
+                        `${getApiUrl("/download_edited")}/edited_document.pdf`
                       );
                     }}
                     className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-white px-4 py-2 rounded-lg hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-200 flex items-center space-x-2"
@@ -399,7 +400,7 @@ export default function PDFEditor() {
                         openMonetizationModal(
                           "edited_document.pdf",
                           "PDF",
-                          "http://localhost:5000/download_edited/edited_document.pdf"
+                          `${getApiUrl("/download_edited")}/edited_document.pdf`
                         );
                       }}
                       className="flex-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 text-white px-4 py-2 rounded-lg hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-200"

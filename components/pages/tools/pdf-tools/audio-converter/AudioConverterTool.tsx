@@ -4,6 +4,7 @@ import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 interface AudioConverterToolProps {
   uploadedFile: File | null;
@@ -206,7 +207,7 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
       formData.append("channels", channels);
       formData.append("quality", quality.toString());
 
-      const response = await fetch("http://localhost:5000/convert-audio", {
+      const response = await fetch(getApiUrl("/convert-audio"), {
         method: "POST",
         body: formData,
       });
@@ -239,7 +240,7 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
             if (result.converted_size) {
               setConvertedFileSize(result.converted_size);
             }
-            const downloadUrl = `http://localhost:5000${result.download_url}`;
+            const downloadUrl = `${getApiUrl("")}${result.download_url}`;
             setConversionResult(downloadUrl);
 
             setTimeout(() => {
