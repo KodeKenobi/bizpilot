@@ -17,6 +17,7 @@ import { AddSignatureTool } from "./add-signature/AddSignatureTool";
 import { AddWatermarkTool } from "./add-watermark/AddWatermarkTool";
 import { SplitPdfTool } from "./split-pdf/SplitPdfTool";
 import { MergePdfsTool } from "./merge-pdfs/MergePdfsTool";
+import { PdfToHtmlTool } from "./pdf-to-html/PdfToHtmlTool";
 
 const toolCategories = [
   {
@@ -24,6 +25,7 @@ const toolCategories = [
     tools: [
       { id: "extract-text", label: "Extract Text from PDF" },
       { id: "extract-images", label: "Extract Images from PDF" },
+      { id: "pdf-to-html", label: "Convert PDF to HTML" },
     ],
   },
   {
@@ -179,6 +181,8 @@ export default function PDFTools() {
             setUploadedFiles={setUploadedFiles}
           />
         );
+      case "pdf-to-html":
+        return <PdfToHtmlTool {...commonProps} />;
       default:
         return <div>Tool not found</div>;
     }
