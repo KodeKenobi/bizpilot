@@ -197,7 +197,7 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
           className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300 ${
             isDragActive
               ? "border-cyan-400 bg-cyan-400/10"
-              : "border-gray-600 hover:border-cyan-400 hover:bg-cyan-400/5"
+              : "border-gray-600"
           }`}
         >
           <input {...getInputProps()} />
