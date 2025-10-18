@@ -6,7 +6,7 @@ import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
 import { getApiUrl } from "@/lib/config";
 import { motion } from "framer-motion";
-import { FileText, Upload, Download, Settings, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { FileText, Upload, Download, Settings, Loader2, CheckCircle, AlertCircle, X } from "lucide-react";
 
 interface PdfToHtmlToolProps {
   uploadedFile: File | null;
@@ -38,6 +38,7 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
   const [conversionResult, setConversionResult] = useState<string | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [hasViewed, setHasViewed] = useState(false);
+  const [showViewer, setShowViewer] = useState(false);
   
   // Conversion options
   const [includeImages, setIncludeImages] = useState(true);
@@ -150,10 +151,13 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
 
   const handleView = () => {
     if (conversionResult) {
-      const viewUrl = getApiUrl(conversionResult);
-      window.open(viewUrl, '_blank');
+      setShowViewer(true);
       setHasViewed(true);
     }
+  };
+
+  const handleCloseViewer = () => {
+    setShowViewer(false);
   };
 
   const handleDownload = () => {
@@ -470,6 +474,43 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
               </div>
             </div>
           )}
+        </motion.div>
+      )}
+
+      {/* Inline HTML Viewer */}
+      {showViewer && conversionResult && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-bold text-white">HTML Preview</h3>
+            <button
+              onClick={handleCloseViewer}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+          
+          <div className="border border-gray-600 rounded-lg overflow-hidden">
+            <iframe
+              src={conversionResult}
+              className="w-full h-[600px] border-0"
+              title="HTML Preview"
+            />
+          </div>
+          
+          <div className="mt-4 flex justify-center space-x-4">
+            <button
+              onClick={handleDownload}
+              className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center"
+            >
+              <Download className="h-5 w-5 mr-2" />
+              Download HTML File
+            </button>
+          </div>
         </motion.div>
       )}
 
