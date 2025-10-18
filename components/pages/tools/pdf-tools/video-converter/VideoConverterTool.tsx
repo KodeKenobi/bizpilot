@@ -65,32 +65,73 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
   const [conversionResult, setConversionResult] = useState<string | null>(null);
   const [isInitializing, setIsInitializing] = useState(false);
   const [initializationStep, setInitializationStep] = useState(0);
+  const [isBackendProcessing, setIsBackendProcessing] = useState(false);
 
-  // Dynamic initialization messages
+  // Dynamic initialization messages - Extended for 30+ second delay
   const initializationMessages = [
     {
-      text: "🔒 Securing your file with encryption...",
+      text: "Securing your file with encryption...",
       subtext: "Initializing secure processing",
     },
     {
-      text: "🛡️ Validating file integrity...",
+      text: "Validating file integrity...",
       subtext: "Checking file format and size",
     },
     {
-      text: "⚡ Preparing conversion engine...",
+      text: "Uploading file to secure servers...",
+      subtext: "Transferring your video file",
+    },
+    {
+      text: "Preparing conversion engine...",
       subtext: "Loading FFmpeg processing tools",
     },
     {
-      text: "🔐 Setting up secure channels...",
+      text: "Setting up secure channels...",
       subtext: "Establishing encrypted connection",
     },
     {
-      text: "🎯 Optimizing compression settings...",
+      text: "Analyzing video properties...",
+      subtext: "Reading metadata and codec information",
+    },
+    {
+      text: "Optimizing compression settings...",
       subtext: "Configuring quality parameters",
     },
     {
-      text: "🚀 Almost ready to start...",
+      text: "Allocating processing resources...",
+      subtext: "Preparing backend infrastructure",
+    },
+    {
+      text: "Initializing video processing...",
+      subtext: "Setting up conversion pipeline",
+    },
+    {
+      text: "Almost ready to start...",
       subtext: "Finalizing setup process",
+    },
+  ];
+
+  // Backend processing messages for the 22-second backend response time
+  const backendProcessingMessages = [
+    {
+      text: "Processing your request...",
+      subtext: "Backend is analyzing your file",
+    },
+    {
+      text: "Preparing video conversion...",
+      subtext: "Setting up processing pipeline",
+    },
+    {
+      text: "Allocating server resources...",
+      subtext: "Reserving processing capacity",
+    },
+    {
+      text: "Initializing FFmpeg engine...",
+      subtext: "Loading video processing tools",
+    },
+    {
+      text: "Almost ready to start conversion...",
+      subtext: "Finalizing backend setup",
     },
   ];
 
@@ -104,12 +145,29 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           // Stop cycling when we reach the end, don't repeat
           return next >= initializationMessages.length ? prev : next;
         });
-      }, 2500); // Change message every 2.5 seconds (longer for credibility)
+      }, 3000); // Change message every 3 seconds (covers 30+ second delay)
     }
     return () => {
       if (interval) clearInterval(interval);
     };
   }, [isInitializing, initializationMessages.length]);
+
+  // Cycle through backend processing messages
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isBackendProcessing) {
+      interval = setInterval(() => {
+        setInitializationStep((prev) => {
+          const next = prev + 1;
+          // Cycle through backend messages
+          return next >= backendProcessingMessages.length ? 0 : next;
+        });
+      }, 4000); // Change message every 4 seconds for backend processing
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isBackendProcessing, backendProcessingMessages.length]);
 
   // Handle page refresh/unload - cancel any running conversion
   useEffect(() => {
@@ -263,6 +321,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
 
     setLoading(true);
     setIsInitializing(true);
+    setIsBackendProcessing(false);
     setInitializationStep(0);
     setProgress(0);
     setWarning("");
@@ -408,6 +467,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             );
 
             setIsInitializing(false);
+            setIsBackendProcessing(false);
           }
           console.log(
             `📊 [REAL] Backend progress: ${progressData.progress}% - ${
@@ -453,6 +513,11 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       console.log(
         "📡 [BACKEND REQUEST] ======================================"
       );
+
+      // Switch to backend processing messages
+      setIsInitializing(false);
+      setIsBackendProcessing(true);
+      setInitializationStep(0);
 
       const formData = new FormData();
       formData.append("file", file);
@@ -661,6 +726,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               setConversionResult(null);
               setProgress(0);
               setIsInitializing(false);
+              setIsBackendProcessing(false);
               setInitializationStep(0);
             }}
             className="text-red-400 hover:text-red-300 text-xs sm:text-sm px-2 py-1 rounded"
@@ -772,7 +838,12 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               {isInitializing ? (
                 <span className="text-yellow-300 animate-pulse">
                   {initializationMessages[initializationStep]?.text ||
-                    "🔒 Securing your file..."}
+                    "Securing your file..."}
+                </span>
+              ) : isBackendProcessing ? (
+                <span className="text-blue-300 animate-pulse">
+                  {backendProcessingMessages[initializationStep]?.text ||
+                    "Processing your request..."}
                 </span>
               ) : outputFormat === "mp3" ? (
                 "Extracting audio..."
@@ -784,6 +855,9 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               {isInitializing
                 ? initializationMessages[initializationStep]?.subtext ||
                   "Initializing secure processing..."
+                : isBackendProcessing
+                ? backendProcessingMessages[initializationStep]?.subtext ||
+                  "Backend is analyzing your file"
                 : `${progress}% complete`}
             </p>
           </div>
