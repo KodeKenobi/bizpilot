@@ -238,6 +238,29 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       return;
     }
 
+    // COMPREHENSIVE LOGGING - CONVERSION START
+    const conversionStartTime = Date.now();
+    const timestamp = new Date().toISOString();
+
+    console.log(
+      "🚀 [CONVERSION START] ========================================"
+    );
+    console.log(`⏰ [TIMESTAMP] ${timestamp}`);
+    console.log(`📁 [FILE INFO] Name: ${file.name}`);
+    console.log(
+      `📁 [FILE INFO] Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`
+    );
+    console.log(`📁 [FILE INFO] Type: ${file.type}`);
+    console.log(`🎯 [OUTPUT] Format: ${outputFormat}`);
+    console.log(`🎯 [OUTPUT] Quality: ${quality}`);
+    console.log(`🎯 [OUTPUT] Compression: ${compression}`);
+    console.log(
+      `⏰ [TIMING] Convert button clicked at: ${conversionStartTime}ms`
+    );
+    console.log(
+      "🚀 [CONVERSION START] ========================================"
+    );
+
     setLoading(true);
     setIsInitializing(true);
     setInitializationStep(0);
@@ -278,6 +301,41 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           if (progressInterval) clearInterval(progressInterval);
           setProgress(100);
           console.log(`✅ [BACKEND] Conversion completed at 100%`);
+
+          // COMPREHENSIVE LOGGING - CONVERSION COMPLETE
+          const conversionCompleteTime = Date.now();
+          const totalConversionTime =
+            conversionCompleteTime - conversionStartTime;
+
+          console.log(
+            "🏁 [CONVERSION COMPLETE] =============================="
+          );
+          console.log(`⏰ [TIMESTAMP] ${new Date().toISOString()}`);
+          console.log(
+            `⏰ [TIMING] Total conversion time: ${totalConversionTime}ms`
+          );
+          console.log(
+            `⏰ [TIMING] Total conversion time: ${(
+              totalConversionTime / 1000
+            ).toFixed(2)}s`
+          );
+          console.log(
+            `📁 [RESULT] Download URL: ${getApiUrl(
+              "/download_converted_video"
+            )}/${
+              progressData.converted_filename ||
+              uniqueFilename.replace(/\.[^/.]+$/, "_converted.mp4")
+            }`
+          );
+          console.log(
+            `📁 [RESULT] Converted filename: ${
+              progressData.converted_filename ||
+              uniqueFilename.replace(/\.[^/.]+$/, "_converted.mp4")
+            }`
+          );
+          console.log(
+            "🏁 [CONVERSION COMPLETE] =============================="
+          );
 
           // Set the conversion result for download
           const downloadUrl = `${getApiUrl("/download_converted_video")}/${
@@ -330,6 +388,25 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           setProgress(progressData.progress);
           // Clear initializing state when we get real progress (> 1%)
           if (progressData.progress > 1) {
+            const progressStartTime = Date.now();
+            const timeToProgressStart = progressStartTime - conversionStartTime;
+
+            // COMPREHENSIVE LOGGING - PROGRESS BAR STARTS
+            console.log(
+              "📊 [PROGRESS START] ==================================="
+            );
+            console.log(`⏰ [TIMESTAMP] ${new Date().toISOString()}`);
+            console.log(
+              `⏰ [TIMING] Time to progress start: ${timeToProgressStart}ms`
+            );
+            console.log(`📊 [PROGRESS] Progress: ${progressData.progress}%`);
+            console.log(
+              `📊 [PROGRESS] Message: ${progressData.message || "No message"}`
+            );
+            console.log(
+              "📊 [PROGRESS START] ==================================="
+            );
+
             setIsInitializing(false);
           }
           console.log(
@@ -359,6 +436,24 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     };
 
     try {
+      // COMPREHENSIVE LOGGING - BACKEND REQUEST
+      const backendRequestTime = Date.now();
+      const timeToBackend = backendRequestTime - conversionStartTime;
+
+      console.log(
+        "📡 [BACKEND REQUEST] ======================================"
+      );
+      console.log(`⏰ [TIMESTAMP] ${new Date().toISOString()}`);
+      console.log(`⏰ [TIMING] Time to backend request: ${timeToBackend}ms`);
+      console.log(`📡 [REQUEST] URL: ${getApiUrl("/convert-video")}`);
+      console.log(`📡 [REQUEST] Method: POST`);
+      console.log(
+        `📡 [REQUEST] File size: ${(file.size / 1024 / 1024).toFixed(2)} MB`
+      );
+      console.log(
+        "📡 [BACKEND REQUEST] ======================================"
+      );
+
       const formData = new FormData();
       formData.append("file", file);
       formData.append("outputFormat", outputFormat);
@@ -375,6 +470,19 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       }
 
       const result = await response.json();
+      const backendResponseTime = Date.now();
+      const timeToBackendResponse = backendResponseTime - conversionStartTime;
+
+      // COMPREHENSIVE LOGGING - BACKEND RESPONSE
+      console.log("📨 [BACKEND RESPONSE] ====================================");
+      console.log(`⏰ [TIMESTAMP] ${new Date().toISOString()}`);
+      console.log(
+        `⏰ [TIMING] Time to backend response: ${timeToBackendResponse}ms`
+      );
+      console.log(`📨 [RESPONSE] Status: ${result.status}`);
+      console.log(`📨 [RESPONSE] Unique filename: ${result.unique_filename}`);
+      console.log(`📨 [RESPONSE] Original size: ${result.original_size}`);
+      console.log("📨 [BACKEND RESPONSE] ====================================");
 
       if (result.status === "success") {
         // Store unique filename and start polling
