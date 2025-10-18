@@ -66,19 +66,17 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
   const [isInitializing, setIsInitializing] = useState(false);
   const [initializationStep, setInitializationStep] = useState(0);
   const [isBackendProcessing, setIsBackendProcessing] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [currentInitializationMessages, setCurrentInitializationMessages] =
     useState<any[]>([]);
   const [currentBackendMessages, setCurrentBackendMessages] = useState<any[]>(
     []
   );
 
-  // Messages that match the actual 44-second delay process
+  // Messages for backend processing after upload
   const getInitializationMessages = (fileSizeMB: number) => {
     return [
-      {
-        text: "Uploading your video file...",
-        subtext: `Transferring ${fileSizeMB.toFixed(1)}MB over secure connection`,
-      },
       {
         text: "Receiving file on server...",
         subtext: "Backend is downloading your video",
@@ -322,8 +320,10 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     setCurrentBackendMessages(getBackendProcessingMessages(fileSizeMB));
 
     setLoading(true);
-    setIsInitializing(true);
+    setIsInitializing(false);
     setIsBackendProcessing(false);
+    setIsUploading(false);
+    setUploadProgress(0);
     setInitializationStep(0);
     setProgress(0);
     setWarning("");
@@ -523,9 +523,41 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       formData.append("quality", quality.toString());
       formData.append("compression", compression);
 
-      const response = await fetch(getApiUrl("/convert-video"), {
-        method: "POST",
-        body: formData,
+      // Start upload progress tracking
+      setIsUploading(true);
+      setUploadProgress(0);
+
+      // Use XMLHttpRequest for upload progress tracking
+      const response = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        
+        // Track upload progress
+        xhr.upload.addEventListener('progress', (event) => {
+          if (event.lengthComputable) {
+            const percentComplete = (event.loaded / event.total) * 100;
+            setUploadProgress(Math.round(percentComplete));
+            console.log(`📤 [UPLOAD] Progress: ${Math.round(percentComplete)}%`);
+          }
+        });
+
+        xhr.addEventListener('load', () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve({
+              ok: true,
+              status: xhr.status,
+              json: () => Promise.resolve(JSON.parse(xhr.responseText))
+            });
+          } else {
+            reject(new Error(`Server error: ${xhr.status}`));
+          }
+        });
+
+        xhr.addEventListener('error', () => {
+          reject(new Error('Network error'));
+        });
+
+        xhr.open('POST', getApiUrl("/convert-video"));
+        xhr.send(formData);
       });
 
       if (!response.ok) {
@@ -548,6 +580,11 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       console.log("[BACKEND RESPONSE] ====================================");
 
       if (result.status === "success") {
+        // Upload complete, switch to processing mode
+        setIsUploading(false);
+        setIsBackendProcessing(true);
+        setInitializationStep(0);
+
         // Store unique filename and start polling
         uniqueFilename = result.unique_filename || file.name;
         setCurrentConversionId(uniqueFilename);
@@ -833,7 +870,11 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
           </div>
           <div className="text-center">
             <p className="text-xs text-gray-300 mb-1">
-              {isInitializing ? (
+              {isUploading ? (
+                <span className="text-green-300 animate-pulse">
+                  Uploading video... {uploadProgress}%
+                </span>
+              ) : isInitializing ? (
                 <span className="text-yellow-300 animate-pulse">
                   {currentInitializationMessages[initializationStep]?.text ||
                     "Securing your file..."}
@@ -850,7 +891,9 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               )}
             </p>
             <p className="text-xs text-gray-400">
-              {isInitializing
+              {isUploading
+                ? `Transferring ${(file.size / 1024 / 1024).toFixed(1)}MB over secure connection`
+                : isInitializing
                 ? currentInitializationMessages[initializationStep]?.subtext ||
                   "Initializing secure processing..."
                 : isBackendProcessing
