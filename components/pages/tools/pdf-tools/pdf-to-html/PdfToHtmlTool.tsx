@@ -39,6 +39,7 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [hasViewed, setHasViewed] = useState(false);
   const [showViewer, setShowViewer] = useState(false);
+  const [htmlContent, setHtmlContent] = useState<string | null>(null);
   
   // Conversion options
   const [includeImages, setIncludeImages] = useState(true);
@@ -149,10 +150,21 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
     }
   };
 
-  const handleView = () => {
+  const handleView = async () => {
     if (conversionResult) {
-      setShowViewer(true);
-      setHasViewed(true);
+      try {
+        // Fetch the HTML content
+        const response = await fetch(conversionResult);
+        const html = await response.text();
+        setHtmlContent(html);
+        setShowViewer(true);
+        setHasViewed(true);
+      } catch (error) {
+        console.error('Error fetching HTML content:', error);
+        // Fallback to opening in new tab
+        window.open(conversionResult, '_blank');
+        setHasViewed(true);
+      }
     }
   };
 
@@ -478,7 +490,7 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
       )}
 
       {/* Inline HTML Viewer */}
-      {showViewer && conversionResult && (
+      {showViewer && htmlContent && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -494,11 +506,10 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
             </button>
           </div>
           
-          <div className="border border-gray-600 rounded-lg overflow-hidden">
-            <iframe
-              src={conversionResult}
-              className="w-full h-[600px] border-0"
-              title="HTML Preview"
+          <div className="border border-gray-600 rounded-lg overflow-hidden bg-white">
+            <div 
+              className="w-full h-[600px] overflow-auto"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
           </div>
           
