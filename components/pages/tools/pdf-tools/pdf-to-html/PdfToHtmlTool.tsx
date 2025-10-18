@@ -37,6 +37,7 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
   const [convertedFileSize, setConvertedFileSize] = useState<number | null>(null);
   const [conversionResult, setConversionResult] = useState<string | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [hasViewed, setHasViewed] = useState(false);
   
   // Conversion options
   const [includeImages, setIncludeImages] = useState(true);
@@ -144,6 +145,14 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
     } finally {
       setLoading(false);
       setIsProcessing(false);
+    }
+  };
+
+  const handleView = () => {
+    if (conversionResult) {
+      const viewUrl = getApiUrl(conversionResult);
+      window.open(viewUrl, '_blank');
+      setHasViewed(true);
     }
   };
 
@@ -440,14 +449,24 @@ export const PdfToHtmlTool: React.FC<PdfToHtmlToolProps> = ({
                 </div>
               </div>
 
-              <div className="flex justify-center">
-                <button
-                  onClick={handleDownload}
-                  className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center"
-                >
-                  <Download className="h-5 w-5 mr-2" />
-                  Download HTML File
-                </button>
+              <div className="flex justify-center space-x-4">
+                {!hasViewed ? (
+                  <button
+                    onClick={handleView}
+                    className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center"
+                  >
+                    <FileText className="h-5 w-5 mr-2" />
+                    View HTML
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleDownload}
+                    className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center"
+                  >
+                    <Download className="h-5 w-5 mr-2" />
+                    Download HTML File
+                  </button>
+                )}
               </div>
             </div>
           )}
