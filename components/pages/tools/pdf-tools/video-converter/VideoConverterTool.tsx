@@ -896,7 +896,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             </p>
             <p className="text-xs text-gray-400">
               {isUploading
-                ? `Transferring ${(file.size / 1024 / 1024).toFixed(1)}MB over secure connection`
+                ? `Transferring ${file ? (file.size / 1024 / 1024).toFixed(1) : '0'}MB over secure connection`
                 : isInitializing
                 ? currentInitializationMessages[initializationStep]?.subtext ||
                   "Initializing secure processing..."
