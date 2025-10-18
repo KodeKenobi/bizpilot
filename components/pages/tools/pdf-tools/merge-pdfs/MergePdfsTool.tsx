@@ -411,12 +411,17 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
               key={pdfFile.id}
               className="bg-gray-700/50 rounded-lg p-4 flex items-center justify-between"
             >
-              <div className="flex items-center space-x-4">
-                <div className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+              <div className="flex items-center space-x-4 flex-1 min-w-0">
+                <div className="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold flex-shrink-0">
                   {index + 1}
                 </div>
-                <div>
-                  <div className="text-white font-medium">{pdfFile.name}</div>
+                <div className="min-w-0 flex-1">
+                  <div
+                    className="text-white font-medium truncate max-w-full"
+                    title={pdfFile.name}
+                  >
+                    {pdfFile.name}
+                  </div>
                   <div className="text-gray-400 text-sm">
                     {formatFileSize(pdfFile.size)}
                   </div>

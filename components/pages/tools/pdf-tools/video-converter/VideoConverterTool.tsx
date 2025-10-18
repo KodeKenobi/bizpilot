@@ -68,12 +68,30 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
 
   // Dynamic initialization messages
   const initializationMessages = [
-    { text: "🔒 Securing your file with encryption...", subtext: "Initializing secure processing" },
-    { text: "🛡️ Validating file integrity...", subtext: "Checking file format and size" },
-    { text: "⚡ Preparing conversion engine...", subtext: "Loading FFmpeg processing tools" },
-    { text: "🔐 Setting up secure channels...", subtext: "Establishing encrypted connection" },
-    { text: "🎯 Optimizing compression settings...", subtext: "Configuring quality parameters" },
-    { text: "🚀 Almost ready to start...", subtext: "Finalizing setup process" }
+    {
+      text: "🔒 Securing your file with encryption...",
+      subtext: "Initializing secure processing",
+    },
+    {
+      text: "🛡️ Validating file integrity...",
+      subtext: "Checking file format and size",
+    },
+    {
+      text: "⚡ Preparing conversion engine...",
+      subtext: "Loading FFmpeg processing tools",
+    },
+    {
+      text: "🔐 Setting up secure channels...",
+      subtext: "Establishing encrypted connection",
+    },
+    {
+      text: "🎯 Optimizing compression settings...",
+      subtext: "Configuring quality parameters",
+    },
+    {
+      text: "🚀 Almost ready to start...",
+      subtext: "Finalizing setup process",
+    },
   ];
 
   // Cycle through initialization messages
@@ -81,7 +99,9 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     let interval: NodeJS.Timeout;
     if (isInitializing) {
       interval = setInterval(() => {
-        setInitializationStep(prev => (prev + 1) % initializationMessages.length);
+        setInitializationStep(
+          (prev) => (prev + 1) % initializationMessages.length
+        );
       }, 1500); // Change message every 1.5 seconds
     }
     return () => {
@@ -486,9 +506,14 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       {file && (
         <div className="mb-4 p-3 bg-gray-700 rounded-lg border border-gray-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <p className="text-xs sm:text-sm text-gray-200 truncate">
+            <p className="text-xs sm:text-sm text-gray-200">
               Selected file:{" "}
-              <span className="font-medium text-white">{file.name}</span>
+              <span
+                className="font-medium text-white block truncate max-w-full"
+                title={file.name}
+              >
+                {file.name}
+              </span>
             </p>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-1">
               <p className="text-xs text-gray-400">
@@ -639,7 +664,8 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             <p className="text-xs text-gray-300 mb-1">
               {isInitializing ? (
                 <span className="text-yellow-300 animate-pulse">
-                  {initializationMessages[initializationStep]?.text || "🔒 Securing your file..."}
+                  {initializationMessages[initializationStep]?.text ||
+                    "🔒 Securing your file..."}
                 </span>
               ) : outputFormat === "mp3" ? (
                 "Extracting audio..."
@@ -649,7 +675,8 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             </p>
             <p className="text-xs text-gray-400">
               {isInitializing
-                ? initializationMessages[initializationStep]?.subtext || "Initializing secure processing..."
+                ? initializationMessages[initializationStep]?.subtext ||
+                  "Initializing secure processing..."
                 : `${progress}% complete`}
             </p>
           </div>
