@@ -72,74 +72,70 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     []
   );
 
-  // Time-aware initialization messages based on actual delays
+  // User-focused initialization messages - no technical details
   const getInitializationMessages = (fileSizeMB: number) => {
     return [
       {
         text: "Securing your file with encryption...",
-        subtext: "Initializing secure processing",
+        subtext: "Protecting your video file",
+      },
+      {
+        text: "Reading your video file...",
+        subtext: `Analyzing ${fileSizeMB.toFixed(1)}MB video`,
+      },
+      {
+        text: "Validating file format...",
+        subtext: "Checking video compatibility",
+      },
+      {
+        text: "Preparing secure upload...",
+        subtext: "Setting up file transfer",
+      },
+      {
+        text: "Encrypting your data...",
+        subtext: "Securing file transmission",
+      },
+      {
+        text: "Reading video metadata...",
+        subtext: "Analyzing file information",
       },
       {
         text: "Validating file integrity...",
-        subtext: `Checking ${fileSizeMB.toFixed(1)}MB file structure`,
+        subtext: "Ensuring file completeness",
       },
       {
-        text: "Uploading file to secure servers...",
-        subtext: "Transferring your video file",
-      },
-      {
-        text: "Preparing conversion engine...",
-        subtext: "Loading FFmpeg processing tools",
-      },
-      {
-        text: "Setting up secure channels...",
-        subtext: "Establishing encrypted connection",
-      },
-      {
-        text: "Analyzing video properties...",
-        subtext: "Reading metadata and codec information",
-      },
-      {
-        text: "Optimizing compression settings...",
-        subtext: "Configuring quality parameters",
-      },
-      {
-        text: "Allocating processing resources...",
-        subtext: "Preparing backend infrastructure",
-      },
-      {
-        text: "Initializing video processing...",
-        subtext: "Setting up conversion pipeline",
+        text: "Preparing conversion...",
+        subtext: "Setting up processing",
       },
       {
         text: "Almost ready to start...",
-        subtext: "Finalizing setup process",
+        subtext: "Finalizing preparation",
       },
     ];
   };
 
-  // Time-aware backend processing messages
+  // User-focused processing messages - no technical details
   const getBackendProcessingMessages = (fileSizeMB: number) => {
     return [
       {
-        text: "Processing your request...",
-        subtext: "Backend is analyzing your file",
+        text: "Processing your video...",
+        subtext: "Analyzing your file",
       },
       {
-        text: "Preparing video conversion...",
-        subtext: "Setting up processing pipeline",
+        text: "Preparing conversion...",
+        subtext: "Setting up video processing",
       },
       {
-        text: "Allocating server resources...",
-        subtext: "Reserving processing capacity",
+        text: "Optimizing settings...",
+        subtext: "Configuring quality parameters",
       },
       {
-        text: "Initializing FFmpeg engine...",
-        subtext: "Loading video processing tools",
+        text: "Reading video data...",
+        subtext: "Processing file information",
       },
       {
-        text: "Almost ready to start conversion...",
-        subtext: "Finalizing backend setup",
+        text: "Almost ready to start...",
+        subtext: "Finalizing setup",
       },
     ];
   };
@@ -161,15 +157,15 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     };
   }, [isInitializing, currentInitializationMessages.length]);
 
-  // Cycle through backend processing messages
+  // Cycle through backend processing messages (no repetition)
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isBackendProcessing && currentBackendMessages.length > 0) {
       interval = setInterval(() => {
         setInitializationStep((prev) => {
           const next = prev + 1;
-          // Cycle through backend messages
-          return next >= currentBackendMessages.length ? 0 : next;
+          // Stop cycling when we reach the end, don't repeat
+          return next >= currentBackendMessages.length ? prev : next;
         });
       }, 4000); // Change message every 4 seconds for backend processing
     }
