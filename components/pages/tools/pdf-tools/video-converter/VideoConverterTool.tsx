@@ -528,7 +528,11 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       setUploadProgress(0);
 
       // Use XMLHttpRequest for upload progress tracking
-      const response = await new Promise((resolve, reject) => {
+      const response = await new Promise<{
+        ok: boolean;
+        status: number;
+        json: () => Promise<any>;
+      }>((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         
         // Track upload progress
