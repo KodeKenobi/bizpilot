@@ -403,6 +403,19 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             progressData.converted_filename ||
             uniqueFilename.replace(/\.[^/.]+$/, "_converted.mp4")
           }`;
+          console.log(
+            "🔗 [DOWNLOAD URL] Constructed download URL:",
+            downloadUrl
+          );
+          console.log(
+            "🔗 [DOWNLOAD URL] progressData.converted_filename:",
+            progressData.converted_filename
+          );
+          console.log("🔗 [DOWNLOAD URL] uniqueFilename:", uniqueFilename);
+          console.log(
+            "🔗 [DOWNLOAD URL] getApiUrl result:",
+            getApiUrl("/download_converted_video")
+          );
           setConversionResult(downloadUrl);
 
           // Set converted file size if available
@@ -875,9 +888,8 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
               </span>
             </p>
             <p className="text-xs text-gray-400">
-              Transferring{" "}
-              {file ? (file.size / 1024 / 1024).toFixed(1) : "0"}MB over secure
-              connection
+              Transferring {file ? (file.size / 1024 / 1024).toFixed(1) : "0"}MB
+              over secure connection
             </p>
           </div>
         </div>

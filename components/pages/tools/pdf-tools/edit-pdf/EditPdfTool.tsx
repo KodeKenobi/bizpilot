@@ -5,6 +5,7 @@ import { useMonetization } from "@/hooks/useMonetization";
 import { useAlertModal } from "@/hooks/useAlertModal";
 import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 // Simple button component
 const Button: React.FC<{
@@ -146,13 +147,17 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      const uploadResponse = await fetch("/api/upload", {
+      const uploadResponse = await fetch(`${getApiUrl("")}/api/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (!uploadResponse.ok) {
-        console.error("❌ [Edit PDF] Upload failed:", uploadResponse.status, uploadResponse.statusText);
+        console.error(
+          "❌ [Edit PDF] Upload failed:",
+          uploadResponse.status,
+          uploadResponse.statusText
+        );
         throw new Error("Failed to upload PDF");
       }
 
@@ -168,7 +173,9 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
         console.log("📄 [Edit PDF] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("⚠️ [Edit PDF] Failed to get PDF info, defaulting to 1 page");
+        console.warn(
+          "⚠️ [Edit PDF] Failed to get PDF info, defaulting to 1 page"
+        );
         setTotalPages(1);
       }
 
@@ -368,7 +375,9 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
-      console.log("📤 [Edit PDF] Sending GENERATE_PDF_FOR_PREVIEW message to iframe");
+      console.log(
+        "📤 [Edit PDF] Sending GENERATE_PDF_FOR_PREVIEW message to iframe"
+      );
       iframe.contentWindow.postMessage(
         {
           type: "GENERATE_PDF_FOR_PREVIEW",

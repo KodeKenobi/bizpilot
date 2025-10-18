@@ -6,6 +6,7 @@ import { useAlertModal } from "@/hooks/useAlertModal";
 import { SignatureCanvas } from "@/components/ui/signature-canvas";
 import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 // Simple button component
 const Button: React.FC<{
@@ -207,13 +208,17 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      const uploadResponse = await fetch("/api/upload", {
+      const uploadResponse = await fetch(`${getApiUrl("")}/api/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (!uploadResponse.ok) {
-        console.error("❌ [Edit Fill Sign] Upload failed:", uploadResponse.status, uploadResponse.statusText);
+        console.error(
+          "❌ [Edit Fill Sign] Upload failed:",
+          uploadResponse.status,
+          uploadResponse.statusText
+        );
         throw new Error("Failed to upload PDF");
       }
 
@@ -229,7 +234,9 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
         console.log("📄 [Edit Fill Sign] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("⚠️ [Edit Fill Sign] Failed to get PDF info, defaulting to 1 page");
+        console.warn(
+          "⚠️ [Edit Fill Sign] Failed to get PDF info, defaulting to 1 page"
+        );
         setTotalPages(1);
       }
 
@@ -454,7 +461,9 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
 
   // Handle save changes - show view button first
   const handleSaveChanges = () => {
-    console.log("💾 [Edit Fill Sign] Save clicked - generating PDF for preview");
+    console.log(
+      "💾 [Edit Fill Sign] Save clicked - generating PDF for preview"
+    );
     setIsSaving(true);
 
     // Send message to iframe to generate PDF (without download)
@@ -462,7 +471,9 @@ export const EditFillSignTool: React.FC<EditFillSignToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
-      console.log("📤 [Edit Fill Sign] Sending GENERATE_PDF_FOR_PREVIEW message to iframe");
+      console.log(
+        "📤 [Edit Fill Sign] Sending GENERATE_PDF_FOR_PREVIEW message to iframe"
+      );
       iframe.contentWindow.postMessage(
         {
           type: "GENERATE_PDF_FOR_PREVIEW",

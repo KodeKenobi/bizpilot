@@ -6,6 +6,7 @@ import { useAlertModal } from "@/hooks/useAlertModal";
 import { SignatureCanvas } from "@/components/ui/signature-canvas";
 import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 // Simple button component
 const Button: React.FC<{
@@ -148,13 +149,17 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      const uploadResponse = await fetch("/api/upload", {
+      const uploadResponse = await fetch(`${getApiUrl("")}/api/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (!uploadResponse.ok) {
-        console.error("❌ [Add Signature] Upload failed:", uploadResponse.status, uploadResponse.statusText);
+        console.error(
+          "❌ [Add Signature] Upload failed:",
+          uploadResponse.status,
+          uploadResponse.statusText
+        );
         throw new Error("Failed to upload PDF");
       }
 
@@ -170,7 +175,9 @@ export const AddSignatureTool: React.FC<AddSignatureToolProps> = ({
         console.log("📄 [Add Signature] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("⚠️ [Add Signature] Failed to get PDF info, defaulting to 1 page");
+        console.warn(
+          "⚠️ [Add Signature] Failed to get PDF info, defaulting to 1 page"
+        );
         setTotalPages(1);
       }
 

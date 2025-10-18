@@ -4,6 +4,7 @@ import React, { useState, useRef, useCallback } from "react";
 import { useMonetization } from "@/hooks/useMonetization";
 import { useAlertModal } from "@/hooks/useAlertModal";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 // Simple button component
 const Button: React.FC<{
@@ -139,13 +140,17 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       formData.append("pdf", uploadedFile);
 
       console.log("🚀 Starting PDF upload to backend...");
-      const uploadResponse = await fetch("/api/upload", {
+      const uploadResponse = await fetch(`${getApiUrl("")}/api/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (!uploadResponse.ok) {
-        console.error("❌ PDF upload failed:", uploadResponse.status, uploadResponse.statusText);
+        console.error(
+          "❌ PDF upload failed:",
+          uploadResponse.status,
+          uploadResponse.statusText
+        );
         throw new Error("Failed to upload PDF");
       }
 
@@ -154,7 +159,9 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
 
       // Get PDF info including page count
       console.log("📊 Fetching PDF info...");
-      const pdfInfoResponse = await fetch(`/api/pdf_info/${filename}`);
+      const pdfInfoResponse = await fetch(
+        `${getApiUrl("")}/api/pdf_info/${filename}`
+      );
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
         console.log("📄 PDF info:", pdfInfo);
@@ -166,7 +173,9 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
           { length: pdfInfo.page_count },
           (_, index) => ({
             pageNumber: index + 1,
-            thumbnailUrl: `/api/pdf_thumbnail/${filename}/${index + 1}`,
+            thumbnailUrl: `${getApiUrl("")}/api/pdf_thumbnail/${filename}/${
+              index + 1
+            }`,
             isSelected: true, // Select all pages by default
           })
         );
@@ -253,8 +262,11 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       }, 200);
 
       // Call split API
-      console.log("✂️ Calling split API with pages:", selectedPages.map((page) => page.pageNumber));
-      const response = await fetch("/api/split_pdf", {
+      console.log(
+        "✂️ Calling split API with pages:",
+        selectedPages.map((page) => page.pageNumber)
+      );
+      const response = await fetch(`${getApiUrl("")}/api/split_pdf`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -273,8 +285,15 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       }
 
       const result = await response.json();
-      setDownloadUrls(result.downloadUrls);
-      setViewUrls(result.viewUrls || []);
+      // Construct full URLs using the backend base URL
+      const fullDownloadUrls = result.downloadUrls.map((url: string) =>
+        url.startsWith("http") ? url : `${getApiUrl("")}${url}`
+      );
+      const fullViewUrls = (result.viewUrls || []).map((url: string) =>
+        url.startsWith("http") ? url : `${getApiUrl("")}${url}`
+      );
+      setDownloadUrls(fullDownloadUrls);
+      setViewUrls(fullViewUrls);
       setShowDownloadOptions(true);
 
       alertModal.showSuccess(
@@ -337,7 +356,9 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
     }
     // Fallback to constructing URL if viewUrls not available
     const fileName = uploadedFile?.name?.replace(".pdf", "") || "";
-    const fallbackUrl = `/view_split/${fileName}_page_${pageNumber}.pdf`;
+    const fallbackUrl = `${getApiUrl(
+      ""
+    )}/view_split/${fileName}_page_${pageNumber}.pdf`;
     console.log("🔗 Using fallback view URL:", fallbackUrl);
     return fallbackUrl;
   };

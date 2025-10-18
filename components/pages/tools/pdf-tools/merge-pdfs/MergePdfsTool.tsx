@@ -4,6 +4,7 @@ import React, { useState, useRef, useCallback } from "react";
 import { useMonetization } from "@/hooks/useMonetization";
 import { useAlertModal } from "@/hooks/useAlertModal";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 // Simple button component
 const Button: React.FC<{
@@ -178,7 +179,7 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
       });
 
       console.log("🔗 Calling merge API...");
-      const response = await fetch("/merge_pdfs", {
+      const response = await fetch(`${getApiUrl("")}/merge_pdfs`, {
         method: "POST",
         body: formData,
       });
@@ -198,7 +199,11 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
       const result = await response.json();
       console.log("✅ Merge result:", result);
 
-      setMergedPdfUrl(result.download_url);
+      // Construct full URL using the backend base URL
+      const fullDownloadUrl = result.download_url.startsWith("http")
+        ? result.download_url
+        : `${getApiUrl("")}${result.download_url}`;
+      setMergedPdfUrl(fullDownloadUrl);
       setShowDownloadOptions(true);
 
       alertModal.showSuccess(

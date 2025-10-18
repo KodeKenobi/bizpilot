@@ -5,6 +5,7 @@ import { useMonetization } from "@/hooks/useMonetization";
 import { useAlertModal } from "@/hooks/useAlertModal";
 import { PDFEditorLayout } from "@/components/ui/PDFEditorLayout";
 import MonetizationModal from "@/components/ui/MonetizationModal";
+import { getApiUrl } from "@/lib/config";
 
 // Simple button component
 const Button: React.FC<{
@@ -151,13 +152,17 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      const uploadResponse = await fetch("/api/upload", {
+      const uploadResponse = await fetch(`${getApiUrl("")}/api/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (!uploadResponse.ok) {
-        console.error("❌ [Add Watermark] Upload failed:", uploadResponse.status, uploadResponse.statusText);
+        console.error(
+          "❌ [Add Watermark] Upload failed:",
+          uploadResponse.status,
+          uploadResponse.statusText
+        );
         throw new Error("Failed to upload PDF");
       }
 
@@ -173,7 +178,9 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
         console.log("📄 [Add Watermark] PDF info:", pdfInfo);
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn("⚠️ [Add Watermark] Failed to get PDF info, defaulting to 1 page");
+        console.warn(
+          "⚠️ [Add Watermark] Failed to get PDF info, defaulting to 1 page"
+        );
         setTotalPages(1);
       }
 

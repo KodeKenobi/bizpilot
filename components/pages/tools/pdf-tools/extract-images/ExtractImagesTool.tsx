@@ -5,6 +5,7 @@ import { PDFFileUpload } from "@/components/ui/PDFFileUpload";
 import { useMonetization } from "@/hooks/useMonetization";
 import MonetizationModal from "@/components/ui/MonetizationModal";
 import { motion, AnimatePresence } from "framer-motion";
+import { getApiUrl } from "@/lib/config";
 
 interface ExtractImagesToolProps {
   uploadedFile: File | null;
@@ -62,7 +63,7 @@ export const ExtractImagesTool: React.FC<ExtractImagesToolProps> = ({
     openMonetizationModal(
       `${uploadedFile.name.replace(".pdf", "")}_all_images.zip`,
       "ZIP",
-      `/download_images/${uploadedFile.name}`
+      `${getApiUrl("")}/download_images/${uploadedFile.name}`
     );
   };
 

@@ -52,55 +52,66 @@ export const useMonetization = () => {
     console.log("🎬 useMonetization handleAdComplete called");
     console.log("🎬 hasDownloaded:", hasDownloaded);
     console.log("🎬 monetizationState:", monetizationState);
-    console.log("🎬 monetizationState.downloadUrl:", monetizationState.downloadUrl);
+    console.log(
+      "🎬 monetizationState.downloadUrl:",
+      monetizationState.downloadUrl
+    );
     console.log("🎬 monetizationState.fileName:", monetizationState.fileName);
 
     if (!hasDownloaded) {
       console.log("🎬 Setting hasDownloaded to true and triggering download");
       setHasDownloaded(true);
-      
+
       // Check if downloadUrl exists
       if (!monetizationState.downloadUrl) {
         console.error("🎬 ERROR: downloadUrl is empty or undefined!");
         return;
       }
-      
+
       // Trigger download after ad completion
       try {
         console.log("🎬 Attempting to download file...");
         console.log("🎬 Download URL:", monetizationState.downloadUrl);
         console.log("🎬 File name:", monetizationState.fileName);
-        
+
         // First try to fetch the file to ensure it's accessible
+        console.log(
+          "🎬 Attempting to fetch file from URL:",
+          monetizationState.downloadUrl
+        );
         const response = await fetch(monetizationState.downloadUrl);
+        console.log("🎬 Fetch response status:", response.status);
+        console.log("🎬 Fetch response ok:", response.ok);
         if (!response.ok) {
+          console.error("🎬 Fetch failed with status:", response.status);
+          console.error("🎬 Response text:", await response.text());
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         // Convert to blob and create download
         const blob = await response.blob();
         const blobUrl = window.URL.createObjectURL(blob);
-        
+
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = monetizationState.fileName;
         link.style.display = "none";
-        
+
         console.log("🎬 Download link created:", {
           href: link.href,
           download: link.download,
         });
-        
+
         // Add link to DOM and trigger download
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
+
         // Clean up blob URL
         setTimeout(() => {
           window.URL.revokeObjectURL(blobUrl);
         }, 1000);
-        
+
         console.log("🎬 Download triggered successfully");
       } catch (error) {
         console.error("🎬 Error downloading file:", error);
@@ -125,49 +136,57 @@ export const useMonetization = () => {
     if (!hasDownloaded) {
       console.log("💳 Setting hasDownloaded to true and triggering download");
       setHasDownloaded(true);
-      
+
       // Check if downloadUrl exists
       if (!monetizationState.downloadUrl) {
         console.error("💳 ERROR: downloadUrl is empty or undefined!");
         return;
       }
-      
+
       // Trigger download after payment completion
       try {
         console.log("💳 Attempting to download file...");
         console.log("💳 Download URL:", monetizationState.downloadUrl);
         console.log("💳 File name:", monetizationState.fileName);
-        
+
         // First try to fetch the file to ensure it's accessible
+        console.log(
+          "🎬 Attempting to fetch file from URL:",
+          monetizationState.downloadUrl
+        );
         const response = await fetch(monetizationState.downloadUrl);
+        console.log("🎬 Fetch response status:", response.status);
+        console.log("🎬 Fetch response ok:", response.ok);
         if (!response.ok) {
+          console.error("🎬 Fetch failed with status:", response.status);
+          console.error("🎬 Response text:", await response.text());
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         // Convert to blob and create download
         const blob = await response.blob();
         const blobUrl = window.URL.createObjectURL(blob);
-        
+
         const link = document.createElement("a");
         link.href = blobUrl;
         link.download = monetizationState.fileName;
         link.style.display = "none";
-        
+
         console.log("💳 Download link created:", {
           href: link.href,
           download: link.download,
         });
-        
+
         // Add link to DOM and trigger download
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
+
         // Clean up blob URL
         setTimeout(() => {
           window.URL.revokeObjectURL(blobUrl);
         }, 1000);
-        
+
         console.log("💳 Download triggered successfully");
       } catch (error) {
         console.error("💳 Error downloading file:", error);

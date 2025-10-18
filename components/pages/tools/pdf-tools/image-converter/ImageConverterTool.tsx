@@ -116,7 +116,11 @@ export const ImageConverterTool: React.FC<ImageConverterToolProps> = ({
 
       if (response.ok) {
         const result = await response.json();
-        setConversionResult(result.downloadUrl);
+        // Construct full URL using the backend base URL
+        const fullDownloadUrl = result.downloadUrl.startsWith('http') 
+          ? result.downloadUrl 
+          : `${getApiUrl('')}${result.downloadUrl}`;
+        setConversionResult(fullDownloadUrl);
         setConvertedFileSize(result.convertedSize);
         setResult({
           type: "success",
