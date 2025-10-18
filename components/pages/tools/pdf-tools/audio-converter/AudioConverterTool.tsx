@@ -286,10 +286,7 @@ export const AudioConverterTool: React.FC<AudioConverterToolProps> = ({
             <div className="space-y-3">
               <div className="text-green-400 text-4xl">🎵</div>
               <div className="min-w-0 flex-1">
-                <p
-                  className="text-sm font-medium text-white mb-1 truncate max-w-full"
-                  title={file.name}
-                >
+                <p className="text-sm font-medium text-white mb-1 break-words">
                   {file.name}
                 </p>
                 <p className="text-xs text-gray-400">

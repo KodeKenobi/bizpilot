@@ -211,12 +211,9 @@ export const ImageConverterTool: React.FC<ImageConverterToolProps> = ({
       {file && (
         <div className="mb-4 p-3 bg-gray-700 rounded-lg border border-gray-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <p className="text-xs sm:text-sm text-gray-200">
+            <p className="text-xs sm:text-sm text-gray-200 break-words">
               Selected file:{" "}
-              <span
-                className="font-medium text-white block truncate max-w-full"
-                title={file.name}
-              >
+              <span className="font-medium text-white break-words">
                 {file.name}
               </span>
             </p>

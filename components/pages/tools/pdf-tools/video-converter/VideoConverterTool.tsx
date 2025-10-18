@@ -94,15 +94,17 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     },
   ];
 
-  // Cycle through initialization messages
+  // Cycle through initialization messages (no repetition)
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isInitializing) {
       interval = setInterval(() => {
-        setInitializationStep(
-          (prev) => (prev + 1) % initializationMessages.length
-        );
-      }, 1500); // Change message every 1.5 seconds
+        setInitializationStep((prev) => {
+          const next = prev + 1;
+          // Stop cycling when we reach the end, don't repeat
+          return next >= initializationMessages.length ? prev : next;
+        });
+      }, 2500); // Change message every 2.5 seconds (longer for credibility)
     }
     return () => {
       if (interval) clearInterval(interval);
@@ -506,12 +508,9 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       {file && (
         <div className="mb-4 p-3 bg-gray-700 rounded-lg border border-gray-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <p className="text-xs sm:text-sm text-gray-200">
+            <p className="text-xs sm:text-sm text-gray-200 break-words">
               Selected file:{" "}
-              <span
-                className="font-medium text-white block truncate max-w-full"
-                title={file.name}
-              >
+              <span className="font-medium text-white break-words">
                 {file.name}
               </span>
             </p>
