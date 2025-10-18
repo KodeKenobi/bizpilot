@@ -66,108 +66,117 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
   const [isInitializing, setIsInitializing] = useState(false);
   const [initializationStep, setInitializationStep] = useState(0);
   const [isBackendProcessing, setIsBackendProcessing] = useState(false);
+  const [currentInitializationMessages, setCurrentInitializationMessages] =
+    useState<any[]>([]);
+  const [currentBackendMessages, setCurrentBackendMessages] = useState<any[]>(
+    []
+  );
 
-  // Dynamic initialization messages - Extended for 30+ second delay
-  const initializationMessages = [
-    {
-      text: "Securing your file with encryption...",
-      subtext: "Initializing secure processing",
-    },
-    {
-      text: "Validating file integrity...",
-      subtext: "Checking file format and size",
-    },
-    {
-      text: "Uploading file to secure servers...",
-      subtext: "Transferring your video file",
-    },
-    {
-      text: "Preparing conversion engine...",
-      subtext: "Loading FFmpeg processing tools",
-    },
-    {
-      text: "Setting up secure channels...",
-      subtext: "Establishing encrypted connection",
-    },
-    {
-      text: "Analyzing video properties...",
-      subtext: "Reading metadata and codec information",
-    },
-    {
-      text: "Optimizing compression settings...",
-      subtext: "Configuring quality parameters",
-    },
-    {
-      text: "Allocating processing resources...",
-      subtext: "Preparing backend infrastructure",
-    },
-    {
-      text: "Initializing video processing...",
-      subtext: "Setting up conversion pipeline",
-    },
-    {
-      text: "Almost ready to start...",
-      subtext: "Finalizing setup process",
-    },
-  ];
+  // Time-aware initialization messages based on actual delays
+  const getInitializationMessages = (fileSizeMB: number) => {
+    return [
+      {
+        text: "Securing your file with encryption...",
+        subtext: "Initializing secure processing",
+      },
+      {
+        text: "Validating file integrity...",
+        subtext: `Checking ${fileSizeMB.toFixed(1)}MB file structure`,
+      },
+      {
+        text: "Uploading file to secure servers...",
+        subtext: "Transferring your video file",
+      },
+      {
+        text: "Preparing conversion engine...",
+        subtext: "Loading FFmpeg processing tools",
+      },
+      {
+        text: "Setting up secure channels...",
+        subtext: "Establishing encrypted connection",
+      },
+      {
+        text: "Analyzing video properties...",
+        subtext: "Reading metadata and codec information",
+      },
+      {
+        text: "Optimizing compression settings...",
+        subtext: "Configuring quality parameters",
+      },
+      {
+        text: "Allocating processing resources...",
+        subtext: "Preparing backend infrastructure",
+      },
+      {
+        text: "Initializing video processing...",
+        subtext: "Setting up conversion pipeline",
+      },
+      {
+        text: "Almost ready to start...",
+        subtext: "Finalizing setup process",
+      },
+    ];
+  };
 
-  // Backend processing messages for the 22-second backend response time
-  const backendProcessingMessages = [
-    {
-      text: "Processing your request...",
-      subtext: "Backend is analyzing your file",
-    },
-    {
-      text: "Preparing video conversion...",
-      subtext: "Setting up processing pipeline",
-    },
-    {
-      text: "Allocating server resources...",
-      subtext: "Reserving processing capacity",
-    },
-    {
-      text: "Initializing FFmpeg engine...",
-      subtext: "Loading video processing tools",
-    },
-    {
-      text: "Almost ready to start conversion...",
-      subtext: "Finalizing backend setup",
-    },
-  ];
+  // Time-aware backend processing messages
+  const getBackendProcessingMessages = (fileSizeMB: number) => {
+    return [
+      {
+        text: "Processing your request...",
+        subtext: "Backend is analyzing your file",
+      },
+      {
+        text: "Preparing video conversion...",
+        subtext: "Setting up processing pipeline",
+      },
+      {
+        text: "Allocating server resources...",
+        subtext: "Reserving processing capacity",
+      },
+      {
+        text: "Initializing FFmpeg engine...",
+        subtext: "Loading video processing tools",
+      },
+      {
+        text: "Almost ready to start conversion...",
+        subtext: "Finalizing backend setup",
+      },
+    ];
+  };
 
   // Cycle through initialization messages (no repetition)
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (isInitializing) {
+    if (isInitializing && currentInitializationMessages.length > 0) {
       interval = setInterval(() => {
         setInitializationStep((prev) => {
           const next = prev + 1;
           // Stop cycling when we reach the end, don't repeat
-          return next >= initializationMessages.length ? prev : next;
+          return next >= currentInitializationMessages.length ? prev : next;
         });
       }, 3000); // Change message every 3 seconds (covers 30+ second delay)
     }
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isInitializing, initializationMessages.length]);
+  }, [isInitializing, currentInitializationMessages.length]);
 
   // Cycle through backend processing messages
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (isBackendProcessing) {
+    if (isBackendProcessing && currentBackendMessages.length > 0) {
       interval = setInterval(() => {
         setInitializationStep((prev) => {
           const next = prev + 1;
           // Cycle through backend messages
-          return next >= backendProcessingMessages.length ? 0 : next;
+          return next >= currentBackendMessages.length ? 0 : next;
         });
       }, 4000); // Change message every 4 seconds for backend processing
     }
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isBackendProcessing, backendProcessingMessages.length]);
+  }, [isBackendProcessing, currentBackendMessages.length]);
 
   // Handle page refresh/unload - cancel any running conversion
   useEffect(() => {
@@ -299,25 +308,22 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     // COMPREHENSIVE LOGGING - CONVERSION START
     const conversionStartTime = Date.now();
     const timestamp = new Date().toISOString();
+    const fileSizeMB = file.size / 1024 / 1024;
 
-    console.log(
-      "🚀 [CONVERSION START] ========================================"
-    );
-    console.log(`⏰ [TIMESTAMP] ${timestamp}`);
-    console.log(`📁 [FILE INFO] Name: ${file.name}`);
-    console.log(
-      `📁 [FILE INFO] Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`
-    );
-    console.log(`📁 [FILE INFO] Type: ${file.type}`);
-    console.log(`🎯 [OUTPUT] Format: ${outputFormat}`);
-    console.log(`🎯 [OUTPUT] Quality: ${quality}`);
-    console.log(`🎯 [OUTPUT] Compression: ${compression}`);
-    console.log(
-      `⏰ [TIMING] Convert button clicked at: ${conversionStartTime}ms`
-    );
-    console.log(
-      "🚀 [CONVERSION START] ========================================"
-    );
+    console.log("[CONVERSION START] ========================================");
+    console.log(`[TIMESTAMP] ${timestamp}`);
+    console.log(`[FILE INFO] Name: ${file.name}`);
+    console.log(`[FILE INFO] Size: ${fileSizeMB.toFixed(2)} MB`);
+    console.log(`[FILE INFO] Type: ${file.type}`);
+    console.log(`[OUTPUT] Format: ${outputFormat}`);
+    console.log(`[OUTPUT] Quality: ${quality}`);
+    console.log(`[OUTPUT] Compression: ${compression}`);
+    console.log(`[TIMING] Convert button clicked at: ${conversionStartTime}ms`);
+    console.log("[CONVERSION START] ========================================");
+
+    // Set file-size aware messages
+    setCurrentInitializationMessages(getInitializationMessages(fileSizeMB));
+    setCurrentBackendMessages(getBackendProcessingMessages(fileSizeMB));
 
     setLoading(true);
     setIsInitializing(true);
@@ -337,7 +343,7 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       try {
         // Only poll if we have a unique filename from the backend
         if (!uniqueFilename) {
-          console.log(`🔍 [DEBUG] No unique filename yet, skipping poll`);
+          console.log(`[DEBUG] No unique filename yet, skipping poll`);
           return false;
         }
 
@@ -348,13 +354,13 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
         );
         const progressData = await response.json();
 
-        console.log(`🔍 [DEBUG] Backend response:`, progressData);
+        console.log(`[DEBUG] Backend response:`, progressData);
         console.log(
-          `🔍 [DEBUG] Polling URL: ${getApiUrl(
+          `[DEBUG] Polling URL: ${getApiUrl(
             "/conversion_progress"
           )}/${encodeURIComponent(uniqueFilename)}`
         );
-        console.log(`🔍 [DEBUG] Unique filename: ${uniqueFilename}`);
+        console.log(`[DEBUG] Unique filename: ${uniqueFilename}`);
 
         if (progressData.status === "completed") {
           if (progressInterval) clearInterval(progressInterval);
@@ -500,19 +506,15 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       const backendRequestTime = Date.now();
       const timeToBackend = backendRequestTime - conversionStartTime;
 
+      console.log("[BACKEND REQUEST] ======================================");
+      console.log(`[TIMESTAMP] ${new Date().toISOString()}`);
+      console.log(`[TIMING] Time to backend request: ${timeToBackend}ms`);
+      console.log(`[REQUEST] URL: ${getApiUrl("/convert-video")}`);
+      console.log(`[REQUEST] Method: POST`);
       console.log(
-        "📡 [BACKEND REQUEST] ======================================"
+        `[REQUEST] File size: ${(file.size / 1024 / 1024).toFixed(2)} MB`
       );
-      console.log(`⏰ [TIMESTAMP] ${new Date().toISOString()}`);
-      console.log(`⏰ [TIMING] Time to backend request: ${timeToBackend}ms`);
-      console.log(`📡 [REQUEST] URL: ${getApiUrl("/convert-video")}`);
-      console.log(`📡 [REQUEST] Method: POST`);
-      console.log(
-        `📡 [REQUEST] File size: ${(file.size / 1024 / 1024).toFixed(2)} MB`
-      );
-      console.log(
-        "📡 [BACKEND REQUEST] ======================================"
-      );
+      console.log("[BACKEND REQUEST] ======================================");
 
       // Switch to backend processing messages
       setIsInitializing(false);
@@ -539,15 +541,15 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
       const timeToBackendResponse = backendResponseTime - conversionStartTime;
 
       // COMPREHENSIVE LOGGING - BACKEND RESPONSE
-      console.log("📨 [BACKEND RESPONSE] ====================================");
-      console.log(`⏰ [TIMESTAMP] ${new Date().toISOString()}`);
+      console.log("[BACKEND RESPONSE] ====================================");
+      console.log(`[TIMESTAMP] ${new Date().toISOString()}`);
       console.log(
-        `⏰ [TIMING] Time to backend response: ${timeToBackendResponse}ms`
+        `[TIMING] Time to backend response: ${timeToBackendResponse}ms`
       );
-      console.log(`📨 [RESPONSE] Status: ${result.status}`);
-      console.log(`📨 [RESPONSE] Unique filename: ${result.unique_filename}`);
-      console.log(`📨 [RESPONSE] Original size: ${result.original_size}`);
-      console.log("📨 [BACKEND RESPONSE] ====================================");
+      console.log(`[RESPONSE] Status: ${result.status}`);
+      console.log(`[RESPONSE] Unique filename: ${result.unique_filename}`);
+      console.log(`[RESPONSE] Original size: ${result.original_size}`);
+      console.log("[BACKEND RESPONSE] ====================================");
 
       if (result.status === "success") {
         // Store unique filename and start polling
@@ -837,12 +839,12 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             <p className="text-xs text-gray-300 mb-1">
               {isInitializing ? (
                 <span className="text-yellow-300 animate-pulse">
-                  {initializationMessages[initializationStep]?.text ||
+                  {currentInitializationMessages[initializationStep]?.text ||
                     "Securing your file..."}
                 </span>
               ) : isBackendProcessing ? (
                 <span className="text-blue-300 animate-pulse">
-                  {backendProcessingMessages[initializationStep]?.text ||
+                  {currentBackendMessages[initializationStep]?.text ||
                     "Processing your request..."}
                 </span>
               ) : outputFormat === "mp3" ? (
@@ -853,10 +855,10 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
             </p>
             <p className="text-xs text-gray-400">
               {isInitializing
-                ? initializationMessages[initializationStep]?.subtext ||
+                ? currentInitializationMessages[initializationStep]?.subtext ||
                   "Initializing secure processing..."
                 : isBackendProcessing
-                ? backendProcessingMessages[initializationStep]?.subtext ||
+                ? currentBackendMessages[initializationStep]?.subtext ||
                   "Backend is analyzing your file"
                 : `${progress}% complete`}
             </p>
