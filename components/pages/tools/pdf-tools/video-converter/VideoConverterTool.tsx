@@ -72,44 +72,44 @@ export const VideoConverterTool: React.FC<VideoConverterToolProps> = ({
     []
   );
 
-  // User-focused initialization messages - no technical details
+  // Messages that match the actual 44-second delay process
   const getInitializationMessages = (fileSizeMB: number) => {
     return [
       {
-        text: "Securing your file with encryption...",
-        subtext: "Protecting your video file",
+        text: "Uploading your video file...",
+        subtext: `Transferring ${fileSizeMB.toFixed(1)}MB over secure connection`,
       },
       {
-        text: "Reading your video file...",
-        subtext: `Analyzing ${fileSizeMB.toFixed(1)}MB video`,
-      },
-      {
-        text: "Validating file format...",
-        subtext: "Checking video compatibility",
-      },
-      {
-        text: "Preparing secure upload...",
-        subtext: "Setting up file transfer",
-      },
-      {
-        text: "Encrypting your data...",
-        subtext: "Securing file transmission",
-      },
-      {
-        text: "Reading video metadata...",
-        subtext: "Analyzing file information",
+        text: "Receiving file on server...",
+        subtext: "Backend is downloading your video",
       },
       {
         text: "Validating file integrity...",
-        subtext: "Ensuring file completeness",
+        subtext: "Checking file completeness and format",
       },
       {
-        text: "Preparing conversion...",
-        subtext: "Setting up processing",
+        text: "Saving file to disk...",
+        subtext: "Storing your video securely",
       },
       {
-        text: "Almost ready to start...",
-        subtext: "Finalizing preparation",
+        text: "Analyzing video properties...",
+        subtext: "Reading resolution, codec, and duration",
+      },
+      {
+        text: "Calculating optimal settings...",
+        subtext: "Determining best compression parameters",
+      },
+      {
+        text: "Preparing FFmpeg command...",
+        subtext: "Setting up video processing pipeline",
+      },
+      {
+        text: "Allocating server resources...",
+        subtext: "Reserving processing capacity",
+      },
+      {
+        text: "Starting video conversion...",
+        subtext: "FFmpeg is initializing",
       },
     ];
   };
