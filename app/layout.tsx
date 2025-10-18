@@ -3,6 +3,7 @@ import "./globals.css";
 import LayoutClient from "@/components/layout/LayoutClient";
 import { UserProvider } from "@/contexts/UserContext";
 import { ViewProvider } from "@/contexts/ViewContext";
+import { AlertProvider } from "@/contexts/AlertProvider";
 import Script from "next/script";
 import { PROPELLER_ADS_URL } from "../lib/adConfig";
 
@@ -54,7 +55,9 @@ export default function RootLayout({
       <body>
         <UserProvider>
           <ViewProvider>
-            <LayoutClient>{children}</LayoutClient>
+            <AlertProvider>
+              <LayoutClient>{children}</LayoutClient>
+            </AlertProvider>
           </ViewProvider>
         </UserProvider>
         <Script
