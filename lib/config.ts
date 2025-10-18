@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
   // Always use production URL for API testing
-  BASE_URL: "https://justpdf-backend-production.up.railway.app",
+  BASE_URL: "https://web-production-737b.up.railway.app",
 
   // API endpoints
   ENDPOINTS: {
