@@ -171,7 +171,7 @@ export function CircuitPulse({
                   : "left-[30%] top-[30%] -translate-x-1/2 -translate-y-1/2",
               )}
               style={{
-                backgroundColor: "#0a0a0a",
+                backgroundColor: "#111827",
                 borderColor: iconConfig.color,
                 boxShadow: `0 0 30px ${iconConfig.color}80, 0 0 60px ${iconConfig.color}40, inset 0 0 15px ${iconConfig.color}30`,
               }}

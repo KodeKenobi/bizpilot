@@ -106,9 +106,9 @@ export default function ToolsPage() {
   ];
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#111827] page-content overflow-x-hidden">
+    <div ref={containerRef} className="min-h-screen bg-background page-content overflow-x-hidden">
       {/* Hero Section (Matching Campaigns Style but all white font) */}
-      <section className="min-h-[60vh] flex items-center justify-center relative overflow-hidden px-6">
+      <section className="min-h-[60vh] flex items-center justify-center relative overflow-hidden px-6 bg-background">
         <div className="text-center max-w-4xl relative z-20">
           <h1 className="hero-title text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
             Professional Tools <br />
@@ -127,14 +127,10 @@ export default function ToolsPage() {
           </p>
           
         </div>
-
-        {/* Background Gradients */}
-        <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
       </section>
 
       {/* Tools Grid Section (Landing Page Style) */}
-      <section className="pb-32 relative z-10">
+      <section className="pb-32 relative z-10 bg-background">
         <div className="max-w-7xl mx-auto px-6">
           <div ref={toolsGridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {tools.map((tool, index) => {
@@ -152,7 +148,7 @@ export default function ToolsPage() {
                       relative
                       rounded-2xl
                       border border-gray-700/50
-                      bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900
+                      bg-background
                       overflow-hidden
                       transition-all duration-300
                       hover:border-gray-600/70
@@ -232,7 +228,7 @@ export default function ToolsPage() {
       </section>
 
       {/* Simplified Footer section to match landing page vibe */}
-      <section className="py-24 border-t border-gray-800/30 bg-[#111827]">
+      <section className="py-24 border-t border-gray-800/30 bg-background">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">

@@ -587,7 +587,7 @@ export default function CampaignsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-24">
+      <div className="min-h-screen flex items-center justify-center bg-background pt-24">
         <div className="flex flex-col items-center gap-3">
           <Loader className="w-6 h-6 animate-spin text-blue-400" />
           <span className="text-sm text-gray-300 font-medium">Loading...</span>
@@ -615,7 +615,7 @@ export default function CampaignsPage() {
   const totalSuccess = campaigns.reduce((sum, c) => sum + c.success_count, 0);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] pt-20 pb-12 px-6">
+    <div className="min-h-screen bg-background pt-20 pb-12 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -688,18 +688,19 @@ export default function CampaignsPage() {
           <div className="space-y-6">
             {/* Campaigns Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {campaigns.map((campaign) => {
+              {campaigns.map((campaign, index) => {
                 const isActive = campaign.status === "processing";
                 const isCompleted = campaign.status === "completed";
                 const isFailed = campaign.status === "failed";
                 const isPaused = campaign.status === "paused";
+                const bgImage = `/campaigns/campaign-${(index % 4) + 1}.jpg`;
 
                 return (
                   <div
                     key={campaign.id}
                     className="border border-gray-800 rounded-xl hover:border-gray-700 transition-all duration-200 group cursor-pointer overflow-hidden"
                     style={{
-                      backgroundImage: `linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(26, 26, 26, 0.9) 100%), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=200&fit=crop')`,
+                      backgroundImage: `linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(26, 26, 26, 0.9) 100%), url('${bgImage}')`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}

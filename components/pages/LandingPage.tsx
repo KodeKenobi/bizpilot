@@ -48,7 +48,7 @@ export default function LandingPage() {
 
   return (
     <>
-      <div className="min-h-screen relative overflow-hidden page-content bg-[#111827]">
+      <div className="min-h-screen relative overflow-hidden page-content bg-background">
         {/* Background Image Layer - Hidden on mobile */}
         {/* <div
           className="absolute inset-0 opacity-30 hidden md:block"
@@ -185,7 +185,7 @@ export default function LandingPage() {
         {/* Features Section */}
         <section
           id="features"
-          className="relative z-10 px-6 lg:px-12 py-20 bg-gray-900"
+          className="relative z-10 px-6 lg:px-12 py-20 bg-background"
         >
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -299,9 +299,7 @@ export default function LandingPage() {
         {/* Powerful Tools CTA Section */}
         <section className="py-24 relative overflow-hidden">
           {/* Background Elements */}
-          <div className="absolute inset-0 bg-gray-900"></div>
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gray-700/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gray-700/10 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 bg-background"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
@@ -379,7 +377,7 @@ export default function LandingPage() {
                         relative
                         rounded-2xl
                         border border-gray-700/50
-                        bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900
+                        bg-background
                         overflow-hidden
                         transition-all duration-300
                         hover:border-gray-600/70
@@ -459,7 +457,7 @@ export default function LandingPage() {
         </section>
 
         {/* Developer APIs CTA Section */}
-        <section className="relative overflow-hidden bg-[#111827]">
+        <section className="relative overflow-hidden bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

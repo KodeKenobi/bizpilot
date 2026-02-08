@@ -49,7 +49,7 @@ const FileConversionCard: React.FC<FileConversionCardProps> = ({
     switch (theme) {
       case "modern-dark":
         return {
-          card: "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-gray-700/50",
+          card: "bg-background border-gray-700/50",
           text: "text-white",
           textSecondary: "text-gray-400",
           textMuted: "text-gray-500",
@@ -85,7 +85,7 @@ const FileConversionCard: React.FC<FileConversionCardProps> = ({
         };
       default:
         return {
-          card: "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-gray-700/50",
+          card: "bg-background border-gray-700/50",
           text: "text-white",
           textSecondary: "text-gray-400",
           textMuted: "text-gray-500",
