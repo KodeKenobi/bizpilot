@@ -43,9 +43,7 @@ const STUCK_THRESHOLD_SEC = 90; // warn if no new completion for this long while
 // Backend enforces 90s per-company; no single company can run that long. This is only for "backend died / DB row stuck".
 const STUCK_AS_DONE_THRESHOLD_SEC = 2 * 60; // 2 min with 1 stuck "processing" = assume backend died; give up (user would never spend 2 min on one site)
 
-const BACKEND_SSE_BASE = USE_LOCAL
-  ? "http://localhost:5000"
-  : "https://web-production-737b.up.railway.app";
+const BACKEND_SSE_BASE = BASE_URL; // Now proxied through next.config.js for reliability
 
 /** Write stream for real-time log file (set at start of run()). */
 let logStream = null;
@@ -197,8 +195,23 @@ async function run() {
 
     // --- 0. First thing ever: go to site and dismiss cookie modal ---
     log("Loading site and dismissing cookie modal...");
-    await page.goto("/auth/login");
-    await page.waitForTimeout(1500);
+    
+    // Retry logic for initial navigation to handle cold starts (common on Railway)
+    let navigationSuccess = false;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        log(`Navigation attempt ${attempt} to /auth/login (90s timeout)...`);
+        await page.goto("/auth/login", { timeout: 90000, waitUntil: "load" });
+        navigationSuccess = true;
+        break;
+      } catch (e) {
+        log(`Navigation attempt ${attempt} failed: ${e.message}`);
+        if (attempt === 3) throw e;
+        await page.waitForTimeout(5000 * attempt); // Increasing delay between retries
+      }
+    }
+
+    await page.waitForTimeout(2000);
     const acceptAll = page.locator('button:has-text("Accept All")');
     const rejectAll = page.locator('button:has-text("Reject All")');
     try {
@@ -212,11 +225,17 @@ async function run() {
         log("No cookie modal found or already dismissed");
       }
     }
-    await page.waitForTimeout(800);
+    await page.waitForTimeout(1000);
 
     // --- 1. Login ---
     log("Filling login... (Target: " + page.url() + ")");
-    await page.waitForSelector('input[name="email"]', { timeout: 10000 });
+    // If not on login page, try to navigate again one last time
+    if (!page.url().includes("/auth/login")) {
+       log("Not on login page. Forcing navigation...");
+       await page.goto("/auth/login", { timeout: 60000 });
+    }
+    
+    await page.waitForSelector('input[name="email"]', { timeout: 20000 });
     await page.fill('input[name="email"]', LOGIN_EMAIL);
     await page.fill('input[name="password"]', LOGIN_PASSWORD);
     

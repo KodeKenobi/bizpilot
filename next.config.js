@@ -486,6 +486,11 @@ const nextConfig = {
         source: "/static/screenshots/:path*",
         destination: `${backendUrl}/static/screenshots/:path*`,
       },
+      // SSE endpoints
+      {
+        source: "/sse/:path*",
+        destination: `${backendUrl}/sse/:path*`,
+      },
     ];
   },
   async redirects() {
