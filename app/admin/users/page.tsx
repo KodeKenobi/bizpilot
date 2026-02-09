@@ -118,8 +118,6 @@ export default function UsersPage() {
         throw new Error("No active session found");
       }
 
-      console.log("🔍 Fetching users with session:", session.user);
-
       // Build query parameters - increase per_page to get all users
       const params = new URLSearchParams();
       params.append("per_page", "1000"); // Get up to 1000 users
@@ -136,19 +134,24 @@ export default function UsersPage() {
         tierFilter.forEach((tier) => params.append("subscription_tier", tier));
       }
 
-      console.log("🔍 Fetching users with params:", params.toString());
-
       // Try admin API first
       try {
         // Use the JWT token from localStorage (auth_token)
         const authToken = localStorage.getItem("auth_token");
         if (!authToken) {
-          console.log("❌ No auth token found in localStorage");
           throw new Error("No authentication token");
         }
 
+        // Use relative URL to hide Railway backend URL
+        const backendUrl =
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1")
+            ? "http://localhost:5000"
+            : "";
+
         const response = await fetch(
-          `https://web-production-737b.up.railway.app/api/admin/users?${params.toString()}`,
+          `${backendUrl}/api/admin/users?${params.toString()}`,
           {
             method: "GET",
             headers: {
@@ -160,21 +163,9 @@ export default function UsersPage() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("✅ Admin API response:", data);
-          console.log("✅ Total users returned:", data.users?.length || 0);
-          console.log("✅ Pagination info:", data.pagination);
 
           // Log each user returned
-          console.log("👥 Users returned from API:");
-          data.users?.forEach((user: any, index: number) => {
-            console.log(
-              `  ${index + 1}. ID: ${user.id}, Email: ${user.email}, Role: ${
-                user.role
-              }, Tier: ${user.subscription_tier || "free"}, Active: ${
-                user.is_active
-              }`
-            );
-          });
+          data.users?.forEach((user: any, index: number) => {});
 
           // Transform the data to match our interface
           const transformedUsers = data.users.map((user: any) => ({
@@ -199,25 +190,13 @@ export default function UsersPage() {
           return;
         } else {
           const errorText = await response.text();
-          console.log(
-            "❌ Admin API failed:",
-            response.status,
-            response.statusText,
-            errorText
-          );
           try {
             const errorJson = JSON.parse(errorText);
-            console.log("❌ Error details:", errorJson);
-          } catch (e) {
-            console.log("❌ Error response is not JSON");
-          }
+          } catch (e) {}
         }
-      } catch (adminError) {
-        console.log("❌ Admin API error:", adminError);
-      }
+      } catch (adminError) {}
 
       // Fallback: Create user entry from current session
-      console.log("🔄 Using fallback: creating user from session data");
 
       const currentUser = {
         id: session.user.id || 1,
@@ -232,8 +211,6 @@ export default function UsersPage() {
       setUsers([currentUser]);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching users:", error);
-
       // Ultimate fallback: show current user if available
       if (user) {
         setUsers([
@@ -265,16 +242,21 @@ export default function UsersPage() {
       }
 
       // Try to get user stats from admin API
-      const response = await fetch(
-        `https://web-production-737b.up.railway.app/api/admin/users/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${session.accessToken || session.user.id}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/admin/users/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${session.accessToken || session.user.id}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
         const userData = await response.json();
@@ -307,16 +289,21 @@ export default function UsersPage() {
         }
       } else {
         // If admin API fails, try to get basic user info
-        const profileResponse = await fetch(
-          "https://web-production-737b.up.railway.app/auth/profile",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${session.accessToken || session.user.id}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        // Use relative URL to hide Railway backend URL
+        const backendUrl =
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1")
+            ? "http://localhost:5000"
+            : "";
+
+        const profileResponse = await fetch(`${backendUrl}/auth/profile`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${session.accessToken || session.user.id}`,
+            "Content-Type": "application/json",
+          },
+        });
 
         if (profileResponse.ok) {
           const profileData = await profileResponse.json();
@@ -334,7 +321,6 @@ export default function UsersPage() {
         }
       }
     } catch (error) {
-      console.error("Error fetching user stats:", error);
       // Show empty stats on error
       setUserStats({
         total_calls: 0,
@@ -407,7 +393,6 @@ export default function UsersPage() {
 
       alert(`User ${action}d successfully`);
     } catch (error) {
-      console.error("Error updating user status:", error);
       alert(
         `Failed to ${action} user: ${
           error instanceof Error ? error.message : "Unknown error"
@@ -432,11 +417,16 @@ export default function UsersPage() {
         return;
       }
 
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
       const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/admin/users/${userId}/reset-calls`,
+        `${backendUrl}/api/admin/users/${userId}/reset-calls`,
         {
           method: "POST",
           headers: {
@@ -461,7 +451,6 @@ export default function UsersPage() {
         alert(`Error: ${error.error || "Failed to reset calls"}`);
       }
     } catch (error) {
-      console.error("Error resetting calls:", error);
       alert("Failed to reset API calls");
     }
   };

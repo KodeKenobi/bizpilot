@@ -20,9 +20,6 @@ export function storePendingPayment(
     timestamp: Date.now(),
     amount,
   });
-  console.log(
-    `💾 [PENDING PAYMENT] Stored payment for ${email}: ${plan} (${amount})`
-  );
 }
 
 // Get and clear pending payment
@@ -35,9 +32,7 @@ export function getAndClearPendingPayment(
   if (payment) {
     // Clear it after retrieving
     pendingPayments.delete(key);
-    console.log(
-      `✅ [PENDING PAYMENT] Retrieved and cleared payment for ${email}: ${payment.plan}`
-    );
+
     return {
       plan: payment.plan,
       amount: payment.amount,
@@ -65,9 +60,7 @@ export function cleanupOldPayments() {
   }
 
   if (cleaned > 0) {
-    console.log(
-      `🧹 [PENDING PAYMENT] Cleaned up ${cleaned} old pending payments`
-    );
+    console.log(`[PendingPayments] Cleaned up ${cleaned} old payment(s)`);
   }
 }
 

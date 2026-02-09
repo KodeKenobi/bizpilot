@@ -29,8 +29,14 @@ interface PayFastFormProps {
   autoSubmit?: boolean;
   className?: string;
   formRef?: React.RefObject<HTMLFormElement>;
+  onPaymentDataLoaded?: () => void;
 }
 
+/**
+ * PayFastForm - For SUBSCRIPTIONS ONLY
+ * This component is specifically designed for PayFast subscription payments.
+ * For simple $1 payments, use PayFastDollarForm instead.
+ */
 export default function PayFastForm({
   amount,
   item_name,
@@ -56,10 +62,27 @@ export default function PayFastForm({
   autoSubmit = false,
   className = "hidden",
   formRef: externalFormRef,
+  onPaymentDataLoaded,
 }: PayFastFormProps) {
   const internalFormRef = useRef<HTMLFormElement>(null);
   const formRef = externalFormRef || internalFormRef;
   const [hasAutoSubmitted, setHasAutoSubmitted] = useState(false);
+
+  // CRITICAL: PayFastForm is for SUBSCRIPTIONS ONLY
+  // Require subscription_type to be provided
+  if (!subscription_type) {
+    return (
+      <div className="text-red-500 p-4">
+        <p className="font-bold">
+          Error: PayFastForm requires subscription_type
+        </p>
+        <p className="text-sm">
+          PayFastForm is for subscriptions only. Use PayFastDollarForm for
+          simple payments.
+        </p>
+      </div>
+    );
+  }
 
   // Payment data comes from API response (includes signature)
   // This ensures the signature matches the exact data sent to PayFast
@@ -67,11 +90,19 @@ export default function PayFastForm({
     null
   );
   const [isLoadingSignature, setIsLoadingSignature] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Fetch payment data and signature from server-side API (passphrase stays on server)
   // CRITICAL: Use the payment data returned from API, not client-side built data
   // The signature must match the exact payment data sent to PayFast
   useEffect(() => {
+    // CRITICAL: Ensure amount is valid before making API call
+    if (!amount || parseFloat(amount) <= 0) {
+      setError("Invalid payment amount");
+      setIsLoadingSignature(false);
+      return;
+    }
+
     const fetchPaymentData = async () => {
       try {
         setIsLoadingSignature(true);
@@ -100,19 +131,22 @@ export default function PayFastForm({
         if (return_url) requestData.return_url = return_url.trim();
         if (cancel_url) requestData.cancel_url = cancel_url.trim();
 
-        // Only include notify_url for one-time payments
-        // For subscriptions, notify_url is configured in PayFast dashboard
-        if (!subscription_type) {
-          if (notify_url) requestData.notify_url = notify_url.trim();
-        }
+        // For subscriptions, notify_url is included (API handles this)
+        if (notify_url) requestData.notify_url = notify_url.trim();
 
-        // Add subscription fields if provided
+        // Add subscription fields (required for PayFastForm)
         if (subscription_type) {
           requestData.subscription_type = subscription_type;
           if (subscription_type === "1") {
-            // Subscription fields
-            if (frequency) requestData.frequency = frequency;
-            if (cycles) requestData.cycles = cycles;
+            // Subscription fields - frequency and cycles are REQUIRED
+            if (frequency) {
+              requestData.frequency = frequency;
+            } else {
+            }
+            if (cycles !== undefined && cycles !== null) {
+              requestData.cycles = cycles;
+            } else {
+            }
             if (billing_date) requestData.billing_date = billing_date.trim();
             if (recurring_amount)
               requestData.recurring_amount =
@@ -146,13 +180,19 @@ export default function PayFastForm({
         // The signature is calculated on the server's payment_data, so we must use that
         if (data.payment_data) {
           setPaymentData(data.payment_data);
-          console.log("✅ Payment data and signature fetched from server");
-          console.log("Payment data:", data.payment_data);
+
+          // Notify parent that payment data is loaded
+          if (onPaymentDataLoaded) {
+            onPaymentDataLoaded();
+          }
         } else {
           throw new Error("No payment_data in response");
         }
       } catch (error) {
-        console.error("❌ Failed to fetch payment data:", error);
+        // Set error state so parent can handle it
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
+        setError(errorMessage);
       } finally {
         setIsLoadingSignature(false);
       }
@@ -214,25 +254,8 @@ export default function PayFastForm({
           });
 
           if (allFieldsPresent) {
-            console.log(
-              "🚀 Auto-submitting PayFast form with payment data:",
-              paymentData
-            );
             setHasAutoSubmitted(true);
             formRef.current.submit();
-          } else {
-            console.error(
-              "❌ Cannot auto-submit: Missing required fields in form"
-            );
-            console.log(
-              "Form inputs:",
-              Array.from(formRef.current.querySelectorAll("input")).map(
-                (inp: HTMLInputElement) => ({
-                  name: inp.name,
-                  value: inp.value,
-                })
-              )
-            );
           }
         }
       }, 500);
@@ -267,11 +290,6 @@ export default function PayFastForm({
   // Ensure form is in DOM and log payment data when ready
   useEffect(() => {
     if (formRef.current && paymentData) {
-      console.log("=== PayFastForm Payment Data ===");
-      console.log("Form ref:", formRef.current);
-      console.log("Full payment data from API:", paymentData);
-      console.log("Form action:", formRef.current.action);
-
       // Verify all fields are in the form
       const requiredFields = [
         "merchant_id",
@@ -283,9 +301,7 @@ export default function PayFastForm({
       requiredFields.forEach((field) => {
         const input = formRef.current?.querySelector(`input[name="${field}"]`);
         if (input) {
-          console.log(`✅ ${field}:`, (input as HTMLInputElement).value);
-        } else {
-          console.error(`❌ ${field} MISSING from form!`);
+          // Input found
         }
       });
     }

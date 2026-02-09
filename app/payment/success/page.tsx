@@ -3,10 +3,13 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { CheckCircle, Loader2 } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
+import internalAnalytics from "@/lib/internalAnalytics";
 
 function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { refreshSessionSilently } = useUser();
   const [isVerifying, setIsVerifying] = useState(true);
   const [paymentStatus, setPaymentStatus] = useState<
     "success" | "pending" | "failed"
@@ -84,10 +87,6 @@ function PaymentSuccessContent() {
         setDownloadUrl(storedDownloadUrl);
         setIsDownloadPayment(true);
         setPaymentStatus("success");
-        console.log(
-          "✅ Found download URL in localStorage:",
-          storedDownloadUrl
-        );
         // Don't clear it - keep it for later access
       }
 
@@ -95,7 +94,6 @@ function PaymentSuccessContent() {
       const storedFileName = localStorage.getItem("payment_file_name");
       if (storedFileName && storedFileName.trim()) {
         setFileName(storedFileName);
-        console.log("✅ Found file name in localStorage:", storedFileName);
       }
 
       // Check for return path
@@ -119,10 +117,6 @@ function PaymentSuccessContent() {
             setDownloadUrl(mostRecent.url);
             setIsDownloadPayment(true);
             setPaymentStatus("success");
-            console.log(
-              "✅ Found download URL in recent downloads:",
-              mostRecent.url
-            );
           }
         }
       }
@@ -142,17 +136,8 @@ function PaymentSuccessContent() {
     // Check if we've already processed this upgrade (prevent duplicate calls)
     const upgradeKey = `upgrade_${mPaymentId || pfPaymentId || Date.now()}`;
     if (sessionStorage.getItem(upgradeKey)) {
-      console.log("🔄 Subscription upgrade already processed for this payment");
       return;
     }
-
-    console.log(
-      "🔄 Detected PayFast subscription return on success page - triggering upgrade..."
-    );
-    console.log("   Payment Status:", paymentStatus);
-    console.log("   Plan ID:", planId);
-    console.log("   User ID:", userId);
-    console.log("   Plan Name:", planName);
 
     try {
       // Get user info from session
@@ -162,7 +147,6 @@ function PaymentSuccessContent() {
       const sessionEmail = session?.user?.email || null;
 
       if (!sessionUserId && !sessionEmail) {
-        console.warn("⚠️ Could not get user info from session");
         return;
       }
 
@@ -174,18 +158,14 @@ function PaymentSuccessContent() {
         planName || "Production Plan - Monthly Subscription";
       const upgradeAmount = amount ? parseFloat(amount) : 29.0; // Default to R29
 
-      console.log("   User ID:", upgradeUserId);
-      console.log("   User Email:", upgradeEmail);
-      console.log("   Plan ID:", upgradePlanId);
-      console.log("   Plan Name:", upgradePlanName);
-      console.log("   Amount:", upgradeAmount);
-
       // Call backend upgrade endpoint directly (matching test script logic)
+      // Use relative URL to hide Railway backend URL
       const backendUrl =
-        process.env.NEXT_PUBLIC_API_BASE_URL ||
-        (process.env.NODE_ENV === "production"
-          ? "https://web-production-737b.up.railway.app"
-          : "http://localhost:5000");
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
 
       const upgradeResponse = await fetch(
         `${backendUrl}/api/payment/upgrade-subscription`,
@@ -207,11 +187,15 @@ function PaymentSuccessContent() {
 
       if (upgradeResponse.ok) {
         const upgradeData = await upgradeResponse.json();
-        console.log("✅ Subscription upgrade successful!");
-        console.log("   Response:", upgradeData);
 
         // Mark as processed
         sessionStorage.setItem(upgradeKey, "true");
+
+        // Silently refresh session to get updated subscription tier
+        const refreshSuccess = await refreshSessionSilently();
+        if (refreshSuccess) {
+        } else {
+        }
 
         // Redirect to dashboard to show updated tier
         setTimeout(() => {
@@ -219,12 +203,9 @@ function PaymentSuccessContent() {
         }, 2000);
       } else {
         const errorData = await upgradeResponse.json().catch(() => ({}));
-        console.error("❌ Subscription upgrade failed:", errorData);
-        console.error("   Status:", upgradeResponse.status);
         // Don't show error to user - webhook may still process it
       }
     } catch (error) {
-      console.error("❌ Error triggering subscription upgrade:", error);
       // Don't show error to user - webhook may still process it
     }
   };
@@ -233,15 +214,10 @@ function PaymentSuccessContent() {
     // Verify payment status from PayFast callback
     const verifyPayment = async () => {
       // Log ALL parameters from PayFast return_url callback
-      console.log("=== PayFast Return URL Callback ===");
       const allParams: Record<string, string | null> = {};
       searchParams.forEach((value, key) => {
         allParams[key] = value;
       });
-      console.log(
-        "All return URL parameters:",
-        JSON.stringify(allParams, null, 2)
-      );
 
       const mPaymentId = searchParams.get("m_payment_id");
       const pfPaymentId = searchParams.get("pf_payment_id");
@@ -321,13 +297,6 @@ function PaymentSuccessContent() {
       }
       if (pathFromParams) setReturnPath(pathFromParams);
 
-      console.log("m_payment_id:", mPaymentId);
-      console.log("pf_payment_id:", pfPaymentId);
-      console.log("payment_status:", paymentStatus);
-      console.log("signature:", signature);
-      console.log("download_url:", downloadUrl);
-      console.log("return_path:", returnPath);
-
       // Fetch ITN debug info to see what happened
       try {
         const debugResponse = await fetch(
@@ -337,15 +306,12 @@ function PaymentSuccessContent() {
         if (debugData.lastITN) {
           setItnDebug(debugData.lastITN);
         }
-      } catch (error) {
-        console.error("Failed to fetch ITN debug info:", error);
-      }
+      } catch (error) {}
 
       // For $0.00 payments (wallet-funded), PayFast might not send ITN
       // but will include payment status in return_url
       if (paymentStatus === "COMPLETE") {
         setPaymentStatus("success");
-        console.log("✅ Payment marked as COMPLETE from return_url");
         // Don't auto-download - let user click the button for better UX and to avoid popup blockers
 
         // TODO: Update payment status in database
@@ -353,18 +319,10 @@ function PaymentSuccessContent() {
         // TODO: Send confirmation email
       } else if (paymentStatus === "PENDING") {
         setPaymentStatus("pending");
-        console.log("⏳ Payment marked as PENDING from return_url");
       } else if (paymentStatus) {
         setPaymentStatus("failed");
-        console.log(
-          "❌ Payment marked as FAILED from return_url:",
-          paymentStatus
-        );
       } else {
         // No payment_status in URL - PayFast sometimes doesn't return params
-        console.warn(
-          "⚠️ No payment_status in return_url - PayFast may not have returned parameters"
-        );
         // If user reached success page, payment likely succeeded
         // Check if we have download URL in localStorage to confirm it's a $1 payment
         if (typeof window !== "undefined") {
@@ -457,6 +415,35 @@ function PaymentSuccessContent() {
     verifyPayment();
   }, [searchParams, router]);
 
+  // Track payment when status becomes success
+  useEffect(() => {
+    if (paymentStatus === "success" && typeof window !== "undefined") {
+      const amount = searchParams.get("amount");
+      const itemName = searchParams.get("item_name");
+      const subscriptionType = searchParams.get("subscription_type");
+      const mPaymentId = searchParams.get("m_payment_id");
+
+      // Track payment success (only once)
+      if (
+        !localStorage.getItem(`payment_tracked_${mPaymentId || Date.now()}`)
+      ) {
+        internalAnalytics.track("payment_success", {
+          payment_id: mPaymentId || null,
+          amount: amount || null,
+          item_name: itemName || null,
+          is_subscription: !!subscriptionType,
+          payment_type: subscriptionType ? "subscription" : "one_time",
+          page: "/payment/success",
+        });
+
+        // Mark as tracked to avoid duplicate tracking
+        if (mPaymentId) {
+          localStorage.setItem(`payment_tracked_${mPaymentId}`, "true");
+        }
+      }
+    }
+  }, [paymentStatus, searchParams]);
+
   // Handle download - triggers file save dialog with correct filename
   const handleDownload = () => {
     const url = getDownloadUrl();
@@ -539,7 +526,6 @@ function PaymentSuccessContent() {
         alert(data.error || "Failed to send email. Please try again.");
       }
     } catch (error) {
-      console.error("Error sending email:", error);
       alert("An error occurred while sending the email. Please try again.");
     } finally {
       setIsSendingEmail(false);

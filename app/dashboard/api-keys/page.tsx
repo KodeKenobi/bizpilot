@@ -72,19 +72,21 @@ export default function ApiKeysPage() {
         return;
       }
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/client/keys`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/client/keys`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -99,12 +101,9 @@ export default function ApiKeysPage() {
           rate_limit: key.rate_limit || 1000,
         }));
         setApiKeys(transformedKeys);
-      } else {
-        console.error("Failed to fetch API keys:", await response.text());
       }
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching API keys:", error);
       setLoading(false);
     }
   };
@@ -117,23 +116,25 @@ export default function ApiKeysPage() {
         return;
       }
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/client/keys`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            name: name || `API Key ${new Date().toLocaleString()}`,
-            rate_limit: rateLimit || 1000,
-          }),
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/client/keys`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: name || `API Key ${new Date().toLocaleString()}`,
+          rate_limit: rateLimit || 1000,
+        }),
+      });
 
       if (response.ok) {
         const newKeyData = await response.json();
@@ -156,7 +157,6 @@ export default function ApiKeysPage() {
         alert(errorData.error || "Failed to create API key");
       }
     } catch (error) {
-      console.error("Error creating API key:", error);
       alert("An error occurred while creating the API key");
     }
   };
@@ -177,9 +177,7 @@ export default function ApiKeysPage() {
     try {
       await navigator.clipboard.writeText(key);
       // You could add a toast notification here
-    } catch (error) {
-      console.error("Error copying key:", error);
-    }
+    } catch (error) {}
   };
 
   const handleDeleteKey = async (keyId: number) => {
@@ -198,19 +196,21 @@ export default function ApiKeysPage() {
         return;
       }
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/client/keys/${keyId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/client/keys/${keyId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         setApiKeys(apiKeys.filter((key) => key.id !== keyId));
@@ -219,7 +219,6 @@ export default function ApiKeysPage() {
         alert(errorData.error || "Failed to delete API key");
       }
     } catch (error) {
-      console.error("Error deleting API key:", error);
       alert("An error occurred while deleting the API key");
     }
   };
@@ -231,9 +230,7 @@ export default function ApiKeysPage() {
           key.id === keyId ? { ...key, is_active: !key.is_active } : key
         )
       );
-    } catch (error) {
-      console.error("Error updating API key:", error);
-    }
+    } catch (error) {}
   };
 
   const formatDate = (dateString: string) => {
@@ -531,9 +528,7 @@ function ShowKeyModal({
       await navigator.clipboard.writeText(apiKey.key);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error("Error copying key:", error);
-    }
+    } catch (error) {}
   };
 
   return (

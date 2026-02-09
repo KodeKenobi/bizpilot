@@ -1,0 +1,83 @@
+[2026-02-03T05:45:54.041Z] [START] 🚀 STARTING COMPREHENSIVE USER FLOW TEST
+[2026-02-03T05:45:54.051Z] [INFO] Base URL: http://localhost:3000
+[2026-02-03T05:45:54.051Z] [INFO] Session ID: test_session_1770097554041
+[2026-02-03T05:45:54.051Z] [STEP] 
+════════════════════════════════════════════════════════════════════════════════════════════════════
+[2026-02-03T05:45:54.052Z] [STEP] STEP 1: Upload Spreadsheet
+[2026-02-03T05:45:54.052Z] [STEP] ════════════════════════════════════════════════════════════════════════════════════════════════════
+[2026-02-03T05:45:54.055Z] [HTTP] 🌐 [API CALL] POST http://localhost:3000/api/campaigns/upload
+[2026-02-03T05:45:54.056Z] [HTTP]    [REQ HEADERS] {
+  "Content-Type": "application/json",
+  "content-type": "multipart/form-data; boundary=--------------------------157119875023783874208252"
+}
+[2026-02-03T05:45:54.056Z] [HTTP]    [REQ BODY] {
+  "_overheadLength": 212,
+  "_valueLength": 0,
+  "_valuesToMeasure": [
+    {
+      "fd": null,
+      "path": "C:\\Users\\GMNG\\Desktop\\Work\\Personal\\JUSTPDF\\test-leads.xlsx",
+      "flags": "r",
+      "mode": 438,
+      "end": null,
+      "bytesRead": 0,
+      "_events": {},
+      "_readableState": {
+        "highWaterMark": 65536,
+        "buffer": [],
+        "bufferIndex": 0,
+        "length": 0,
+        "pipes": [],
+        "awaitDrainWriters": null
+      },
+      "_eventsCount": 3
+    }
+  ],
+  "writable": false,
+  "readable": true,
+  "dataSize": 0,
+  "maxDataSize": 2097152,
+  "pauseStreams": true,
+  "_released": false,
+  "_streams": [
+    "----------------------------157119875023783874208252\r\nContent-Disposition: form-data; name=\"file\"; filename=\"test-leads.xlsx\"\r\nContent-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\r\n\r\n",
+    {
+      "source": {
+        "fd": null,
+        "path": "C:\\Users\\GMNG\\Desktop\\Work\\Personal\\JUSTPDF\\test-leads.xlsx",
+        "flags": "r",
+        "mode": 438,
+        "end": null,
+        "bytesRead": 0,
+        "_events": {},
+        "_readableState": {
+          "highWaterMark": 65536,
+          "buffer": [],
+          "bufferIndex": 0,
+          "length": 0,
+          "pipes": [],
+          "awaitDrainWriters": null
+        },
+        "_eventsCount": 3
+      },
+      "dataSize": 0,
+      "maxDataSize": null,
+      "pauseStream": true,
+      "_maxDataSizeExceeded": false,
+      "_released": false,
+      "_bufferedEvents": [
+        {
+          "0": "pause"
+        }
+      ],
+      "_events": {},
+      "_eventsCount": 1
+    },
+    null
+  ],
+  "_currentStream": null,
+  "_insideLoop": false,
+  "_pendingNext": false,
+  "_boundary": "--------------------------157119875023783874208252"
+}
+[2026-02-03T05:45:54.102Z] [ERROR] ❌ API ERROR: request to http://localhost:3000/api/campaigns/upload failed, reason: 

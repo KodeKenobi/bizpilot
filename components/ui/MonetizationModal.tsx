@@ -4,8 +4,9 @@ import React from "react";
 import { X, Play, CreditCard } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
 import { API_CONFIG } from "@/lib/config";
-import PayFastForm from "./PayFastForm";
+import PayFastDollarForm from "./PayFastDollarForm";
 import { convertUSDToZAR } from "@/lib/currency";
+import internalAnalytics from "@/lib/internalAnalytics";
 
 interface MonetizationModalProps {
   isOpen: boolean;
@@ -82,7 +83,15 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
   }, [isOpen, onClose, onComplete]);
   const handleViewAd = () => {
     const monetagUrl = "https://otieu.com/4/10115019";
-    console.log("🎯 Opening monetag link:", monetagUrl);
+
+    // Track ad click
+    internalAnalytics.track("ad_click", {
+      ad_provider: "monetag",
+      ad_url: monetagUrl,
+      file_name: fileName || null,
+      download_url: downloadUrl || null,
+      page: typeof window !== "undefined" ? window.location.pathname : null,
+    });
 
     // Store download info in localStorage for success page
     if (typeof window !== "undefined" && downloadUrl) {
@@ -106,7 +115,6 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
       // Redirect to success page
       window.location.href = "/ad-success";
     } catch (error) {
-      console.error("❌ Error opening link:", error);
       // If we error, prompt manual open
       waitingReturnRef.current = true;
       setAdOpened(true);
@@ -117,6 +125,17 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
 
   const handleManualOpenClick = () => {
     const monetagUrl = "https://otieu.com/4/10115019";
+
+    // Track ad click (manual open)
+    internalAnalytics.track("ad_click", {
+      ad_provider: "monetag",
+      ad_url: monetagUrl,
+      file_name: fileName || null,
+      download_url: downloadUrl || null,
+      page: typeof window !== "undefined" ? window.location.pathname : null,
+      manual_open: true,
+    });
+
     window.open(monetagUrl, "_blank", "noopener,noreferrer");
     leftOnceRef.current = true;
     setHideWhileWaiting(true);
@@ -149,7 +168,6 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
           setIsLoadingRate(false);
         })
         .catch((error) => {
-          console.error("Failed to fetch exchange rate:", error);
           setRateError(
             error instanceof Error
               ? error.message
@@ -189,7 +207,6 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
           finalZarAmount = zar.toFixed(2);
           setZarAmount(finalZarAmount);
         } catch (error) {
-          console.error("Failed to fetch exchange rate:", error);
           // If API fails and no cache, try expired cache as last resort
           if (typeof window !== "undefined") {
             const cached = localStorage.getItem("usd_to_zar_rate");
@@ -236,7 +253,6 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
       // Close modal immediately
       onClose();
     } else {
-      console.error("PayFast form ref is null!");
       setPaymentError("Payment form not found. Please refresh and try again.");
       setIsProcessingPayment(false);
     }
@@ -255,8 +271,6 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
     e.preventDefault();
 
     // Log the download URL from prop (same source View Ad uses)
-    console.log("📥 [TEST] Download URL:", downloadUrl);
-    console.log("📥 [TEST] File name:", fileName);
 
     // Just call onComplete() like View Ad does - this triggers the download in the parent component
     // The parent component (tool) handles the actual download with window.open(downloadUrl)
@@ -366,7 +380,7 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
                       </p>
                     </div>
                   )}
-                  <PayFastForm
+                  <PayFastDollarForm
                     amount={zarAmount || "1.00"}
                     item_name="Premium Access"
                     item_description="Unlock premium features and remove ads"
@@ -393,9 +407,9 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
                         <h4 className="text-base font-medium text-white mb-0.5">
                           Pay $1
                         </h4>
-                        <p className="text-xs text-white/70">
+                        {/* <p className="text-xs text-white/70">
                           Instant access, no ads
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                   </button>
@@ -433,9 +447,8 @@ const MonetizationModal: React.FC<MonetizationModalProps> = ({
                 </div>
               )}
               <div className="pt-3 border-t border-[#2a2a2a]">
-                <p className="text-xs text-gray-500 text-center">
-                  By continuing, you agree to view advertisements or complete
-                  payment
+                <p className="text-xs text-gray-500 text-left">
+                  By continuing, you agree to be billed $1.00
                 </p>
               </div>
             </div>

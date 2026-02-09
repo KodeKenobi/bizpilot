@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useUser } from "@/contexts/UserContext";
+import { signOut, signIn } from "next-auth/react";
 import PayFastForm from "@/components/ui/PayFastForm";
 import { convertUSDToZAR } from "@/lib/currency";
 import { Loader2, ArrowLeft, CreditCard } from "lucide-react";
@@ -10,7 +11,7 @@ import { Loader2, ArrowLeft, CreditCard } from "lucide-react";
 function PaymentContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { user, loading: userLoading } = useUser();
+  const { user, loading: userLoading, checkAuthStatus } = useUser();
   const [zarAmount, setZarAmount] = useState<string>("");
   const [usdAmount, setUsdAmount] = useState<number>(0);
   const [planId, setPlanId] = useState<string>("");
@@ -19,28 +20,63 @@ function PaymentContent() {
   const [error, setError] = useState<string | null>(null);
   const [isFormReady, setIsFormReady] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [paymentDataLoaded, setPaymentDataLoaded] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const isFormReadyRef = useRef(false); // Use ref to avoid closure issues
 
   // Plan configurations
   const planConfig = {
     production: {
       name: "Production Plan",
-      usdPrice: 29,
+      usdPrice: 9,
       description: "5,000 API calls per month",
       tier: "premium",
     },
     enterprise: {
       name: "Enterprise Plan",
-      usdPrice: 49,
+      usdPrice: 19,
       description: "Unlimited API calls",
       tier: "enterprise",
     },
   };
 
   useEffect(() => {
-    // Check if user is authenticated
+    // CRITICAL: Check localStorage first - user might be there but context not loaded yet
+    // This handles the case where registration just happened
+    const storedUser =
+      typeof window !== "undefined" ? localStorage.getItem("user_data") : null;
+
+    // If user is not in context but exists in localStorage, silently reload page once
+    // This handles the case where registration just happened and context hasn't loaded yet
+    // Silent reload forces everything to reinitialize properly without visible redirect
+    if (!user && storedUser) {
+      // Check if we've already tried reloading (prevent infinite loop)
+      const hasReloaded = sessionStorage.getItem("payment_page_reloaded");
+      if (!hasReloaded) {
+        sessionStorage.setItem("payment_page_reloaded", "true");
+        // Silent reload - no visible redirect, just refresh the page
+        window.location.reload();
+        return;
+      } else {
+        // Already reloaded once, clear flag and try checkAuthStatus
+        sessionStorage.removeItem("payment_page_reloaded");
+        if (checkAuthStatus) {
+          checkAuthStatus();
+        }
+      }
+      return;
+    }
+
+    // Check if user is authenticated (after reload check)
     if (!userLoading && !user) {
       router.push("/auth/login?redirect=/payment");
+      return;
+    }
+
+    // CRITICAL: Wait for user context to be fully loaded after registration
+    // After registration, user might be in localStorage but UserContext hasn't loaded it yet
+    if (userLoading) {
+      // Still loading, wait
       return;
     }
 
@@ -81,7 +117,6 @@ function PaymentContent() {
           setIsLoading(false);
         })
         .catch((err) => {
-          console.error("Failed to convert currency:", err);
           setError("Failed to convert currency. Please try again.");
           setIsLoading(false);
         });
@@ -94,7 +129,6 @@ function PaymentContent() {
           setIsLoading(false);
         })
         .catch((err) => {
-          console.error("Failed to convert currency:", err);
           setError("Failed to convert currency. Please try again.");
           setIsLoading(false);
         });
@@ -120,12 +154,20 @@ function PaymentContent() {
     return `${year}-${month}-${day}`;
   };
 
-  // Monitor form readiness
+  // Monitor form readiness - check when payment data is loaded
   useEffect(() => {
     if (isFormReady || !zarAmount) return;
 
     const checkFormReady = () => {
-      if (!formRef.current) return;
+      if (!formRef.current) {
+        return;
+      }
+
+      // First check if form has any inputs at all (means paymentData was loaded)
+      const allInputs = formRef.current.querySelectorAll("input");
+      if (allInputs.length === 0) {
+        return;
+      }
 
       const requiredFields = [
         "merchant_id",
@@ -134,13 +176,26 @@ function PaymentContent() {
         "item_name",
         "signature",
       ];
+
+      const fieldStatus: Record<string, boolean> = {};
       const allFieldsPresent = requiredFields.every((field) => {
         const input = formRef.current?.querySelector(`input[name="${field}"]`);
-        return input && (input as HTMLInputElement).value;
+        const hasValue = input && (input as HTMLInputElement).value;
+        fieldStatus[field] = !!hasValue;
+        if (!hasValue) {
+        }
+        return hasValue;
       });
 
       if (allFieldsPresent) {
+        isFormReadyRef.current = true;
         setIsFormReady(true);
+        setPaymentDataLoaded(true);
+      } else {
+        // Log missing fields
+        allInputs.forEach((input) => {
+          console.log(`Field ${input.name}: ${input.value ? "✅" : "❌"}`);
+        });
       }
     };
 
@@ -151,15 +206,17 @@ function PaymentContent() {
     const initialDelay = setTimeout(() => {
       checkFormReady();
 
-      // Check periodically until form is ready (max 10 seconds)
+      // Check periodically until form is ready (max 15 seconds to account for API delay)
       interval = setInterval(() => {
         checkFormReady();
       }, 500);
 
-      // Timeout after 10 seconds
+      // Timeout after 15 seconds
       timeout = setTimeout(() => {
         if (interval) clearInterval(interval);
-      }, 10000);
+        if (!isFormReady) {
+        }
+      }, 15000);
     }, 1000);
 
     // Cleanup
@@ -289,15 +346,9 @@ function PaymentContent() {
             item_description={`${
               planConfig[planId as keyof typeof planConfig].description
             } - Recurring monthly subscription`}
-            return_url={`${
-              typeof window !== "undefined" ? window.location.origin : ""
-            }/dashboard`}
-            cancel_url={`${
-              typeof window !== "undefined" ? window.location.origin : ""
-            }/payment/cancel?plan=${planId}`}
-            notify_url={`${
-              typeof window !== "undefined" ? window.location.origin : ""
-            }/payment/notify`}
+            return_url={`https://www.trevnoctilla.com/dashboard`}
+            cancel_url={`https://www.trevnoctilla.com/payment/cancel?plan=${planId}`}
+            notify_url={`https://www.trevnoctilla.com/payment/notify`}
             // CRITICAL: Do NOT send email_address or name_first when logged in
             // These cause signature mismatch - PayFast rejects payments from merchant email
             // email_address={user.email}
@@ -313,6 +364,64 @@ function PaymentContent() {
             subscription_notify_webhook={true}
             subscription_notify_buyer={true}
             autoSubmit={false}
+            onPaymentDataLoaded={() => {
+              // Store payment info in sessionStorage before redirecting to PayFast
+              // This allows dashboard to trigger upgrade even if PayFast doesn't send URL params
+              // Store user email for auto-login after payment
+              // Note: We can't store password for security, so user will need to login manually
+              sessionStorage.setItem(
+                "pending_payment_upgrade",
+                JSON.stringify({
+                  plan_id: planId,
+                  plan_name: planName,
+                  user_id: user.id,
+                  user_email: user.email,
+                  amount: zarAmount,
+                  timestamp: Date.now(),
+                })
+              );
+
+              setPaymentDataLoaded(true);
+              // Trigger form readiness check immediately and repeatedly until ready
+              let attempts = 0;
+              const maxAttempts = 20; // Check for up to 10 seconds (20 * 500ms)
+
+              const checkInterval = setInterval(() => {
+                attempts++;
+                // Use ref to avoid closure issues
+                if (formRef.current && !isFormReadyRef.current) {
+                  const requiredFields = [
+                    "merchant_id",
+                    "merchant_key",
+                    "amount",
+                    "item_name",
+                    "signature",
+                  ];
+                  const allFieldsPresent = requiredFields.every((field) => {
+                    const input = formRef.current?.querySelector(
+                      `input[name="${field}"]`
+                    );
+                    return input && (input as HTMLInputElement).value;
+                  });
+
+                  if (allFieldsPresent) {
+                    isFormReadyRef.current = true;
+                    setIsFormReady(true);
+                    clearInterval(checkInterval);
+                  } else if (attempts >= maxAttempts) {
+                    clearInterval(checkInterval);
+                  } else if (attempts % 5 === 0) {
+                    // Log every 5 attempts to avoid spam
+                    console.log(
+                      `[PaymentForm] Still waiting for form (attempt ${attempts}/${maxAttempts})`
+                    );
+                    const allInputs = formRef.current.querySelectorAll("input");
+                  }
+                } else if (isFormReadyRef.current) {
+                  clearInterval(checkInterval);
+                }
+              }, 500);
+            }}
           />
 
           {/* Submit Button */}
@@ -320,7 +429,43 @@ function PaymentContent() {
             onClick={() => {
               if (formRef.current && isFormReady) {
                 setIsSubmitting(true);
+
+                // Verify form has all fields before submitting
+                const requiredFields = [
+                  "merchant_id",
+                  "merchant_key",
+                  "amount",
+                  "item_name",
+                  "signature",
+                ];
+                const missingFields: string[] = [];
+                requiredFields.forEach((field) => {
+                  const input = formRef.current?.querySelector(
+                    `input[name="${field}"]`
+                  );
+                  if (!input || !(input as HTMLInputElement).value) {
+                    missingFields.push(field);
+                  }
+                });
+
+                if (missingFields.length > 0) {
+                  console.warn(
+                    "[PaymentForm] Missing required fields:",
+                    missingFields
+                  );
+                  setIsSubmitting(false);
+                  return;
+                }
+
+                console.log(
+                  "[PaymentForm] All fields validated, submitting form"
+                );
                 formRef.current.submit();
+                console.log("[PaymentForm] Form submit called");
+              } else {
+                console.warn(
+                  "[PaymentForm] Form not ready or already submitting"
+                );
               }
             }}
             disabled={!isFormReady || isSubmitting}

@@ -12,25 +12,16 @@ function PaymentCancelContent() {
 
   useEffect(() => {
     // Log ALL parameters from PayFast cancel_url callback
-    console.log("=== PayFast Cancel URL Callback ===");
+
     const allParams: Record<string, string | null> = {};
     searchParams.forEach((value, key) => {
       allParams[key] = value;
     });
-    console.log(
-      "All cancel URL parameters:",
-      JSON.stringify(allParams, null, 2)
-    );
 
     const mPaymentId = searchParams.get("m_payment_id");
     const pfPaymentId = searchParams.get("pf_payment_id");
     const paymentStatus = searchParams.get("payment_status");
     const signature = searchParams.get("signature");
-
-    console.log("m_payment_id:", mPaymentId);
-    console.log("pf_payment_id:", pfPaymentId);
-    console.log("payment_status:", paymentStatus);
-    console.log("signature:", signature);
 
     // Get the stored return path from before payment was initiated
     if (typeof window !== "undefined") {
@@ -52,9 +43,7 @@ function PaymentCancelContent() {
         if (debugData.lastITN) {
           setItnDebug(debugData.lastITN);
         }
-      } catch (error) {
-        console.error("Failed to fetch ITN debug info:", error);
-      }
+      } catch (error) {}
     };
     fetchDebugInfo();
   }, [searchParams]);

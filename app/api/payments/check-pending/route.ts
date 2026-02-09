@@ -32,9 +32,7 @@ export async function POST(request: NextRequest) {
         ? "https://web-production-737b.up.railway.app"
         : "http://localhost:5000");
 
-    console.log(
-      `🔄 [CHECK PENDING] Processing pending payment for ${userEmail}: ${pendingPayment.plan}`
-    );
+    
 
     const upgradeResponse = await fetch(
       `${backendUrl}/api/payment/upgrade-subscription`,
@@ -58,9 +56,7 @@ export async function POST(request: NextRequest) {
 
     if (upgradeResponse.ok) {
       const upgradeData = await upgradeResponse.json();
-      console.log(
-        `✅ [CHECK PENDING] Successfully upgraded ${userEmail} to ${pendingPayment.plan}`
-      );
+      
       return NextResponse.json({
         hasPendingPayment: true,
         upgraded: true,
@@ -69,10 +65,7 @@ export async function POST(request: NextRequest) {
       });
     } else {
       const errorData = await upgradeResponse.json();
-      console.error(
-        `❌ [CHECK PENDING] Failed to upgrade ${userEmail}:`,
-        errorData
-      );
+      
       return NextResponse.json(
         {
           hasPendingPayment: true,
@@ -83,7 +76,7 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error) {
-    console.error("Check pending payment error:", error);
+    
     return NextResponse.json(
       {
         error: `Failed to check pending payment: ${

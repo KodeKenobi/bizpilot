@@ -114,14 +114,12 @@ export default function CookieConsent() {
                     src="/logo.png"
                     alt="Trevnoctilla Logo"
                     className="w-12 h-12 object-contain flex-shrink-0"
-                    onLoad={() => console.log("Logo loaded successfully")}
                     onError={(e) => {
-                      console.error("Logo failed to load:", e);
                       // Fallback to a simple text logo
                       e.currentTarget.style.display = "none";
                       const fallback = document.createElement("div");
                       fallback.className =
-                        "w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center";
+                        "w-12 h-12 bg-black rounded-lg flex items-center justify-center border border-white";
                       fallback.innerHTML =
                         '<span class="text-white font-bold text-sm">T</span>';
                       e.currentTarget.parentNode?.insertBefore(
@@ -160,7 +158,7 @@ export default function CookieConsent() {
 
                   <button
                     onClick={handleAcceptAll}
-                    className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white rounded-lg transition-all duration-200 text-sm font-medium"
+                    className="px-6 py-2 bg-black hover:bg-gray-800 text-white rounded-lg transition-all duration-200 text-sm font-medium border border-white"
                   >
                     Accept All
                   </button>
@@ -238,7 +236,7 @@ export default function CookieConsent() {
                   <div className="flex items-center justify-between p-4 bg-accent/50 dark:bg-gray-800/50 rounded-lg border border-border dark:border-gray-700/50">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
-                        <Settings className="w-5 h-5 text-purple-400" />
+                        <Settings className="w-5 h-5 text-white" />
                         <h4 className="font-semibold text-foreground dark:text-white">
                           Functional Cookies
                         </h4>
@@ -294,7 +292,7 @@ export default function CookieConsent() {
                 <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
                   <Link
                     href="/cookies"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm underline"
+                    className="text-white hover:text-cyan-300 text-sm underline"
                   >
                     Learn more about our cookie policy
                   </Link>
@@ -308,7 +306,7 @@ export default function CookieConsent() {
                     </button>
                     <button
                       onClick={handleSavePreferences}
-                      className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white rounded-lg transition-all duration-200 text-sm font-medium"
+                      className="px-6 py-2 bg-black hover:bg-gray-800 text-white rounded-lg transition-all duration-200 text-sm font-medium border border-white"
                     >
                       Save Preferences
                     </button>

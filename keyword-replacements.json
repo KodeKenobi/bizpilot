@@ -1,0 +1,157 @@
+{
+  "mainLayout": {
+    "title": "Trevnoctilla - Browser-Based File Converter | No Download Required",
+    "description": "Free browser-based PDF editor and file converter — no download, no signup. Convert videos, audio, images instantly in your web browser. Perfect for students, developers, and mobile users.",
+    "keywords": [
+      "browser PDF editor",
+      "web file converter",
+      "no download PDF tools",
+      "instant file converter",
+      "browser document tools",
+      "web PDF editor free",
+      "no signup file converter",
+      "browser video converter",
+      "web audio converter",
+      "browser image converter",
+      "instant PDF processing",
+      "cloud file converter",
+      "mobile PDF editor browser",
+      "student PDF tools free",
+      "developer file API",
+      "browser document converter",
+      "web tools no installation",
+      "instant web converter",
+      "browser tools no account",
+      "Trevnoctilla"
+    ]
+  },
+  "homepage": {
+    "title": "Trevnoctilla - Browser-Based File Converter | No Download Required",
+    "description": "Free browser-based PDF editor and file converter — no download, no signup. Convert videos, audio, images instantly in your web browser.",
+    "keywords": "browser file converter, web PDF editor, no download tools, instant converter, browser document tools, no signup converter, web tools free"
+  },
+  "featureKeywords": {
+    "PDF Editor": {
+      "title": "Browser PDF Editor - No Download Required",
+      "description": "Edit PDF files directly in your browser. No software installation, no signup required. Add text, images, and annotations instantly.",
+      "keywords": "browser PDF editor, web PDF editor, no download PDF edit, instant PDF editor, browser document editor"
+    },
+    "Merge PDFs": {
+      "title": "Browser PDF Merger - Instant Merge",
+      "description": "Combine multiple PDF files instantly in your browser. No download, no signup. Perfect for students and professionals.",
+      "keywords": "browser PDF merge, instant PDF merger, web PDF combine, no download merge, browser document merge"
+    },
+    "Split PDF": {
+      "title": "Browser PDF Splitter - Web-Based",
+      "description": "Split PDF documents instantly in your browser. Extract pages or split by ranges. No software needed.",
+      "keywords": "browser PDF split, web PDF splitter, instant PDF extract, no download split, browser document split"
+    },
+    "Digital Signatures": {
+      "title": "Browser PDF Signer - Instant Signing",
+      "description": "Add digital signatures to PDFs instantly in your browser. Draw, type, or upload signatures. No signup required.",
+      "keywords": "browser PDF sign, instant PDF signature, web PDF signer, no download sign, browser document sign"
+    },
+    "Compress PDF": {
+      "title": "Browser PDF Compressor - Free",
+      "description": "Reduce PDF file size instantly in your browser. Perfect for email and web uploads. No download required.",
+      "keywords": "browser PDF compress, instant PDF shrink, web PDF reducer, no download compress, browser document compress"
+    },
+    "Watermark": {
+      "title": "Browser PDF Watermark Tool",
+      "description": "Add watermarks to PDFs instantly in your browser. Customize position and opacity. No software needed.",
+      "keywords": "browser PDF watermark, instant watermark, web PDF protect, no download watermark, browser document watermark"
+    },
+    "OCR Text Extraction": {
+      "title": "Browser OCR Tool - Extract Text",
+      "description": "Extract text from scanned documents instantly in your browser using OCR. No download required.",
+      "keywords": "browser OCR, instant text extraction, web OCR tool, no download OCR, browser text extract"
+    },
+    "Video Converter": {
+      "title": "Browser Video Converter - No Download",
+      "description": "Convert videos instantly in your browser. MP4, AVI, MOV, WebM formats. No software installation needed.",
+      "keywords": "browser video converter, instant video convert, web video tool, no download converter, browser media converter"
+    },
+    "Audio Converter": {
+      "title": "Browser Audio Converter - Free",
+      "description": "Convert audio files instantly in your browser. MP3, WAV, FLAC, AAC formats. No download required.",
+      "keywords": "browser audio converter, instant audio convert, web audio tool, no download audio, browser sound converter"
+    },
+    "Image Converter": {
+      "title": "Browser Image Converter - Instant",
+      "description": "Convert images instantly in your browser. JPG, PNG, WebP, GIF formats. No software needed.",
+      "keywords": "browser image converter, instant image convert, web image tool, no download image, browser photo converter"
+    },
+    "QR Code Generator": {
+      "title": "Browser QR Code Generator - Free",
+      "description": "Generate QR codes instantly in your browser. No download, no signup. Perfect for URLs, text, and WiFi.",
+      "keywords": "browser QR generator, instant QR code, web QR maker, no download QR, browser QR tool"
+    }
+  },
+  "benefitKeywords": {
+    "100% Browser-Based": {
+      "description": "No software to download or install. All tools work directly in your web browser on any device - desktop, tablet, or mobile.",
+      "keywords": "browser-based tools, no download required, web-only tools, browser tools, no installation"
+    },
+    "Secure Processing": {
+      "description": "Your files are processed securely in the cloud. We don't store your documents after processing. Privacy-first approach.",
+      "keywords": "secure browser processing, cloud file processing, privacy-first tools, secure web converter"
+    },
+    "Lightning Fast": {
+      "description": "Optimized cloud processing delivers results in seconds. No waiting, no queues. Instant results in your browser.",
+      "keywords": "instant browser processing, fast web tools, quick browser converter, instant results"
+    },
+    "No Registration Required": {
+      "description": "Start using our tools immediately. No account creation, no email verification, no hassle. Just open and use.",
+      "keywords": "no signup tools, instant access, no account required, browser tools free access"
+    },
+    "Mobile Friendly": {
+      "description": "Fully responsive design works perfectly on smartphones, tablets, and desktops. Use anywhere, anytime.",
+      "keywords": "mobile browser tools, phone file converter, mobile PDF editor, responsive web tools"
+    },
+    "Cloud Processing": {
+      "description": "Heavy lifting happens in the cloud, so even complex operations work on any device with just a browser.",
+      "keywords": "cloud file processing, browser cloud tools, web cloud converter, cloud-based processing"
+    },
+    "Instant Downloads": {
+      "description": "Processed files are ready for immediate download. No email required, no waiting period. Get results instantly.",
+      "keywords": "instant download, quick file access, immediate results, browser download"
+    },
+    "REST API Access": {
+      "description": "Integrate our tools into your workflow with our powerful browser-based API. Perfect for developers and web apps.",
+      "keywords": "browser PDF API, web file API, instant file API, browser document API, developer API"
+    }
+  },
+  "useCaseKeywords": {
+    "students": [
+      "student PDF editor browser",
+      "free PDF tools for students",
+      "browser assignment converter",
+      "student document tools web",
+      "education PDF converter free"
+    ],
+    "developers": [
+      "developer PDF API browser",
+      "web file API integration",
+      "browser document API free",
+      "instant file processing API",
+      "web integration tools"
+    ],
+    "mobile": [
+      "mobile browser PDF editor",
+      "phone file converter web",
+      "mobile document tools browser",
+      "smartphone PDF converter",
+      "mobile-friendly file tools"
+    ],
+    "quick": [
+      "instant PDF merge browser",
+      "quick file converter web",
+      "fast document processing",
+      "instant browser tools",
+      "quick web converter"
+    ]
+  }
+}
+
+
+

@@ -77,14 +77,8 @@ export async function POST(request: NextRequest) {
           content: fileBase64,
           contentType: fileMimeType,
         });
-        console.log(
-          `✅ [SEND FILE] File prepared: ${finalFileName} (${Math.round(
-            fileContent.length / 1024
-          )} KB)`
-        );
       }
     } catch (error: any) {
-      console.error(`❌ [SEND FILE] Error downloading file: ${error.message}`);
       return NextResponse.json(
         { success: false, error: "Failed to download file" },
         { status: 500 }
@@ -133,21 +127,10 @@ export async function POST(request: NextRequest) {
             content: invoiceData.pdf_base64,
             contentType: "application/pdf",
           });
-          console.log(
-            `✅ [SEND FILE] Invoice PDF prepared (${Math.round(
-              invoicePdf.length / 1024
-            )} KB)`
-          );
         }
       } else {
-        console.warn(
-          `⚠️ [SEND FILE] Failed to generate invoice PDF: ${invoiceResponse.status}`
-        );
       }
     } catch (error: any) {
-      console.error(
-        `⚠️ [SEND FILE] Error generating invoice PDF: ${error.message}`
-      );
       // Continue without invoice if generation fails
     }
 
@@ -173,9 +156,6 @@ export async function POST(request: NextRequest) {
         const emailHtmlData = await emailHtmlResponse.json();
         if (emailHtmlData.success && emailHtmlData.html) {
           emailHtml = emailHtmlData.html;
-          console.log(
-            `✅ [SEND FILE] Email HTML retrieved from template (${emailHtml.length} chars)`
-          );
         } else {
           throw new Error("Failed to get email HTML from backend");
         }
@@ -185,9 +165,6 @@ export async function POST(request: NextRequest) {
         );
       }
     } catch (error: any) {
-      console.error(
-        `⚠️ [SEND FILE] Error getting email HTML from template: ${error.message}`
-      );
       // Fallback to simple HTML if template fails
       emailHtml = `
         <!DOCTYPE html>
@@ -217,7 +194,7 @@ export async function POST(request: NextRequest) {
                 </p>
               </div>
               <p style="color: #666; margin-top: 30px;">
-                If you have any questions, please contact us at support@trevnoctilla.com
+                If you have any questions, please contact us at info@trevnoctilla.com
               </p>
               <p style="color: #999; margin-top: 40px; font-size: 14px; text-align: center;">
                 Best regards,<br />
@@ -270,7 +247,6 @@ export async function POST(request: NextRequest) {
       );
     }
   } catch (error: any) {
-    console.error(`❌ [SEND FILE] Error:`, error);
     return NextResponse.json(
       { success: false, error: error.message || "Internal server error" },
       { status: 500 }

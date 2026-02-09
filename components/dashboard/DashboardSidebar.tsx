@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   Home,
   LayoutDashboard,
@@ -21,6 +22,8 @@ import {
   Code,
   Terminal,
   Shield,
+  Send,
+  Crown,
 } from "lucide-react";
 
 interface SidebarItem {
@@ -37,6 +40,9 @@ interface DashboardSidebarProps {
   user?: {
     email?: string;
     name?: string;
+    role?: string;
+    subscription_tier?: string;
+    monthly_call_limit?: number;
   };
 }
 
@@ -52,6 +58,12 @@ const sidebarItems: SidebarItem[] = [
     label: "Analytics",
     icon: <Activity className="w-5 h-5" />,
     path: "/dashboard?tab=analytics",
+  },
+  {
+    id: "campaigns",
+    label: "Campaigns",
+    icon: <Send className="w-5 h-5" />,
+    path: "/dashboard?tab=campaigns",
   },
   {
     id: "testing",
@@ -188,7 +200,7 @@ export function DashboardSidebar({
             w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200
             ${
               active
-                ? "bg-[#2a2a2a] text-white border-l-2 border-[#8b5cf6]"
+                ? "bg-[#2a2a2a] text-white"
                 : "text-gray-400 hover:text-white hover:bg-[#2a2a2a]/50"
             }
             ${level > 0 ? "pl-8" : ""}
@@ -226,7 +238,7 @@ export function DashboardSidebar({
                           : null;
                       return child.id === urlSection || child.id === activeTab;
                     })()
-                      ? "bg-[#2a2a2a] text-white border-l-2 border-[#8b5cf6]"
+                      ? "bg-[#2a2a2a] text-white"
                       : "text-gray-400 hover:text-white hover:bg-[#2a2a2a]/50"
                   }
                   pl-8
@@ -258,8 +270,47 @@ export function DashboardSidebar({
     );
   };
 
+  // Quick Switch: show for super_admin (role) or enterprise-tier only (client ≠ enterprise)
+  const tier = (user?.subscription_tier || "").toLowerCase();
+  const isEnterpriseTier = tier === "enterprise";
+  const isEnterprise = user ? user.role === "super_admin" || isEnterpriseTier : false;
+
   const sidebarContent = (
     <div className="h-full flex flex-col bg-[#1a1a1a] border-r border-[#2a2a2a]">
+      {/* Enterprise Quick Switch */}
+      {isEnterprise && (
+        <div className="p-4">
+          <div className="mb-4 px-3 py-2 bg-purple-500/10 rounded-md border border-purple-500/30">
+            <div className="flex items-center gap-2 mb-2">
+              <Crown className="h-4 w-4 text-purple-400" />
+              <p className="text-xs font-semibold text-purple-400">
+                Quick Switch
+              </p>
+            </div>
+            <div className="space-y-1">
+              <Link
+                href="/"
+                className="flex items-center px-2 py-1.5 text-xs text-gray-300 hover:bg-gray-600 rounded transition-colors"
+              >
+                <Globe className="h-3 w-3 mr-2" />
+                Website
+              </Link>
+              <div className="flex items-center px-2 py-1.5 text-xs text-white bg-gray-800 rounded">
+                <LayoutDashboard className="h-3 w-3 mr-2" />
+                Full Dashboard
+              </div>
+              <Link
+                href="/enterprise"
+                className="flex items-center px-2 py-1.5 text-xs text-gray-300 hover:bg-gray-600 rounded transition-colors"
+              >
+                <Shield className="h-3 w-3 mr-2" />
+                Enterprise
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {sidebarItems.map((item) => renderSidebarItem(item))}
@@ -269,7 +320,7 @@ export function DashboardSidebar({
       {user && (
         <div className="p-4 border-t border-[#2a2a2a]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center border border-white">
               <span className="text-white font-semibold text-sm">
                 {user.name?.[0] || user.email?.[0] || "U"}
               </span>

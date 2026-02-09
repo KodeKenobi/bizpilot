@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error serving logo:', error);
+    
     return new NextResponse('Logo not found', { status: 404 });
   }
 }

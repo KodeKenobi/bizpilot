@@ -43,6 +43,12 @@ export default function ApiDocsPage() {
   const [selectedExample, setSelectedExample] = useState<string>("curl");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
+  // Get base URL for API examples (use frontend domain, Next.js rewrites proxy to backend)
+  const apiBaseUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_BASE_URL || "https://trevnoctilla.com";
+
   const endpoints: Endpoint[] = [
     {
       method: "POST",
@@ -133,7 +139,7 @@ export default function ApiDocsPage() {
         {
           language: "curl",
           label: "cURL",
-          code: `curl -X POST "https://api.trevnoctilla.com/api/v1/convert/video" \\
+          code: `curl -X POST "${apiBaseUrl}/api/v1/convert/video" \\
   -H "X-API-Key: your-api-key-here" \\
   -F "file=@video.mp4" \\
   -F "format=mp4" \\
@@ -149,7 +155,7 @@ formData.append('format', 'mp4');
 formData.append('quality', '85');
 formData.append('compression', 'medium');
 
-const response = await fetch('https://api.trevnoctilla.com/api/v1/convert/video', {
+const response = await fetch('${apiBaseUrl}/api/v1/convert/video', {
   method: 'POST',
   headers: {
     'X-API-Key': 'your-api-key-here'
@@ -158,14 +164,14 @@ const response = await fetch('https://api.trevnoctilla.com/api/v1/convert/video'
 });
 
 const result = await response.json();
-console.log(result);`,
+`,
         },
         {
           language: "python",
           label: "Python",
           code: `import requests
 
-url = "https://api.trevnoctilla.com/api/v1/convert/video"
+url = "${apiBaseUrl}/api/v1/convert/video"
 headers = {"X-API-Key": "your-api-key-here"}
 
 files = {"file": open("video.mp4", "rb")}
@@ -223,7 +229,7 @@ print(result)`,
         {
           language: "curl",
           label: "cURL",
-          code: `curl -X POST "https://api.trevnoctilla.com/api/v1/convert/audio" \\
+          code: `curl -X POST "${apiBaseUrl}/api/v1/convert/audio" \\
   -H "X-API-Key: your-api-key-here" \\
   -F "file=@audio.wav" \\
   -F "format=mp3" \\
@@ -264,7 +270,7 @@ print(result)`,
         {
           language: "curl",
           label: "cURL",
-          code: `curl -X GET "https://api.trevnoctilla.com/api/v1/jobs/123e4567-e89b-12d3-a456-426614174000/status" \\
+          code: `curl -X GET "${apiBaseUrl}/api/v1/jobs/123e4567-e89b-12d3-a456-426614174000/status" \\
   -H "X-API-Key: your-api-key-here"`,
         },
       ],
@@ -277,8 +283,7 @@ print(result)`,
       setCopiedCode(code);
       setTimeout(() => setCopiedCode(null), 2000);
     } catch (error) {
-      console.error("Error copying code:", error);
-    }
+          }
   };
 
   const getMethodColor = (method: string) => {

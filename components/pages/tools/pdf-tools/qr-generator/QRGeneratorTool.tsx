@@ -115,13 +115,24 @@ export const QRGeneratorTool: React.FC<QRGeneratorToolProps> = ({
       const completed = await showMonetizationModal({
         title: "Download QR Code",
         message: "Choose how you'd like to download your QR code",
-        fileName: "qr-code.png",
+        fileName: "qr-code.jpg",
         fileType: "image",
         downloadUrl: generatedQR,
       });
 
       if (completed) {
-        window.open(generatedQR, "_blank");
+        try {
+          // Create download link for data URL
+          const link = document.createElement("a");
+          link.href = generatedQR;
+          link.download = "qr-code.jpg";
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (error) {
+          window.open(generatedQR, "_blank");
+        }
       }
     }
   };
@@ -188,13 +199,13 @@ export const QRGeneratorTool: React.FC<QRGeneratorToolProps> = ({
     setResult(null);
 
     try {
-      // Format data according to backend expectations - only send relevant fields
+      // Format data for the /generate-qr endpoint
       let requestData: any = {
         type: qrData.type,
         data: {},
       };
 
-      // Send only the relevant fields based on QR type
+      // Format data based on QR type for the backend
       switch (qrData.type) {
         case "text":
           requestData.data.text = qrData.content;
@@ -209,7 +220,7 @@ export const QRGeneratorTool: React.FC<QRGeneratorToolProps> = ({
           requestData.data.hidden = qrData.hidden || false;
           break;
         case "email":
-          requestData.data.email = qrData.content; // This should be the email address
+          requestData.data.email = qrData.content;
           requestData.data.subject = qrData.subject || "";
           requestData.data.body = qrData.body || "";
           break;
@@ -218,7 +229,7 @@ export const QRGeneratorTool: React.FC<QRGeneratorToolProps> = ({
           requestData.data.message = qrData.message || "";
           break;
         case "phone":
-          requestData.data.phone = qrData.phone || "";
+          requestData.data.phone = qrData.content;
           break;
         case "vcard":
           requestData.data.name = qrData.name || "";
@@ -254,12 +265,20 @@ export const QRGeneratorTool: React.FC<QRGeneratorToolProps> = ({
 
       if (response.ok) {
         const result = await response.json();
-        setGeneratedQR(result.qr_code);
-        setResult({
-          type: "success",
-          message: "QR code generated successfully!",
-          data: result,
-        });
+
+        if (result.success && result.qr_code) {
+          setGeneratedQR(result.qr_code);
+          setResult({
+            type: "success",
+            message: "QR code generated successfully!",
+            data: result,
+          });
+        } else {
+          setResult({
+            type: "error",
+            message: result.error || "Failed to generate QR code",
+          });
+        }
       } else {
         const error = await response.json();
         setResult({

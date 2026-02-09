@@ -150,7 +150,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Save PDF file first, then convert using template
-      console.log("🚀 [Add Watermark] Starting PDF upload...");
+      
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -160,32 +160,26 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       });
 
       if (!uploadResponse.ok) {
-        console.error(
-          "❌ [Add Watermark] Upload failed:",
-          uploadResponse.status,
-          uploadResponse.statusText
-        );
+        
         throw new Error("Failed to upload PDF");
       }
 
       // Get the unique filename from the upload response
       const uploadData = await uploadResponse.json();
       const filename = uploadData.filename || uploadedFile.name;
-      console.log("✅ [Add Watermark] Upload successful:", filename);
+      
 
       // Get PDF info including page count
-      console.log("📊 [Add Watermark] Fetching PDF info...");
+      
       const pdfInfoResponse = await fetch(
         `${getApiUrl("")}/api/pdf_info/${encodeURIComponent(filename)}`
       );
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 [Add Watermark] PDF info:", pdfInfo);
+        
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn(
-          "⚠️ [Add Watermark] Failed to get PDF info, defaulting to 1 page"
-        );
+        
         setTotalPages(1);
       }
 
@@ -195,7 +189,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       // Brief pause before showing completion
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error("PDF conversion error:", error);
+      
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -282,8 +276,8 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
 
   // Handle tool selection
   const handleToolSelect = (toolId: string) => {
-    console.log("🔧 Tool selected:", toolId);
-    console.log("🔧 Previous active tool:", activeTool);
+    
+    
 
     // Handle undo/redo buttons
     if (toolId === "undo") {
@@ -321,7 +315,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
+      
       iframe.contentWindow.postMessage(
         {
           type: "SET_EDIT_MODE",
@@ -340,46 +334,46 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
           "*"
         );
       }
-      console.log("📤 Message sent successfully");
+      
     } else {
-      console.log("❌ Iframe not found or no contentWindow");
+      
     }
   };
 
   // Listen for messages from iframe
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      console.log("📨 Message received from iframe:", event.data);
+      
 
       if (event.data.type === "SAVE_COMPLETE") {
-        console.log("✅ PDF saved successfully:", event.data.filename);
+        
         alertModal.showSuccess("Success", "PDF saved successfully!");
       } else if (event.data.type === "PDF_GENERATED") {
-        console.log("✅ PDF generation completed");
+        
       } else if (event.data.type === "TEXT_ADDED") {
-        console.log("📝 Text added:", event.data);
+        
       } else if (event.data.type === "EDIT_MODE_SET") {
-        console.log("🎯 Edit mode set in iframe:", event.data.mode);
+        
         setActiveTool(event.data.mode);
       } else if (event.data.type === "WATERMARK_ADDED") {
-        console.log("💧 Watermark added:", event.data);
+        
       } else if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
-        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
+        
 
         // Convert blob URL to data URL for iframe compatibility
-        console.log("📄 Converting blob to data URL for iframe...");
+        
         fetch(event.data.pdfUrl)
           .then((response) => response.blob())
           .then((blob) => {
             const reader = new FileReader();
             reader.onload = () => {
-              console.log("✅ Data URL ready for iframe");
+              
               setGeneratedPdfUrl(reader.result as string);
             };
             reader.readAsDataURL(blob);
           })
           .catch((error) => {
-            console.error("❌ Error converting blob:", error);
+            
             setGeneratedPdfUrl(event.data.pdfUrl);
           });
 
@@ -387,14 +381,14 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
         setShowDownloadButton(true); // Show Download button
         setIsSaving(false); // Clear loading state
       } else if (event.data.type === "SHOW_CONFIRMATION") {
-        console.log("❓ Confirmation requested:", event.data.message);
+        
         setConfirmationModal({
           isOpen: true,
           id: event.data.id,
           message: event.data.message,
         });
       } else {
-        console.log("❓ Unknown message type:", event.data.type);
+        
       }
     };
 
@@ -404,7 +398,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
 
   // Handle page change
   const handlePageChange = (pageNumber: number) => {
-    console.log("📄 Changing to page:", pageNumber);
+    
     setCurrentPage(pageNumber);
 
     // Send message to iframe to change page
@@ -412,7 +406,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending CHANGE_PAGE message to iframe:", pageNumber);
+      
       iframe.contentWindow.postMessage(
         {
           type: "CHANGE_PAGE",
@@ -421,7 +415,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
         "*"
       );
     } else {
-      console.log("❌ Iframe not found for page change");
+      
     }
   };
 
@@ -439,7 +433,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
 
   // Handle save changes - show view button first
   const handleSaveChanges = () => {
-    console.log("Save clicked - generating PDF for preview");
+    
     setIsSaving(true);
 
     // Send message to iframe to generate PDF (without download)
@@ -458,7 +452,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
 
   // Handle view PDF
   const handleViewPdf = () => {
-    console.log("🔍 Setting showViewModal to true");
+    
     setShowViewModal(true);
     setHasViewedPdf(true);
   };
@@ -471,9 +465,9 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
 
   // Handle download PDF (with monetization)
   const handleDownloadPdf = async () => {
-    console.log("📥 handleDownloadPdf called");
-    console.log("📥 generatedPdfUrl:", generatedPdfUrl);
-    console.log("📥 uploadedFile?.name:", uploadedFile?.name);
+    
+    
+    
 
     if (generatedPdfUrl) {
       const completed = await showMonetizationModal({
@@ -490,7 +484,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
         window.open(generatedPdfUrl, "_blank");
       }
     } else {
-      console.log("📥 No generatedPdfUrl, cannot download");
+      
     }
   };
 
@@ -598,7 +592,7 @@ export const AddWatermarkTool: React.FC<AddWatermarkToolProps> = ({
               setResult(null);
             }}
             onSearch={() => {
-              console.log("Search clicked");
+              
             }}
             zoomLevel={zoomLevel}
             onZoomIn={handleZoomIn}

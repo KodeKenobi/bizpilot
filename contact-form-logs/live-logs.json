@@ -1,0 +1,2502 @@
+[
+  {
+    "timestamp": "2026-01-23T05:34:01.278Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form\" | Found 4 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:01.285Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:01.334Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:01.423Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:04.068Z",
+    "level": "HEADER",
+    "message": "\n=== ALMIS International (49/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:07.605Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:08.086Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:08.093Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:08.235Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#mc-embedded-subscribe-form\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:08.244Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:08.282Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:08.354Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:10.519Z",
+    "level": "HEADER",
+    "message": "\n=== Aluminium Fire Systems (50/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:14.890Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:15.788Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:34:15.794Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.aluminiumfiresystems.com/contact-us/"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:15.794Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:17.995Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:17.996Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:18.675Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#gform_1\" | Found 22 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:18.688Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:18.713Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://www.aluminiumfiresystems.com/contact-us/\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:18.774Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:20.814Z",
+    "level": "HEADER",
+    "message": "\n=== amarti (51/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:23.786Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:24.732Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:24.732Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:24.822Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:24.831Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:24.887Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:25.044Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:27.161Z",
+    "level": "HEADER",
+    "message": "\n=== Ambassador Group UK (52/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:30.621Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:31.060Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:34:31.087Z",
+    "level": "ERROR",
+    "message": "❌ No contact form or page found"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:31.126Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ❌ Method: No contact found | Selector: \"N/A\" | No forms or contact pages detected - website may not have contact mechanism"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:31.204Z",
+    "level": "ERROR",
+    "message": "CONCLUSION: FAILED"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:33.209Z",
+    "level": "HEADER",
+    "message": "\n=== AMDG Holdings (53/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:35.341Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:35.875Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:34:35.890Z",
+    "level": "ERROR",
+    "message": "❌ No contact form or page found"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:35.902Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ❌ Method: No contact found | Selector: \"N/A\" | No forms or contact pages detected - website may not have contact mechanism"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:35.964Z",
+    "level": "ERROR",
+    "message": "CONCLUSION: FAILED"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:36.439Z",
+    "level": "HEADER",
+    "message": "\n=== AMPLYFI (54/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:39.167Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:39.980Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:39.981Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:40.300Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:40.347Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:40.436Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:40.603Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:42.859Z",
+    "level": "HEADER",
+    "message": "\n=== Ancient Wisdom Marketing Ltd (55/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:45.090Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:45.598Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:34:45.745Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.ancientwisdom.biz/contact.sys"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:45.746Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:47.374Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:47.380Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://www.ancientwisdom.biz/contact.sys\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:47.442Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:49.431Z",
+    "level": "HEADER",
+    "message": "\n=== Ancient Wisdom Marketing Ltd (56/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:51.204Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:51.906Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:34:51.985Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.ancientwisdom.biz/contact.sys"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:51.986Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:53.719Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:53.727Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://www.ancientwisdom.biz/contact.sys\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:53.795Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:55.814Z",
+    "level": "HEADER",
+    "message": "\n=== Annington (57/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:34:57.473Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:57.846Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:57.846Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:57.890Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#siteSearch.search\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:57.896Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:57.921Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:57.973Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:34:58.319Z",
+    "level": "HEADER",
+    "message": "\n=== Antala Ltd. (DGE UK & Ireland) (58/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:35:04.258Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:04.987Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:04.987Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:05.746Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.elementor-form\" | Found 13 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:05.755Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:05.795Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:05.879Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:08.567Z",
+    "level": "HEADER",
+    "message": "\n=== Apex Computing Services Ltd (59/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:35:11.455Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:13.455Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:35:13.486Z",
+    "level": "INFO",
+    "message": "Found contact link: https://apexcomputing.co.uk/contact-us/"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:13.493Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:15.394Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:15.394Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:15.631Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#hsForm_23a2f6c8-b5c4-4e0e-bb0c-de982ceee751.hs-form-private\" | Found 8 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:15.648Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:15.670Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://apexcomputing.co.uk/contact-us/\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:15.741Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:17.808Z",
+    "level": "HEADER",
+    "message": "\n=== Appetite for Business | Microsoft 365 | BCorp (60/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:35:19.162Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:21.092Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:35:21.103Z",
+    "level": "INFO",
+    "message": "Found contact link: https://appetite.business/contact/"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:21.103Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:22.645Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:22.645Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:23.474Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.elementor-form\" | Found 19 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:23.488Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:23.506Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://appetite.business/contact/\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:23.560Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:25.519Z",
+    "level": "HEADER",
+    "message": "\n=== ApplianSys (61/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:35:29.086Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:29.482Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:35:29.487Z",
+    "level": "INFO",
+    "message": "Found contact link: https://appliansys.com/company/contact/"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:29.487Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:31.331Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:31.331Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:31.994Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.wpcf7-form\" | Found 15 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:32.010Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:32.032Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://appliansys.com/company/contact/\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:32.100Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:34.354Z",
+    "level": "HEADER",
+    "message": "\n=== ApplianSys (62/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:35:37.777Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:38.429Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:35:38.452Z",
+    "level": "INFO",
+    "message": "Found contact link: https://appliansys.com/company/contact/"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:38.452Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:40.214Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:40.214Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:41.522Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.wpcf7-form\" | Found 15 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:41.559Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:41.614Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://appliansys.com/company/contact/\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:41.732Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:44.032Z",
+    "level": "HEADER",
+    "message": "\n=== Appointedd (63/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:35:46.489Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:46.883Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:35:46.883Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:17.350Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#footer-newsletter-form.newsletter_form\" | Found 8 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:17.356Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:17.383Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:17.430Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:19.958Z",
+    "level": "HEADER",
+    "message": "\n=== Apps for Good (64/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:39:23.214Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:24.511Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:24.511Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:24.958Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.button_to\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:24.967Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:24.997Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:25.065Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:27.190Z",
+    "level": "HEADER",
+    "message": "\n=== arbnco (65/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:39:28.445Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:30.895Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:39:30.934Z",
+    "level": "INFO",
+    "message": "Found contact link: https://arbnco.co.uk/contact-us/"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:30.943Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:31.990Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:31.997Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://arbnco.co.uk/contact-us/\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:32.062Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:34.173Z",
+    "level": "HEADER",
+    "message": "\n=== Art Click (66/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:39:36.431Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:36.869Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:39:36.891Z",
+    "level": "INFO",
+    "message": "Found contact link: https://theartclick.com/contact"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:36.908Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:37.881Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:37.889Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:38.055Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.php-email-form\" | Found 5 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:38.073Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:38.105Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://theartclick.com/contact\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:38.180Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:40.178Z",
+    "level": "HEADER",
+    "message": "\n=== ⚡️Zappaty⚡️ (67/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:39:44.026Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:44.511Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:39:44.521Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.zappaty.com/contactus/"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:44.549Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:46.511Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:46.516Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://www.zappaty.com/contactus/\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:46.565Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:48.532Z",
+    "level": "HEADER",
+    "message": "\n=== Asanti (68/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:39:54.156Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:55.611Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:55.618Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:56.093Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#pardot-form.form\" | Found 10 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:56.106Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:56.159Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:56.253Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:39:58.332Z",
+    "level": "HEADER",
+    "message": "\n=== Ascendx (69/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:40:01.810Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:02.973Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:02.980Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:03.976Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#gform_2\" | Found 16 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:03.986Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:04.030Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:04.100Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:06.087Z",
+    "level": "HEADER",
+    "message": "\n=== Asia Scotland Institute (70/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:40:08.588Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:09.064Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:40:09.074Z",
+    "level": "INFO",
+    "message": "Found contact link: https://asiascot.com/contact-us"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:09.094Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:10.187Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:10.194Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:10.376Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.elementor-form\" | Found 8 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:10.392Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:10.419Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://asiascot.com/contact-us\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:10.489Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:12.516Z",
+    "level": "HEADER",
+    "message": "\n=== askporter (71/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:40:19.556Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:19.990Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:19.997Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:20.124Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#wf-form-Newsletter-Subscription-Form.form-subscribe\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:20.131Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:20.155Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:20.211Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:22.216Z",
+    "level": "HEADER",
+    "message": "\n=== Aspen Woolf LTD (72/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:40:34.020Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:37.879Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:37.887Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:38.372Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#searchform.search-form\" | Found 3 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:38.380Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:38.415Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:38.466Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:41.232Z",
+    "level": "HEADER",
+    "message": "\n=== Assisi (73/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:40:44.048Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:44.591Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:40:44.641Z",
+    "level": "INFO",
+    "message": "Found contact link: https://assisi-vet-system.co.uk/contact"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:44.649Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:46.429Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:46.438Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:46.550Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.leaflet-control-layers-list\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:46.569Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:46.600Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://assisi-vet-system.co.uk/contact\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:46.679Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:48.777Z",
+    "level": "HEADER",
+    "message": "\n=== Assured Digital (74/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:40:52.703Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:53.410Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:53.418Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:53.508Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.search-form\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:53.517Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:53.558Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:53.620Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:55.692Z",
+    "level": "HEADER",
+    "message": "\n=== Atec Group Limited (75/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:40:56.211Z",
+    "level": "ERROR",
+    "message": "ERROR: page.goto: net::ERR_CERT_COMMON_NAME_INVALID at https://atecgroup.co.uk/\nCall log:\n\u001b[2m  - navigating to \"https://atecgroup.co.uk/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+  },
+  {
+    "timestamp": "2026-01-23T05:40:58.006Z",
+    "level": "HEADER",
+    "message": "\n=== Atlas Diagnostics (76/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:00.840Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:01.387Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:01.400Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:07.696Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.wpcf7-form\" | Found 12 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:07.705Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:07.741Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:07.809Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:10.363Z",
+    "level": "HEADER",
+    "message": "\n=== Attacat (77/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:13.288Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:13.763Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:13.773Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:13.899Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#searchform.searchform\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:13.907Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:13.940Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:14.012Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:16.376Z",
+    "level": "HEADER",
+    "message": "\n=== Attis Credit Solutions Ltd (78/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:21.866Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:22.282Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:41:22.297Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.attiscs.com/contact/"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:22.319Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:23.879Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:23.885Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:24.130Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.elementor-form\" | Found 12 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:24.147Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:24.168Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://www.attiscs.com/contact/\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:24.239Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:26.244Z",
+    "level": "HEADER",
+    "message": "\n=== Au Dental (79/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:29.617Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:30.258Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:30.265Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:30.343Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.search-form\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:30.352Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:30.388Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:30.446Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:32.516Z",
+    "level": "HEADER",
+    "message": "\n=== Automotivate Group (80/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:34.856Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:35.434Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:35.449Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:35.949Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#form-210966b5-668f-4278-ab04-b1720f08e991\" | Found 7 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:35.960Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:36.004Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:36.099Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:38.422Z",
+    "level": "HEADER",
+    "message": "\n=== AUTONATIVE (81/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:41.819Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:42.556Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:41:42.566Z",
+    "level": "INFO",
+    "message": "Found contact link: https://autonative.com/contact"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:42.587Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:44.491Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:44.498Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://autonative.com/contact\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:44.546Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:46.606Z",
+    "level": "HEADER",
+    "message": "\n=== Autoweb Design (82/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:49.020Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:49.422Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:41:49.442Z",
+    "level": "INFO",
+    "message": "Found contact link: https://autowebdesign.co.uk/contact-us"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:49.473Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:51.032Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:51.042Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://autowebdesign.co.uk/contact-us\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:51.097Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:53.048Z",
+    "level": "HEADER",
+    "message": "\n=== Avant Skincare (83/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:41:55.831Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:56.636Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:56.645Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:57.033Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#localization-form-header-nav-sections--25053420454229__header-country.shopify-localization-form\" | Found 4 fields - use this selector to tar..."
+  },
+  {
+    "timestamp": "2026-01-23T05:41:57.044Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:57.094Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:57.172Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:41:59.169Z",
+    "level": "HEADER",
+    "message": "\n=== AVN The Accountants' Network (84/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:10.259Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:10.671Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:42:10.686Z",
+    "level": "INFO",
+    "message": "Found contact link: https://avn.co.uk/contact-avn/"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:10.732Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:12.619Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:12.626Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://avn.co.uk/contact-avn/\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:12.678Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:15.166Z",
+    "level": "HEADER",
+    "message": "\n=== Aware Digital (85/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:15.769Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:16.146Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:42:16.172Z",
+    "level": "INFO",
+    "message": "Checking 1 iframe(s) for forms..."
+  },
+  {
+    "timestamp": "2026-01-23T05:42:16.225Z",
+    "level": "ERROR",
+    "message": "❌ No contact form or page found"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:16.233Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ❌ Method: No contact found | Selector: \"N/A\" | No forms or contact pages detected - website may not have contact mechanism"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:16.268Z",
+    "level": "ERROR",
+    "message": "CONCLUSION: FAILED"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:17.552Z",
+    "level": "HEADER",
+    "message": "\n=== Awesome Healthcare Solutions (86/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:18.024Z",
+    "level": "ERROR",
+    "message": "ERROR: page.goto: net::ERR_NAME_NOT_RESOLVED at https://awesomecaresolutions.co.uk/\nCall log:\n\u001b[2m  - navigating to \"https://awesomecaresolutions.co.uk/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:18.635Z",
+    "level": "HEADER",
+    "message": "\n=== Axcess Merchant Services (87/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:26.061Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:26.477Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:42:26.493Z",
+    "level": "INFO",
+    "message": "Found contact link: https://axcessms.com/#"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:26.524Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:27.110Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:27.118Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://axcessms.com/#\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:27.178Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:29.334Z",
+    "level": "HEADER",
+    "message": "\n=== Axess Systems Ltd (88/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:31.949Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:32.560Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:32.571Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:33.027Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.is-search-form\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:33.040Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:33.113Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:33.260Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:35.379Z",
+    "level": "HEADER",
+    "message": "\n=== AXParis (89/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:38.293Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:39.036Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:39.042Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:39.185Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#search-form\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:39.193Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:39.234Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:39.302Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:41.441Z",
+    "level": "HEADER",
+    "message": "\n=== Azdio (90/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:43.327Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:43.743Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:42:43.755Z",
+    "level": "INFO",
+    "message": "Found contact link: https://azdio.net/contact-us"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:43.781Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:44.955Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:44.962Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://azdio.net/contact-us\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:45.023Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:47.208Z",
+    "level": "HEADER",
+    "message": "\n=== BABB (91/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:50.415Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:51.155Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:51.161Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:51.297Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#mc4wp-form-1.mc4wp-form\" | Found 6 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:51.304Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:51.329Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:51.381Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:53.337Z",
+    "level": "HEADER",
+    "message": "\n=== BabelQuest | Accredited HubSpot Partner (92/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:42:56.183Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:56.602Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:42:56.634Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.babelquest.co.uk/contact"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:56.644Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:58.259Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:58.271Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:58.697Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#hsForm_b5f27c27-a7d9-4c5a-a766-eba51604bfa9_1311.hs-form-private\" | Found 7 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:58.713Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:58.739Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://www.babelquest.co.uk/contact\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:42:58.789Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:00.763Z",
+    "level": "HEADER",
+    "message": "\n=== BabelQuest | Accredited HubSpot Partner (93/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:03.649Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:04.163Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:43:04.260Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.babelquest.co.uk/contact"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:04.274Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:05.684Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:05.696Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:06.162Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#hsForm_b5f27c27-a7d9-4c5a-a766-eba51604bfa9_1311.hs-form-private\" | Found 7 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:06.177Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:06.200Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://www.babelquest.co.uk/contact\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:06.251Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:08.224Z",
+    "level": "HEADER",
+    "message": "\n=== BabelQuest | Accredited HubSpot Partner (94/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:11.384Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:12.125Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:43:12.345Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.babelquest.co.uk/contact"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:12.365Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:13.792Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:13.802Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:14.335Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#hsForm_b5f27c27-a7d9-4c5a-a766-eba51604bfa9_1311.hs-form-private\" | Found 7 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:14.350Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:14.379Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://www.babelquest.co.uk/contact\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:14.450Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:16.462Z",
+    "level": "HEADER",
+    "message": "\n=== Baby & Co (95/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:19.319Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:24.607Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:24.616Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:25.115Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.search-bar\" | Found 2 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:25.125Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:25.154Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:25.220Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:27.860Z",
+    "level": "HEADER",
+    "message": "\n=== Balfour Beatty Homes (96/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:30.560Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:32.177Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:43:32.189Z",
+    "level": "INFO",
+    "message": "Found contact link: https://balfourbeattyhomes.com/contact-us/"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:32.211Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:33.371Z",
+    "level": "INFO",
+    "message": "Found form on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:33.378Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page form check | Selector: \"form\" | Check for form after navigating to contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:34.082Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#Form_MTcxNzQwNjE1Nw.submitform\" | Found 14 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:34.098Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on contact page"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:34.135Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page navigation | Selector: \"https://balfourbeattyhomes.com/contact-us/\" | Navigate to contact page URL found in links"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:34.207Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:36.248Z",
+    "level": "HEADER",
+    "message": "\n=== Banks Homes (97/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:40.896Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:41.364Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:43:41.382Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.bankshomes.co.uk/contact-us/"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:41.447Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:43.685Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:43.693Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://www.bankshomes.co.uk/contact-us/\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:43.749Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:45.712Z",
+    "level": "HEADER",
+    "message": "\n=== Barwick Bathroom Distribution LLP (98/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:46.268Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:46.663Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:43:46.693Z",
+    "level": "ERROR",
+    "message": "❌ No contact form or page found"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:46.721Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ❌ Method: No contact found | Selector: \"N/A\" | No forms or contact pages detected - website may not have contact mechanism"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:46.756Z",
+    "level": "ERROR",
+    "message": "CONCLUSION: FAILED"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:48.117Z",
+    "level": "HEADER",
+    "message": "\n=== BC4 (99/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:51.656Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:52.046Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:43:52.060Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.bc4.com/contact-us"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:52.089Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:53.487Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:53.494Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://www.bc4.com/contact-us\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:53.544Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:55.603Z",
+    "level": "HEADER",
+    "message": "\n=== BCRS Business Loans (100/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:43:59.028Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:59.638Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:59.648Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:59.869Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.w-form-row\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:59.886Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:59.931Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:43:59.999Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:02.128Z",
+    "level": "HEADER",
+    "message": "\n=== Beacon Wealth Management Ltd (101/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:03.984Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:04.424Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:04.439Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:05.065Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form\" | Found 4 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:05.077Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:05.124Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:05.251Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:05.934Z",
+    "level": "HEADER",
+    "message": "\n=== BeaconMedaes UK (102/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:09.116Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:11.658Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:44:11.694Z",
+    "level": "INFO",
+    "message": "Found contact link: https://beaconmedaes.com/en-international/contact-us"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:11.769Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:12.828Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:12.849Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://beaconmedaes.com/en-international/contact-us\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:12.952Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:15.138Z",
+    "level": "HEADER",
+    "message": "\n=== Beam Group (103/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:18.626Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:19.118Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:19.128Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:19.219Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:19.230Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:19.268Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:19.336Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:21.415Z",
+    "level": "HEADER",
+    "message": "\n=== Beam Group (104/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:24.767Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:25.245Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:25.255Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:25.328Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:25.342Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:25.375Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:25.440Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:27.562Z",
+    "level": "HEADER",
+    "message": "\n=== BED Electrical Distributors (105/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:30.176Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:30.567Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:30.574Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:31.417Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form#form1\" | Found 20 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:31.431Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:31.460Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:31.529Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:33.579Z",
+    "level": "HEADER",
+    "message": "\n=== Bedroq (106/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:36.865Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:37.274Z",
+    "level": "INFO",
+    "message": "No form on homepage, searching for contact link..."
+  },
+  {
+    "timestamp": "2026-01-23T05:44:37.289Z",
+    "level": "INFO",
+    "message": "Found contact link: https://www.bedroq.co.uk/contact/"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:37.328Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:38.873Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact page found (no form)"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:38.881Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Contact page only | Selector: \"https://www.bedroq.co.uk/contact/\" | Found contact page but no form - use email or other contact method"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:38.944Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:41.025Z",
+    "level": "HEADER",
+    "message": "\n=== Berties (107/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:43.820Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:44.320Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:44.328Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:44.454Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form structure | Selector: \"form.header__search-form\" | Found 1 fields - use this selector to target form"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:44.463Z",
+    "level": "SUCCESS",
+    "message": "✅ Contact form found on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:44.490Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Form extraction | Selector: \"form\" | Extract first visible form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:44.547Z",
+    "level": "SUCCESS",
+    "message": "CONCLUSION: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:46.894Z",
+    "level": "HEADER",
+    "message": "\n=== Beyond Law Group (108/1087) ==="
+  },
+  {
+    "timestamp": "2026-01-23T05:44:51.437Z",
+    "level": "SUCCESS",
+    "message": "NAVIGATE: SUCCESS"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:52.115Z",
+    "level": "INFO",
+    "message": "Found form on homepage"
+  },
+  {
+    "timestamp": "2026-01-23T05:44:52.123Z",
+    "level": "LIVE_SCRAPER",
+    "message": "LIVE_SCRAPER: ✅ Method: Homepage form check | Selector: \"form\" | Direct form detection on homepage - fastest method"
+  }
+]

@@ -72,9 +72,9 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
 
   // Handle file upload
   const handleFileUploadMultiple = useCallback((files: FileList) => {
-    console.log("DEBUG: handleFileUploadMultiple called with files:", files);
+    
     const newPdfFiles: PdfFile[] = Array.from(files).map((file) => {
-      console.log("DEBUG: Processing file:", file.name, file.size, file.type);
+      
       return {
         id: Math.random().toString(36).substr(2, 9),
         file,
@@ -83,10 +83,10 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
       };
     });
 
-    console.log("DEBUG: Created newPdfFiles:", newPdfFiles);
+    
     setPdfFiles((prev) => {
       const updated = [...prev, ...newPdfFiles];
-      console.log("DEBUG: Updated pdfFiles:", updated);
+      
       return updated;
     });
   }, []);
@@ -120,7 +120,7 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
 
   // Handle merge PDFs
   const handleMergePdfs = useCallback(async () => {
-    console.log("DEBUG: handleMergePdfs called with pdfFiles:", pdfFiles);
+    
 
     if (pdfFiles.length < 2) {
       alertModal.showError(
@@ -161,19 +161,19 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
 
       // Upload files and merge
       const formData = new FormData();
-      console.log("DEBUG: Preparing to upload files:", pdfFiles);
+      
       pdfFiles.forEach((pdfFile, index) => {
-        console.log(`DEBUG: Adding file ${index}:`, pdfFile.name, pdfFile.file);
+        
         formData.append("files", pdfFile.file);
       });
 
-      console.log("DEBUG: FormData entries:");
+      
       const entries = Array.from(formData.entries());
       entries.forEach(([key, value]) => {
-        console.log(key, value);
+        
       });
 
-      console.log("🔗 Calling merge API...");
+      
       const response = await fetch(`${getApiUrl("")}/merge_pdfs`, {
         method: "POST",
         body: formData,
@@ -184,15 +184,15 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("❌ Merge failed with status:", response.status);
-        console.error("❌ Error response:", errorText);
+        
+        
         throw new Error(
           `Failed to merge PDFs: ${response.status} - ${errorText}`
         );
       }
 
       const result = await response.json();
-      console.log("✅ Merge result:", result);
+      
 
       // Construct full URL using the backend base URL
       const fullDownloadUrl = result.download_url.startsWith("http")
@@ -206,7 +206,7 @@ export const MergePdfsTool: React.FC<MergePdfsToolProps> = ({
         `Successfully merged ${pdfFiles.length} PDF files!`
       );
     } catch (error) {
-      console.error("Merge error:", error);
+      
       alertModal.showError("Error", "Failed to merge PDFs");
     } finally {
       setIsMerging(false);

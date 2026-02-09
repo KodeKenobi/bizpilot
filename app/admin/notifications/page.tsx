@@ -78,7 +78,7 @@ export default function NotificationsPage() {
       }
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching notifications:", error);
+      
       setLoading(false);
     }
   };
@@ -100,7 +100,7 @@ export default function NotificationsPage() {
         setStats(data);
       }
     } catch (error) {
-      console.error("Error fetching notification stats:", error);
+      
     }
   };
 
@@ -126,7 +126,7 @@ export default function NotificationsPage() {
         fetchStats();
       }
     } catch (error) {
-      console.error("Error marking notification as read:", error);
+      
     }
   };
 
@@ -148,7 +148,7 @@ export default function NotificationsPage() {
         fetchStats();
       }
     } catch (error) {
-      console.error("Error marking all as read:", error);
+      
     }
   };
 
@@ -174,7 +174,7 @@ export default function NotificationsPage() {
         fetchStats();
       }
     } catch (error) {
-      console.error("Error deleting notification:", error);
+      
     }
   };
 

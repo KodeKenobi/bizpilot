@@ -97,7 +97,7 @@ export const MobileEditPdfTool: React.FC<MobileEditPdfToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Upload PDF
-      console.log("🚀 [Mobile Edit PDF] Starting PDF upload...");
+      
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -113,7 +113,7 @@ export const MobileEditPdfTool: React.FC<MobileEditPdfToolProps> = ({
       const uploadData = await uploadResponse.json();
       const filename = uploadData.filename || uploadedFile.name;
       setUploadedFilename(filename);
-      console.log("✅ [Mobile Edit PDF] Upload successful:", filename);
+      
 
       // Get PDF info
       const pdfInfoResponse = await fetch(
@@ -138,7 +138,7 @@ export const MobileEditPdfTool: React.FC<MobileEditPdfToolProps> = ({
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error("PDF conversion error:", error);
+      
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -182,7 +182,7 @@ export const MobileEditPdfTool: React.FC<MobileEditPdfToolProps> = ({
       } else if (event.data.type === "EDIT_MODE_SET") {
         setActiveTool(event.data.mode);
       } else if (event.data.type === "SHOW_CONFIRMATION") {
-        console.log("❓ Confirmation requested:", event.data.message);
+        
         setConfirmationModal({
           isOpen: true,
           id: event.data.id,
@@ -510,15 +510,13 @@ export const MobileEditPdfTool: React.FC<MobileEditPdfToolProps> = ({
                           },
                           "*"
                         );
-                        console.log(
-                          "📱 [Mobile Edit PDF] Initial edit mode sent"
-                        );
+                        
                       }
                     }, 1000);
                   }
                 }}
                 onError={async () => {
-                  console.error("❌ [Mobile Edit PDF] Iframe failed to load");
+                  
                   // Try to fetch error details
                   if (editorUrl) {
                     try {
@@ -530,20 +528,14 @@ export const MobileEditPdfTool: React.FC<MobileEditPdfToolProps> = ({
                         const errorText = await response.text();
                         errorData = { error: errorText };
                       }
-                      console.error(
-                        "❌ [Mobile Edit PDF] Backend error:",
-                        errorData
-                      );
+                      
                       alertModal.showError(
                         "Error Loading PDF",
                         errorData.error ||
                           `Failed to load PDF: ${response.status}`
                       );
                     } catch (err) {
-                      console.error(
-                        "❌ [Mobile Edit PDF] Error fetching details:",
-                        err
-                      );
+                      
                       alertModal.showError(
                         "Error",
                         "Failed to load PDF document. Please check backend console for details."

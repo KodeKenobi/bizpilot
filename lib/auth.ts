@@ -1,4 +1,4 @@
-﻿import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 // Auth options configuration
@@ -62,10 +62,18 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
-          if (data.user && data.access_token) {
+          if (data.user) {
             console.log(
               `[NextAuth] Authentication successful for: ${data.user.email}`
             );
+            
+            // Warn if access_token is missing but don't block login
+            if (!data.access_token) {
+              console.warn(
+                `[NextAuth] Warning: access_token missing for ${data.user.email}`
+              );
+            }
+            
             return {
               id: data.user.id?.toString() || data.user.email,
               email: data.user.email,
@@ -73,6 +81,7 @@ export const authOptions: NextAuthOptions = {
               role: data.user.role || "user",
               is_active: data.user.is_active !== false,
               subscription_tier: data.user.subscription_tier || "free",
+              accessToken: data.access_token || null, // Store backend JWT token (may be null)
             };
           }
 
@@ -93,14 +102,36 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
+      // If user object is provided (initial login), use it
       if (user) {
         console.log(`[NextAuth JWT] Setting user data for: ${user.email}`);
         token.id = user.id;
         token.role = user.role;
         token.is_active = user.is_active;
         token.subscription_tier = (user as any).subscription_tier || "free";
+        token.accessToken = (user as any).accessToken || null; // Store backend JWT token (may be null)
       }
+      
+      // If session is being updated (trigger === "update"), fetch fresh user data from backend
+      // Note: This runs server-side, so we can't access localStorage
+      // The frontend should handle token refresh separately if needed
+      if (trigger === "update" && token.email) {
+        try {
+          const backendUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 
+            (process.env.NODE_ENV === "production" 
+              ? "https://web-production-737b.up.railway.app"
+              : "http://localhost:5000");
+          
+          // For server-side refresh, we'd need the token passed in the update call
+          // For now, just return the existing token
+          console.log(`[NextAuth JWT] Session update requested for: ${token.email}`);
+        } catch (error) {
+          console.error("[NextAuth JWT] Error refreshing user data:", error);
+          // Continue with existing token data if refresh fails
+        }
+      }
+      
       return token;
     },
     async session({ session, token }) {
@@ -110,8 +141,9 @@ export const authOptions: NextAuthOptions = {
         session.user.is_active = token.is_active as boolean;
         (session.user as any).subscription_tier =
           (token.subscription_tier as string) || "free";
+        (session as any).accessToken = (token.accessToken as string) || null; // Store backend JWT token in session (may be null)
         console.log(
-          `[NextAuth Session] Session created for: ${
+          `NextAuth Session: Session created for: ${
             session.user.email
           } (tier: ${(session.user as any).subscription_tier})`
         );
@@ -123,4 +155,5 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
   },
   secret: process.env.NEXTAUTH_SECRET || "fallback-secret-for-development",
+  debug: process.env.NODE_ENV === "development",
 };

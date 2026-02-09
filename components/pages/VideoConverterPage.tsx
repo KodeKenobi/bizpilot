@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { VideoConverterTool } from "@/components/pages/tools/pdf-tools/video-converter/VideoConverterTool";
 
 export default function VideoConverterPage() {
@@ -42,6 +43,56 @@ export default function VideoConverterPage() {
             setIsProcessing={setIsProcessing}
             handleFileUpload={handleFileUpload}
           />
+        </div>
+
+        {/* Related Tools Section */}
+        <div className="mt-16 pt-8 border-t border-gray-700/50">
+          <h3 className="text-xl font-semibold text-white mb-4 text-center">
+            Related Tools
+          </h3>
+          <p className="text-gray-400 text-sm text-center mb-4">
+            Need to extract audio from video? Try our{" "}
+            <Link
+              href="/tools/audio-converter"
+              className="text-white hover:text-cyan-300 underline"
+            >
+              free audio converter
+            </Link>
+            . Or convert images with our{" "}
+            <Link
+              href="/tools/image-converter"
+              className="text-white hover:text-cyan-300 underline"
+            >
+              image converter
+            </Link>
+            .
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/tools/audio-converter"
+              className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 hover:text-white rounded-lg transition-all text-sm"
+            >
+              Audio Converter
+            </Link>
+            <Link
+              href="/tools/image-converter"
+              className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 hover:text-white rounded-lg transition-all text-sm"
+            >
+              Image Converter
+            </Link>
+            <Link
+              href="/tools/pdf-tools"
+              className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 hover:text-white rounded-lg transition-all text-sm"
+            >
+              PDF Tools
+            </Link>
+            <Link
+              href="/features"
+              className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 hover:text-white rounded-lg transition-all text-sm"
+            >
+              View All Features
+            </Link>
+          </div>
         </div>
       </div>
     </div>

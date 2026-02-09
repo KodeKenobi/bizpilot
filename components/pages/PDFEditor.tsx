@@ -57,7 +57,7 @@ export default function PDFEditor() {
   };
 
   const handleOperatorAction = (action: string) => {
-    console.log(`${action} action triggered:`, operatorData);
+    
     // Here you would typically send the data to your backend
     setShowResults(true);
     setResultType("success");
@@ -70,7 +70,7 @@ export default function PDFEditor() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log("Image uploaded:", file.name);
+      
       setShowResults(true);
       setResultType("success");
     }

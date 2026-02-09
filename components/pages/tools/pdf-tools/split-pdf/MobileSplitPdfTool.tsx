@@ -128,7 +128,7 @@ export const MobileSplitPdfTool: React.FC<MobileSplitPdfToolProps> = ({
 
       await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
-      console.error("PDF processing error:", error);
+      
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -230,7 +230,7 @@ export const MobileSplitPdfTool: React.FC<MobileSplitPdfToolProps> = ({
         `PDF split into ${selectedPages.length} pages successfully!`
       );
     } catch (error) {
-      console.error("Split PDF error:", error);
+      
       alertModal.showError("Error", "Failed to split PDF");
     } finally {
       setIsSplitting(false);

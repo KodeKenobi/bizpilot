@@ -32,13 +32,6 @@ export function ApiTester({ toolId }: ApiTesterProps) {
   // Get subscription tier from user context (fetched from profile endpoint)
   const subscriptionTier = user?.subscription_tier?.toLowerCase() || "free";
 
-  useEffect(() => {
-    const storedKey = localStorage.getItem("api_test_key");
-    if (storedKey) {
-      setApiKey(storedKey);
-    }
-  }, []);
-
   const ensureApiKey = async () => {
     if (apiKey) {
       localStorage.setItem("api_test_key", apiKey);
@@ -58,7 +51,7 @@ export function ApiTester({ toolId }: ApiTesterProps) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               email: session.user.email,
-              password: "Kopenikus0218!",
+              // Password no longer required - NextAuth session is trusted
               role:
                 (session.user as any)?.role === "super_admin"
                   ? "super_admin"
@@ -75,9 +68,7 @@ export function ApiTester({ toolId }: ApiTesterProps) {
             localStorage.setItem("auth_token", token);
           }
         }
-      } catch (error) {
-        console.error("Failed to get backend token:", error);
-      }
+      } catch (error) {}
     }
 
     if (!backendToken) {
@@ -726,6 +717,9 @@ export function ApiTester({ toolId }: ApiTesterProps) {
                                       img.image_index || index
                                     } from page ${img.page || "unknown"}`}
                                     className="w-full h-24 object-contain bg-white rounded"
+                                    width={96}
+                                    height={96}
+                                    loading="lazy"
                                   />
                                   <div className="text-xs text-gray-500 mt-1">
                                     Page {img.page || "?"}, Image{" "}

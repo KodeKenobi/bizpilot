@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+mimic-test-logs/
 
 # Runtime data
 pids
@@ -124,6 +125,9 @@ edited/
 # Large media files
 converted_videos/
 saved_html/
+test-files/
+# But allow test files in public folder for testing
+!public/test-files/
 
 # Lock files
 pnpm-lock.yaml

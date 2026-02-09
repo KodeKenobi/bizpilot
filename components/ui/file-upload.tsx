@@ -5,7 +5,8 @@ import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 
 // Simple class name combiner
-const cn = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ');
+const cn = (...classes: (string | undefined)[]) =>
+  classes.filter(Boolean).join(" ");
 
 const mainVariant = {
   initial: {
@@ -53,9 +54,7 @@ export const FileUpload = ({
     multiple: multiple,
     noClick: true,
     onDrop: handleFileChange,
-    onDropRejected: (error) => {
-      console.log(error);
-    },
+    onDropRejected: (error) => {},
   });
 
   return (
@@ -94,7 +93,7 @@ export const FileUpload = ({
             className={`relative z-20 font-sans font-normal text-base mt-2 ${
               variant === "dark"
                 ? "text-gray-400"
-                : "text-neutral-400 dark:text-neutral-400"
+                : "text-white dark:text-white"
             }`}
           >
             {multiple
@@ -146,7 +145,7 @@ export const FileUpload = ({
                     className={`flex text-sm md:flex-row flex-col items-start md:items-center w-full mt-2 justify-between ${
                       variant === "dark"
                         ? "text-gray-400"
-                        : "text-neutral-600 dark:text-neutral-400"
+                        : "text-neutral-600 dark:text-white"
                     }`}
                   >
                     <motion.p
@@ -203,7 +202,7 @@ export const FileUpload = ({
                       className={`h-4 w-4 ${
                         variant === "dark"
                           ? "text-gray-400"
-                          : "text-neutral-600 dark:text-neutral-400"
+                          : "text-neutral-600 dark:text-white"
                       }`}
                     />
                   </motion.p>

@@ -90,7 +90,7 @@ async function fetchRateFromAPI(
 
     return null;
   } catch (error) {
-    console.warn(`Failed to fetch from ${api.name}:`, error);
+    
     return null;
   }
 }
@@ -110,7 +110,7 @@ export async function getUSDToZARRate(): Promise<number> {
         const now = Date.now();
         // Use cached rate if less than 1 hour old
         if (now - cache.timestamp < EXCHANGE_RATE_CACHE_DURATION) {
-          console.log(`Using cached exchange rate: ${cache.rate} ZAR/USD`);
+          
           return cache.rate;
         }
       } catch (e) {
@@ -122,13 +122,11 @@ export async function getUSDToZARRate(): Promise<number> {
   // Try each API in sequence
   let lastError: Error | null = null;
   for (const api of EXCHANGE_RATE_APIS) {
-    console.log(`Attempting to fetch exchange rate from ${api.name}...`);
+    
     const rate = await fetchRateFromAPI(api);
 
     if (rate !== null) {
-      console.log(
-        `✅ Successfully fetched rate from ${api.name}: ${rate} ZAR/USD`
-      );
+      
 
       // Cache the rate
       if (typeof window !== "undefined") {
@@ -149,9 +147,7 @@ export async function getUSDToZARRate(): Promise<number> {
     if (cached) {
       try {
         const cache: ExchangeRateCache = JSON.parse(cached);
-        console.warn(
-          `⚠️ All APIs failed, using expired cached rate: ${cache.rate} ZAR/USD`
-        );
+        
         return cache.rate;
       } catch (e) {
         // Invalid cache
@@ -163,7 +159,7 @@ export async function getUSDToZARRate(): Promise<number> {
   const error = new Error(
     "Failed to fetch exchange rate from all available APIs. Please check your internet connection and try again."
   );
-  console.error("❌ All exchange rate APIs failed:", error);
+  
   throw error;
 }
 

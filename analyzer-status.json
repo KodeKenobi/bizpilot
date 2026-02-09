@@ -1,0 +1,64 @@
+{
+  "status": "running",
+  "totalAnalyzed": 0,
+  "withForms": 0,
+  "withPages": 0,
+  "total": 1066,
+  "currentSite": {
+    "company": "3 Line Electrical Wholesale Ltd.",
+    "url": "https://3lineelectrical.co.uk"
+  },
+  "logs": [
+    {
+      "timestamp": "2026-01-23T10:18:39.844Z",
+      "level": "HEADER",
+      "message": "\n=== 3 Line Electrical Wholesale Ltd. (1/1066) ==="
+    },
+    {
+      "timestamp": "2026-01-23T10:18:41.503Z",
+      "level": "SUCCESS",
+      "message": "NAVIGATE: SUCCESS"
+    },
+    {
+      "timestamp": "2026-01-23T10:18:41.898Z",
+      "level": "INFO",
+      "message": "No form on homepage, searching for contact link..."
+    },
+    {
+      "timestamp": "2026-01-23T10:18:41.909Z",
+      "level": "INFO",
+      "message": "Found contact link: https://www.3lineelectrical.co.uk/locations"
+    },
+    {
+      "timestamp": "2026-01-23T10:18:41.909Z",
+      "level": "LIVE_SCRAPER",
+      "message": "LIVE_SCRAPER: ✅ Method: Contact link search | Selector: \"a[href*=\"contact\" i]\" | Search links with \"contact\" in href or text"
+    },
+    {
+      "timestamp": "2026-01-23T10:18:42.916Z",
+      "level": "SUCCESS",
+      "message": "✅ Contact page found (no form)"
+    }
+  ],
+  "discoveryPath": [
+    {
+      "step": 1,
+      "timestamp": "2026-01-23T10:18:40.147Z",
+      "action": "NAVIGATE",
+      "target": "https://3lineelectrical.co.uk",
+      "reason": "Loading homepage",
+      "result": "PENDING"
+    },
+    {
+      "step": 2,
+      "timestamp": "2026-01-23T10:18:41.503Z",
+      "action": "NAVIGATE",
+      "target": "https://3lineelectrical.co.uk",
+      "reason": "Homepage loaded",
+      "result": "SUCCESS"
+    }
+  ],
+  "forms": [],
+  "contactPages": [],
+  "lastUpdate": "2026-01-23T10:18:42.916Z"
+}

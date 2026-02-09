@@ -1,43 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { headers } from "next/headers";
+import { getApiUrl, getAuthHeaders } from "@/lib/config";
 
 export async function POST(request: NextRequest) {
   try {
-    // For now, allow all requests - authentication can be added later
-    // const session = await getServerSession(authOptions);
-    // if (!session?.user?.id) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
-
     const pageViewData = await request.json();
 
-    // Store page view in your database
-    console.log("Page View:", {
-      user_id: "anonymous", // TODO: Get from session when auth is implemented
-      ...pageViewData,
-      received_at: new Date().toISOString(),
+    // Get session for user_id (optional - allows anonymous tracking)
+    const headersList = await headers();
+    const session = await getServerSession({
+      ...authOptions,
+      req: {
+        headers: headersList,
+      } as any,
     });
 
-    // TODO: Store in your database
-    // Example:
-    // await db.pageViews.create({
-    //   data: {
-    //     user_id: session.user.id,
-    //     session_id: pageViewData.session_id,
-    //     page_url: pageViewData.page_url,
-    //     page_title: pageViewData.page_title,
-    //     timestamp: new Date(pageViewData.timestamp),
-    //     duration: pageViewData.duration,
-    //     referrer: pageViewData.referrer,
-    //     user_agent: pageViewData.user_agent,
-    //     device_type: pageViewData.device_type,
-    //     browser: pageViewData.browser,
-    //     os: pageViewData.os,
-    //   }
-    // });
+    // Forward to backend API
+    const backendUrl = getApiUrl("/api/analytics/pageview");
+    const token = (session as any)?.accessToken || null;
 
-    return NextResponse.json({ success: true });
+    const response = await fetch(backendUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? getAuthHeaders(token) : {}),
+      },
+      body: JSON.stringify(pageViewData),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      return NextResponse.json(result);
+    } else {
+      const error = await response.text();
+      
+      return NextResponse.json(
+        { error: "Failed to store analytics data" },
+        { status: response.status }
+      );
+    }
   } catch (error) {
-    console.error("Analytics pageview error:", error);
+    
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

@@ -20,7 +20,18 @@ export function ApiReferenceContent({
     "introduction"
   );
 
+  // Get base URL for API examples
+  // For client-side: use frontend domain (Next.js rewrites proxy to backend)
+  // For display: show frontend domain instead of empty relative URL
+  const getDisplayBaseUrl = () => {
+    if (typeof window !== "undefined") {
+      return window.location.origin;
+    }
+    return process.env.NEXT_PUBLIC_BASE_URL || "https://trevnoctilla.com";
+  };
+
   const baseUrl = getApiUrl("");
+  const displayBaseUrl = getDisplayBaseUrl();
 
   const copyToClipboard = (code: string, id: string) => {
     navigator.clipboard.writeText(code);
@@ -37,8 +48,10 @@ export function ApiReferenceContent({
 
     switch (language) {
       case "curl":
+        // For curl examples, use full URL with frontend domain
+        const curlBaseUrl = displayBaseUrl;
         if (hasFile) {
-          let curlCmd = `curl -X ${endpoint.method} "${baseUrl}${endpoint.path}" \\\n  -H "X-API-Key: your-api-key-here"`;
+          let curlCmd = `curl -X ${endpoint.method} "${curlBaseUrl}${endpoint.path}" \\\n  -H "X-API-Key: your-api-key-here"`;
           if (otherParams.length > 0) {
             otherParams.forEach((param: any) => {
               if (param.type === "text" || param.type === "number") {
@@ -63,7 +76,7 @@ export function ApiReferenceContent({
           }"`;
           return curlCmd;
         } else {
-          let curlCmd = `curl -X ${endpoint.method} "${baseUrl}${endpoint.path}" \\\n  -H "X-API-Key: your-api-key-here" \\\n  -H "Content-Type: application/json" \\\n  -d '{`;
+          let curlCmd = `curl -X ${endpoint.method} "${curlBaseUrl}${endpoint.path}" \\\n  -H "X-API-Key: your-api-key-here" \\\n  -H "Content-Type: application/json" \\\n  -d '{`;
           const data: any = {};
           endpoint.parameters.forEach((param: any) => {
             if (param.type === "text") {
@@ -325,11 +338,12 @@ export function ApiReferenceContent({
                 Base URL
               </h2>
               <div className="bg-[#0a0a0a] border border-[#2a2a2a] rounded p-4 font-mono text-sm text-white">
-                {baseUrl}
+                {displayBaseUrl}
               </div>
               <p className="text-gray-300 mt-4 text-sm">
                 All API requests should be made to this base URL. All endpoints
-                are relative to this URL.
+                are relative to this URL. Next.js automatically proxies requests
+                to the backend (Railway URL is hidden from users).
               </p>
             </div>
           </section>
@@ -364,7 +378,7 @@ export function ApiReferenceContent({
                 <button
                   onClick={() =>
                     copyToClipboard(
-                      `curl "${baseUrl}/api/v1/convert/pdf-extract-text" \\\n  -H "X-API-Key: your-api-key-here" \\\n  -F "file=@document.pdf"`,
+                      `curl "${displayBaseUrl}/api/v1/convert/pdf-extract-text" \\\n  -H "X-API-Key: your-api-key-here" \\\n  -F "file=@document.pdf"`,
                       "auth-example"
                     )
                   }
@@ -377,7 +391,7 @@ export function ApiReferenceContent({
                   )}
                 </button>
                 <pre className="text-sm text-gray-300 font-mono overflow-x-auto">
-                  {`curl "${baseUrl}/api/v1/convert/pdf-extract-text" \\
+                  {`curl "${displayBaseUrl}/api/v1/convert/pdf-extract-text" \\
   -H "X-API-Key: your-api-key-here" \\
   -F "file=@document.pdf"`}
                 </pre>
@@ -486,7 +500,7 @@ export function ApiReferenceContent({
                         className="border-b border-[#2a2a2a] hover:bg-[#0a0a0a] transition-colors"
                       >
                         <td className="py-3 px-4">
-                          <code className="text-cyan-400">{error.code}</code>
+                          <code className="text-white">{error.code}</code>
                         </td>
                         <td className="py-3 px-4 text-gray-300">
                           {error.meaning}
@@ -589,7 +603,7 @@ export function ApiReferenceContent({
                               >
                                 {endpoint.method}
                               </span>
-                              <code className="text-cyan-400 text-sm">
+                              <code className="text-white text-sm">
                                 {endpoint.path}
                               </code>
                             </div>
@@ -633,7 +647,7 @@ export function ApiReferenceContent({
                                       className="border-b border-[#2a2a2a] hover:bg-[#1a1a1a] transition-colors"
                                     >
                                       <td className="py-2 px-3">
-                                        <code className="text-cyan-400">
+                                        <code className="text-white">
                                           {param.name}
                                         </code>
                                         {param.required && (
@@ -773,8 +787,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
   });
   
   const data = await response.json();
-  console.log(data);
-});
+  });
 </script>`}
                     </pre>
                   </div>

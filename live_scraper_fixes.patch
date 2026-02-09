@@ -1,0 +1,77 @@
+--- a/trevnoctilla-backend/services/live_scraper.py
++++ b/trevnoctilla-backend/services/live_scraper.py
+@@ -1150,6 +1150,19 @@ class LiveScraper:
+             await self.send_log('failed', 'Submit Error', 'Unable to submit the form')
+             return False
+
++    def extract_emails_sync(self):
++        """Extract email addresses from the current page"""
++        try:
++            emails = self.page.evaluate("""
++                () => {
++                    const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g;
++                    const pageText = document.body?.textContent || '';
++                    const matches = pageText.match(emailPattern) || [];
++                    return [...new Set(matches)].slice(0, 10);
++                }
++            """)
++            return emails if emails else []
++        except Exception as e:
++            print(f"⚠️ [Email Extraction] Error: {str(e)}")
++            return []
++
+     def scrape_and_submit_sync(self):
+         """
+         Synchronous version of scrape_and_submit for headless batch processing
+@@ -1183,7 +1196,12 @@ class LiveScraper:
+                 try:
+                     self.page.goto(website_url, wait_until='networkidle', timeout=30000)
+                     print(f"✅ [RAPID SCRAPER] Website loaded successfully: {self.page.url}")
++                    # Use domcontentloaded for faster loading (like test script)
++                    self.page.goto(website_url, wait_until='domcontentloaded', timeout=45000)
++                    print(f"✅ [RAPID SCRAPER] Website loaded successfully: {self.page.url}")
++                    # Wait for network to be idle (with timeout - don't fail if slow)
++                    try:
++                        self.page.wait_for_load_state('networkidle', timeout=15000)
++                    except:
++                        print("⚠️ [RAPID SCRAPER] Network idle timeout, continuing anyway...")
+                 except Exception as e:
+                     error_msg = str(e).lower()
+                     if 'timeout' in error_msg:
+@@ -1217,9 +1235,16 @@ class LiveScraper:
+                 if contact_url:
+                     print(f"✅ [RAPID SCRAPER] Found contact page: {contact_url}")
+                     try:
+-                        self.page.goto(contact_url, wait_until='networkidle', timeout=30000)
++                        # Use domcontentloaded for faster loading
++                        self.page.goto(contact_url, wait_until='domcontentloaded', timeout=45000)
+                         print(f"✅ [RAPID SCRAPER] Contact page loaded: {self.page.url}")
+-                        self.page.wait_for_timeout(2000)
++                        # Wait for network to be idle (with timeout - don't fail if slow)
++                        try:
++                            self.page.wait_for_load_state('networkidle', timeout=15000)
++                        except:
++                            print("⚠️ [RAPID SCRAPER] Network idle timeout on contact page, continuing anyway...")
++                        self.page.wait_for_timeout(500)
++                        # Handle cookie consent on contact page
++                        self.handle_cookie_consent_sync()
+                     except Exception as e:
+                         print(f"⚠️ [RAPID SCRAPER] Contact page load failed, continuing with homepage: {str(e)}")
+                 else:
+@@ -1264,6 +1289,15 @@ class LiveScraper:
+                 else:
+                     print("❌ [RAPID SCRAPER] FAILED: No contact form found on the website")
+                     result = {'success': False, 'error': 'No contact form found. This website may not have a contact page or the form structure has changed.'}
++                    print("❌ [RAPID SCRAPER] No contact form found, extracting email addresses as fallback...")
++                    # Extract email addresses from the page
++                    emails = self.extract_emails_sync()
++                    if emails and len(emails) > 0:
++                        print(f"✅ [RAPID SCRAPER] Found {len(emails)} email address(es): {', '.join(emails[:3])}")
++                        result = {
++                            'success': False,
++                            'error': 'No contact form found, but email addresses were found on the page.',
++                            'emails_found': emails
++                        }
++                    else:
++                        print("❌ [RAPID SCRAPER] FAILED: No contact form or email addresses found on the website")
++                        result = {'success': False, 'error': 'No contact form found. This website may not have a contact page or the form structure has changed.'}

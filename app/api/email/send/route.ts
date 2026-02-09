@@ -12,7 +12,7 @@ function getResend() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { to, subject, html, text, attachments } = body;
+    const { to, cc, subject, html, text, attachments } = body;
 
     if (!to || !subject || !html) {
       return NextResponse.json(
@@ -22,17 +22,14 @@ export async function POST(request: NextRequest) {
     }
 
     if (!process.env.RESEND_API_KEY) {
-      console.error("❌ RESEND_API_KEY not set");
       return NextResponse.json(
         { success: false, error: "RESEND_API_KEY not configured" },
         { status: 500 }
       );
     }
 
-    console.log(`📧 [NEXTJS] Sending email to ${to}`);
-    console.log(`📧 [NEXTJS] Subject: ${subject}`);
     if (attachments && attachments.length > 0) {
-      console.log(`📎 [NEXTJS] Attaching ${attachments.length} file(s)`);
+      // Process attachments
     }
 
     // Format FROM_EMAIL properly: "Name <email@domain.com>"
@@ -45,13 +42,28 @@ export async function POST(request: NextRequest) {
       fromEmail = `Trevnoctilla <${fromEmail}>`;
     }
 
+    // Ensure 'to' is an array (Resend accepts both string and array)
+    const toArray = Array.isArray(to) ? to : [to];
+
     const emailPayload: any = {
       from: fromEmail,
-      to,
+      to: toArray,
       subject,
       html,
       text,
     };
+
+    // Add CC if provided (Resend expects array for CC; verified domain may be required for CC to deliver)
+    if (cc) {
+      if (Array.isArray(cc) && cc.length > 0) {
+        emailPayload.cc = cc;
+      } else if (typeof cc === "string" && cc.trim()) {
+        emailPayload.cc = [cc.trim()];
+      }
+      if (emailPayload.cc?.length) {
+        console.log("[EMAIL] CC recipients:", emailPayload.cc);
+      }
+    }
 
     // Add attachments if provided
     // Format: [{ filename: "invoice.pdf", content: base64String, contentType: "application/pdf" }]
@@ -65,66 +77,64 @@ export async function POST(request: NextRequest) {
           content: contentBuffer, // Resend SDK expects Buffer, not base64 string
         };
       });
-      console.log(
-        `📎 [NEXTJS] Prepared ${attachments.length} attachment(s) for Resend`
-      );
       attachments.forEach((att: any, index: number) => {
-        console.log(
-          `   Attachment ${index + 1}: ${att.filename} (${Math.round(
-            Buffer.from(att.content, "base64").length / 1024
-          )} KB)`
-        );
+        // Process attachment
       });
     }
 
     // Log attachment details before sending
     if (emailPayload.attachments && emailPayload.attachments.length > 0) {
-      console.log(
-        `📎 [NEXTJS] Sending email with ${emailPayload.attachments.length} attachment(s):`
-      );
       emailPayload.attachments.forEach((att: any, index: number) => {
         const sizeKB =
           att.content instanceof Buffer
             ? Math.round(att.content.length / 1024)
             : "unknown";
-        console.log(
-          `   ${index + 1}. ${
-            att.filename
-          } (${sizeKB} KB, type: ${typeof att.content})`
-        );
       });
     }
 
     const resend = getResend();
+
+    // Log email payload for debugging (without sensitive data)
+    console.log("📧 [EMAIL] Sending email:", {
+      from: fromEmail,
+      to: toArray,
+      cc: emailPayload.cc || "none",
+      subject,
+      hasHtml: !!html,
+      hasText: !!text,
+      hasAttachments: !!(attachments && attachments.length > 0),
+    });
+
     const { data, error } = await resend.emails.send(emailPayload);
 
     if (error) {
-      console.error(`❌ [NEXTJS] Resend error:`, error);
-      console.error(
-        `❌ [NEXTJS] Error details:`,
-        JSON.stringify(error, null, 2)
-      );
+      console.error("❌ [EMAIL] Resend API error:", {
+        message: error.message,
+        name: error.name,
+        error: JSON.stringify(error, null, 2),
+      });
       return NextResponse.json(
-        { success: false, error: error.message || "Failed to send email" },
+        {
+          success: false,
+          error: error.message || "Failed to send email",
+          details: error,
+        },
         { status: 500 }
       );
     }
 
-    console.log(
-      `✅ [NEXTJS] Email sent successfully to ${to} (ID: ${data?.id})`
-    );
-    if (emailPayload.attachments && emailPayload.attachments.length > 0) {
-      console.log(
-        `✅ [NEXTJS] Email included ${emailPayload.attachments.length} attachment(s)`
-      );
-    }
+    console.log("✅ [EMAIL] Email sent successfully:", {
+      emailId: data?.id,
+      to: toArray,
+      cc: emailPayload.cc || "none",
+    });
+
     return NextResponse.json({
       success: true,
       message: "Email sent successfully",
       email_id: data?.id,
     });
   } catch (error: any) {
-    console.error(`❌ [NEXTJS] Exception sending email:`, error);
     return NextResponse.json(
       { success: false, error: error.message || "Internal server error" },
       { status: 500 }

@@ -15,6 +15,7 @@ import { ActivityTable } from "@/components/dashboard/ActivityTable";
 import { ApiKeysSection } from "@/components/dashboard/ApiKeysSection";
 import { ApiReferenceContent } from "@/components/dashboard/ApiReferenceContent";
 import { ResetHistoryTable } from "@/components/dashboard/ResetHistoryTable";
+import { CampaignsListEmbedded } from "@/components/dashboard/CampaignsListEmbedded";
 
 function CommandPaletteContent({
   onCommand,
@@ -136,7 +137,13 @@ function CommandPaletteContent({
 // Real API data - production ready
 
 function DashboardContent() {
-  const { user, loading: userLoading, checkAuthStatus } = useUser();
+  const {
+    user,
+    loading: userLoading,
+    checkAuthStatus,
+    logout,
+    login,
+  } = useUser();
   const router = useRouter();
   const { showSuccess, showError, showInfo, hideAlert } = useAlert();
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
@@ -179,41 +186,44 @@ function DashboardContent() {
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState<string | null>(null);
 
-  // Check if user should be redirected to enterprise dashboard
+  // Check if user should be redirected to admin or enterprise dashboard
   useEffect(() => {
     if (user && !userLoading) {
-      // Use subscription_tier from user object (fetched from profile endpoint)
-      const subscriptionTier = user.subscription_tier?.toLowerCase() || "free";
+      // Check for query parameter to bypass redirect (used by quick switcher)
+      const bypassRedirect = searchParams.get("bypass") === "true";
 
-      console.log("🔍 Checking subscription tier for dashboard routing...");
-      console.log(`   User subscription_tier: ${subscriptionTier}`);
-      console.log(`   User role: ${user.role}`);
+      // DEBUG: Log redirection logic
+      console.log("Dashboard redirect check:", {
+        email: user.email,
+        role: user.role,
+        subscriptionTier: user.subscription_tier,
+        monthlyCallLimit: user.monthly_call_limit,
+        currentPath: window.location.pathname,
+        bypassRedirect,
+      });
 
-      // Check if user has enterprise tier
-      const isEnterprise =
-        subscriptionTier === "enterprise" ||
-        user.monthly_call_limit === -1 || // Unlimited indicates enterprise
-        (user.monthly_call_limit && user.monthly_call_limit >= 100000); // High limit indicates enterprise
+      // Super admin: always by role → /admin. Everyone else: by subscription tier (enterprise only).
+      const tier = (user.subscription_tier || "").toLowerCase();
+      const isEnterpriseTier = tier === "enterprise";
 
-      // Check for premium tier
-      const isPremium = subscriptionTier === "premium";
-
-      console.log(`   Is Enterprise: ${isEnterprise}`);
-      console.log(`   Is Premium: ${isPremium}`);
-
-      // Only redirect to enterprise if not already on enterprise page
-      if (isEnterprise && window.location.pathname !== "/enterprise") {
-        console.log("   → Redirecting to enterprise dashboard");
-        router.push("/enterprise");
-        return;
+      if (user.role === "super_admin") {
+        // Super admins always go to admin dashboard (role-based)
+        if (window.location.pathname !== "/admin" && !bypassRedirect) {
+          console.log("Redirecting super_admin to /admin");
+          router.push("/admin");
+          return;
+        }
+      } else if (isEnterpriseTier) {
+        // Enterprise-tier users (by subscription) go to enterprise dashboard
+        if (window.location.pathname !== "/enterprise" && !bypassRedirect) {
+          console.log("Redirecting enterprise tier to /enterprise");
+          router.push("/enterprise");
+          return;
+        }
       }
-
-      // Premium users stay on regular dashboard (no redirect needed)
-      if (isPremium) {
-        console.log("   → Premium user, staying on regular dashboard");
-      }
+      // Free/premium/production etc. stay on this dashboard
     }
-  }, [user, userLoading, router]);
+  }, [user, userLoading, router, searchParams]);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -221,7 +231,6 @@ function DashboardContent() {
       // Check if there's a token in localStorage as fallback
       const token = localStorage.getItem("auth_token");
       if (!token) {
-        console.log("🔐 No user and no token, redirecting to login");
         router.push("/auth/login");
       }
     }
@@ -249,7 +258,7 @@ function DashboardContent() {
   }, [user]);
 
   // Handle PayFast subscription upgrade after payment redirect
-  // This matches the test script logic - manually trigger upgrade immediately
+  // Improved: Check both URL params AND sessionStorage for pending payment
   useEffect(() => {
     const handleSubscriptionUpgrade = async () => {
       // Check for PayFast return parameters
@@ -262,36 +271,139 @@ function DashboardContent() {
       const pfPaymentId = searchParams.get("pf_payment_id");
       const amount = searchParams.get("amount");
 
+      // Check sessionStorage for pending payment (more reliable than URL params)
+      let pendingPayment = null;
+      try {
+        const pendingPaymentStr = sessionStorage.getItem(
+          "pending_payment_upgrade"
+        );
+        if (pendingPaymentStr) {
+          pendingPayment = JSON.parse(pendingPaymentStr);
+          // Only use if it's recent (within last 10 minutes)
+          const paymentAge = Date.now() - (pendingPayment.timestamp || 0);
+          if (paymentAge > 10 * 60 * 1000) {
+            // Older than 10 minutes, ignore it
+            sessionStorage.removeItem("pending_payment_upgrade");
+            pendingPayment = null;
+          }
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+
       // Determine if this is a subscription payment
       const paymentIsSubscription =
         !!subscriptionType ||
-        (itemName?.toLowerCase().includes("subscription") ?? false);
+        (itemName?.toLowerCase().includes("subscription") ?? false) ||
+        !!pendingPayment; // If we have pending payment, it's a subscription
 
-      // Only proceed if it's a subscription and payment is complete/pending
-      if (
-        !paymentIsSubscription ||
-        !paymentStatus ||
-        (paymentStatus !== "COMPLETE" && paymentStatus !== "PENDING")
-      ) {
+      // Use URL params if available, otherwise use sessionStorage
+      const hasUrlParams =
+        paymentStatus &&
+        (paymentStatus === "COMPLETE" || paymentStatus === "PENDING");
+      const hasPendingPayment = !!pendingPayment;
+
+      // Proceed if we have URL params OR pending payment in sessionStorage
+      if (!paymentIsSubscription || (!hasUrlParams && !hasPendingPayment)) {
+        return;
+      }
+
+      // If using sessionStorage (no URL params), user completed payment and was redirected back
+      // First trigger upgrade, wait for it, then logout to get fresh data with updated tier
+      if (!hasUrlParams && hasPendingPayment) {
+        // Get user email before logout
+        const userEmail = pendingPayment?.user_email || user?.email;
+
+        if (!userEmail) {
+          return;
+        }
+
+        // First, trigger the upgrade manually (webhook might be delayed)
+        try {
+          const sessionResponse = await fetch("/api/auth/session");
+          const session = await sessionResponse.json();
+          const sessionUserId = session?.user?.id || null;
+          const sessionEmail = session?.user?.email || null;
+
+          const upgradeUserId =
+            pendingPayment?.user_id || sessionUserId || null;
+          const upgradeEmail = sessionEmail || userEmail;
+          const upgradePlanId = pendingPayment?.plan_id || "production";
+          const upgradePlanName =
+            pendingPayment?.plan_name ||
+            "Production Plan - Monthly Subscription";
+          const upgradeAmount = pendingPayment?.amount
+            ? parseFloat(pendingPayment.amount)
+            : 495.9;
+
+          // Use relative URL in production (Next.js rewrite proxies to backend)
+          // Use absolute URL in localhost for development
+          const backendUrl =
+            typeof window !== "undefined" &&
+            (window.location.hostname === "localhost" ||
+              window.location.hostname === "127.0.0.1")
+              ? "http://localhost:5000"
+              : "";
+
+          const upgradeResponse = await fetch(
+            `${backendUrl}/api/payment/upgrade-subscription`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                user_id: upgradeUserId ? parseInt(upgradeUserId) : undefined,
+                user_email: upgradeEmail,
+                plan_id: upgradePlanId,
+                plan_name: upgradePlanName,
+                amount: upgradeAmount,
+                payment_id: `payment-${Date.now()}`,
+              }),
+            }
+          );
+
+          if (upgradeResponse.ok) {
+            const upgradeData = await upgradeResponse.json();
+
+            // Wait a moment for database to update
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+          } else {
+            const errorData = await upgradeResponse.json().catch(() => ({}));
+
+            // Continue anyway - webhook might still process it
+          }
+        } catch (error) {
+          // Continue anyway - webhook might still process it
+        }
+
+        // Clear pending payment
+        sessionStorage.removeItem("pending_payment_upgrade");
+
+        // Logout and redirect to auth
+
+        // Clear all auth data
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("user_data");
+        localStorage.removeItem("api_test_key");
+        // Sign out from NextAuth and redirect to login
+        const { signOut } = await import("next-auth/react");
+        await signOut({ redirect: true, callbackUrl: "/auth/login" });
+
         return;
       }
 
       // Check if we've already processed this upgrade (prevent duplicate calls)
-      const upgradeKey = `upgrade_${mPaymentId || pfPaymentId || Date.now()}`;
+      const upgradeKey = `upgrade_${
+        mPaymentId || pfPaymentId || pendingPayment?.timestamp || Date.now()
+      }`;
       if (sessionStorage.getItem(upgradeKey)) {
-        console.log(
-          "🔄 Subscription upgrade already processed for this payment"
-        );
+        // Clean up pending payment if already processed
+        if (pendingPayment) {
+          sessionStorage.removeItem("pending_payment_upgrade");
+        }
         return;
       }
-
-      console.log(
-        "🔄 Detected PayFast subscription return - triggering upgrade..."
-      );
-      console.log("   Payment Status:", paymentStatus);
-      console.log("   Plan ID (custom_str1):", customStr1);
-      console.log("   User ID (custom_str2):", customStr2);
-      console.log("   Item Name:", itemName);
 
       try {
         // Get user info from session
@@ -301,30 +413,34 @@ function DashboardContent() {
         const sessionEmail = session?.user?.email || null;
 
         if (!sessionUserId && !sessionEmail) {
-          console.warn("⚠️ Could not get user info from session");
           return;
         }
 
-        // Use user ID from URL params, session, or fallback
-        const upgradeUserId = customStr2 || sessionUserId || null;
-        const upgradeEmail = sessionEmail || user?.email || null;
-        const upgradePlanId = customStr1 || "production"; // Default to production
+        // Use data from URL params if available, otherwise use sessionStorage
+        const upgradeUserId =
+          customStr2 || pendingPayment?.user_id || sessionUserId || null;
+        const upgradeEmail =
+          sessionEmail || pendingPayment?.user_email || user?.email || null;
+        const upgradePlanId =
+          customStr1 || pendingPayment?.plan_id || "production";
         const upgradePlanName =
-          itemName || "Production Plan - Monthly Subscription";
-        const upgradeAmount = amount ? parseFloat(amount) : 29.0; // Default to R29
-
-        console.log("   User ID:", upgradeUserId);
-        console.log("   User Email:", upgradeEmail);
-        console.log("   Plan ID:", upgradePlanId);
-        console.log("   Plan Name:", upgradePlanName);
-        console.log("   Amount:", upgradeAmount);
+          itemName ||
+          pendingPayment?.plan_name ||
+          "Production Plan - Monthly Subscription";
+        const upgradeAmount = amount
+          ? parseFloat(amount)
+          : pendingPayment?.amount
+          ? parseFloat(pendingPayment.amount)
+          : 495.9;
 
         // Call backend upgrade endpoint directly (matching test script logic)
+        // Use relative URL to hide Railway backend URL
         const backendUrl =
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          (process.env.NODE_ENV === "production"
-            ? "https://web-production-737b.up.railway.app"
-            : "http://localhost:5000");
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1")
+            ? "http://localhost:5000"
+            : "";
 
         const upgradeResponse = await fetch(
           `${backendUrl}/api/payment/upgrade-subscription`,
@@ -346,37 +462,51 @@ function DashboardContent() {
 
         if (upgradeResponse.ok) {
           const upgradeData = await upgradeResponse.json();
-          console.log("✅ Subscription upgrade successful!");
-          console.log("   Response:", upgradeData);
 
           // Mark as processed
           sessionStorage.setItem(upgradeKey, "true");
 
-          // Clear cached user data and refresh
-          localStorage.removeItem("user_data");
-          if (checkAuthStatus) {
-            checkAuthStatus();
+          // Clean up pending payment
+          if (pendingPayment) {
+            sessionStorage.removeItem("pending_payment_upgrade");
           }
 
-          // Show success message
-          showSuccess(
-            "Subscription Upgraded",
-            "Your subscription has been upgraded successfully!"
-          );
+          // Get user email before logout
+          const userEmail = upgradeEmail || user?.email;
+          const sessionResponse = await fetch("/api/auth/session");
+          const session = await sessionResponse.json();
+          const sessionEmail = session?.user?.email || userEmail;
+
+          if (!sessionEmail) {
+            return;
+          }
+
+          // Logout and redirect to auth
+
+          // Clear all auth data
+          localStorage.removeItem("auth_token");
+          localStorage.removeItem("user_data");
+          localStorage.removeItem("api_test_key");
+          // Sign out from NextAuth and redirect to login
+          const { signOut } = await import("next-auth/react");
+          await signOut({ redirect: true, callbackUrl: "/auth/login" });
         } else {
           const errorData = await upgradeResponse.json().catch(() => ({}));
-          console.error("❌ Subscription upgrade failed:", errorData);
-          console.error("   Status:", upgradeResponse.status);
+
           // Don't show error to user - webhook may still process it
         }
       } catch (error) {
-        console.error("❌ Error triggering subscription upgrade:", error);
         // Don't show error to user - webhook may still process it
       }
     };
 
-    // Only run if we have search params and user is loaded
-    if (user && searchParams) {
+    // Run if:
+    // 1. User is loaded AND (we have search params OR pending payment in sessionStorage)
+    // 2. For sessionStorage: only run once when component mounts after payment return
+    if (
+      user &&
+      (searchParams || sessionStorage.getItem("pending_payment_upgrade"))
+    ) {
       handleSubscriptionUpgrade();
     }
   }, [user, searchParams, checkAuthStatus, showSuccess]);
@@ -384,31 +514,58 @@ function DashboardContent() {
   // Refresh user data when landing on dashboard (in case of payment redirect)
   // This ensures user tier is updated after subscription payment
   useEffect(() => {
+    const effectStartTime = Date.now();
+
     if (user && checkAuthStatus) {
+      // Check if we just came from payment (pending payment in sessionStorage or URL params)
+      const hasPendingPayment = !!sessionStorage.getItem(
+        "pending_payment_upgrade"
+      );
+      const hasPaymentParams = !!(
+        searchParams?.get("payment_status") ||
+        searchParams?.get("subscription_type")
+      );
+      const justFromPayment = hasPendingPayment || hasPaymentParams;
+
       // Check if we should refresh user data
-      // Refresh if user data is stale (older than 30 seconds) or on first load
+      // Force refresh if coming from payment, otherwise refresh if stale (older than 30 seconds)
       const lastRefresh = sessionStorage.getItem("user_data_last_refresh");
-      const shouldRefresh =
+      const isStale =
         !lastRefresh || Date.now() - parseInt(lastRefresh) > 30000;
+      const shouldRefresh = justFromPayment || isStale;
 
       if (shouldRefresh) {
-        console.log("🔄 Refreshing user data on dashboard load...");
-        // Wait 2 seconds for webhook to process if coming from payment
+        // If coming from payment, wait a bit for webhook to process (5 seconds)
+        // Otherwise, wait 2 seconds for normal refresh
+        const waitTime = justFromPayment ? 5000 : 2000;
+
         const timer = setTimeout(() => {
-          // Clear cached user data to force fresh fetch
-          localStorage.removeItem("user_data");
-          // Refresh user data
+          // If coming from payment, clear cached data to force fresh fetch
+          // The backend has the updated tier, but cached data might be stale
+          if (justFromPayment) {
+            localStorage.removeItem("user_data");
+            // Also clear refresh timestamp to ensure we fetch
+            sessionStorage.removeItem("user_data_last_refresh");
+          }
+
+          // Refresh user data (will fetch fresh but use cached as fallback if it fails)
           checkAuthStatus();
+
           // Update last refresh time
           sessionStorage.setItem(
             "user_data_last_refresh",
             Date.now().toString()
           );
-        }, 2000);
-        return () => clearTimeout(timer);
+        }, waitTime);
+
+        return () => {
+          clearTimeout(timer);
+        };
+      } else {
       }
+    } else {
     }
-  }, [user, checkAuthStatus]);
+  }, [user, checkAuthStatus, userLoading, searchParams]);
 
   // Fetch stats after API keys are loaded (stats depends on apiKeys.length)
   useEffect(() => {
@@ -426,15 +583,17 @@ function DashboardContent() {
 
   const refreshToken = async () => {
     if (!user?.email) {
-      console.log("🔐 No user email available for token refresh");
       return null;
     }
 
     try {
+      // Use relative URL to hide Railway backend URL
       const apiUrl =
-        process.env.NEXT_PUBLIC_API_BASE_URL ||
-        "https://web-production-737b.up.railway.app";
-      console.log("🔐 Attempting to refresh token for:", user.email);
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
 
       const tokenResponse = await fetch(
         `${apiUrl}/auth/get-token-from-session`,
@@ -445,7 +604,7 @@ function DashboardContent() {
           },
           body: JSON.stringify({
             email: user.email,
-            password: "Kopenikus0218!",
+            // Password no longer required - NextAuth session is trusted
             role: user.role === "super_admin" ? "super_admin" : "user",
           }),
         }
@@ -460,22 +619,15 @@ function DashboardContent() {
             "user_data",
             JSON.stringify(backendData.user || user)
           );
-          console.log("✅ Token refreshed successfully");
+
           return newToken;
         } else {
-          console.error("❌ Invalid token format received");
         }
       } else {
         const errorText = await tokenResponse.text();
-        console.error(
-          "❌ Token refresh failed:",
-          tokenResponse.status,
-          errorText
-        );
 
         // If 401, try direct login
         if (tokenResponse.status === 401) {
-          console.log("🔐 Attempting direct login...");
           try {
             const loginResponse = await fetch(`${apiUrl}/auth/login`, {
               method: "POST",
@@ -497,17 +649,14 @@ function DashboardContent() {
                   "user_data",
                   JSON.stringify(loginData.user || user)
                 );
-                console.log("✅ Direct login successful");
+
                 return loginToken;
               }
             }
-          } catch (loginError) {
-            console.error("❌ Direct login failed:", loginError);
-          }
+          } catch (loginError) {}
         }
       }
     } catch (error) {
-      console.error("❌ Failed to refresh token:", error);
       setAuthError("Failed to authenticate. Please try logging in again.");
     }
     return null;
@@ -522,19 +671,21 @@ function DashboardContent() {
       }
       if (!token) return;
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/client/keys`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/client/keys`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -556,19 +707,21 @@ function DashboardContent() {
         const newToken = await refreshToken();
         if (newToken) {
           // Retry with new token
-          const retryResponse = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_API_BASE_URL ||
-              "https://web-production-737b.up.railway.app"
-            }/api/client/keys`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${newToken}`,
-              },
-            }
-          );
+          // Use relative URL to hide Railway backend URL
+          const backendUrl =
+            typeof window !== "undefined" &&
+            (window.location.hostname === "localhost" ||
+              window.location.hostname === "127.0.0.1")
+              ? "http://localhost:5000"
+              : "";
+
+          const retryResponse = await fetch(`${backendUrl}/api/client/keys`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${newToken}`,
+            },
+          });
           if (retryResponse.ok) {
             const data = await retryResponse.json();
             const transformedKeys = data.map((key: any) => ({
@@ -588,11 +741,9 @@ function DashboardContent() {
             }));
           }
         }
-      } else {
-        console.error("Failed to fetch API keys:", await response.text());
       }
     } catch (error) {
-      console.error("Error fetching API keys:", error);
+      console.error("Error fetching stats:", error);
     }
   };
 
@@ -611,19 +762,21 @@ function DashboardContent() {
         return;
       }
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/client/usage?days=30`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/client/usage?days=30`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -720,11 +873,16 @@ function DashboardContent() {
         // Token invalid - refresh and retry
         const newToken = await refreshToken();
         if (newToken) {
+          // Use relative URL to hide Railway backend URL
+          const backendUrl =
+            typeof window !== "undefined" &&
+            (window.location.hostname === "localhost" ||
+              window.location.hostname === "127.0.0.1")
+              ? "http://localhost:5000"
+              : "";
+
           const retryResponse = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_API_BASE_URL ||
-              "https://web-production-737b.up.railway.app"
-            }/api/client/usage?days=30`,
+            `${backendUrl}/api/client/usage?days=30`,
             {
               method: "GET",
               headers: {
@@ -827,12 +985,9 @@ function DashboardContent() {
           }
         }
         setLoading(false);
-      } else {
-        console.error("Failed to fetch stats:", await response.text());
-        setLoading(false);
       }
     } catch (error) {
-      console.error("Error fetching stats:", error);
+      console.error("Error fetching activities:", error);
       setLoading(false);
     }
   };
@@ -842,7 +997,6 @@ function DashboardContent() {
   };
 
   const handleDownloadActivity = (activityId: string) => {
-    console.log("Download activity:", activityId);
     // Mock download - show custom alert
     showInfo("Download Started", `Downloading activity ${activityId}...`, {
       primary: {
@@ -884,23 +1038,25 @@ function DashboardContent() {
         return;
       }
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/client/keys`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            name: name || `API Key ${new Date().toLocaleString()}`,
-            rate_limit: 1000,
-          }),
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/client/keys`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: name || `API Key ${new Date().toLocaleString()}`,
+          rate_limit: 1000,
+        }),
+      });
 
       if (response.ok) {
         const newKeyData = await response.json();
@@ -932,23 +1088,25 @@ function DashboardContent() {
         // Token invalid - refresh and retry
         const newToken = await refreshToken();
         if (newToken) {
-          const retryResponse = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_API_BASE_URL ||
-              "https://web-production-737b.up.railway.app"
-            }/api/client/keys`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${newToken}`,
-              },
-              body: JSON.stringify({
-                name: name || `API Key ${new Date().toLocaleString()}`,
-                rate_limit: 1000,
-              }),
-            }
-          );
+          // Use relative URL to hide Railway backend URL
+          const backendUrl =
+            typeof window !== "undefined" &&
+            (window.location.hostname === "localhost" ||
+              window.location.hostname === "127.0.0.1")
+              ? "http://localhost:5000"
+              : "";
+
+          const retryResponse = await fetch(`${backendUrl}/api/client/keys`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${newToken}`,
+            },
+            body: JSON.stringify({
+              name: name || `API Key ${new Date().toLocaleString()}`,
+              rate_limit: 1000,
+            }),
+          });
 
           if (retryResponse.ok) {
             const newKeyData = await retryResponse.json();
@@ -1006,7 +1164,6 @@ function DashboardContent() {
         );
       }
     } catch (error) {
-      console.error("Error creating API key:", error);
       showError(
         "Failed to Create API Key",
         "An error occurred while creating the API key",
@@ -1031,19 +1188,21 @@ function DashboardContent() {
         return;
       }
 
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://web-production-737b.up.railway.app"
-        }/api/client/keys/${keyId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/client/keys/${keyId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         setApiKeys((prev) => prev.filter((key) => key.id !== keyId));
@@ -1070,7 +1229,6 @@ function DashboardContent() {
         );
       }
     } catch (error) {
-      console.error("Error deleting API key:", error);
       showError(
         "Failed to Delete API Key",
         "An error occurred while deleting the API key",
@@ -1165,9 +1323,13 @@ function DashboardContent() {
   };
 
   // Show loading state while checking authentication
+  useEffect(() => {
+    // Loading state handled by userLoading
+  }, [userLoading, user]);
+
   if (userLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-[#8b5cf6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-400">Loading dashboard...</p>
@@ -1179,14 +1341,14 @@ function DashboardContent() {
   // Show error if authentication failed
   if (authError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center max-w-md">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold mb-2">Authentication Error</h2>
           <p className="text-gray-400 mb-6">{authError}</p>
           <button
             onClick={() => router.push("/auth/login")}
-            className="px-6 py-3 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] hover:from-[#7c3aed] hover:to-[#2563eb] text-white rounded-lg font-medium transition-all"
+            className="px-6 py-3 bg-black hover:bg-gray-800 text-white rounded-lg font-medium transition-all border border-white"
           >
             Go to Login
           </button>
@@ -1198,7 +1360,7 @@ function DashboardContent() {
   // Show message if no user
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-[#8b5cf6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-400">Redirecting to login...</p>
@@ -1208,12 +1370,11 @@ function DashboardContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-background dark:from-[#0a0a0a] dark:via-[#111111] dark:to-[#0a0a0a] text-foreground relative overflow-hidden page-content flex">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden page-content flex">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#8b5cf6]/5 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#3b82f6]/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-[#8b5cf6]/3 to-[#3b82f6]/3 rounded-full blur-3xl"></div>
       </div>
 
       {/* Sidebar */}
@@ -1236,18 +1397,31 @@ function DashboardContent() {
           <div className="px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
             <div className="flex items-center justify-between">
               <div className="space-y-2">
-                <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-foreground via-[#8b5cf6] to-[#3b82f6] dark:from-white bg-clip-text text-transparent">
+                <h1 className="text-2xl sm:text-3xl font-bold text-white">
                   User Dashboard
                 </h1>
                 <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
                   <span className="w-2 h-2 bg-[#8b5cf6] rounded-full animate-pulse"></span>
-                  {user?.email || "User"} • Testing & Production Plans
+                  {user?.email || "User"} •{" "}
+                  {(() => {
+                    const tier =
+                      user?.subscription_tier?.toLowerCase() || "free";
+                    const tierNames: Record<string, string> = {
+                      free: "Free Plan",
+                      premium: "Premium Plan",
+                      production: "Production Plan",
+                      enterprise: "Enterprise Plan",
+                      client: "Client Plan",
+                    };
+                    const displayTier = tierNames[tier] || "Free Plan";
+                    return displayTier;
+                  })()}
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <div className="hidden sm:flex items-center gap-3 px-4 py-2 bg-accent/50 rounded-xl border border-border backdrop-blur-sm">
+                <div className="hidden sm:flex items-center gap-3 px-4 py-2 bg-green-500/20 rounded-xl border border-border backdrop-blur-sm">
                   <div className="w-3 h-3 bg-[#ffffff] rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-foreground">
+                  <span className="text-sm font-medium text-white">
                     Online
                   </span>
                 </div>
@@ -1313,7 +1487,7 @@ function DashboardContent() {
 
                 {/* No API Key Warning */}
                 {apiKeys.length === 0 && (
-                  <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-lg p-6 mb-8">
+                  <div className="bg-gray-900 border border-gray-700 rounded-lg p-6 mb-8">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
                         <div className="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center">
@@ -1346,7 +1520,7 @@ function DashboardContent() {
                             setActiveTab("settings");
                             setSettingsSection("keys");
                           }}
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] hover:from-[#7c3aed] hover:to-[#2563eb] text-white text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#8b5cf6]/25"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-black hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-all duration-300 border border-white"
                         >
                           <Plus className="w-4 h-4" />
                           Generate API Key
@@ -1477,17 +1651,89 @@ function DashboardContent() {
               </div>
             )}
 
+            {/* Campaigns Tab */}
+            {activeTab === "campaigns" && (
+              <div className="space-y-8">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">Campaigns</h2>
+                    <p className="text-gray-400 mt-2">
+                      Automate contact form submissions across multiple
+                      companies
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => router.push("/campaigns/upload")}
+                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all rounded-xl shadow-lg hover:shadow-xl"
+                  >
+                    <Plus className="w-5 h-5" />
+                    New Campaign
+                  </button>
+                </div>
+
+                {/* User Tier Status Card */}
+                <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white mb-2">
+                        {!user
+                          ? "Guest (5 companies/campaign)"
+                          : user.subscription_tier === "free" ||
+                            user.subscription_tier === "testing"
+                          ? "Free Plan - 50 companies/campaign"
+                          : user.subscription_tier === "premium"
+                          ? "Production Plan - 100 companies/campaign"
+                          : user.subscription_tier === "enterprise" ||
+                            user.subscription_tier === "client"
+                          ? "Enterprise Plan - Unlimited"
+                          : "Free Plan - 50 companies/campaign"}
+                      </h3>
+                      <p className="text-gray-400 text-sm">
+                        {!user &&
+                          "Sign up free to unlock 50 companies per campaign!"}
+                        {user &&
+                          (user.subscription_tier === "free" ||
+                            user.subscription_tier === "testing") &&
+                          "Upgrade to process more companies per campaign"}
+                        {user &&
+                          user.subscription_tier === "premium" &&
+                          "Upgrade to Enterprise for unlimited processing"}
+                        {user &&
+                          (user.subscription_tier === "enterprise" ||
+                            user.subscription_tier === "client") &&
+                          "You have unlimited campaign processing"}
+                      </p>
+                    </div>
+                    {(!user ||
+                      (user.subscription_tier !== "enterprise" &&
+                        user.subscription_tier !== "client")) && (
+                      <button
+                        onClick={() => router.push("/payment?plan=production")}
+                        className="px-6 py-2.5 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
+                      >
+                        {!user ? "Sign Up" : "Upgrade"}
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Campaigns List */}
+                <CampaignsListEmbedded />
+              </div>
+            )}
+
             {/* Analytics Tab */}
             {activeTab === "analytics" && (
               <div className="space-y-8">
                 {/* Header with Circle */}
                 <div className="flex items-center gap-4 mb-8">
                   <div className="relative">
-                    <div className="w-6 h-6 bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-full animate-pulse"></div>
-                    <div className="absolute inset-0 w-6 h-6 bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-full blur-sm opacity-50"></div>
+                    <div className="w-6 h-6 bg-white rounded-full animate-pulse"></div>
+                    <div className="absolute inset-0 w-6 h-6 bg-white rounded-full blur-sm opacity-50"></div>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-[#f59e0b] to-[#d97706] bg-clip-text text-transparent">
+                    <h2 className="text-2xl font-bold text-white">
                       Analytics Dashboard
                     </h2>
                     <p className="text-gray-400 mt-2">
@@ -1506,8 +1752,8 @@ function DashboardContent() {
                 <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 mb-8">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="relative">
-                      <div className="w-4 h-4 bg-gradient-to-r from-[#3b82f6] to-[#2563eb] rounded-full animate-pulse"></div>
-                      <div className="absolute inset-0 w-4 h-4 bg-gradient-to-r from-[#3b82f6] to-[#2563eb] rounded-full blur-sm opacity-50"></div>
+                      <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
+                      <div className="absolute inset-0 w-4 h-4 bg-white rounded-full blur-sm opacity-50"></div>
                     </div>
                     <h3 className="text-lg font-semibold text-white">
                       Performance Trends
@@ -1571,11 +1817,11 @@ function DashboardContent() {
                 {/* Header with Circle */}
                 <div className="flex items-center gap-4 mb-8">
                   <div className="relative">
-                    <div className="w-6 h-6 bg-gradient-to-r from-[#10b981] to-[#059669] rounded-full animate-pulse"></div>
-                    <div className="absolute inset-0 w-6 h-6 bg-gradient-to-r from-[#10b981] to-[#059669] rounded-full blur-sm opacity-50"></div>
+                    <div className="w-6 h-6 bg-white rounded-full animate-pulse"></div>
+                    <div className="absolute inset-0 w-6 h-6 bg-white rounded-full blur-sm opacity-50"></div>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-[#10b981] to-[#059669] bg-clip-text text-transparent">
+                    <h2 className="text-2xl font-bold text-white">
                       Reset History
                     </h2>
                     <p className="text-gray-400 mt-2">
@@ -1604,11 +1850,11 @@ function DashboardContent() {
                     {/* Header with Circle */}
                     <div className="flex items-center gap-4 mb-8">
                       <div className="relative">
-                        <div className="w-6 h-6 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] rounded-full animate-pulse"></div>
-                        <div className="absolute inset-0 w-6 h-6 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] rounded-full blur-sm opacity-50"></div>
+                        <div className="w-6 h-6 bg-white rounded-full animate-pulse"></div>
+                        <div className="absolute inset-0 w-6 h-6 bg-white rounded-full blur-sm opacity-50"></div>
                       </div>
                       <div>
-                        <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-[#8b5cf6] to-[#3b82f6] bg-clip-text text-transparent">
+                        <h2 className="text-2xl font-bold text-white">
                           API Keys
                         </h2>
                         <p className="text-gray-400 mt-2">
@@ -1631,7 +1877,7 @@ function DashboardContent() {
                           </div>
                           <button
                             onClick={() => setShowCreateKeyModal(true)}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] hover:from-[#7c3aed] hover:to-[#2563eb] text-white text-sm font-medium rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#8b5cf6]/25"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-black hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-all duration-300 border border-white"
                           >
                             <Plus className="w-4 h-4" />
                             Create Key
@@ -1777,7 +2023,7 @@ function DashboardContent() {
                       }
                     }}
                     disabled={!newKeyName.trim()}
-                    className="px-4 py-2 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] hover:from-[#7c3aed] hover:to-[#2563eb] text-white rounded-lg text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-lg text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-white"
                   >
                     Create Key
                   </button>

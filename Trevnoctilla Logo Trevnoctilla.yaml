@@ -1,0 +1,23 @@
+Trevnoctilla Logo Trevnoctilla
+Invoice #{{ invoice_number }}
+Date: {{ invoice_date }}
+Status: {{ status }}
+
+Bill To
+{{ user_email }}
+Subscription: {{ tier_name }}
+
+Invoice Details
+Description: {{ item_description }}
+
+Quantity: 1
+
+Unit Price: {{ currency_symbol }}{{ unit_price }}
+
+Total: {{ currency_symbol }}{{ total_amount }}
+
+Questions about your invoice? Contact us at info@trevnoctilla.com
+
+Thank you for your business!
+The Trevnoctilla Team
+www.trevnoctilla.com

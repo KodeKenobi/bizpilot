@@ -1,0 +1,146 @@
+[
+  {
+    "company": "3 Line Electrical Wholesale Ltd.",
+    "url": "https://3lineelectrical.co.uk",
+    "contactFormFields": null,
+    "error": "No contact form found"
+  },
+  {
+    "company": "3 Line Electrical Wholesale Ltd.",
+    "url": "https://3lineelectrical.co.uk",
+    "contactFormFields": null,
+    "error": "No contact form found"
+  },
+  {
+    "company": "4D modelshop Ltd",
+    "url": "https://modelshop.co.uk",
+    "contactFormFields": null,
+    "error": "No contact form found"
+  },
+  {
+    "company": "7 Core Electrical Wholesale Ltd",
+    "url": "https://7core.co.uk",
+    "contactFormFields": [
+      {
+        "tag": "input",
+        "type": "text",
+        "name": null,
+        "id": "form-field-input-7e9d7a34-8f8d-481e-ee07-66a36d1ef4ed-comp-m73jofhp-",
+        "placeholder": null,
+        "label": "First name*"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": null,
+        "id": "form-field-input-4f006c2a-1363-4911-5f72-020aa087e055-comp-m73jofhp-",
+        "placeholder": null,
+        "label": "Last name"
+      },
+      {
+        "tag": "input",
+        "type": "text",
+        "name": null,
+        "id": "form-field-input-963fc8b2-d022-420a-af4f-c5ac11124da6-comp-m73jofhp-",
+        "placeholder": null,
+        "label": "Company name"
+      },
+      {
+        "tag": "input",
+        "type": "email",
+        "name": null,
+        "id": "form-field-input-8ffeec5e-d1fd-49d4-b311-bf77a33d3eea-comp-m73jofhp-",
+        "placeholder": null,
+        "label": "Email*"
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "Branch Location",
+        "id": "checkbox-11",
+        "placeholder": null,
+        "label": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "Branch Location",
+        "id": "checkbox-14",
+        "placeholder": null,
+        "label": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "Branch Location",
+        "id": "checkbox-17",
+        "placeholder": null,
+        "label": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "Branch Location",
+        "id": "checkbox-20",
+        "placeholder": null,
+        "label": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "Branch Location",
+        "id": "checkbox-23",
+        "placeholder": null,
+        "label": ""
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": "Branch Location",
+        "id": "checkbox-26",
+        "placeholder": null,
+        "label": ""
+      },
+      {
+        "tag": "input",
+        "type": "phone",
+        "name": null,
+        "id": "form-field-input-932ef492-bc65-4435-6c17-96baeaf62c38-comp-m73jofhp-",
+        "placeholder": null,
+        "label": "Phone*"
+      },
+      {
+        "tag": "textarea",
+        "type": "text",
+        "name": null,
+        "id": "form-field-input-8aeac2cb-e4f2-4a80-9a92-21d659b14f99-comp-m73jofhp-",
+        "placeholder": "",
+        "label": "Enquiry"
+      },
+      {
+        "tag": "input",
+        "type": "checkbox",
+        "name": null,
+        "id": "checkbox-33",
+        "placeholder": null,
+        "label": ""
+      }
+    ],
+    "error": null
+  },
+  {
+    "company": "80S CASUAL CLASSICS LTD",
+    "url": "https://80scasualclassics.co.uk",
+    "contactFormFields": [
+      {
+        "tag": "input",
+        "type": "email",
+        "name": "email_address",
+        "id": "mailing_box-698354b4a46273116",
+        "placeholder": "Enter Email Address...",
+        "label": "Stay in the loop | Newsletter Sign up"
+      }
+    ],
+    "error": null
+  }
+]

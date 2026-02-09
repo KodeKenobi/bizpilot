@@ -178,7 +178,7 @@ export const MobileMergePdfsTool: React.FC<MobileMergePdfsToolProps> = ({
         `Successfully merged ${pdfFiles.length} PDF files!`
       );
     } catch (error) {
-      console.error("Merge error:", error);
+      
       alertModal.showError("Error", "Failed to merge PDFs");
     } finally {
       setIsMerging(false);

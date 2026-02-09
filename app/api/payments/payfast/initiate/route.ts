@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { headers } from "next/headers";
 import crypto from "crypto";
 import { storePendingPayment } from "@/lib/pending-payments";
 
@@ -19,11 +20,34 @@ const PAYFAST_CONFIG = {
     process.env.PAYFAST_PASSPHRASE ||
     process.env.NEXT_PUBLIC_PAYFAST_PASSPHRASE ||
     "",
-  // Use sandbox URL for testing: https://sandbox.payfast.co.za/eng/process
-  // Use production URL for live: https://www.payfast.co.za/eng/process
-  PAYFAST_URL:
-    process.env.NEXT_PUBLIC_PAYFAST_URL ||
-    "https://sandbox.payfast.co.za/eng/process",
+  // Automatically use sandbox for local, production for deployed
+  // Priority: 1. Check if BASE_URL is production domain (override sandbox if needed)
+  //           2. Explicit NEXT_PUBLIC_PAYFAST_URL env var
+  //           3. Auto-detect: production if NODE_ENV=production, else sandbox
+  PAYFAST_URL: (() => {
+    // Check if we're on a production domain
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
+    const isProductionDomain =
+      baseUrl.includes("trevnoctilla.com") ||
+      baseUrl.includes("www.") ||
+      (!baseUrl.includes("localhost") && !baseUrl.includes("127.0.0.1"));
+
+    // If on production domain, force production PayFast URL (even if env var says sandbox)
+    if (isProductionDomain && baseUrl.startsWith("https://")) {
+      return "https://www.payfast.co.za/eng/process";
+    }
+
+    // If explicitly set and not on production domain, use it
+    if (process.env.NEXT_PUBLIC_PAYFAST_URL) {
+      return process.env.NEXT_PUBLIC_PAYFAST_URL;
+    }
+
+    // Auto-detect: production if NODE_ENV is production, else sandbox
+    const isProduction = process.env.NODE_ENV === "production";
+    return isProduction
+      ? "https://www.payfast.co.za/eng/process"
+      : "https://sandbox.payfast.co.za/eng/process";
+  })(),
   RETURN_URL: process.env.NEXT_PUBLIC_PAYFAST_RETURN_URL || "",
   CANCEL_URL: process.env.NEXT_PUBLIC_PAYFAST_CANCEL_URL || "",
   NOTIFY_URL: process.env.NEXT_PUBLIC_PAYFAST_NOTIFY_URL || "",
@@ -117,33 +141,48 @@ function generatePayFastSignature(data: Record<string, string>): string {
   }
 
   // CRITICAL DEBUG: Log the exact string being hashed
-  console.log("🔐 EXACT SIGNATURE STRING (copy this to verify):");
-  console.log(getString);
-  console.log("🔐 String length:", getString.length);
-
   // PHP: return md5( $getString );
   // Generate MD5 hash (lowercase hex)
   const signature = crypto.createHash("md5").update(getString).digest("hex");
-
-  console.log("Generated Signature:", signature);
 
   return signature;
 }
 
 export async function POST(request: NextRequest) {
   try {
-    // Get user email from session
-    const session = await getServerSession(authOptions);
+    const body = await request.json();
+
+    // Check if this is a simple $1 payment (no subscription, no user_id)
+    // For $1 payments, authentication is NOT required
+    // custom_str2 can be present (e.g., page URL) but should not be a numeric user_id
+    const customStr2IsUserId =
+      body.custom_str2 && /^\d+$/.test(String(body.custom_str2).trim());
+    const isSimplePayment =
+      !body.subscription_type &&
+      !customStr2IsUserId && // No numeric user_id (allows URLs, etc.)
+      parseFloat(body.amount || "0") <= 20; // Amount is $1 or less (in ZAR ~17-20)
+
+    // Get user email from session - CRITICAL: Use headers() for App Router
+    const headersList = await headers();
+    const session = await getServerSession({
+      ...authOptions,
+      req: {
+        headers: headersList,
+      } as any,
+    });
+
     const userEmail = session?.user?.email;
 
-    if (!userEmail) {
+    // Only require authentication for subscriptions or payments with user_id
+    if (!isSimplePayment && !userEmail) {
       return NextResponse.json(
-        { error: "User must be authenticated to initiate payment" },
+        { error: "User must be authenticated for subscriptions" },
         { status: 401 }
       );
     }
 
-    const body = await request.json();
+    // For simple payments, userEmail can be undefined
+    const finalUserEmail = userEmail || undefined;
     const {
       amount,
       item_name,
@@ -217,21 +256,6 @@ export async function POST(request: NextRequest) {
           !PAYFAST_CONFIG.PASSPHRASE ||
           PAYFAST_CONFIG.PASSPHRASE.trim() === ""
         ) {
-          console.error(
-            "❌ CRITICAL ERROR: Passphrase is missing for subscription!"
-          );
-          console.error(
-            "PAYFAST_CONFIG.PASSPHRASE:",
-            PAYFAST_CONFIG.PASSPHRASE
-          );
-          console.error(
-            "process.env.PAYFAST_PASSPHRASE:",
-            process.env.PAYFAST_PASSPHRASE
-          );
-          console.error(
-            "process.env.NEXT_PUBLIC_PAYFAST_PASSPHRASE:",
-            process.env.NEXT_PUBLIC_PAYFAST_PASSPHRASE
-          );
           return NextResponse.json(
             {
               error:
@@ -240,29 +264,11 @@ export async function POST(request: NextRequest) {
             { status: 400 }
           );
         }
-        console.log(
-          "✅ Passphrase configured for subscription (length:",
-          PAYFAST_CONFIG.PASSPHRASE.length,
-          "chars)"
-        );
       }
     }
 
     // Validate PayFast configuration
     if (!PAYFAST_CONFIG.MERCHANT_ID || !PAYFAST_CONFIG.MERCHANT_KEY) {
-      console.error("PayFast config missing:", {
-        MERCHANT_ID: PAYFAST_CONFIG.MERCHANT_ID ? "exists" : "missing",
-        MERCHANT_KEY: PAYFAST_CONFIG.MERCHANT_KEY ? "exists" : "missing",
-        PASSPHRASE: PAYFAST_CONFIG.PASSPHRASE ? "exists" : "missing",
-        env_check: {
-          PAYFAST_MERCHANT_ID: !!process.env.PAYFAST_MERCHANT_ID,
-          NEXT_PUBLIC_PAYFAST_MERCHANT_ID:
-            !!process.env.NEXT_PUBLIC_PAYFAST_MERCHANT_ID,
-          PAYFAST_MERCHANT_KEY: !!process.env.PAYFAST_MERCHANT_KEY,
-          NEXT_PUBLIC_PAYFAST_MERCHANT_KEY:
-            !!process.env.NEXT_PUBLIC_PAYFAST_MERCHANT_KEY,
-        },
-      });
       return NextResponse.json(
         {
           error:
@@ -307,13 +313,24 @@ export async function POST(request: NextRequest) {
       subscription_type === 2;
 
     // Use provided URLs from request body, or construct from config
+    // CRITICAL: Always replace localhost URLs with production URLs
+    // PayFast requires publicly accessible URLs
+    const sanitizeUrl = (url: string | undefined): string => {
+      if (!url) return "";
+      // Replace any localhost URLs with production URL
+      if (url.includes("localhost") || url.includes("127.0.0.1")) {
+        return url.replace(/https?:\/\/[^/]+/, productionBaseUrl);
+      }
+      return url;
+    };
+
     const returnUrl =
-      return_url ||
+      sanitizeUrl(return_url) ||
       (isSubscription
         ? `${finalBaseUrl}/dashboard` // Subscriptions go to dashboard
         : PAYFAST_CONFIG.RETURN_URL || `${finalBaseUrl}/payment/success`); // One-time payments go to success page
     const cancelUrl =
-      cancel_url ||
+      sanitizeUrl(cancel_url) ||
       PAYFAST_CONFIG.CANCEL_URL ||
       `${finalBaseUrl}/payment/cancel`;
 
@@ -321,14 +338,20 @@ export async function POST(request: NextRequest) {
     paymentData.return_url = returnUrl;
     paymentData.cancel_url = cancelUrl;
 
-    // Only include notify_url for one-time payments
-    // For subscriptions, notify_url is configured in PayFast dashboard
-    if (!subscription_type) {
+    // Include notify_url only for subscriptions, NOT for simple $1 payments
+    // Simple $1 payments (no subscription_type, amount <= 20 ZAR) should NOT include notify_url
+    const isSimpleDollarPayment =
+      !subscription_type && parseFloat(amount) <= 20; // $1 USD ≈ 17-20 ZAR
+
+    if (!isSimpleDollarPayment) {
+      // Only include notify_url for subscriptions or larger payments
       const notifyUrl =
-        notify_url ||
+        sanitizeUrl(notify_url) ||
         PAYFAST_CONFIG.NOTIFY_URL ||
         `${finalBaseUrl}/payment/notify`;
       paymentData.notify_url = notifyUrl;
+    } else {
+      // For $1 payments, explicitly exclude notify_url to prevent 400 errors
     }
 
     // Add amount and item_name (matching test script order)
@@ -389,23 +412,8 @@ export async function POST(request: NextRequest) {
     paymentData.signature = signature;
 
     // Debug logging (remove in production)
-    console.log("=== PayFast Payment Initiation ===");
-    console.log("Payment Data:", JSON.stringify(paymentData, null, 2));
-    console.log("Signature:", signature);
-    console.log("Passphrase exists:", !!PAYFAST_CONFIG.PASSPHRASE);
-    console.log("PayFast URL:", PAYFAST_CONFIG.PAYFAST_URL);
-    console.log("Return URL:", paymentData.return_url);
-    console.log("Cancel URL:", paymentData.cancel_url);
-    console.log("Notify URL:", paymentData.notify_url);
-    console.log("Merchant ID:", PAYFAST_CONFIG.MERCHANT_ID);
-    console.log("Merchant Key:", PAYFAST_CONFIG.MERCHANT_KEY);
-    console.log("All fields for form submission:");
     Object.keys(paymentData).forEach((key) => {
-      console.log(
-        `  ${key}: "${paymentData[key]}" (type: ${typeof paymentData[
-          key
-        ]}, length: ${String(paymentData[key]).length})`
-      );
+      // Process payment data
     });
 
     // CRITICAL: Ensure we're using the correct URL
@@ -416,14 +424,6 @@ export async function POST(request: NextRequest) {
       !finalUrl.includes("sandbox") &&
       finalUrl.includes("www.payfast.co.za")
     ) {
-      console.error(
-        "❌ CRITICAL: Using PRODUCTION URL! This should not happen in development."
-      );
-      console.error("PAYFAST_CONFIG.PAYFAST_URL:", finalUrl);
-      console.error(
-        "NEXT_PUBLIC_PAYFAST_URL env:",
-        process.env.NEXT_PUBLIC_PAYFAST_URL
-      );
     }
 
     // Return payment data and URL
@@ -479,14 +479,12 @@ export async function POST(request: NextRequest) {
     const planMatch = item_name.match(/(production|premium|enterprise)/i);
     const plan = planMatch ? planMatch[1].toLowerCase() : "production"; // Default to production
 
-    storePendingPayment(userEmail, plan, paymentData.amount);
-    console.log(
-      `💾 [PAYMENT INITIATE] Stored pending payment for ${userEmail}: ${plan} plan (${paymentData.amount})`
-    );
+    if (userEmail) {
+      storePendingPayment(userEmail, plan, paymentData.amount);
+    }
 
     return NextResponse.json(response);
   } catch (error) {
-    console.error("PayFast initiate payment error:", error);
     return NextResponse.json(
       {
         error: `Failed to initiate payment: ${

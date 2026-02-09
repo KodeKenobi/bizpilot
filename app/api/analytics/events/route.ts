@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { headers } from "next/headers";
+import { getApiUrl, getAuthHeaders } from "@/lib/config";
 
 export async function POST(request: NextRequest) {
   try {
-    // For now, allow all requests - authentication can be added later
-    // const session = await getServerSession(authOptions);
-    // if (!session?.user?.id) {
-    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    // }
-
     const { events } = await request.json();
 
     if (!Array.isArray(events)) {
@@ -17,40 +15,41 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Process each event
-    for (const event of events) {
-      // Store event in your database
-      // You can use your existing database connection here
-      console.log("Analytics Event:", {
-        user_id: "anonymous", // TODO: Get from session when auth is implemented
-        ...event,
-        received_at: new Date().toISOString(),
-      });
+    // Get session for user_id (optional - allows anonymous tracking)
+    const headersList = await headers();
+    const session = await getServerSession({
+      ...authOptions,
+      req: {
+        headers: headersList,
+      } as any,
+    });
 
-      // TODO: Store in your database
-      // Example:
-      // await db.analyticsEvents.create({
-      //   data: {
-      //     user_id: session.user.id,
-      //     event_type: event.event_type,
-      //     event_name: event.event_name,
-      //     properties: event.properties,
-      //     session_id: event.session_id,
-      //     page_url: event.page_url,
-      //     page_title: event.page_title,
-      //     timestamp: new Date(event.timestamp),
-      //     user_agent: event.user_agent,
-      //     device_type: event.device_type,
-      //     browser: event.browser,
-      //     os: event.os,
-      //     referrer: event.referrer,
-      //   }
-      // });
+    // Forward to backend API
+    const backendUrl = getApiUrl("/api/analytics/events");
+    const token = (session as any)?.accessToken || null;
+
+    const response = await fetch(backendUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? getAuthHeaders(token) : {}),
+      },
+      body: JSON.stringify({ events }),
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      return NextResponse.json(result);
+    } else {
+      const error = await response.text();
+      
+      return NextResponse.json(
+        { error: "Failed to store analytics data" },
+        { status: response.status }
+      );
     }
-
-    return NextResponse.json({ success: true, processed: events.length });
   } catch (error) {
-    console.error("Analytics events error:", error);
+    
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

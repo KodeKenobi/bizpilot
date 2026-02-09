@@ -22,6 +22,7 @@ interface UserContextType {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   checkAuthStatus: () => Promise<void>;
+  refreshSessionSilently: () => Promise<boolean>;
   isAdmin: boolean;
   isSuperAdmin: boolean;
 }
@@ -42,48 +43,97 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   }, [session]);
 
   const checkAuthStatus = async () => {
+    const startTime = Date.now();
+
+    // Use cached data immediately to avoid showing loading state
+    const cachedUserData = localStorage.getItem("user_data");
+    if (cachedUserData && !user) {
+      try {
+        const userData = JSON.parse(cachedUserData);
+
+        setUser(userData);
+        setLoading(false);
+      } catch (e) {}
+    }
+
     try {
-      // Always try to get fresh user data from backend profile endpoint
-      // This ensures we get subscription_tier and other backend-specific fields
+      // Check for token first - don't make API calls if no token exists
       const token = localStorage.getItem("auth_token");
 
       if (token) {
-        console.log("🔍 Fetching fresh user data from profile endpoint...");
         try {
-          const response = await fetch(getApiUrl("/auth/profile"), {
+          const fetchStartTime = Date.now();
+          const response = await fetch("/api/auth/profile", {
             headers: getAuthHeaders(token),
+            signal: AbortSignal.timeout(30000), // 30 second timeout (increased to handle slow backend responses)
           });
+          const fetchTime = Date.now() - fetchStartTime;
 
           if (response.ok) {
             const userData = await response.json();
-            console.log("🔍 Profile data received:", userData);
-            console.log(
-              "🔍 Subscription tier:",
-              userData.subscription_tier || "not found"
-            );
-            console.log(
-              "🔍 Full profile data:",
-              JSON.stringify(userData, null, 2)
-            );
+            const totalTime = Date.now() - startTime;
+
             // Store fresh user data
             localStorage.setItem("user_data", JSON.stringify(userData));
             setUser(userData);
             setLoading(false);
             return;
+          } else if (response.status === 401) {
+            // Unauthorized - token is invalid, clear it
+            localStorage.removeItem("auth_token");
+            localStorage.removeItem("user_data");
+            setUser(null);
+            setLoading(false);
+            return;
+          } else if (response.status === 404) {
+            // User was deleted - log them out
+            localStorage.removeItem("auth_token");
+            localStorage.removeItem("user_data");
+            const { signOut } = await import("next-auth/react");
+            await signOut({ redirect: true, callbackUrl: "/auth/login" });
+            setUser(null);
+            setLoading(false);
+            return;
           } else {
-            console.log("🔍 Profile endpoint failed, falling back to session");
+            const totalTime = Date.now() - startTime;
+            // Try to use cached user data as fallback
+            const cachedUserData = localStorage.getItem("user_data");
+            if (cachedUserData) {
+              try {
+                const userData = JSON.parse(cachedUserData);
+
+                setUser(userData);
+                setLoading(false);
+                return;
+              } catch (e) {}
+            }
           }
-        } catch (profileError) {
-          console.log(
-            "🔍 Profile fetch error, falling back to session:",
-            profileError
-          );
+        } catch (profileError: any) {
+          const totalTime = Date.now() - startTime;
+
+          if (
+            profileError.name === "TimeoutError" ||
+            profileError.name === "AbortError"
+          ) {
+            // Use cached data if API times out
+            const cachedUserData = localStorage.getItem("user_data");
+            if (cachedUserData) {
+              try {
+                const userData = JSON.parse(cachedUserData);
+
+                setUser(userData);
+                setLoading(false);
+                return;
+              } catch (e) {}
+            }
+          }
         }
       }
 
       // Fallback: If we have a NextAuth session, use it
       if (session?.user) {
-        console.log("🔍 Using NextAuth session:", session.user);
+        const totalTime = Date.now() - startTime;
+
         const userFromSession: User = {
           id: parseInt(session.user.id),
           email: session.user.email || "",
@@ -98,11 +148,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         // If no backend token exists, get one from NextAuth session
         const existingToken = localStorage.getItem("auth_token");
         if (!existingToken && session.user.email) {
-          console.log(
-            "🔍 No backend token found, getting one from NextAuth session..."
-          );
           try {
-            // Use endpoint that auto-creates/updates user from NextAuth session
+            // Use endpoint to get backend token from NextAuth session
+            // NOTE: This will return 404 if user was deleted (prevents resurrection)
             const tokenResponse = await fetch(
               getApiUrl("/auth/get-token-from-session"),
               {
@@ -112,16 +160,27 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
                 },
                 body: JSON.stringify({
                   email: session.user.email,
-                  password: "Kopenikus0218!", // Known password from auth.ts
-                  role:
-                    (session.user as any)?.role === "super_admin"
-                      ? "super_admin"
-                      : "user",
+                  // Password no longer required - NextAuth session is trusted
+                  // Don't send role - let backend use the role from database
+                  // role: undefined,  // Backend will use existing role from DB
                   subscription_tier:
                     (session.user as any)?.subscription_tier || "free",
                 }),
               }
             );
+
+            // If user not found (404), user was deleted - log them out
+            if (tokenResponse.status === 404) {
+              // Clear all auth data
+              localStorage.removeItem("auth_token");
+              localStorage.removeItem("user_data");
+              // Sign out from NextAuth
+              const { signOut } = await import("next-auth/react");
+              await signOut({ redirect: true, callbackUrl: "/auth/login" });
+              setUser(null);
+              setLoading(false);
+              return;
+            }
 
             if (tokenResponse.ok) {
               const backendData = await tokenResponse.json();
@@ -130,14 +189,11 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
                 "user_data",
                 JSON.stringify(backendData.user)
               );
-              console.log("✅ Backend token obtained from NextAuth session");
+
               // Update user with backend data (includes subscription_tier)
               setUser(backendData.user);
-            } else {
-              console.log("⚠️ Could not get backend token (non-critical)");
             }
           } catch (backendError) {
-            console.error("Backend auth failed (non-critical):", backendError);
             // Don't block - NextAuth session is enough for UI
           }
         }
@@ -147,10 +203,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       }
 
       // Fallback to localStorage token check (token already defined above)
-      console.log("🔍 Checking auth status, token exists:", !!token);
+      const totalTime = Date.now() - startTime;
 
       if (!token) {
-        console.log("🔍 No token found, setting loading to false");
         setLoading(false);
         return;
       }
@@ -160,22 +215,16 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       if (storedUser) {
         try {
           const userData = JSON.parse(storedUser);
-          console.log("🔍 Using stored user data:", userData);
-          console.log("🔍 User email from stored data:", userData.email);
+
           setUser(userData);
           setLoading(false);
           return;
-        } catch (error) {
-          console.log(
-            "🔍 Failed to parse stored user data, trying JWT fallback"
-          );
-        }
+        } catch (error) {}
       }
 
       // Fallback: Try to decode the JWT token to get user info
       try {
         const payload = JSON.parse(atob(token.split(".")[1]));
-        console.log("🔍 JWT payload:", payload);
 
         // Create a user object from the token
         const userFromToken: User = {
@@ -187,43 +236,44 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
           last_login: new Date().toISOString(),
         };
 
-        console.log("🔍 Using user data from token:", userFromToken);
         setUser(userFromToken);
         setLoading(false);
         return;
-      } catch (jwtError) {
-        console.log("🔍 JWT decode failed, trying profile endpoint");
-      }
+      } catch (jwtError) {}
 
-      console.log("🔍 Making profile request with token");
       const response = await fetch(getApiUrl("/auth/profile"), {
         headers: getAuthHeaders(token),
       });
 
-      console.log("🔍 Profile response status:", response.status);
-
       if (response.ok) {
         const userData = await response.json();
-        console.log("🔍 Profile data received:", userData);
+
         setUser(userData);
       } else {
-        console.log("🔍 Auth check failed, removing token");
         localStorage.removeItem("auth_token");
       }
     } catch (error) {
-      console.error("🔍 Error checking auth status:", error);
+      const totalTime = Date.now() - startTime;
+
       // Don't remove token on network errors, just log
-      console.log("🔍 Network error during auth check, keeping token");
+
+      // Ensure loading is set to false even on error
+      setLoading(false);
     } finally {
-      console.log("🔍 Setting loading to false");
+      const totalTime = Date.now() - startTime;
+
+      // Double-check loading is false
+      if (loading) {
+        setLoading(false);
+      }
+
       setLoading(false);
     }
   };
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      console.log("🔐 Attempting login for:", email);
-      const response = await fetch(getApiUrl("/auth/login"), {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -231,23 +281,20 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
 
-      console.log("🔐 Login response status:", response.status);
-
       if (response.ok) {
         const data = await response.json();
-        console.log("🔐 Login response data:", data);
+
         localStorage.setItem("auth_token", data.access_token);
         localStorage.setItem("user_data", JSON.stringify(data.user));
         setUser(data.user);
-        console.log("🔐 User set to:", data.user);
+
         return true;
       } else {
         const errorData = await response.json();
-        console.log("🔐 Login error:", errorData);
+
         return false;
       }
     } catch (error) {
-      console.error("🔐 Login network error:", error);
       return false;
     }
   };
@@ -255,8 +302,72 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem("auth_token");
     localStorage.removeItem("user_data");
+    localStorage.removeItem("api_test_key");
     setUser(null);
     signOut({ callbackUrl: "/" });
+  };
+
+  /**
+   * Silently refresh the user session by clearing tokens and fetching fresh user data
+   * This is used after payment success to ensure the session reflects the new subscription tier
+   * Returns true if successful, false otherwise
+   */
+  const refreshSessionSilently = async (): Promise<boolean> => {
+    try {
+      // Get current user email before clearing tokens
+      const currentUser = user;
+      const currentEmail = currentUser?.email;
+      const currentToken = localStorage.getItem("auth_token");
+
+      if (!currentEmail && !currentToken) {
+        return false;
+      }
+
+      // Get email from session if not available from user state
+      let emailToUse = currentEmail;
+      if (!emailToUse) {
+        try {
+          const sessionResponse = await fetch("/api/auth/session");
+          const session = await sessionResponse.json();
+          emailToUse = session?.user?.email;
+        } catch (error) {
+          return false;
+        }
+      }
+
+      if (!emailToUse) {
+        return false;
+      }
+
+      // Clear current tokens and user data (silently, no redirect)
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("user_data");
+      setUser(null);
+
+      // Sign out from NextAuth silently (without redirect)
+      try {
+        await signOut({ redirect: false });
+      } catch (signOutError) {
+        // Sign out error (non-critical)
+      }
+
+      // Wait a moment for cleanup
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Now fetch fresh user data using checkAuthStatus
+      // This will use NextAuth session if available, or try to get a new token
+      await checkAuthStatus();
+
+      // Verify we got fresh user data
+      const freshUser = user;
+      if (freshUser && freshUser.email === emailToUse) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
   };
 
   return (
@@ -267,6 +378,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         login,
         logout,
         checkAuthStatus,
+        refreshSessionSilently,
         isAdmin,
         isSuperAdmin,
       }}

@@ -20,10 +20,15 @@ interface BillingHistory {
   amount: number;
   date: string;
   status: "Paid" | "Pending" | "Failed";
+  payment_id?: string;
+  tier?: string;
+  notification_id?: number;
+  metadata?: any;
 }
 
 interface BillingSectionProps {
   user?: {
+    id?: number;
     email?: string;
     subscription_tier?: string;
   };
@@ -36,6 +41,7 @@ const plans: Plan[] = [
     price: 0,
     description: "Perfect for development and testing",
     features: [
+      "50 companies per campaign",
       "5 API calls/month",
       "PDF text extraction",
       "Basic image conversion",
@@ -49,10 +55,11 @@ const plans: Plan[] = [
   {
     id: "production",
     name: "Production",
-    price: 29,
+    price: 9,
     description: "For production applications",
     features: [
       "5,000 API calls/month",
+      "100 companies per campaign",
       "PDF operations (merge, split, extract)",
       "Video/audio conversion",
       "Image processing",
@@ -65,10 +72,11 @@ const plans: Plan[] = [
   {
     id: "enterprise",
     name: "Enterprise",
-    price: 49,
+    price: 19,
     description: "For large-scale applications",
     features: [
       "Unlimited API calls",
+      "Unlimited campaign companies",
       "All file processing capabilities",
       "Enterprise client dashboard",
       "Dedicated support",
@@ -82,22 +90,131 @@ const plans: Plan[] = [
 export function BillingSection({ user }: BillingSectionProps) {
   const [billingHistory, setBillingHistory] = useState<BillingHistory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [downloadingInvoice, setDownloadingInvoice] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
-    // Fetch billing history (mock for now)
-    setTimeout(() => {
-      setBillingHistory([
-        {
-          id: "1",
-          invoice: "Testing Plan - Dec 2024",
-          amount: 0,
-          date: "Dec 1, 2024",
-          status: "Paid",
-        },
-      ]);
+    fetchBillingHistory();
+  }, [user]);
+
+  const fetchBillingHistory = async () => {
+    if (!user?.id && !user?.email) {
       setLoading(false);
-    }, 500);
-  }, []);
+      return;
+    }
+
+    try {
+      // Use relative URL - Next.js rewrites proxy to backend (Railway URL hidden)
+      const authToken = localStorage.getItem("auth_token");
+      if (!authToken) {
+        setLoading(false);
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (user.id) params.append("user_id", user.id.toString());
+      if (user.email) params.append("user_email", user.email);
+
+      const response = await fetch(
+        `/api/payment/billing-history?${params.toString()}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.billing_history) {
+          // Transform backend data to frontend format
+          const transformed = data.billing_history.map((item: any) => ({
+            id: item.id,
+            invoice: item.invoice,
+            amount: item.amount,
+            date: new Date(item.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            }),
+            status: item.status as "Paid" | "Pending" | "Failed",
+            payment_id: item.payment_id,
+            tier: item.tier,
+            notification_id: item.notification_id,
+            metadata: item.metadata,
+            rawDate: item.date, // Keep ISO date for invoice download
+          }));
+          setBillingHistory(transformed);
+        }
+      }
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const downloadInvoice = async (item: BillingHistory) => {
+    if (!user?.email || !item.payment_id) {
+      return;
+    }
+
+    setDownloadingInvoice(item.id);
+
+    try {
+      // Use relative URL - Next.js rewrites proxy to backend (Railway URL hidden)
+      const authToken = localStorage.getItem("auth_token");
+      if (!authToken) {
+        return;
+      }
+
+      const response = await fetch(`/api/payment/download-invoice`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          payment_id: item.payment_id,
+          user_email: user.email,
+          amount: item.amount,
+          tier: item.tier || "free",
+          payment_date: (item as any).rawDate || new Date().toISOString(),
+          item_description: item.invoice,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.pdf_base64) {
+          // Convert base64 to blob and download
+          const byteCharacters = atob(data.pdf_base64);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: "application/pdf" });
+
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = data.filename || `invoice_${item.id}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        }
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        alert("Failed to download invoice. Please try again.");
+      }
+    } catch (error) {
+      alert("Error downloading invoice. Please try again.");
+    } finally {
+      setDownloadingInvoice(null);
+    }
+  };
 
   // Determine user's current tier and plan states
   const getUserTier = (): string => {
@@ -136,24 +253,34 @@ export function BillingSection({ user }: BillingSectionProps) {
     if (plan.isSubscription && plan.price > 0) {
       try {
         const zarAmount = await convertUSDToZAR(plan.price);
+
+        const subscriptionData = {
+          planId: plan.id,
+          planName: plan.name,
+          usdAmount: plan.price,
+          zarAmount: zarAmount,
+          description: plan.description,
+        };
+
         // Store plan info and ZAR amount for payment processing
         sessionStorage.setItem(
           "pending_subscription",
-          JSON.stringify({
-            planId: plan.id,
-            planName: plan.name,
-            usdAmount: plan.price,
-            zarAmount: zarAmount,
-            description: plan.description,
-          })
+          JSON.stringify(subscriptionData)
         );
+
         // Redirect to payment page with converted amount
-        window.location.href = `/payment?plan=${plan.id}&amount=${zarAmount}`;
+        const paymentUrl = `/payment?plan=${plan.id}&amount=${zarAmount}`;
+        window.location.href = paymentUrl;
       } catch (error) {
-        console.error("Failed to convert currency:", error);
+        console.error("Error converting currency:", {
+          message: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+        });
         // Fallback: redirect without conversion (payment page should handle it)
-        window.location.href = `/payment?plan=${plan.id}&usdAmount=${plan.price}`;
+        const fallbackUrl = `/payment?plan=${plan.id}&usdAmount=${plan.price}`;
+        window.location.href = fallbackUrl;
       }
+    } else {
     }
   };
 
@@ -285,7 +412,7 @@ export function BillingSection({ user }: BillingSectionProps) {
                 {!isActive && plan.price > 0 && !isGreyedOut && (
                   <button
                     onClick={() => handleSubscribe(plan)}
-                    className="w-full px-4 py-2 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] hover:from-[#7c3aed] hover:to-[#2563eb] text-white rounded-lg font-medium transition-all mt-auto"
+                    className="w-full px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-lg font-medium transition-all mt-auto border border-white"
                   >
                     Subscribe
                   </button>
@@ -379,23 +506,36 @@ export function BillingSection({ user }: BillingSectionProps) {
                           {item.date}
                         </td>
                         <td className="px-6 py-4">
-                          <span
-                            className={`
-                              inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                              ${
-                                item.status === "Paid"
-                                  ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                                  : item.status === "Pending"
-                                  ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                                  : "bg-red-500/20 text-red-400 border border-red-500/30"
-                              }
-                            `}
-                          >
-                            {item.status === "Paid" && (
-                              <Check className="w-3 h-3 mr-1" />
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={`
+                                inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                ${
+                                  item.status === "Paid"
+                                    ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                                    : item.status === "Pending"
+                                    ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                                    : "bg-red-500/20 text-red-400 border border-red-500/30"
+                                }
+                              `}
+                            >
+                              {item.status === "Paid" && (
+                                <Check className="w-3 h-3 mr-1" />
+                              )}
+                              {item.status}
+                            </span>
+                            {item.payment_id && (
+                              <button
+                                onClick={() => downloadInvoice(item)}
+                                disabled={downloadingInvoice === item.id}
+                                className="text-xs text-[#8b5cf6] hover:text-[#7c3aed] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                                title="Download Invoice"
+                              >
+                                <Download className="w-3 h-3" />
+                                {downloadingInvoice === item.id ? "..." : ""}
+                              </button>
                             )}
-                            {item.status}
-                          </span>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -422,23 +562,36 @@ export function BillingSection({ user }: BillingSectionProps) {
                           </p>
                         </div>
                       </div>
-                      <span
-                        className={`
-                          inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                          ${
-                            item.status === "Paid"
-                              ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                              : item.status === "Pending"
-                              ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                              : "bg-red-500/20 text-red-400 border border-red-500/30"
-                          }
-                        `}
-                      >
-                        {item.status === "Paid" && (
-                          <Check className="w-3 h-3 mr-1" />
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`
+                              inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                              ${
+                                item.status === "Paid"
+                                  ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                                  : item.status === "Pending"
+                                  ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                                  : "bg-red-500/20 text-red-400 border border-red-500/30"
+                              }
+                            `}
+                        >
+                          {item.status === "Paid" && (
+                            <Check className="w-3 h-3 mr-1" />
+                          )}
+                          {item.status}
+                        </span>
+                        {item.payment_id && (
+                          <button
+                            onClick={() => downloadInvoice(item)}
+                            disabled={downloadingInvoice === item.id}
+                            className="text-xs text-[#8b5cf6] hover:text-[#7c3aed] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                            title="Download Invoice"
+                          >
+                            <Download className="w-3 h-3" />
+                            {downloadingInvoice === item.id ? "..." : ""}
+                          </button>
                         )}
-                        {item.status}
-                      </span>
+                      </div>
                     </div>
                   </div>
                 ))}

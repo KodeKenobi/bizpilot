@@ -80,7 +80,6 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
         throw new Error(data.error || "Conversion failed");
       }
     } catch (error: any) {
-      console.error("Error converting PDF to HTML:", error);
       setResult({
         type: "error",
         message:
@@ -145,7 +144,7 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <FileCode className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+            <FileCode className="w-4 h-4 text-white flex-shrink-0" />
             <div className="min-w-0 flex-1">
               <h3 className="text-white font-medium text-sm truncate">
                 {uploadedFile.name}
@@ -170,7 +169,7 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
         {/* Processing State */}
         {isProcessing && (
           <div className="flex flex-col items-center justify-center py-8">
-            <Loader2 className="w-10 h-10 text-cyan-400 animate-spin mb-3" />
+            <Loader2 className="w-10 h-10 text-white animate-spin mb-3" />
             <p className="text-gray-300 text-sm text-center">
               Converting PDF to HTML...
             </p>

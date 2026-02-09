@@ -18,6 +18,7 @@ import {
   Ban,
   UserCheck,
   Zap,
+  Send,
 } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@/contexts/UserContext";
@@ -92,6 +93,31 @@ export default function AdminDashboard() {
 
       return () => clearTimeout(timeout);
     }
+
+    // Only allow super_admin role to access admin dashboard
+    // Role structure: user = regular user, admin = enterprise, super_admin = super admin
+    if (user && !userLoading) {
+      console.log("Admin page - Access check:", {
+        email: user.email,
+        role: user.role,
+        currentPath: window.location.pathname,
+      });
+
+      // Redirect based on role
+      if (user.role === "admin") {
+        // Regular admin (enterprise users) should go to enterprise dashboard
+        console.log("Redirecting admin (enterprise) to /enterprise");
+        window.location.href = "/enterprise";
+        return;
+      } else if (user.role === "user") {
+        // Regular users should go to regular dashboard
+        console.log("Redirecting user to /dashboard");
+        window.location.href = "/dashboard";
+        return;
+      }
+      // super_admin can access this page
+      console.log("Access granted to admin dashboard (super_admin)");
+    }
   }, [user, userLoading]);
 
   useEffect(() => {
@@ -102,7 +128,7 @@ export default function AdminDashboard() {
 
   const fetchAdminData = async () => {
     try {
-      if (!user || (user.role !== "admin" && user.role !== "super_admin")) {
+      if (!user || user.role !== "super_admin") {
         setLoading(false);
         return;
       }
@@ -113,55 +139,71 @@ export default function AdminDashboard() {
         return;
       }
 
-      // Fetch real data from admin API
-      const [statsResponse, activityResponse, alertsResponse, usageResponse] =
-        await Promise.all([
-          fetch(getApiUrl("/api/admin/stats"), {
-            headers: getAuthHeaders(token),
-          }),
-          fetch(getApiUrl("/api/admin/activity"), {
-            headers: getAuthHeaders(token),
-          }),
-          fetch(getApiUrl("/api/admin/alerts"), {
-            headers: getAuthHeaders(token),
-          }),
-          fetch(getApiUrl("/api/admin/usage/stats"), {
-            headers: getAuthHeaders(token),
-          }),
-        ]);
+      // Fetch real data from admin API with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
 
-      if (statsResponse.ok) {
-        const statsData = await statsResponse.json();
-        setStats(statsData);
-      }
+      try {
+        const [statsResponse, activityResponse, alertsResponse, usageResponse] =
+          await Promise.all([
+            fetch(getApiUrl("/api/admin/stats"), {
+              headers: getAuthHeaders(token),
+              signal: controller.signal,
+            }),
+            fetch(getApiUrl("/api/admin/activity"), {
+              headers: getAuthHeaders(token),
+              signal: controller.signal,
+            }),
+            fetch(getApiUrl("/api/admin/alerts"), {
+              headers: getAuthHeaders(token),
+              signal: controller.signal,
+            }),
+            fetch(getApiUrl("/api/admin/usage/stats"), {
+              headers: getAuthHeaders(token),
+              signal: controller.signal,
+            }),
+          ]);
 
-      if (usageResponse.ok) {
-        const usageData = await usageResponse.json();
-        if (usageData.summary) {
-          setStats((prev) => ({
-            ...prev,
-            monthlyCalls: usageData.summary.monthly_calls || 0,
-            usersByTier: usageData.summary.users_by_tier || {},
-          }));
+        clearTimeout(timeoutId);
+
+        if (statsResponse.ok) {
+          const statsData = await statsResponse.json();
+          setStats(statsData);
         }
-        if (usageData.users_usage) {
-          setUsersUsage(usageData.users_usage);
+
+        if (usageResponse.ok) {
+          const usageData = await usageResponse.json();
+          if (usageData.summary) {
+            setStats((prev) => ({
+              ...prev,
+              monthlyCalls: usageData.summary.monthly_calls || 0,
+              usersByTier: usageData.summary.users_by_tier || {},
+            }));
+          }
+          if (usageData.users_usage) {
+            setUsersUsage(usageData.users_usage);
+          }
         }
-      }
 
-      if (activityResponse.ok) {
-        const activityData = await activityResponse.json();
-        setUserActivity(activityData);
-      }
+        if (activityResponse.ok) {
+          const activityData = await activityResponse.json();
+          setUserActivity(activityData);
+        }
 
-      if (alertsResponse.ok) {
-        const alertsData = await alertsResponse.json();
-        setSystemAlerts(alertsData);
+        if (alertsResponse.ok) {
+          const alertsData = await alertsResponse.json();
+          setSystemAlerts(alertsData);
+        }
+      } catch (fetchError: any) {
+        clearTimeout(timeoutId);
+        if (fetchError.name === "AbortError") {
+        } else {
+        }
+        // Continue anyway - show dashboard with empty/default data
       }
 
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching admin data:", error);
       setLoading(false);
     }
   };
@@ -268,6 +310,17 @@ export default function AdminDashboard() {
     }
   };
 
+  // Show loading while checking authentication (with timeout to prevent infinite loading)
+  useEffect(() => {
+    // Safety timeout: if loading takes more than 10 seconds, stop loading
+    if (loading) {
+      const timeout = setTimeout(() => {
+        setLoading(false);
+      }, 10000);
+      return () => clearTimeout(timeout);
+    }
+  }, [loading]);
+
   // Show loading while checking authentication
   if (userLoading || loading) {
     return (
@@ -276,6 +329,9 @@ export default function AdminDashboard() {
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-400 mx-auto mb-4"></div>
           <p className="text-foreground dark:text-gray-300">
             Loading admin dashboard...
+          </p>
+          <p className="text-sm text-muted-foreground dark:text-gray-500 mt-2">
+            If this takes too long, try refreshing the page
           </p>
         </div>
       </div>
@@ -304,8 +360,8 @@ export default function AdminDashboard() {
     );
   }
 
-  // Show access denied if not admin
-  if (user.role !== "admin" && user.role !== "super_admin") {
+  // Show access denied if not super_admin
+  if (user.role !== "super_admin") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-20 flex items-center justify-center">
         <div className="text-center p-8 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg shadow-lg">
@@ -340,9 +396,9 @@ export default function AdminDashboard() {
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-green-400">
+              <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium">System Online</span>
+                <span className="text-sm font-medium text-white">System Online</span>
               </div>
             </div>
           </div>
@@ -382,15 +438,8 @@ export default function AdminDashboard() {
               changeType="neutral"
               color="blue"
             />
-            <StatCard
-              title="Success Rate"
-              value={`${stats.successRate}%`}
-              icon={TrendingUp}
-              change="+0.3% this week"
-              changeType="positive"
-              color="green"
-            />
           </div>
+
 
           {/* System Health */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -641,31 +690,19 @@ export default function AdminDashboard() {
                 Quick Actions
               </h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <Link
-                  href="/admin/users"
-                  className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group"
-                >
+                <Link href="/admin/users" className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group">
                   <Users className="h-6 w-6 text-purple-400 group-hover:text-purple-300" />
                   <span className="text-white font-medium">Manage Users</span>
                 </Link>
-                <Link
-                  href="/admin/api-keys"
-                  className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group"
-                >
+                <Link href="/admin/api-keys" className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group">
                   <Key className="h-6 w-6 text-blue-400 group-hover:text-blue-300" />
                   <span className="text-white font-medium">API Keys</span>
                 </Link>
-                <Link
-                  href="/admin/analytics"
-                  className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group"
-                >
+                <Link href="/admin/analytics" className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group">
                   <BarChart3 className="h-6 w-6 text-green-400 group-hover:text-green-300" />
                   <span className="text-white font-medium">Analytics</span>
                 </Link>
-                <Link
-                  href="/admin/settings"
-                  className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group"
-                >
+                <Link href="/admin/settings" className="flex items-center space-x-3 p-4 bg-gray-700/30 rounded-lg border border-gray-600 hover:bg-gray-700/50 transition-all duration-200 group">
                   <Settings className="h-6 w-6 text-yellow-400 group-hover:text-yellow-300" />
                   <span className="text-white font-medium">Settings</span>
                 </Link>
