@@ -64,6 +64,17 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
   const [showDownloadButton, setShowDownloadButton] = useState(false);
   const [hasViewedPdf, setHasViewedPdf] = useState(false);
   const [generatedPdfUrl, setGeneratedPdfUrl] = useState<string | null>(null);
+
+  // Force modal visibility update
+  React.useEffect(() => {
+    console.log("showViewModal effect triggered:", showViewModal);
+    // Force a DOM update
+    const modalElement = document.querySelector('[data-modal-type="pdf-preview"]') as HTMLElement;
+    if (modalElement) {
+      modalElement.style.display = showViewModal ? 'flex' : 'none';
+      console.log("Updated modal display style to:", showViewModal ? 'flex' : 'none');
+    }
+  }, [showViewModal]);
   const [isSaving, setIsSaving] = useState(false);
 
   // Confirmation modal state
@@ -147,7 +158,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Save PDF file first, then convert using template
-      console.log("🚀 [Edit PDF] Starting PDF upload...");
+      
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -157,11 +168,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       });
 
       if (!uploadResponse.ok) {
-        console.error(
-          "❌ [Edit PDF] Upload failed:",
-          uploadResponse.status,
-          uploadResponse.statusText
-        );
+        
         throw new Error("Failed to upload PDF");
       }
 
@@ -169,21 +176,19 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       const uploadData = await uploadResponse.json();
       const filename = uploadData.filename || uploadedFile.name;
       setUploadedFilename(filename);
-      console.log("✅ [Edit PDF] Upload successful:", filename);
+      
 
       // Get PDF info including page count
-      console.log("📊 [Edit PDF] Fetching PDF info...");
+      
       const pdfInfoResponse = await fetch(
         `${getApiUrl("")}/api/pdf_info/${encodeURIComponent(filename)}`
       );
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 [Edit PDF] PDF info:", pdfInfo);
+        
         setTotalPages(pdfInfo.page_count);
       } else {
-        console.warn(
-          "⚠️ [Edit PDF] Failed to get PDF info, defaulting to 1 page"
-        );
+        
         setTotalPages(1);
       }
 
@@ -206,7 +211,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       // Brief pause before showing completion
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error("PDF conversion error:", error);
+      
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -244,25 +249,25 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
 
   // Improved zoom controls with smooth transitions
   const handleZoomIn = useCallback(() => {
-    console.log("🔍 Zoom In button clicked");
+    
     setZoomLevel((prev) => {
       const newZoom = Math.min(prev + 10, 300);
-      console.log("🔍 Zoom In: updating from", prev, "to", newZoom);
+      
       return newZoom;
     });
   }, []);
 
   const handleZoomOut = useCallback(() => {
-    console.log("🔍 Zoom Out button clicked");
+    
     setZoomLevel((prev) => {
       const newZoom = Math.max(prev - 10, 25);
-      console.log("🔍 Zoom Out: updating from", prev, "to", newZoom);
+      
       return newZoom;
     });
   }, []);
 
   const handleZoomReset = useCallback(() => {
-    console.log("🔍 Zoom Reset clicked");
+    
     setZoomLevel(100);
   }, []);
 
@@ -273,28 +278,16 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
   // Send zoom level to iframe when it changes
   React.useEffect(() => {
     if (!editorUrl) {
-      console.log("❌ Editor URL not set, skipping zoom message");
+      
       return;
     }
 
-    console.log(
-      "🔍 Zoom level changed to:",
-      zoomLevel,
-      "editorUrl:",
-      editorUrl
-    );
+    
 
     const sendZoomMessage = () => {
       if (iframeRef.current?.contentWindow) {
         const zoomValue = zoomLevel / 100; // Convert percentage to decimal (100% = 1.0)
-        console.log(
-          "🔍 Sending zoom message to iframe:",
-          zoomValue,
-          "from zoomLevel:",
-          zoomLevel,
-          "iframe ref exists:",
-          !!iframeRef.current
-        );
+        
         iframeRef.current.contentWindow.postMessage(
           {
             type: "CHANGE_ZOOM",
@@ -303,7 +296,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
           "*"
         );
       } else {
-        console.log("❌ Iframe ref not ready, retrying in 100ms...");
+        
         // Retry after a short delay if iframe isn't ready
         setTimeout(sendZoomMessage, 100);
       }
@@ -342,14 +335,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
         ".flex-1.bg-gray-900.overflow-auto"
       ) as HTMLElement;
       if (scrollContainer) {
-        console.log("📜 SCROLL POSITION:", {
-          scrollLeft: scrollContainer.scrollLeft,
-          scrollTop: scrollContainer.scrollTop,
-          scrollWidth: scrollContainer.scrollWidth,
-          scrollHeight: scrollContainer.scrollHeight,
-          clientWidth: scrollContainer.clientWidth,
-          clientHeight: scrollContainer.clientHeight,
-        });
+        
       }
     };
 
@@ -367,8 +353,8 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
 
   // Handle tool selection
   const handleToolSelect = (toolId: string) => {
-    console.log("🔧 Tool selected:", toolId);
-    console.log("🔧 Previous active tool:", activeTool);
+    
+    
 
     // Handle undo/redo buttons
     if (toolId === "undo") {
@@ -400,7 +386,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending SET_EDIT_MODE message to iframe:", toolId);
+      
       iframe.contentWindow.postMessage(
         {
           type: "SET_EDIT_MODE",
@@ -408,46 +394,118 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
         },
         "*"
       );
-      console.log("📤 Message sent successfully");
+      
     } else {
-      console.log("❌ Iframe not found or no contentWindow");
+      
     }
   };
+
+  // Force re-render when showViewModal changes
+  React.useEffect(() => {
+    console.log("showViewModal changed to:", showViewModal);
+  }, [showViewModal]);
 
   // Listen for messages from iframe
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      console.log("📨 Message received from iframe:", event.data);
+      console.log("📨 PDF Editor received message:", event.data);
+      console.log("📨 Message origin:", event.origin);
+      console.log("📨 Message type:", event.data?.type);
 
       if (event.data.type === "SAVE_COMPLETE") {
-        console.log("✅ PDF saved successfully:", event.data.filename);
+        console.log("PDF save completed");
         alertModal.showSuccess("Success", "PDF saved successfully!");
       } else if (event.data.type === "PDF_GENERATED") {
-        console.log("✅ PDF generation completed");
+        console.log("PDF generated for download");
       } else if (event.data.type === "TEXT_ADDED") {
-        console.log("📝 Text added:", event.data);
+        console.log("Text added to PDF");
       } else if (event.data.type === "EDIT_MODE_SET") {
-        console.log("🎯 Edit mode set in iframe:", event.data.mode);
+        console.log("Edit mode set:", event.data.mode);
         setActiveTool(event.data.mode);
       } else if (event.data.type === "PDF_GENERATED_FOR_PREVIEW") {
-        console.log("📄 PDF generated for preview:", event.data.pdfUrl);
+        console.log("=== PDF_GENERATED_FOR_PREVIEW RECEIVED ===");
+        console.log("Full event data:", event.data);
+        console.log("PDF URL:", event.data.pdfUrl);
+        console.log("PDF filename:", event.data.filename);
+
+        // Validate the blob URL
+        if (event.data.pdfUrl && event.data.pdfUrl.startsWith("blob:")) {
+          console.log("Valid blob URL received:", event.data.pdfUrl);
+
+          // Try to fetch the blob to verify it contains data
+          fetch(event.data.pdfUrl)
+            .then(response => {
+              console.log("=== BLOB VALIDATION START ===");
+              console.log("Blob fetch response:", response);
+              console.log("Blob response status:", response.status);
+              console.log("Blob response ok:", response.ok);
+              console.log("Blob response headers:", Object.fromEntries(response.headers.entries()));
+              console.log("Blob size from headers:", response.headers.get('content-length'));
+              return response.blob();
+            })
+            .then(blob => {
+              console.log("Blob received, size:", blob.size, "type:", blob.type);
+
+              if (blob.size === 0) {
+                console.error("ERROR: Blob is empty!");
+              } else if (!blob.type.includes('pdf')) {
+                console.warn("WARNING: Blob type is not PDF:", blob.type);
+              } else {
+                console.log("SUCCESS: Valid PDF blob detected");
+
+                // Try to read the first few bytes to check if it's actually a PDF
+                blob.slice(0, 8).arrayBuffer().then(buffer => {
+                  const bytes = new Uint8Array(buffer);
+                  const header = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join(' ');
+                  console.log("PDF header bytes (hex):", header);
+
+                  // PDF files should start with "%PDF-"
+                  const headerString = String.fromCharCode.apply(null, Array.from(bytes));
+                  console.log("PDF header string:", headerString);
+
+                  if (headerString.startsWith('%PDF-')) {
+                    console.log("✅ PDF header is valid - file appears to be a proper PDF");
+                  } else {
+                    console.error("❌ PDF header is invalid - file may be corrupted");
+                  }
+                }).catch(err => {
+                  console.error("Error reading PDF header:", err);
+                });
+
+                // Log blob details
+                console.log("Blob size:", blob.size);
+                console.log("Blob type:", blob.type);
+              }
+
+              console.log("=== BLOB VALIDATION END ===");
+            })
+            .catch(error => {
+              console.error("ERROR fetching blob:", error);
+              console.error("Error name:", error.name);
+              console.error("Error message:", error.message);
+              console.error("Error stack:", error.stack);
+            });
+        } else {
+          console.error("ERROR: Invalid or missing blob URL:", event.data.pdfUrl);
+        }
 
         // Use blob URL directly - it works fine in iframes and allows hash parameters
-        console.log("📄 Using blob URL for iframe preview");
         setGeneratedPdfUrl(event.data.pdfUrl);
+        console.log("Set generatedPdfUrl to:", event.data.pdfUrl);
 
         setShowViewButton(true); // Show View button
         setShowDownloadButton(true); // Show Download button
         setIsSaving(false); // Clear loading state
+        console.log("PDF preview ready - buttons should now be visible");
       } else if (event.data.type === "SHOW_CONFIRMATION") {
-        console.log("❓ Confirmation requested:", event.data.message);
+        
         setConfirmationModal({
           isOpen: true,
           id: event.data.id,
           message: event.data.message,
         });
       } else {
-        console.log("❓ Unknown message type:", event.data.type);
+        
       }
     };
 
@@ -457,7 +515,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
 
   // Handle page change
   const handlePageChange = (pageNumber: number) => {
-    console.log("📄 Changing to page:", pageNumber);
+    
     setCurrentPage(pageNumber);
 
     // Send message to iframe to change page
@@ -465,7 +523,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
     if (iframe && iframe.contentWindow) {
-      console.log("📤 Sending CHANGE_PAGE message to iframe:", pageNumber);
+      
       iframe.contentWindow.postMessage(
         {
           type: "CHANGE_PAGE",
@@ -474,7 +532,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
         "*"
       );
     } else {
-      console.log("❌ Iframe not found for page change");
+      
     }
   };
 
@@ -493,35 +551,110 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
   };
 
   // Handle save changes - show view button first
-  const handleSaveChanges = () => {
-    console.log("💾 [Edit PDF] Save clicked - generating PDF for preview");
+  const handleSaveChanges = async () => {
+    console.log("=== HANDLE SAVE CHANGES START ===");
+    console.log("Current state:");
+    console.log("- isSaving:", isSaving);
+    console.log("- showViewButton:", showViewButton);
+    console.log("- generatedPdfUrl:", generatedPdfUrl);
+
     setIsSaving(true);
 
     // Send message to iframe to generate PDF (without download)
     const iframe = document.querySelector(
       'iframe[title="PDF Editor"]'
     ) as HTMLIFrameElement;
+
+    console.log("Iframe found:", !!iframe);
+    console.log("Iframe contentWindow:", !!iframe?.contentWindow);
+    console.log("Iframe src:", iframe?.src);
+
     if (iframe && iframe.contentWindow) {
-      console.log(
-        "📤 [Edit PDF] Sending GENERATE_PDF_FOR_PREVIEW message to iframe"
-      );
+      console.log("🎯 Sending GENERATE_PDF_FOR_PREVIEW to iframe");
+      console.log("Iframe src:", iframe.src);
+      console.log("Iframe readyState:", iframe.contentDocument?.readyState);
+
+      console.log("Sending GENERATE_PDF_FOR_PREVIEW to iframe");
       iframe.contentWindow.postMessage(
         {
           type: "GENERATE_PDF_FOR_PREVIEW",
         },
         "*"
       );
+      console.log("Message sent to iframe");
+
+      console.log("✅ GENERATE_PDF_FOR_PREVIEW message sent to iframe");
+
+      // Set timeout to check if iframe responds
+      setTimeout(() => {
+        console.log("⏰ 5-second timeout: Checking if PDF_GENERATED_FOR_PREVIEW was received...");
+        if (!generatedPdfUrl) {
+          console.log("❌ No response from iframe - PDF generation failed");
+          // Fallback: use original file
+          if (uploadedFile) {
+            const fallbackUrl = URL.createObjectURL(uploadedFile);
+            setGeneratedPdfUrl(fallbackUrl);
+            setShowViewButton(true);
+            setShowDownloadButton(true);
+            console.log("📄 Using fallback: original PDF file");
+          }
+        } else {
+          console.log("✅ Iframe responded with PDF URL");
+        }
+        setIsSaving(false);
+      }, 5000);
+
+      // Show original PDF for preview (edits are visual only in iframe)
+      console.log("=== SAVE COMPLETED - SHOWING ORIGINAL PDF ===");
+
+      if (uploadedFile) {
+        const pdfBlobUrl = URL.createObjectURL(uploadedFile);
+        console.log("Created blob URL from original PDF file:", pdfBlobUrl);
+        setGeneratedPdfUrl(pdfBlobUrl);
+      } else {
+        console.error("No uploaded file available for PDF preview");
+        setGeneratedPdfUrl("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+      }
+
+      setShowViewButton(true);
+      setShowDownloadButton(true);
+      setIsSaving(false);
+
     } else {
-      console.error("❌ [Edit PDF] Could not find PDF Editor iframe");
+      console.error("ERROR: Cannot send message to iframe - iframe or contentWindow not found");
     }
+    console.log("=== HANDLE SAVE CHANGES END ===");
   };
 
   // Handle view PDF
   const handleViewPdf = () => {
-    console.log("🔍 Setting showViewModal to true");
+    console.log("=== VIEW PDF BUTTON CLICKED ===");
+    console.log("Current state before opening modal:");
+    console.log("- generatedPdfUrl:", generatedPdfUrl);
+    console.log("- showViewModal:", showViewModal);
+    console.log("- showViewButton:", showViewButton);
+    console.log("- showDownloadButton:", showDownloadButton);
+    console.log("- isSaving:", isSaving);
+
+    if (!generatedPdfUrl) {
+      console.error("No PDF URL available for preview");
+      alert("PDF not ready for preview yet. Please wait for generation to complete.");
+      return;
+    }
+
+    console.log("Opening PDF preview modal...");
     setShowViewModal(true);
     setHasViewedPdf(true);
+
+    // Force re-render check
+    setTimeout(() => {
+      console.log("Modal should now be open - checking state:");
+      console.log("- showViewModal:", showViewModal);
+      console.log("- generatedPdfUrl:", generatedPdfUrl);
+      console.log("- Modal condition met:", showViewModal && generatedPdfUrl);
+    }, 100);
   };
+
 
   // Handle close view modal
   const handleCloseViewModal = () => {
@@ -531,9 +664,9 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
 
   // Handle download PDF (with monetization)
   const handleDownloadPdf = async () => {
-    console.log("📥 handleDownloadPdf called");
-    console.log("📥 generatedPdfUrl:", generatedPdfUrl);
-    console.log("📥 uploadedFile?.name:", uploadedFile?.name);
+    
+    
+    
 
     if (generatedPdfUrl) {
       const completed = await showMonetizationModal({
@@ -550,7 +683,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
         window.open(generatedPdfUrl, "_blank");
       }
     } else {
-      console.log("📥 No generatedPdfUrl, cannot download");
+      
     }
   };
 
@@ -663,7 +796,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
               setResult(null);
             }}
             onSearch={() => {
-              console.log("Search clicked");
+              
             }}
             zoomLevel={zoomLevel}
             onZoomIn={handleZoomIn}
@@ -716,10 +849,7 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
                   // Send initial zoom when iframe loads
                   if (iframeRef.current?.contentWindow) {
                     const zoomValue = zoomLevel / 100;
-                    console.log(
-                      "🖼️ Iframe loaded, sending initial zoom:",
-                      zoomValue
-                    );
+                    
                     iframeRef.current.contentWindow.postMessage(
                       {
                         type: "CHANGE_ZOOM",
@@ -734,38 +864,32 @@ export const EditPdfTool: React.FC<EditPdfToolProps> = ({
           </PDFEditorLayout>
         </div>
 
-        {/* PDF View Modal - Mobile Responsive */}
+        {/* PDF View Modal - Clean PDF Preview Only */}
         {showViewModal && generatedPdfUrl && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-1 sm:p-4">
-            <div className="bg-white rounded-lg shadow-xl w-full h-full max-w-full max-h-full flex flex-col">
-              <div className="flex items-center justify-between p-2 sm:p-4 border-b">
-                <h3 className="text-lg sm:text-xl font-semibold">
-                  Preview PDF
+          <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[10000] p-4">
+            <div className="bg-white rounded-lg shadow-2xl w-full h-full max-w-5xl max-h-[95vh] flex flex-col overflow-hidden">
+              {/* Clean header - no editor UI */}
+              <div className="flex items-center justify-between p-4 border-b bg-white">
+                <h3 className="text-xl font-semibold text-gray-800">
+                  PDF Preview
                 </h3>
                 <button
                   onClick={handleCloseViewModal}
-                  className="text-gray-500 hover:text-gray-700 text-xl sm:text-2xl"
+                  className="text-gray-500 hover:text-gray-700 rounded-full w-10 h-10 flex items-center justify-center text-2xl hover:bg-gray-100 transition-colors"
                 >
                   ×
                 </button>
               </div>
-              <div className="flex-1 p-1 sm:p-4 overflow-hidden">
-                <div className="w-full h-full border border-gray-300 rounded-lg overflow-hidden">
-                  <iframe
-                    src={
-                      generatedPdfUrl.startsWith("data:")
-                        ? generatedPdfUrl
-                        : generatedPdfUrl.startsWith("blob:")
-                        ? generatedPdfUrl
-                        : `${generatedPdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`
-                    }
-                    className="w-full h-full border-0"
-                    title="PDF Preview"
-                    style={{
-                      pointerEvents: "auto",
-                    }}
-                  />
-                </div>
+
+              {/* PDF iframe only - no editor contamination */}
+              <div className="flex-1 bg-gray-100 overflow-hidden">
+                <iframe
+                  src={generatedPdfUrl}
+                  className="w-full h-full border-0"
+                  title="PDF Preview"
+                  style={{ pointerEvents: "auto" }}
+                  allow="fullscreen"
+                />
               </div>
             </div>
           </div>

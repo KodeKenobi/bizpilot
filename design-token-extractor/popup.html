@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Token Extractor</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 500px;
+        min-height: 600px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: #1a1a1a;
+        color: #e0e0e0;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+        text-align: center;
+        color: white;
+      }
+
+      .header h1 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .header p {
+        font-size: 12px;
+        opacity: 0.9;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      .button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+
+      .button:active {
+        transform: translateY(0);
+      }
+
+      .button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #333;
+      }
+
+      .tab {
+        padding: 8px 16px;
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        font-size: 13px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+      }
+
+      .tab.active {
+        color: #667eea;
+        border-bottom-color: #667eea;
+      }
+
+      .tab:hover {
+        color: #e0e0e0;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .token-section {
+        margin-bottom: 24px;
+      }
+
+      .token-section h3 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #667eea;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .token-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+      }
+
+      .token-item {
+        background: #2a2a2a;
+        border-radius: 6px;
+        padding: 12px;
+        border: 1px solid #333;
+        transition: border-color 0.2s;
+      }
+
+      .token-item:hover {
+        border-color: #667eea;
+      }
+
+      .color-preview {
+        width: 100%;
+        height: 40px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        border: 1px solid #444;
+      }
+
+      .token-label {
+        font-size: 11px;
+        color: #999;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .token-value {
+        font-size: 12px;
+        font-family: "Courier New", monospace;
+        color: #e0e0e0;
+        word-break: break-all;
+      }
+
+      .spacing-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+        background: #2a2a2a;
+        border-radius: 4px;
+        margin-bottom: 6px;
+        border: 1px solid #333;
+      }
+
+      .spacing-visual {
+        width: 60px;
+        height: 20px;
+        background: #667eea;
+        border-radius: 2px;
+      }
+
+      .typography-item {
+        padding: 12px;
+        background: #2a2a2a;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        border: 1px solid #333;
+      }
+
+      .typography-preview {
+        font-size: 16px;
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+
+      .export-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #333;
+      }
+
+      .export-button {
+        padding: 10px;
+        background: #2a2a2a;
+        color: #e0e0e0;
+        border: 1px solid #444;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .export-button:hover {
+        background: #333;
+        border-color: #667eea;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #666;
+      }
+
+      .empty-state svg {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 16px;
+        opacity: 0.5;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        background: #2a2a2a;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+        border: 1px solid #333;
+      }
+
+      .stat-number {
+        font-size: 20px;
+        font-weight: 600;
+        color: #667eea;
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: #999;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🎨 Design Token Extractor</h1>
+      <p>Extract colors, spacing & typography from any page</p>
+    </div>
+
+    <div class="container">
+      <button id="extractBtn" class="button">Extract Design Tokens</button>
+
+      <div id="loading" class="loading" style="display: none">
+        Analyzing page...
+      </div>
+
+      <div id="results" style="display: none">
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-number" id="colorCount">0</div>
+            <div class="stat-label">Colors</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="spacingCount">0</div>
+            <div class="stat-label">Spacing</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="typographyCount">0</div>
+            <div class="stat-label">Typography</div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="colors">Colors</button>
+          <button class="tab" data-tab="spacing">Spacing</button>
+          <button class="tab" data-tab="typography">Typography</button>
+        </div>
+
+        <div id="colors" class="tab-content active">
+          <div class="token-section">
+            <h3>Background Colors</h3>
+            <div id="bgColors" class="token-grid"></div>
+          </div>
+          <div class="token-section">
+            <h3>Text Colors</h3>
+            <div id="textColors" class="token-grid"></div>
+          </div>
+          <div class="token-section">
+            <h3>Border Colors</h3>
+            <div id="borderColors" class="token-grid"></div>
+          </div>
+        </div>
+
+        <div id="spacing" class="tab-content">
+          <div class="token-section">
+            <h3>Spacing Values</h3>
+            <div id="spacingValues"></div>
+          </div>
+        </div>
+
+        <div id="typography" class="tab-content">
+          <div class="token-section">
+            <h3>Font Families</h3>
+            <div id="fontFamilies"></div>
+          </div>
+          <div class="token-section">
+            <h3>Font Sizes</h3>
+            <div id="fontSizes"></div>
+          </div>
+          <div class="token-section">
+            <h3>Font Weights</h3>
+            <div id="fontWeights"></div>
+          </div>
+        </div>
+
+        <div class="export-buttons">
+          <button class="export-button" id="exportJson">Export JSON</button>
+          <button class="export-button" id="exportCSS">Export CSS</button>
+          <button class="export-button" id="exportTS">Export TS</button>
+          <button class="export-button" id="exportTailwind">
+            Export Tailwind
+          </button>
+        </div>
+      </div>
+
+      <div id="empty" class="empty-state">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+        <p>Click "Extract Design Tokens" to analyze the current page</p>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

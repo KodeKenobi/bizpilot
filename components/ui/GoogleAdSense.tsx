@@ -21,7 +21,7 @@ export const GoogleAdSense: React.FC<GoogleAdSenseProps> = ({
         {}
       );
     } catch (err) {
-      console.error("AdSense error:", err);
+      
     }
   }, []);
 

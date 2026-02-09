@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { TOOL_CATEGORIES } from "@/lib/apiEndpoints";
 import { ApiTester } from "./ApiTester";
 
@@ -30,161 +30,98 @@ export function ToolCard({
   if (!tool) return null;
 
   return (
-    <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6 hover:bg-[#0f0f0f] hover:border-[#3a3a3a] transition-all duration-200 relative">
-      <div className="flex flex-col md:flex-row items-center md:items-center justify-between">
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-4 md:mb-0">
-          <div className="relative">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center text-2xl bg-[#2a2a2a]">
-              {tool.icon}
+    <>
+      <tr
+        className={`group border-b border-[#2a2a2a] hover:bg-[#0f0f0f] cursor-pointer transition-all duration-200 ${
+          isExpanded ? "bg-[#0f0f0f]" : ""
+        }`}
+        onClick={onToggleExpand}
+      >
+        <td className="px-6 py-5">
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <div
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                  isExpanded
+                    ? "bg-[#8b5cf6] shadow-[0_0_8px_rgba(139,92,246,0.5)]"
+                    : "bg-gray-600 group-hover:bg-gray-500"
+                }`}
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-semibold text-white mb-1">
+                {tool.name}
+              </div>
+              <div className="text-xs text-gray-400 leading-relaxed">
+                {tool.description}
+              </div>
             </div>
           </div>
-          <div className="flex-1 text-center md:text-left">
-            <h3 className="text-xl font-semibold text-white">{tool.name}</h3>
-            <p className="text-sm text-gray-400">{tool.description}</p>
+        </td>
+        <td className="px-6 py-5">
+          <div className="text-sm font-medium text-white tabular-nums">
+            {stats.callsToday.toLocaleString()}
           </div>
-        </div>
-
-        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-          <div className="flex items-center gap-4 md:gap-8 text-sm">
-            <div className="text-center">
-              <div className="relative w-10 h-10 mx-auto mb-2">
-                <svg
-                  className="w-10 h-10 transform -rotate-90"
-                  viewBox="0 0 36 36"
-                >
-                  <path
-                    className="text-gray-700"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                  <path
-                    className="text-[#8b5cf6]"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    fill="none"
-                    strokeDasharray={`${Math.min(
-                      (stats.callsToday / 1000) * 100,
-                      100
-                    )}, 100`}
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">
-                    {stats.callsToday}
-                  </span>
-                </div>
-              </div>
-              <div className="text-xs text-gray-500">Calls</div>
+        </td>
+        <td className="px-6 py-5">
+          <div className="flex items-center gap-2">
+            <div className="text-sm font-medium text-white tabular-nums">
+              {Math.round(stats.successRate)}%
             </div>
-            <div className="text-center">
-              <div className="relative w-10 h-10 mx-auto mb-2">
-                <svg
-                  className="w-10 h-10 transform -rotate-90"
-                  viewBox="0 0 36 36"
-                >
-                  <path
-                    className="text-gray-700"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                  <path
-                    className="text-[#22c55e]"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    fill="none"
-                    strokeDasharray={`${Math.min(stats.successRate, 100)}, 100`}
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">
-                    {Math.round(stats.successRate)}%
-                  </span>
-                </div>
-              </div>
-              <div className="text-xs text-gray-500">Success</div>
-            </div>
-            <div className="text-center">
-              <div className="relative w-10 h-10 mx-auto mb-2">
-                <svg
-                  className="w-10 h-10 transform -rotate-90"
-                  viewBox="0 0 36 36"
-                >
-                  <path
-                    className="text-gray-700"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                  <path
-                    className="text-[#f59e0b]"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    fill="none"
-                    strokeDasharray={`${Math.min(
-                      (stats.avgResponseTime / 5) * 100,
-                      100
-                    )}, 100`}
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">
-                    {stats.avgResponseTime.toFixed(1)}s
-                  </span>
-                </div>
-              </div>
-              <div className="text-xs text-gray-500">Avg Time</div>
-            </div>
+            <div
+              className={`w-1.5 h-1.5 rounded-full ${
+                stats.successRate >= 95
+                  ? "bg-green-500"
+                  : stats.successRate >= 80
+                  ? "bg-yellow-500"
+                  : "bg-red-500"
+              }`}
+            />
           </div>
-
-          <div className="flex items-center gap-3">
+        </td>
+        <td className="px-6 py-5">
+          <div className="text-sm font-medium text-gray-300 tabular-nums">
+            {stats.avgResponseTime.toFixed(1)}s
+          </div>
+        </td>
+        <td className="px-6 py-5">
+          <div className="flex items-center justify-end gap-3">
             <button
-              onClick={() => onTestApi(toolId)}
-              className="border-2 border-dashed border-[#8b5cf6] hover:border-[#7c3aed] hover:bg-[#8b5cf6]/10 text-white p-3 rounded-full transition-all duration-200 flex items-center justify-center group"
-              title="Test API"
+              onClick={(e) => {
+                e.stopPropagation();
+                onTestApi(toolId);
+              }}
+              className="text-xs font-medium px-4 py-2 bg-[#8b5cf6] hover:bg-[#7c3aed] text-white rounded-md transition-all duration-200 hover:shadow-lg hover:shadow-[#8b5cf6]/20 active:scale-95"
             >
-              <div className="relative">
-                <div className="w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                  <div className="w-0 h-0 border-l-[8px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
-                </div>
-                <div className="absolute inset-0 w-6 h-6 bg-white/20 rounded-full blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-              </div>
+              Test
             </button>
-            <button
-              onClick={onToggleExpand}
-              className="text-gray-400 hover:text-white transition-colors p-3 rounded-xl bg-[#2a2a2a] hover:bg-[#3a3a3a] duration-200"
-              title={isExpanded ? "Collapse API Tester" : "Expand API Tester"}
-            >
-              {isExpanded ? (
-                <ChevronUp className="w-5 h-5" />
-              ) : (
-                <ChevronDown className="w-5 h-5" />
-              )}
-            </button>
+            <div className="w-8 h-8 flex items-center justify-center">
+              <ChevronRight
+                className={`w-4 h-4 text-gray-400 group-hover:text-gray-300 transition-all duration-200 ${
+                  isExpanded ? "rotate-90" : ""
+                }`}
+              />
+            </div>
           </div>
-        </div>
-      </div>
-
+        </td>
+      </tr>
       {isExpanded && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="mt-6 pt-6 border-t border-[#2a2a2a]"
-        >
-          <ApiTester toolId={toolId} />
-        </motion.div>
+        <tr>
+          <td colSpan={5} className="p-0">
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#0f0f0f] border-t border-[#2a2a2a]"
+            >
+              <div className="p-6">
+                <ApiTester toolId={toolId} />
+              </div>
+            </motion.div>
+          </td>
+        </tr>
       )}
-    </div>
+    </>
   );
 }

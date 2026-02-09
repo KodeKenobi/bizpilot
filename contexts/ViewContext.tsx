@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useUser } from "./UserContext";
 import { usePathname } from "next/navigation";
 
-type ViewMode = "website" | "client" | "admin";
+type ViewMode = "website" | "client" | "admin" | "enterprise";
 
 interface ViewContextType {
   currentView: ViewMode;
@@ -23,6 +23,8 @@ export function ViewProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (pathname.startsWith("/admin")) {
       setCurrentView("admin");
+    } else if (pathname.startsWith("/enterprise")) {
+      setCurrentView("enterprise");
     } else if (pathname.startsWith("/dashboard")) {
       setCurrentView("client");
     } else {

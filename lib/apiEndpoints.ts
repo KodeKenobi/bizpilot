@@ -28,10 +28,17 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
   {
     id: "pdf-tools",
     name: "PDF Tools",
-    description: "Edit, merge, split, and convert PDF files",
+    description: "Merge, split, convert and extract from PDF files",
     icon: "📄",
     color: "from-red-500 to-pink-500",
-    tools: ["merge-pdfs", "split-pdf"],
+    tools: [
+      "merge-pdfs",
+      "split-pdf",
+      "pdf-to-html",
+      "html-to-pdf",
+      "extract-text",
+      "extract-images",
+    ],
   },
   {
     id: "video-converter",
@@ -58,14 +65,6 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
     tools: ["convert-image"],
   },
   {
-    id: "extract-text",
-    name: "Text Extraction",
-    description: "Extract text from PDF files",
-    icon: "📝",
-    color: "from-yellow-500 to-orange-500",
-    tools: ["extract-text-basic"],
-  },
-  {
     id: "qr-generator",
     name: "QR Generator",
     description: "Generate QR codes from text or URLs",
@@ -76,9 +75,58 @@ export const TOOL_CATEGORIES: ToolCategory[] = [
 ];
 
 export const API_ENDPOINTS: Record<string, ApiEndpoint[]> = {
-  "extract-text": [
+  "pdf-tools": [
     {
-      id: "extract-text-basic",
+      id: "merge-pdfs",
+      name: "Merge PDFs",
+      method: "POST",
+      path: "/api/v1/convert/pdf-merge",
+      description: "Merge multiple PDF files into one",
+      parameters: [
+        {
+          name: "files",
+          type: "file",
+          required: true,
+          description: "PDF files to merge (select multiple)",
+        },
+        {
+          name: "output_filename",
+          type: "text",
+          required: false,
+          description: "Name for the merged PDF file",
+        },
+      ],
+    },
+    {
+      id: "split-pdf",
+      name: "Split PDF",
+      method: "POST",
+      path: "/api/v1/convert/pdf-split",
+      description: "Split PDF into multiple pages",
+      parameters: [
+        {
+          name: "file",
+          type: "file",
+          required: true,
+          description: "PDF file to split",
+        },
+        {
+          name: "split_type",
+          type: "select",
+          required: true,
+          description: "How to split the PDF",
+          options: ["by_pages", "by_range", "every_page"],
+        },
+        {
+          name: "page_range",
+          type: "text",
+          required: false,
+          description: "Page range (e.g., '1-5,10-15')",
+        },
+      ],
+    },
+    {
+      id: "extract-text",
       name: "Extract Text from PDF",
       method: "POST",
       path: "/api/v1/convert/pdf-extract-text",
@@ -95,7 +143,85 @@ export const API_ENDPOINTS: Record<string, ApiEndpoint[]> = {
           type: "select",
           required: false,
           description: "Output format for extracted text",
-          options: ["txt", "json", "html"],
+          options: ["txt", "md", "json", "csv"],
+        },
+      ],
+    },
+    {
+      id: "extract-images",
+      name: "Extract Images from PDF",
+      method: "POST",
+      path: "/api/v1/convert/pdf-extract-images",
+      description: "Extract all images from PDF files",
+      parameters: [
+        {
+          name: "file",
+          type: "file",
+          required: true,
+          description: "PDF file to extract images from",
+        },
+        {
+          name: "output_format",
+          type: "select",
+          required: false,
+          description: "Output image format",
+          options: ["png", "jpg", "jpeg"],
+        },
+        {
+          name: "quality",
+          type: "number",
+          required: false,
+          description: "Image quality (1-100)",
+        },
+      ],
+    },
+    {
+      id: "pdf-to-html",
+      name: "Convert PDF to HTML",
+      method: "POST",
+      path: "/api/v1/convert/pdf-to-html",
+      description: "Convert PDF to HTML with layout preservation",
+      parameters: [
+        {
+          name: "file",
+          type: "file",
+          required: true,
+          description: "PDF file to convert",
+        },
+        {
+          name: "include_images",
+          type: "boolean",
+          required: false,
+          description: "Include images in HTML output",
+        },
+      ],
+    },
+    {
+      id: "html-to-pdf",
+      name: "Convert HTML to PDF",
+      method: "POST",
+      path: "/api/v1/convert/html-to-pdf",
+      description: "Convert HTML to PDF with 100% accuracy",
+      parameters: [
+        {
+          name: "html_content",
+          type: "text",
+          required: true,
+          description: "HTML content or URL to convert",
+        },
+        {
+          name: "page_size",
+          type: "select",
+          required: false,
+          description: "Page size",
+          options: ["A4", "Letter", "Legal", "A3"],
+        },
+        {
+          name: "orientation",
+          type: "select",
+          required: false,
+          description: "Page orientation",
+          options: ["portrait", "landscape"],
         },
       ],
     },
@@ -187,58 +313,7 @@ export const API_ENDPOINTS: Record<string, ApiEndpoint[]> = {
           name: "quality",
           type: "number",
           required: false,
-          description: "Image quality (1-100)",
-        },
-      ],
-    },
-  ],
-  "pdf-tools": [
-    {
-      id: "merge-pdfs",
-      name: "Merge PDFs",
-      method: "POST",
-      path: "/api/v1/convert/pdf-merge",
-      description: "Merge multiple PDF files into one",
-      parameters: [
-        {
-          name: "files",
-          type: "file",
-          required: true,
-          description: "PDF files to merge (select multiple)",
-        },
-        {
-          name: "output_filename",
-          type: "text",
-          required: false,
-          description: "Name for the merged PDF file",
-        },
-      ],
-    },
-    {
-      id: "split-pdf",
-      name: "Split PDF",
-      method: "POST",
-      path: "/api/v1/convert/pdf-split",
-      description: "Split PDF into multiple pages",
-      parameters: [
-        {
-          name: "file",
-          type: "file",
-          required: true,
-          description: "PDF file to split",
-        },
-        {
-          name: "split_type",
-          type: "select",
-          required: true,
-          description: "How to split the PDF",
-          options: ["by_pages", "by_range", "every_page"],
-        },
-        {
-          name: "page_range",
-          type: "text",
-          required: false,
-          description: "Page range (e.g., '1-5,10-15')",
+          description: "Image quality percentage (1-100)",
         },
       ],
     },
@@ -275,3 +350,57 @@ export const API_ENDPOINTS: Record<string, ApiEndpoint[]> = {
     },
   ],
 };
+
+// Endpoint access by subscription tier
+// Tiers match database: 'free', 'premium', 'enterprise', 'client'
+export const ENDPOINT_ACCESS: Record<string, string[]> = {
+  free: ["extract-text", "convert-image", "generate-qr"],
+  premium: [
+    "merge-pdfs",
+    "split-pdf",
+    "extract-text",
+    "extract-images",
+    "convert-video",
+    "convert-audio",
+    "convert-image",
+    "generate-qr",
+  ],
+  enterprise: [
+    "merge-pdfs",
+    "split-pdf",
+    "extract-text",
+    "extract-images",
+    "pdf-to-html",
+    "html-to-pdf",
+    "convert-video",
+    "convert-audio",
+    "convert-image",
+    "generate-qr",
+  ],
+  client: [
+    "merge-pdfs",
+    "split-pdf",
+    "extract-text",
+    "extract-images",
+    "pdf-to-html",
+    "html-to-pdf",
+    "convert-video",
+    "convert-audio",
+    "convert-image",
+    "generate-qr",
+  ],
+};
+
+// Helper function to check if user has access to an endpoint
+export function hasEndpointAccess(
+  endpointId: string,
+  subscriptionTier: string | null
+): boolean {
+  if (!subscriptionTier) {
+    // Default to free tier if no tier specified
+    return ENDPOINT_ACCESS.free.includes(endpointId);
+  }
+
+  const tier = subscriptionTier.toLowerCase();
+  return ENDPOINT_ACCESS[tier]?.includes(endpointId) || false;
+}

@@ -133,38 +133,31 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
-      console.log("🚀 Starting PDF upload to backend...");
       const uploadResponse = await fetch(`${getApiUrl("")}/api/upload`, {
         method: "POST",
         body: formData,
       });
 
       if (!uploadResponse.ok) {
-        console.error(
-          "❌ PDF upload failed:",
-          uploadResponse.status,
-          uploadResponse.statusText
-        );
         throw new Error("Failed to upload PDF");
       }
 
       // Get the unique filename from the upload response
       const uploadData = await uploadResponse.json();
       const filename = uploadData.filename || uploadedFile.name;
-      console.log("✅ PDF uploaded successfully:", filename);
 
       // Get PDF info including page count
-      console.log("📊 Fetching PDF info...");
+
       const pdfInfoResponse = await fetch(
         `${getApiUrl("")}/api/pdf_info/${encodeURIComponent(filename)}`
       );
       if (pdfInfoResponse.ok) {
         const pdfInfo = await pdfInfoResponse.json();
-        console.log("📄 PDF info:", pdfInfo);
+
         setTotalPages(pdfInfo.page_count);
 
         // Generate page thumbnails
-        console.log("🖼️ Generating page thumbnails...");
+
         const pageList: PageInfo[] = Array.from(
           { length: pdfInfo.page_count },
           (_, index) => ({
@@ -175,7 +168,7 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
             isSelected: true, // Select all pages by default
           })
         );
-        console.log("✅ Generated", pageList.length, "page thumbnails");
+
         setPages(pageList);
       } else {
         throw new Error("Failed to get PDF info");
@@ -183,7 +176,6 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
 
       await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
-      console.error("PDF processing error:", error);
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -258,10 +250,6 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
       }, 200);
 
       // Call split API
-      console.log(
-        "✂️ Calling split API with pages:",
-        selectedPages.map((page) => page.pageNumber)
-      );
       const response = await fetch(`${getApiUrl("")}/split_pdf`, {
         method: "POST",
         headers: {
@@ -297,7 +285,6 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
         `PDF split into ${selectedPages.length} pages successfully!`
       );
     } catch (error) {
-      console.error("Split PDF error:", error);
       alertModal.showError("Error", "Failed to split PDF");
     } finally {
       setIsSplitting(false);
@@ -322,20 +309,24 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
   const handleDownloadAll = async () => {
     const selectedPages = pages.filter((page) => page.isSelected);
     const fileName = uploadedFile?.name?.replace(".pdf", "") || "split_pages";
+    const fullFileName = `${fileName}_split_${selectedPages.length}_pages.zip`;
 
     // Create ZIP download
     if (downloadUrls.length > 0) {
+      const downloadUrl = downloadUrls[0]; // Get download URL BEFORE showing modal
+
       const completed = await showMonetizationModal({
         title: "Download ZIP",
         message: `Choose how you'd like to download ${selectedPages.length} pages as ZIP`,
-        fileName: `${fileName}_split_${selectedPages.length}_pages.zip`,
+        fileName: fullFileName,
         fileType: "ZIP",
+        downloadUrl, // Pass download URL so it's stored for PayFast payments
       });
 
       if (completed) {
         const link = document.createElement("a");
-        link.href = downloadUrls[0];
-        link.download = `${fileName}_split_${selectedPages.length}_pages.zip`;
+        link.href = downloadUrl;
+        link.download = fullFileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -346,19 +337,23 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
   // Handle individual page download
   const handleDownloadPageWithMonetization = async (pageNumber: number) => {
     const fileName = uploadedFile?.name?.replace(".pdf", "") || "page";
+    const fullFileName = `${fileName}_page_${pageNumber}.pdf`;
 
     if (downloadUrls[pageNumber - 1]) {
+      const downloadUrl = downloadUrls[pageNumber - 1]; // Get download URL BEFORE showing modal
+
       const completed = await showMonetizationModal({
         title: "Download Page",
         message: `Choose how you'd like to download page ${pageNumber}`,
-        fileName: `${fileName}_page_${pageNumber}.pdf`,
+        fileName: fullFileName,
         fileType: "PDF",
+        downloadUrl, // Pass download URL so it's stored for PayFast payments
       });
 
       if (completed) {
         const link = document.createElement("a");
-        link.href = downloadUrls[pageNumber - 1];
-        link.download = `${fileName}_page_${pageNumber}.pdf`;
+        link.href = downloadUrl;
+        link.download = fullFileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -370,7 +365,6 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
   const getPdfViewUrl = (pageNumber: number) => {
     // Use the viewUrls array that's populated after splitting
     if (viewUrls.length > 0 && viewUrls[pageNumber - 1]) {
-      console.log("🔗 Using view URL from array:", viewUrls[pageNumber - 1]);
       return viewUrls[pageNumber - 1];
     }
     // Fallback to constructing URL if viewUrls not available
@@ -378,7 +372,7 @@ export const SplitPdfTool: React.FC<SplitPdfToolProps> = ({
     const fallbackUrl = `${getApiUrl(
       ""
     )}/view_split/${fileName}_page_${pageNumber}.pdf`;
-    console.log("🔗 Using fallback view URL:", fallbackUrl);
+
     return fallbackUrl;
   };
 

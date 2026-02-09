@@ -13,6 +13,7 @@ import {
   Calendar,
   Activity,
   Shield,
+  RotateCcw,
 } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
 import Link from "next/link";
@@ -22,6 +23,10 @@ interface User {
   email: string;
   role: string;
   is_active: boolean;
+  subscription_tier?: string;
+  monthly_call_limit?: number;
+  monthly_used?: number;
+  monthly_remaining?: number;
   created_at: string;
   last_login: string;
   api_keys_count: number;
@@ -36,15 +41,33 @@ interface UserStats {
   popular_endpoints: Array<{ endpoint: string; count: number }>;
 }
 
+interface MonthlyUsage {
+  used: number;
+  limit: number;
+  remaining: number;
+  percentage: number;
+}
+
 export default function UsersPage() {
   const { user, loading: userLoading } = useUser();
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [roleFilter, setRoleFilter] = useState("");
+  const [roleFilter, setRoleFilter] = useState<string[]>([]);
   const [statusFilter, setStatusFilter] = useState("");
+  const [tierFilter, setTierFilter] = useState<string[]>([]);
+
+  // Get tier from URL params if present
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tier = params.get("tier");
+    if (tier) {
+      setTierFilter([tier]);
+    }
+  }, []);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [userStats, setUserStats] = useState<UserStats | null>(null);
+  const [monthlyUsage, setMonthlyUsage] = useState<MonthlyUsage | null>(null);
   const [showUserDetails, setShowUserDetails] = useState(false);
 
   // Authentication guard - only redirect if we're sure user is not logged in
@@ -80,50 +103,83 @@ export default function UsersPage() {
     if (user) {
       fetchUsers();
     }
-  }, [searchTerm, roleFilter, statusFilter]);
+  }, [searchTerm, roleFilter, statusFilter, tierFilter]);
 
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      
+
       // Get the session token from NextAuth
-      const session = await fetch('/api/auth/session').then(res => res.json());
-      
+      const session = await fetch("/api/auth/session").then((res) =>
+        res.json()
+      );
+
       if (!session?.user) {
-        throw new Error('No active session found');
+        throw new Error("No active session found");
       }
 
-      console.log('🔍 Fetching users with session:', session.user);
-
-      // Build query parameters
+      // Build query parameters - increase per_page to get all users
       const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (roleFilter) params.append('role', roleFilter);
-      if (statusFilter) params.append('is_active', statusFilter === 'active' ? 'true' : 'false');
+      params.append("per_page", "1000"); // Get up to 1000 users
+      if (searchTerm) params.append("search", searchTerm);
+      if (roleFilter.length > 0) {
+        roleFilter.forEach((role) => params.append("role", role));
+      }
+      if (statusFilter)
+        params.append(
+          "is_active",
+          statusFilter === "active" ? "true" : "false"
+        );
+      if (tierFilter.length > 0) {
+        tierFilter.forEach((tier) => params.append("subscription_tier", tier));
+      }
 
       // Try admin API first
       try {
+        // Use the JWT token from localStorage (auth_token)
+        const authToken = localStorage.getItem("auth_token");
+        if (!authToken) {
+          throw new Error("No authentication token");
+        }
+
+        // Use relative URL to hide Railway backend URL
+        const backendUrl =
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1")
+            ? "http://localhost:5000"
+            : "";
+
         const response = await fetch(
-          `https://web-production-737b.up.railway.app/api/admin/users?${params.toString()}`,
+          `${backendUrl}/api/admin/users?${params.toString()}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Authorization': `Bearer ${session.accessToken || session.user.id}`,
-              'Content-Type': 'application/json',
+              Authorization: `Bearer ${authToken}`,
+              "Content-Type": "application/json",
             },
           }
         );
 
         if (response.ok) {
           const data = await response.json();
-          console.log('✅ Admin API response:', data);
-          
+
+          // Log each user returned
+          data.users?.forEach((user: any, index: number) => {});
+
           // Transform the data to match our interface
           const transformedUsers = data.users.map((user: any) => ({
             id: user.id,
             email: user.email,
             role: user.role,
             is_active: user.is_active,
+            subscription_tier: user.subscription_tier || "free",
+            monthly_call_limit: user.monthly_call_limit || 5,
+            monthly_used: user.monthly_used || 0,
+            monthly_remaining:
+              user.monthly_remaining !== undefined
+                ? user.monthly_remaining
+                : (user.monthly_call_limit || 5) - (user.monthly_used || 0),
             created_at: user.created_at,
             last_login: user.last_login || user.created_at,
             api_keys_count: user.api_keys?.length || 0,
@@ -133,19 +189,19 @@ export default function UsersPage() {
           setLoading(false);
           return;
         } else {
-          console.log('❌ Admin API failed:', response.status, response.statusText);
+          const errorText = await response.text();
+          try {
+            const errorJson = JSON.parse(errorText);
+          } catch (e) {}
         }
-      } catch (adminError) {
-        console.log('❌ Admin API error:', adminError);
-      }
+      } catch (adminError) {}
 
       // Fallback: Create user entry from current session
-      console.log('🔄 Using fallback: creating user from session data');
-      
+
       const currentUser = {
         id: session.user.id || 1,
-        email: session.user.email || 'unknown@example.com',
-        role: session.user.role || 'user',
+        email: session.user.email || "unknown@example.com",
+        role: session.user.role || "user",
         is_active: session.user.is_active !== false,
         created_at: new Date().toISOString(),
         last_login: new Date().toISOString(),
@@ -154,23 +210,22 @@ export default function UsersPage() {
 
       setUsers([currentUser]);
       setLoading(false);
-      
     } catch (error) {
-      console.error("Error fetching users:", error);
-      
       // Ultimate fallback: show current user if available
       if (user) {
-        setUsers([{
-          id: user.id || 1,
-          email: user.email || 'unknown@example.com',
-          role: user.role || 'user',
-          is_active: user.is_active !== false,
-          created_at: new Date().toISOString(),
-          last_login: new Date().toISOString(),
-          api_keys_count: 0,
-        }]);
+        setUsers([
+          {
+            id: user.id || 1,
+            email: user.email || "unknown@example.com",
+            role: user.role || "user",
+            is_active: user.is_active !== false,
+            created_at: new Date().toISOString(),
+            last_login: new Date().toISOString(),
+            api_keys_count: 0,
+          },
+        ]);
       }
-      
+
       setLoading(false);
     }
   };
@@ -178,27 +233,34 @@ export default function UsersPage() {
   const fetchUserStats = async (userId: number) => {
     try {
       // Get the session token from NextAuth
-      const session = await fetch('/api/auth/session').then(res => res.json());
-      
+      const session = await fetch("/api/auth/session").then((res) =>
+        res.json()
+      );
+
       if (!session?.user) {
-        throw new Error('No active session found');
+        throw new Error("No active session found");
       }
 
       // Try to get user stats from admin API
-      const response = await fetch(
-        `https://web-production-737b.up.railway.app/api/admin/users/${userId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${session.accessToken || session.user.id}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(`${backendUrl}/api/admin/users/${userId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${session.accessToken || session.user.id}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.ok) {
         const userData = await response.json();
-        
+
         // Transform the stats data to match our interface
         if (userData.stats) {
           setUserStats({
@@ -220,18 +282,28 @@ export default function UsersPage() {
             popular_endpoints: [],
           });
         }
+
+        // Set monthly usage
+        if (userData.monthly_usage) {
+          setMonthlyUsage(userData.monthly_usage);
+        }
       } else {
         // If admin API fails, try to get basic user info
-        const profileResponse = await fetch(
-          'https://web-production-737b.up.railway.app/auth/profile',
-          {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${session.accessToken || session.user.id}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        // Use relative URL to hide Railway backend URL
+        const backendUrl =
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" ||
+            window.location.hostname === "127.0.0.1")
+            ? "http://localhost:5000"
+            : "";
+
+        const profileResponse = await fetch(`${backendUrl}/auth/profile`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${session.accessToken || session.user.id}`,
+            "Content-Type": "application/json",
+          },
+        });
 
         if (profileResponse.ok) {
           const profileData = await profileResponse.json();
@@ -249,7 +321,6 @@ export default function UsersPage() {
         }
       }
     } catch (error) {
-      console.error("Error fetching user stats:", error);
       // Show empty stats on error
       setUserStats({
         total_calls: 0,
@@ -272,19 +343,115 @@ export default function UsersPage() {
     userId: number,
     currentStatus: boolean
   ) => {
+    const action = currentStatus ? "deactivate" : "activate";
+    const user = users.find((u) => u.id === userId);
+
+    if (
+      !confirm(
+        `Are you sure you want to ${action} ${user?.email || "this user"}?`
+      )
+    ) {
+      return;
+    }
+
     try {
-      // TODO: Implement API call to update user status
-      // For now, show an alert that this feature is not yet implemented
-      alert(`User status toggle feature is not yet implemented. User ID: ${userId}, Current status: ${currentStatus}`);
-      
-      // In real implementation, make API call to update user status
-      // setUsers(
-      //   users.map((user) =>
-      //     user.id === userId ? { ...user, is_active: !currentStatus } : user
-      //   )
-      // );
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        alert("Not authenticated");
+        return;
+      }
+
+      const apiUrl =
+        process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
+      const response = await fetch(
+        `${apiUrl}/api/admin/users/${userId}/toggle-status`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert(
+          `Failed to ${action} user: ${error.error || response.statusText}`
+        );
+        return;
+      }
+
+      const data = await response.json();
+
+      // Update user in list
+      setUsers(
+        users.map((user) =>
+          user.id === userId ? { ...user, is_active: !currentStatus } : user
+        )
+      );
+
+      alert(`User ${action}d successfully`);
     } catch (error) {
-      console.error("Error updating user status:", error);
+      alert(
+        `Failed to ${action} user: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
+    }
+  };
+
+  const handleResetCalls = async (userId: number, userEmail: string) => {
+    if (
+      !confirm(
+        `Are you sure you want to reset API calls for ${userEmail}? This will set their usage back to 0.`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        alert("No authentication token found");
+        return;
+      }
+
+      // Use relative URL to hide Railway backend URL
+      const backendUrl =
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+          ? "http://localhost:5000"
+          : "";
+
+      const response = await fetch(
+        `${backendUrl}/api/admin/users/${userId}/reset-calls`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            reason: "Reset by admin",
+          }),
+        }
+      );
+
+      if (response.ok) {
+        alert(`API calls reset successfully for ${userEmail}`);
+        // Refresh user data
+        fetchUsers();
+        if (selectedUser?.id === userId) {
+          fetchUserStats(userId);
+        }
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.error || "Failed to reset calls"}`);
+      }
+    } catch (error) {
+      alert("Failed to reset API calls");
     }
   };
 
@@ -292,14 +459,30 @@ export default function UsersPage() {
     const matchesSearch = user.email
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
-    const matchesRole = !roleFilter || user.role === roleFilter;
+    const matchesRole =
+      roleFilter.length === 0 || roleFilter.includes(user.role);
     const matchesStatus =
       !statusFilter ||
       (statusFilter === "active" && user.is_active) ||
       (statusFilter === "inactive" && !user.is_active);
+    const matchesTier =
+      tierFilter.length === 0 ||
+      tierFilter.includes(user.subscription_tier || "free");
 
-    return matchesSearch && matchesRole && matchesStatus;
+    return matchesSearch && matchesRole && matchesStatus && matchesTier;
   });
+
+  const handleRoleToggle = (role: string) => {
+    setRoleFilter((prev) =>
+      prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role]
+    );
+  };
+
+  const handleTierToggle = (tier: string) => {
+    setTierFilter((prev) =>
+      prev.includes(tier) ? prev.filter((t) => t !== tier) : [...prev, tier]
+    );
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -380,7 +563,8 @@ export default function UsersPage() {
 
           {/* Filters */}
           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 shadow-lg rounded-xl p-6">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {/* Search */}
               <div>
                 <label
                   htmlFor="search"
@@ -405,24 +589,67 @@ export default function UsersPage() {
               </div>
 
               <div>
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Role
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Role (Multi-select)
                 </label>
-                <select
-                  id="role"
-                  name="role"
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-700 border-gray-600 text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
-                  value={roleFilter}
-                  onChange={(e) => setRoleFilter(e.target.value)}
-                >
-                  <option value="">All roles</option>
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                  <option value="super_admin">Super Admin</option>
-                </select>
+                <div className="mt-1 space-y-2 bg-gray-700/50 rounded-md p-2 border border-gray-600">
+                  {["user", "admin", "super_admin"].map((role) => (
+                    <label
+                      key={role}
+                      className="flex items-center space-x-2 cursor-pointer hover:bg-gray-600/50 rounded px-2 py-1"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={roleFilter.includes(role)}
+                        onChange={() => handleRoleToggle(role)}
+                        className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      />
+                      <span className="text-sm text-gray-300 capitalize">
+                        {role === "super_admin" ? "Super Admin" : role}
+                      </span>
+                    </label>
+                  ))}
+                  {roleFilter.length > 0 && (
+                    <button
+                      onClick={() => setRoleFilter([])}
+                      className="text-xs text-purple-400 hover:text-purple-300 mt-1"
+                    >
+                      Clear all
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Subscription Tier (Multi-select)
+                </label>
+                <div className="mt-1 space-y-2 bg-gray-700/50 rounded-md p-2 border border-gray-600">
+                  {["free", "premium", "enterprise", "client"].map((tier) => (
+                    <label
+                      key={tier}
+                      className="flex items-center space-x-2 cursor-pointer hover:bg-gray-600/50 rounded px-2 py-1"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={tierFilter.includes(tier)}
+                        onChange={() => handleTierToggle(tier)}
+                        className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      />
+                      <span className="text-sm text-gray-300 capitalize">
+                        {tier}
+                      </span>
+                    </label>
+                  ))}
+                  {tierFilter.length > 0 && (
+                    <button
+                      onClick={() => setTierFilter([])}
+                      className="text-xs text-purple-400 hover:text-purple-300 mt-1"
+                    >
+                      Clear all
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div>
@@ -468,7 +695,8 @@ export default function UsersPage() {
                           </p>
                           <span
                             className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                              user.role === "admin" || user.role === "super_admin"
+                              user.role === "admin" ||
+                              user.role === "super_admin"
                                 ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
                                 : "bg-gray-500/20 text-gray-300 border border-gray-500/30"
                             }`}
@@ -484,6 +712,11 @@ export default function UsersPage() {
                           >
                             {user.is_active ? "Active" : "Inactive"}
                           </span>
+                          {user.subscription_tier && (
+                            <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                              {user.subscription_tier}
+                            </span>
+                          )}
                         </div>
                         <div className="mt-1 flex items-center text-sm text-gray-400">
                           <Calendar className="flex-shrink-0 mr-1.5 h-4 w-4" />
@@ -493,10 +726,31 @@ export default function UsersPage() {
                           <Key className="flex-shrink-0 mr-1.5 h-4 w-4" />
                           {user.api_keys_count} API key
                           {user.api_keys_count !== 1 ? "s" : ""}
+                          {user.monthly_call_limit !== undefined && (
+                            <span className="ml-2">
+                              •{" "}
+                              {user.monthly_call_limit === -1
+                                ? "Unlimited"
+                                : `${user.monthly_used || 0}/${
+                                    user.monthly_call_limit
+                                  }`}{" "}
+                              calls used
+                              {user.monthly_call_limit !== -1 && (
+                                <span className="ml-1">
+                                  (
+                                  {user.monthly_remaining !== undefined
+                                    ? user.monthly_remaining
+                                    : user.monthly_call_limit -
+                                      (user.monthly_used || 0)}{" "}
+                                  remaining)
+                                </span>
+                              )}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 flex-wrap">
                       <button
                         onClick={() => handleViewUser(user)}
                         className="inline-flex items-center px-3 py-2 border border-gray-600 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
@@ -504,6 +758,16 @@ export default function UsersPage() {
                         <Eye className="h-4 w-4 mr-1" />
                         View
                       </button>
+                      {user.monthly_call_limit !== undefined && (
+                        <button
+                          onClick={() => handleResetCalls(user.id, user.email)}
+                          className="inline-flex items-center px-3 py-2 border border-yellow-500/50 shadow-sm text-sm leading-4 font-medium rounded-md text-yellow-300 bg-yellow-500/10 hover:bg-yellow-500/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                          title="Reset API calls to 0"
+                        >
+                          <RotateCcw className="h-4 w-4 mr-1" />
+                          Reset Calls
+                        </button>
+                      )}
                       <button
                         onClick={() =>
                           handleToggleUserStatus(user.id, user.is_active)
@@ -530,8 +794,8 @@ export default function UsersPage() {
                   </div>
                 </li>
               ))}
-        </ul>
-      </div>
+            </ul>
+          </div>
 
           {/* User Details Modal */}
           {showUserDetails && selectedUser && (
@@ -585,7 +849,9 @@ export default function UsersPage() {
                                         : "bg-red-500/20 text-red-300 border border-red-500/30"
                                     }`}
                                   >
-                                    {selectedUser.is_active ? "Active" : "Inactive"}
+                                    {selectedUser.is_active
+                                      ? "Active"
+                                      : "Inactive"}
                                   </span>
                                 </dd>
                               </div>
@@ -615,6 +881,42 @@ export default function UsersPage() {
                             </h4>
                             {userStats ? (
                               <dl className="space-y-3">
+                                {monthlyUsage && (
+                                  <>
+                                    <div>
+                                      <dt className="text-sm font-medium text-gray-400">
+                                        Monthly API Calls
+                                      </dt>
+                                      <dd className="text-sm text-white">
+                                        {monthlyUsage.used} /{" "}
+                                        {monthlyUsage.limit === -1
+                                          ? "Unlimited"
+                                          : monthlyUsage.limit}
+                                      </dd>
+                                      <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
+                                        <div
+                                          className={`h-2 rounded-full ${
+                                            monthlyUsage.percentage >= 100
+                                              ? "bg-red-500"
+                                              : monthlyUsage.percentage >= 80
+                                              ? "bg-yellow-500"
+                                              : "bg-green-500"
+                                          }`}
+                                          style={{
+                                            width: `${Math.min(
+                                              monthlyUsage.percentage,
+                                              100
+                                            )}%`,
+                                          }}
+                                        />
+                                      </div>
+                                      <dd className="text-xs text-gray-400 mt-1">
+                                        {monthlyUsage.remaining} remaining
+                                      </dd>
+                                    </div>
+                                    <div className="border-t border-gray-600 pt-3 mt-3" />
+                                  </>
+                                )}
                                 <div>
                                   <dt className="text-sm font-medium text-gray-400">
                                     Total API Calls
@@ -636,7 +938,7 @@ export default function UsersPage() {
                                     Success Rate
                                   </dt>
                                   <dd className="text-sm text-white">
-                                    {userStats.success_rate}%
+                                    {userStats.success_rate.toFixed(1)}%
                                   </dd>
                                 </div>
                                 <div>
@@ -663,9 +965,9 @@ export default function UsersPage() {
                             )}
                           </div>
                         </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
                   <div className="bg-gray-700/50 px-6 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-600">
                     <button
                       type="button"
@@ -675,10 +977,10 @@ export default function UsersPage() {
                       Close
                     </button>
                   </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          )}
         </div>
       </div>
     </div>

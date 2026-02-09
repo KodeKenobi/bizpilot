@@ -105,7 +105,7 @@ export default function CookieConsent() {
         className="fixed bottom-0 left-0 right-0 z-[70] p-4"
       >
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gray-900/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 shadow-2xl">
+          <div className="bg-card/95 dark:bg-gray-900/95 backdrop-blur-xl border border-border dark:border-gray-700/50 rounded-2xl p-6 shadow-2xl">
             {!showSettings ? (
               // Main consent banner
               <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
@@ -114,14 +114,12 @@ export default function CookieConsent() {
                     src="/logo.png"
                     alt="Trevnoctilla Logo"
                     className="w-12 h-12 object-contain flex-shrink-0"
-                    onLoad={() => console.log("Logo loaded successfully")}
                     onError={(e) => {
-                      console.error("Logo failed to load:", e);
                       // Fallback to a simple text logo
                       e.currentTarget.style.display = "none";
                       const fallback = document.createElement("div");
                       fallback.className =
-                        "w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-lg flex items-center justify-center";
+                        "w-12 h-12 bg-black rounded-lg flex items-center justify-center border border-white";
                       fallback.innerHTML =
                         '<span class="text-white font-bold text-sm">T</span>';
                       e.currentTarget.parentNode?.insertBefore(
@@ -131,10 +129,10 @@ export default function CookieConsent() {
                     }}
                   />
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-white mb-1">
+                    <h3 className="text-lg font-bold text-foreground dark:text-white mb-1">
                       We use cookies to enhance your experience
                     </h3>
-                    <p className="text-gray-300 text-sm leading-relaxed">
+                    <p className="text-foreground/90 dark:text-gray-300 text-sm leading-relaxed">
                       We use essential cookies to make our site work, and
                       optional cookies to analyze usage and improve your
                       experience. You can choose which cookies to accept.
@@ -145,7 +143,7 @@ export default function CookieConsent() {
                 <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
                   <button
                     onClick={() => setShowSettings(true)}
-                    className="flex items-center justify-center space-x-2 px-4 py-2 border border-gray-600 hover:border-cyan-400 text-gray-300 hover:text-white rounded-lg transition-all duration-200 text-sm"
+                    className="flex items-center justify-center space-x-2 px-4 py-2 border border-border dark:border-gray-600 hover:border-cyan-400 text-foreground/90 dark:text-gray-300 hover:text-foreground dark:hover:text-white rounded-lg transition-all duration-200 text-sm"
                   >
                     <Settings className="w-4 h-4" />
                     <span>Customize</span>
@@ -153,14 +151,14 @@ export default function CookieConsent() {
 
                   <button
                     onClick={handleRejectAll}
-                    className="px-6 py-2 border border-gray-600 hover:border-red-400 text-gray-300 hover:text-red-400 rounded-lg transition-all duration-200 text-sm font-medium"
+                    className="px-6 py-2 border border-border dark:border-gray-600 hover:border-red-400 text-foreground/90 dark:text-gray-300 hover:text-red-400 rounded-lg transition-all duration-200 text-sm font-medium"
                   >
                     Reject All
                   </button>
 
                   <button
                     onClick={handleAcceptAll}
-                    className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white rounded-lg transition-all duration-200 text-sm font-medium"
+                    className="px-6 py-2 bg-black hover:bg-gray-800 text-white rounded-lg transition-all duration-200 text-sm font-medium border border-white"
                   >
                     Accept All
                   </button>
@@ -170,12 +168,12 @@ export default function CookieConsent() {
               // Settings panel
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-foreground dark:text-white">
                     Cookie Preferences
                   </h3>
                   <button
                     onClick={() => setShowSettings(false)}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -183,18 +181,18 @@ export default function CookieConsent() {
 
                 <div className="space-y-4 mb-6">
                   {/* Essential Cookies */}
-                  <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                  <div className="flex items-center justify-between p-4 bg-accent/50 dark:bg-gray-800/50 rounded-lg border border-border dark:border-gray-700/50">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <Settings className="w-5 h-5 text-green-400" />
-                        <h4 className="font-semibold text-white">
+                        <h4 className="font-semibold text-foreground dark:text-white">
                           Essential Cookies
                         </h4>
                         <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">
                           Required
                         </span>
                       </div>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-muted-foreground dark:text-gray-400 text-sm">
                         These cookies are necessary for the website to function
                         and cannot be switched off.
                       </p>
@@ -207,15 +205,15 @@ export default function CookieConsent() {
                   </div>
 
                   {/* Analytics Cookies */}
-                  <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                  <div className="flex items-center justify-between p-4 bg-accent/50 dark:bg-gray-800/50 rounded-lg border border-border dark:border-gray-700/50">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <Settings className="w-5 h-5 text-blue-400" />
-                        <h4 className="font-semibold text-white">
+                        <h4 className="font-semibold text-foreground dark:text-white">
                           Analytics Cookies
                         </h4>
                       </div>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-muted-foreground dark:text-gray-400 text-sm">
                         Help us understand how visitors interact with our
                         website by collecting information anonymously.
                       </p>
@@ -235,15 +233,15 @@ export default function CookieConsent() {
                   </div>
 
                   {/* Functional Cookies */}
-                  <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                  <div className="flex items-center justify-between p-4 bg-accent/50 dark:bg-gray-800/50 rounded-lg border border-border dark:border-gray-700/50">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
-                        <Settings className="w-5 h-5 text-purple-400" />
-                        <h4 className="font-semibold text-white">
+                        <Settings className="w-5 h-5 text-white" />
+                        <h4 className="font-semibold text-foreground dark:text-white">
                           Functional Cookies
                         </h4>
                       </div>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-muted-foreground dark:text-gray-400 text-sm">
                         Enable enhanced functionality and personalization, such
                         as remembering your preferences.
                       </p>
@@ -263,15 +261,15 @@ export default function CookieConsent() {
                   </div>
 
                   {/* Marketing Cookies */}
-                  <div className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                  <div className="flex items-center justify-between p-4 bg-accent/50 dark:bg-gray-800/50 rounded-lg border border-border dark:border-gray-700/50">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <Settings className="w-5 h-5 text-orange-400" />
-                        <h4 className="font-semibold text-white">
+                        <h4 className="font-semibold text-foreground dark:text-white">
                           Marketing Cookies
                         </h4>
                       </div>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-muted-foreground dark:text-gray-400 text-sm">
                         Used to track visitors across websites to display
                         relevant and engaging advertisements.
                       </p>
@@ -294,7 +292,7 @@ export default function CookieConsent() {
                 <div className="flex flex-col sm:flex-row gap-3 justify-between items-center">
                   <Link
                     href="/cookies"
-                    className="text-cyan-400 hover:text-cyan-300 text-sm underline"
+                    className="text-white hover:text-cyan-300 text-sm underline"
                   >
                     Learn more about our cookie policy
                   </Link>
@@ -302,13 +300,13 @@ export default function CookieConsent() {
                   <div className="flex gap-3">
                     <button
                       onClick={() => setShowSettings(false)}
-                      className="px-6 py-2 border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white rounded-lg transition-all duration-200 text-sm"
+                      className="px-6 py-2 border border-border dark:border-gray-600 hover:border-gray-500 text-foreground/90 dark:text-gray-300 hover:text-foreground dark:hover:text-white rounded-lg transition-all duration-200 text-sm"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleSavePreferences}
-                      className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white rounded-lg transition-all duration-200 text-sm font-medium"
+                      className="px-6 py-2 bg-black hover:bg-gray-800 text-white rounded-lg transition-all duration-200 text-sm font-medium border border-white"
                     >
                       Save Preferences
                     </button>

@@ -1,11 +1,25 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
+      userAgent: "*",
+      allow: "/",
+      disallow: [
+        "/favicon.ico",
+        "/manifest.json",
+        "/api/",
+        "/admin/",
+        "/auth/",
+        "/dashboard",
+        "/enterprise",
+        "/_next/",
+        "/icons/",
+        "/test",
+        "/google*.html",
+        "/*?",
+      ],
     },
-    sitemap: 'https://trevnoctilla.com/sitemap.xml',
-  }
+    sitemap: "https://www.trevnoctilla.com/sitemap.xml",
+  };
 }

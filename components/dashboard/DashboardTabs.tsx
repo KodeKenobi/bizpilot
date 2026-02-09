@@ -84,6 +84,25 @@ const tabs: Tab[] = [
     ),
   },
   {
+    id: "history",
+    label: "History",
+    icon: (
+      <svg
+        className="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    ),
+  },
+  {
     id: "settings",
     label: "Settings",
     icon: (
@@ -112,10 +131,7 @@ const tabs: Tab[] = [
 
 export function DashboardTabs({ activeTab, onTabChange }: DashboardTabsProps) {
   return (
-    <div className="relative bg-gradient-to-r from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border-b border-[#1a1a1a]">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#8b5cf6]/5 to-transparent opacity-50"></div>
-
+    <div className="relative bg-black border-b border-gray-700">
       <div className="relative max-w-6xl mx-auto px-3 sm:px-6 py-2 overflow-x-auto scrollbar-hide">
         <nav
           className="flex space-x-2 min-w-max sm:min-w-0"
@@ -130,14 +146,14 @@ export function DashboardTabs({ activeTab, onTabChange }: DashboardTabsProps) {
                 rounded-xl backdrop-blur-sm border whitespace-nowrap flex-shrink-0
                 ${
                   activeTab === tab.id
-                    ? "text-white bg-gradient-to-r from-[#8b5cf6]/20 to-[#3b82f6]/20 border-[#8b5cf6]/30 shadow-lg shadow-[#8b5cf6]/20"
-                    : "text-gray-400 hover:text-white bg-[#1a1a1a]/50 hover:bg-[#2a2a2a]/80 border-[#2a2a2a] hover:border-[#3a3a3a] hover:shadow-md"
+                    ? "text-white bg-black border-white"
+                    : "text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white bg-accent/50 dark:bg-[#1a1a1a]/50 hover:bg-accent/80 dark:hover:bg-[#2a2a2a]/80 border-border dark:border-[#2a2a2a] hover:border-[#3a3a3a] hover:shadow-md"
                 }
               `}
             >
               {/* Glow effect for active tab */}
               {activeTab === tab.id && (
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#8b5cf6]/10 to-[#3b82f6]/10 animate-pulse"></div>
+                <div className="absolute inset-0 rounded-xl bg-gray-800 animate-pulse"></div>
               )}
 
               <span
@@ -145,8 +161,8 @@ export function DashboardTabs({ activeTab, onTabChange }: DashboardTabsProps) {
                   relative z-10 transition-all duration-300
                   ${
                     activeTab === tab.id
-                      ? "text-white drop-shadow-sm"
-                      : "text-gray-400 group-hover:text-white group-hover:scale-110"
+                      ? "text-foreground dark:text-white drop-shadow-sm"
+                      : "text-muted-foreground dark:text-gray-400 group-hover:text-foreground dark:group-hover:text-white group-hover:scale-110"
                   }
                 `}
               >
@@ -158,8 +174,8 @@ export function DashboardTabs({ activeTab, onTabChange }: DashboardTabsProps) {
                 relative z-10 transition-all duration-300 font-semibold
                 ${
                   activeTab === tab.id
-                    ? "text-white"
-                    : "text-gray-400 group-hover:text-white"
+                    ? "text-foreground dark:text-white"
+                    : "text-muted-foreground dark:text-gray-400 group-hover:text-foreground dark:group-hover:text-white"
                 }
               `}
               >
@@ -168,11 +184,11 @@ export function DashboardTabs({ activeTab, onTabChange }: DashboardTabsProps) {
 
               {/* Active indicator */}
               {activeTab === tab.id && (
-                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-[#8b5cf6] to-[#3b82f6] rounded-full"></div>
+                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-white rounded-full"></div>
               )}
 
               {/* Hover effect */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-white/5 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 rounded-xl bg-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
           ))}
         </nav>

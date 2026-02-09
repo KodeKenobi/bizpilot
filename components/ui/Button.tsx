@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
       case "success":
         return "bg-green-600 hover:bg-green-700 text-white border-green-600 hover:border-green-700";
       case "outline":
-        return "bg-transparent hover:bg-gray-100 text-gray-700 border-gray-300 hover:border-gray-400";
+        return "bg-transparent hover:bg-accent dark:hover:bg-gray-100 text-foreground dark:text-gray-700 border-border dark:border-gray-300 hover:border-border dark:hover:border-gray-400";
       default:
         return "bg-blue-600 hover:bg-blue-700 text-white border-blue-600 hover:border-blue-700";
     }

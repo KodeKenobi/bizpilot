@@ -61,7 +61,12 @@ export const HtmlToPdfTool: React.FC<HtmlToPdfToolProps> = ({
         const errorData = await response
           .json()
           .catch(() => ({ error: "Failed to convert HTML" }));
-        throw new Error(errorData.error || "Failed to convert HTML to PDF");
+
+        throw new Error(
+          errorData.error ||
+            errorData.message ||
+            "Failed to convert HTML to PDF"
+        );
       }
 
       const data = await response.json();
@@ -74,10 +79,9 @@ export const HtmlToPdfTool: React.FC<HtmlToPdfToolProps> = ({
           data: data,
         });
       } else {
-        throw new Error(data.error || "Conversion failed");
+        throw new Error(data.error || data.message || "Conversion failed");
       }
     } catch (error: any) {
-      console.error("Error converting HTML to PDF:", error);
       setResult({
         type: "error",
         message:
@@ -91,18 +95,25 @@ export const HtmlToPdfTool: React.FC<HtmlToPdfToolProps> = ({
   const downloadPdf = async () => {
     if (!convertedFilename) return;
 
+    // Create download URL BEFORE showing modal so it can be stored for PayFast payments
+    const downloadUrl = `${getApiUrl("/download_edited")}/${convertedFilename}`;
+
     const completed = await showMonetizationModal({
       title: "Download PDF",
       message: `Choose how you'd like to download ${convertedFilename}`,
       fileName: convertedFilename,
       fileType: "PDF",
+      downloadUrl, // Pass download URL so it's stored for PayFast payments
     });
 
     if (completed) {
-      const downloadUrl = `${getApiUrl(
-        "/download_edited"
-      )}/${convertedFilename}`;
-      window.open(downloadUrl, "_blank");
+      // Use proper download method instead of window.open
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = convertedFilename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
@@ -125,7 +136,7 @@ export const HtmlToPdfTool: React.FC<HtmlToPdfToolProps> = ({
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-cyan-400" />
+            <FileText className="w-5 h-5 text-white" />
             <div>
               <h3 className="text-white font-medium text-sm sm:text-base">
                 {uploadedFile.name}
@@ -150,7 +161,7 @@ export const HtmlToPdfTool: React.FC<HtmlToPdfToolProps> = ({
         {/* Processing State */}
         {isProcessing && (
           <div className="flex flex-col items-center justify-center py-8 sm:py-12">
-            <Loader2 className="w-8 h-8 sm:w-12 sm:h-12 text-cyan-400 animate-spin mb-4" />
+            <Loader2 className="w-8 h-8 sm:w-12 sm:h-12 text-white animate-spin mb-4" />
             <p className="text-gray-300 text-sm sm:text-base">
               Converting HTML to PDF...
             </p>

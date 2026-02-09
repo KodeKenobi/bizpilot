@@ -36,6 +36,8 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
   const [convertedFilename, setConvertedFilename] = useState<string | null>(
     null
   );
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (uploadedFile && !result && !isProcessing) {
@@ -78,7 +80,6 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
         throw new Error(data.error || "Conversion failed");
       }
     } catch (error: any) {
-      console.error("Error converting PDF to HTML:", error);
       setResult({
         type: "error",
         message:
@@ -92,27 +93,37 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
   const previewHtml = () => {
     if (!convertedFilename) return;
     // Use the preview_url from response or construct it
-    const previewUrl = result?.data?.preview_url
+    const url = result?.data?.preview_url
       ? `${getApiUrl("")}${result.data.preview_url}`
-      : `/preview_html/${convertedFilename}`;
-    window.open(previewUrl, "_blank");
+      : `${getApiUrl("")}/preview_html/${convertedFilename}`;
+    setPreviewUrl(url);
+    setShowPreview(true);
   };
 
   const downloadHtml = async () => {
     if (!convertedFilename) return;
+
+    // Create download URL BEFORE showing modal so it can be stored for PayFast payments
+    const downloadUrl = `${getApiUrl(
+      "/download_converted"
+    )}/${convertedFilename}`;
 
     const completed = await showMonetizationModal({
       title: "Download HTML",
       message: `Choose how you'd like to download ${convertedFilename}`,
       fileName: convertedFilename,
       fileType: "HTML",
+      downloadUrl, // Pass download URL so it's stored for PayFast payments
     });
 
     if (completed) {
-      const downloadUrl = `${getApiUrl(
-        "/download_converted"
-      )}/${convertedFilename}`;
-      window.open(downloadUrl, "_blank");
+      // Use proper download method instead of window.open
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = convertedFilename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
@@ -133,7 +144,7 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
       <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <FileCode className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+            <FileCode className="w-4 h-4 text-white flex-shrink-0" />
             <div className="min-w-0 flex-1">
               <h3 className="text-white font-medium text-sm truncate">
                 {uploadedFile.name}
@@ -158,7 +169,7 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
         {/* Processing State */}
         {isProcessing && (
           <div className="flex flex-col items-center justify-center py-8">
-            <Loader2 className="w-10 h-10 text-cyan-400 animate-spin mb-3" />
+            <Loader2 className="w-10 h-10 text-white animate-spin mb-3" />
             <p className="text-gray-300 text-sm text-center">
               Converting PDF to HTML...
             </p>
@@ -205,6 +216,33 @@ export const MobilePdfToHtmlTool: React.FC<MobilePdfToHtmlToolProps> = ({
               <p className="text-white text-xs font-mono break-all">
                 {convertedFilename}
               </p>
+            </div>
+          </div>
+        )}
+
+        {/* Preview Modal */}
+        {showPreview && previewUrl && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-2">
+            <div className="bg-gray-900 rounded-xl border border-white/10 w-full h-full flex flex-col">
+              <div className="flex items-center justify-between p-3 border-b border-white/10">
+                <h3 className="text-white font-medium text-sm">HTML Preview</h3>
+                <button
+                  onClick={() => {
+                    setShowPreview(false);
+                    setPreviewUrl(null);
+                  }}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <XCircle className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="flex-1 overflow-hidden">
+                <iframe
+                  src={previewUrl}
+                  className="w-full h-full border-0"
+                  title="HTML Preview"
+                />
+              </div>
             </div>
           </div>
         )}

@@ -1,4 +1,4 @@
-import { getApiUrl } from "./config";
+import { getApiUrl } from "@/lib/config";
 
 export interface ApiTestResult {
   success: boolean;

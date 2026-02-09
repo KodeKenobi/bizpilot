@@ -466,11 +466,10 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log("🔍 Zoom Out button clicked, handler:", onZoomOut);
+
                 if (onZoomOut) {
                   onZoomOut();
                 } else {
-                  console.error("❌ onZoomOut handler is undefined!");
                 }
               }}
               className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-md hover:bg-gray-700 active:bg-gray-600 transition-all duration-150"
@@ -495,14 +494,10 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log(
-                  "🔍 Zoom Reset button clicked, handler:",
-                  onZoomReset
-                );
+
                 if (onZoomReset) {
                   onZoomReset();
                 } else {
-                  console.error("❌ onZoomReset handler is undefined!");
                 }
               }}
               className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 rounded-md transition-all duration-150 min-w-[3.5rem] sm:min-w-[4rem]"
@@ -515,11 +510,10 @@ export const PDFEditorLayout: React.FC<PDFEditorLayoutProps> = ({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log("🔍 Zoom In button clicked, handler:", onZoomIn);
+
                 if (onZoomIn) {
                   onZoomIn();
                 } else {
-                  console.error("❌ onZoomIn handler is undefined!");
                 }
               }}
               className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-md hover:bg-gray-700 active:bg-gray-600 transition-all duration-150"

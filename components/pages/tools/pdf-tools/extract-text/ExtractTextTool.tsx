@@ -12,6 +12,7 @@ interface ExtractTextToolProps {
   isProcessing: boolean;
   setIsProcessing: (processing: boolean) => void;
   handleFileUpload: (file: File) => void;
+  uploadProgress?: number;
 }
 
 export const ExtractTextTool: React.FC<ExtractTextToolProps> = ({
@@ -90,15 +91,18 @@ export const ExtractTextTool: React.FC<ExtractTextToolProps> = ({
         break;
     }
 
+    // Create data URL BEFORE showing modal so it can be stored for PayFast payments
+    const dataUrl = buildDataUrl(content, mimeType);
+
     const completed = await showMonetizationModal({
       title: "Download Text",
       message: `Choose how you'd like to download ${fileName}`,
       fileName,
       fileType: format.toUpperCase(),
+      downloadUrl: dataUrl, // Pass data URL so it's stored for PayFast payments
     });
 
     if (completed) {
-      const dataUrl = buildDataUrl(content, mimeType);
       const link = document.createElement("a");
       link.href = dataUrl;
       link.download = fileName;

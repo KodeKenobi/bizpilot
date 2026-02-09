@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { API_CONFIG } from "@/lib/config";
-import PayFastForm from "@/components/ui/PayFastForm";
+import PayFastDollarForm from "@/components/ui/PayFastDollarForm";
 
 const STORAGE_KEY = "payfast_test_logs";
 const PAYMENT_DATA_KEY = "payfast_payment_data";
@@ -26,7 +26,7 @@ export default function TestPayFastPage() {
       try {
         setLogs(JSON.parse(savedLogs));
       } catch (e) {
-        console.error("Failed to parse saved logs", e);
+        
       }
     }
 
@@ -34,7 +34,7 @@ export default function TestPayFastPage() {
       try {
         setPaymentData(JSON.parse(savedPaymentData));
       } catch (e) {
-        console.error("Failed to parse saved payment data", e);
+        
       }
     }
 
@@ -80,7 +80,7 @@ export default function TestPayFastPage() {
       // Limit to last 1000 logs to prevent localStorage overflow
       return newLogs.slice(-1000);
     });
-    console.log(message);
+    
   };
 
   const clearLogs = () => {
@@ -354,7 +354,7 @@ export default function TestPayFastPage() {
           <h2 className="text-white font-bold mb-4">
             Dynamic PayFast Form Test
           </h2>
-          <PayFastForm
+          <PayFastDollarForm
             amount="1.00"
             item_name="Test Payment"
             item_description="Testing dynamic PayFast form"

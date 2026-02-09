@@ -103,7 +103,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Upload PDF
-      console.log("🚀 [Mobile Add Image] Starting PDF upload...");
+      
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -119,7 +119,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
       const uploadData = await uploadResponse.json();
       const filename = uploadData.filename || uploadedFile.name;
       setUploadedFilename(filename);
-      console.log("✅ [Mobile Add Image] Upload successful:", filename);
+      
 
       // Get PDF info
       const pdfInfoResponse = await fetch(
@@ -142,7 +142,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error("PDF conversion error:", error);
+      
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -184,7 +184,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
           },
           "*"
         );
-        console.log("✅ [Mobile Add Image] INSERT_IMAGE message sent");
+        
       }
       setShowImageModal(false);
       setSelectedImage(null);
@@ -196,12 +196,12 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
 
   // Handle tool selection
   const handleToolSelect = (toolId: string) => {
-    console.log("🔧 [Mobile Add Image] Tool button clicked:", toolId);
+    
     setActiveTool(toolId);
 
     // Handle image tool - show image upload modal
     if (toolId === "image") {
-      console.log("🔧 [Mobile Add Image] Opening image modal");
+      
       setShowImageModal(true);
       return;
     }
@@ -230,12 +230,12 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
         setShowDownloadButton(false);
         setIsSaving(false);
       } else if (event.data.type === "EDIT_MODE_SET") {
-        console.log("🔧 [Mobile Add Image] Edit mode set to:", event.data.mode);
+        
         setActiveTool(event.data.mode);
       } else if (event.data.type === "IMAGE_INSERTED") {
-        console.log("✅ [Mobile Add Image] Image inserted successfully");
+        
       } else if (event.data.type === "SHOW_CONFIRMATION") {
-        console.log("❓ Confirmation requested:", event.data.message);
+        
         const modalState = {
           isOpen: true,
           id: event.data.id,
@@ -251,10 +251,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
 
   // Handle page change
   const handlePageChange = (pageNumber: number) => {
-    console.log(
-      "🔧 [Mobile Add Image] Page change button clicked:",
-      pageNumber
-    );
+    
     setCurrentPage(pageNumber);
 
     // Send message to iframe to change page
@@ -362,7 +359,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
 
   // Handle save changes
   const handleSaveChanges = () => {
-    console.log("🔧 [Mobile Add Image] Save button clicked");
+    
     setIsSaving(true);
 
     const iframe = iframeRef.current;
@@ -378,7 +375,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
 
   // Handle view PDF
   const handleViewPdf = () => {
-    console.log("🔧 [Mobile Add Image] Preview button clicked");
+    
     setShowViewModal(true);
     setHasViewedPdf(true);
     setShowDownloadButton(true);
@@ -391,7 +388,7 @@ export const MobileAddImageTool: React.FC<MobileAddImageToolProps> = ({
 
   // Handle download PDF
   const handleDownloadPdf = async () => {
-    console.log("🔧 [Mobile Add Image] Download button clicked");
+    
     if (generatedPdfUrl) {
       const completed = await showMonetizationModal({
         title: "Download PDF",

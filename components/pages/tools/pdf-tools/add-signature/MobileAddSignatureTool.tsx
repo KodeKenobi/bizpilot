@@ -103,7 +103,7 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
       await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Upload PDF
-      console.log("🚀 [Mobile Add Signature] Starting PDF upload...");
+      
       const formData = new FormData();
       formData.append("pdf", uploadedFile);
 
@@ -119,7 +119,7 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
       const uploadData = await uploadResponse.json();
       const filename = uploadData.filename || uploadedFile.name;
       setUploadedFilename(filename);
-      console.log("✅ [Mobile Add Signature] Upload successful:", filename);
+      
 
       // Get PDF info
       const pdfInfoResponse = await fetch(
@@ -142,7 +142,7 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error("PDF conversion error:", error);
+      
       alertModal.showError("Error", "Failed to process PDF");
     } finally {
       isProcessingRef.current = false;
@@ -159,12 +159,12 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
 
   // Handle tool selection
   const handleToolSelect = (toolId: string) => {
-    console.log("🔧 [Mobile Add Signature] Tool button clicked:", toolId);
+    
     setActiveTool(toolId);
 
     // Handle signature tool - show signature modal
     if (toolId === "sign") {
-      console.log("🔧 [Mobile Add Signature] Opening signature modal");
+      
       setShowSignatureModal(true);
       return;
     }
@@ -184,16 +184,14 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
 
   // Handle signature save
   const handleSignatureSave = () => {
-    console.log("🔧 [Mobile Add Signature] Save signature button clicked");
+    
     if (!signatureData) {
-      console.log("❌ [Mobile Add Signature] No signature data, showing error");
+      
       alertModal.showError("Error", "Please draw a signature first");
       return;
     }
 
-    console.log(
-      "🔧 [Mobile Add Signature] Sending INSERT_SIGNATURE message to iframe"
-    );
+    
     // Send signature to iframe
     const iframe = iframeRef.current;
     if (iframe?.contentWindow) {
@@ -205,13 +203,9 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
         },
         "*"
       );
-      console.log(
-        "✅ [Mobile Add Signature] INSERT_SIGNATURE message sent successfully"
-      );
+      
     } else {
-      console.error(
-        "❌ [Mobile Add Signature] Iframe not found for signature insertion"
-      );
+      
     }
 
     setShowSignatureModal(false);
@@ -231,17 +225,12 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
         setShowDownloadButton(false);
         setIsSaving(false);
       } else if (event.data.type === "EDIT_MODE_SET") {
-        console.log(
-          "🔧 [Mobile Add Signature] Edit mode set to:",
-          event.data.mode
-        );
+        
         setActiveTool(event.data.mode);
       } else if (event.data.type === "SIGNATURE_INSERTED") {
-        console.log(
-          "✅ [Mobile Add Signature] Signature inserted successfully"
-        );
+        
       } else if (event.data.type === "SHOW_CONFIRMATION") {
-        console.log("❓ Confirmation requested:", event.data.message);
+        
         const modalState = {
           isOpen: true,
           id: event.data.id,
@@ -257,10 +246,7 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
 
   // Handle page change
   const handlePageChange = (pageNumber: number) => {
-    console.log(
-      "🔧 [Mobile Add Signature] Page change button clicked:",
-      pageNumber
-    );
+    
     setCurrentPage(pageNumber);
 
     // Send message to iframe to change page
@@ -368,7 +354,7 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
 
   // Handle save changes
   const handleSaveChanges = () => {
-    console.log("🔧 [Mobile Add Signature] Save button clicked");
+    
     setIsSaving(true);
 
     const iframe = iframeRef.current;
@@ -384,7 +370,7 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
 
   // Handle view PDF
   const handleViewPdf = () => {
-    console.log("🔧 [Mobile Add Signature] Preview button clicked");
+    
     setShowViewModal(true);
     setHasViewedPdf(true);
     setShowDownloadButton(true);
@@ -397,7 +383,7 @@ export const MobileAddSignatureTool: React.FC<MobileAddSignatureToolProps> = ({
 
   // Handle download PDF
   const handleDownloadPdf = async () => {
-    console.log("🔧 [Mobile Add Signature] Download button clicked");
+    
     if (generatedPdfUrl) {
       const completed = await showMonetizationModal({
         title: "Download PDF",

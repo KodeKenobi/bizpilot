@@ -12,7 +12,7 @@ export default function TestMonetizationPage() {
   const addLog = (message: string) => {
     const timestamp = new Date().toLocaleTimeString();
     setLogs((prev) => [...prev, `[${timestamp}] ${message}`]);
-    console.log(message);
+    
   };
 
   const testMonetizationModal = async () => {

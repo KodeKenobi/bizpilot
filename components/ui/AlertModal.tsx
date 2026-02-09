@@ -86,7 +86,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
 
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative w-full max-w-md transform overflow-hidden rounded-lg bg-gray-800 shadow-xl transition-all">
+        <div className="relative w-full max-w-md transform overflow-hidden rounded-lg bg-card dark:bg-gray-800 shadow-xl transition-all">
           {/* Header */}
           <div className="flex items-start justify-between p-6">
             <div className="flex items-center space-x-3">
@@ -96,14 +96,16 @@ const AlertModal: React.FC<AlertModalProps> = ({
                 {getIcon()}
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">{title}</h3>
+                <h3 className="text-lg font-semibold text-foreground dark:text-white">
+                  {title}
+                </h3>
               </div>
             </div>
 
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-300 transition-colors"
+                className="text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-gray-300 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -112,12 +114,14 @@ const AlertModal: React.FC<AlertModalProps> = ({
 
           {/* Body */}
           <div className="px-6 pb-4">
-            <p className="text-gray-300 text-sm leading-relaxed">{message}</p>
+            <p className="text-foreground/90 dark:text-gray-300 text-sm leading-relaxed">
+              {message}
+            </p>
           </div>
 
           {/* Footer */}
           {(primaryButton || secondaryButton) && (
-            <div className="flex items-center justify-end space-x-3 px-6 py-4 bg-gray-700/50">
+            <div className="flex items-center justify-end space-x-3 px-6 py-4 bg-accent/50 dark:bg-gray-700/50">
               {secondaryButton && (
                 <button
                   onClick={secondaryButton.onClick}

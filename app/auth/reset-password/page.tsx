@@ -25,7 +25,9 @@ export default function ResetPasswordPage() {
     setSuccess("");
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://web-production-737b.up.railway.app'}/auth/reset-password`, {
+      // Use getApiUrl helper for consistent URL resolution
+      const { getApiUrl } = await import('@/lib/config');
+      const response = await fetch(getApiUrl('/auth/reset-password'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

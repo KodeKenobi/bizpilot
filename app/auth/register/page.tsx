@@ -22,7 +22,7 @@ import { getApiUrl } from "../../../lib/config";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { login } = useUser();
+  const { login, checkAuthStatus } = useUser();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,6 +31,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -85,8 +86,10 @@ export default function RegisterPage() {
     }
 
     try {
-      // Call the authentication API
-      const response = await fetch(getApiUrl("/auth/register"), {
+      setLoadingMessage("Creating your account...");
+
+      // Call the authentication API (use API route to avoid page route conflict)
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,21 +100,106 @@ export default function RegisterPage() {
         }),
       });
 
+      setLoadingMessage("Processing your registration...");
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess("Account created successfully! Auto-logging in...");
+        setLoadingMessage("Logging you in...");
+        setSuccess("Account created successfully! Logging you in...");
+
         // Auto-login after successful registration
         const loginSuccess = await login(formData.email, formData.password);
         if (loginSuccess) {
-          setTimeout(() => {
-            // Redirect based on user role
-            if (isSuperAdminEmail) {
-              router.push("/admin");
-            } else {
-              router.push("/dashboard");
+          // CRITICAL: Sign out and sign back in to properly establish session (silent)
+          // This is what makes the payment page work - same as test script
+          try {
+            const { signOut, signIn } = await import("next-auth/react");
+            // Sign out silently (no redirect, no UI change)
+            await signOut({ redirect: false });
+            // Wait a moment for cleanup
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            // Sign back in silently (no redirect, no UI change)
+            await signIn("credentials", {
+              email: formData.email,
+              password: formData.password,
+              redirect: false,
+            });
+            // Wait for session to establish
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            // Refresh user context
+            if (checkAuthStatus) {
+              await checkAuthStatus();
             }
-          }, 1500);
+          } catch (e) {
+            
+          }
+          setLoadingMessage("Redirecting to dashboard...");
+          
+          // Fetch user profile to check subscription tier
+          const token = localStorage.getItem("auth_token");
+          let userProfile = null;
+          
+          if (token) {
+            try {
+              const profileResponse = await fetch("/api/auth/profile", {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              
+              if (profileResponse.ok) {
+                userProfile = await profileResponse.json();
+              }
+            } catch (e) {
+              console.error("Failed to fetch user profile:", e);
+            }
+          }
+          
+          setTimeout(() => {
+            // Check for pending subscription
+            const pendingSubscription = sessionStorage.getItem(
+              "pending_subscription"
+            );
+            if (pendingSubscription) {
+              try {
+                const subData = JSON.parse(pendingSubscription);
+                sessionStorage.removeItem("pending_subscription");
+
+                // Redirect based on user role and subscription
+                if (isSuperAdminEmail) {
+                  router.push("/admin");
+                } else if (subData.isSubscription) {
+                  router.push("/dashboard?tab=settings");
+                } else {
+                  router.push("/dashboard");
+                }
+              } catch (e) {
+                // If parsing fails, just redirect normally
+                if (isSuperAdminEmail) {
+                  router.push("/admin");
+                } else {
+                  router.push("/dashboard");
+                }
+              }
+            } else {
+              // Check subscription tier and redirect accordingly
+              const subscriptionTier = userProfile?.subscription_tier?.toLowerCase() || "free";
+              const isEnterprise =
+                subscriptionTier === "enterprise" ||
+                userProfile?.monthly_call_limit === -1 ||
+                (userProfile?.monthly_call_limit && userProfile.monthly_call_limit >= 100000);
+
+              // Redirect based on user role and subscription tier
+              if (isSuperAdminEmail) {
+                router.push("/admin");
+              } else if (isEnterprise) {
+                router.push("/enterprise");
+              } else {
+                router.push("/dashboard");
+              }
+            }
+          }, 500);
         } else {
           router.push("/auth/login");
         }
@@ -122,6 +210,7 @@ export default function RegisterPage() {
       setError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
+      setLoadingMessage("");
     }
   };
 
@@ -139,10 +228,10 @@ export default function RegisterPage() {
               height={64}
             />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-foreground dark:text-white">
             Create your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-400">
+          <p className="mt-2 text-center text-sm text-muted-foreground dark:text-gray-400">
             Or{" "}
             <Link
               href="/auth/login"
@@ -184,13 +273,13 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-foreground/90 dark:text-gray-300"
               >
                 Email address
               </label>
               <div className="mt-1 relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+                  <Mail className="h-5 w-5 text-muted-foreground dark:text-gray-400" />
                 </div>
                 <input
                   id="email"
@@ -198,7 +287,7 @@ export default function RegisterPage() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-md relative block w-full pl-10 pr-3 py-2 border border-gray-600 bg-gray-800/50 placeholder-gray-400 text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-md relative block w-full pl-10 pr-3 py-2 border border-border dark:border-gray-600 bg-card/50 dark:bg-gray-800/50 placeholder-muted-foreground dark:placeholder-gray-400 text-foreground dark:text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
@@ -209,7 +298,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-foreground/90 dark:text-gray-300"
               >
                 Password
               </label>
@@ -254,14 +343,14 @@ export default function RegisterPage() {
                       className={`flex items-center ${
                         formData.password.length >= 8
                           ? "text-green-400"
-                          : "text-gray-500"
+                          : "text-muted-foreground dark:text-gray-500"
                       }`}
                     >
                       <CheckCircle
                         className={`h-3 w-3 mr-1 ${
                           formData.password.length >= 8
                             ? "text-green-400"
-                            : "text-gray-500"
+                            : "text-muted-foreground dark:text-gray-500"
                         }`}
                       />
                       At least 8 characters
@@ -270,14 +359,14 @@ export default function RegisterPage() {
                       className={`flex items-center ${
                         /[A-Z]/.test(formData.password)
                           ? "text-green-400"
-                          : "text-gray-500"
+                          : "text-muted-foreground dark:text-gray-500"
                       }`}
                     >
                       <CheckCircle
                         className={`h-3 w-3 mr-1 ${
                           /[A-Z]/.test(formData.password)
                             ? "text-green-400"
-                            : "text-gray-500"
+                            : "text-muted-foreground dark:text-gray-500"
                         }`}
                       />
                       One uppercase letter
@@ -286,14 +375,14 @@ export default function RegisterPage() {
                       className={`flex items-center ${
                         /[a-z]/.test(formData.password)
                           ? "text-green-400"
-                          : "text-gray-500"
+                          : "text-muted-foreground dark:text-gray-500"
                       }`}
                     >
                       <CheckCircle
                         className={`h-3 w-3 mr-1 ${
                           /[a-z]/.test(formData.password)
                             ? "text-green-400"
-                            : "text-gray-500"
+                            : "text-muted-foreground dark:text-gray-500"
                         }`}
                       />
                       One lowercase letter
@@ -302,14 +391,14 @@ export default function RegisterPage() {
                       className={`flex items-center ${
                         /\d/.test(formData.password)
                           ? "text-green-400"
-                          : "text-gray-500"
+                          : "text-muted-foreground dark:text-gray-500"
                       }`}
                     >
                       <CheckCircle
                         className={`h-3 w-3 mr-1 ${
                           /\d/.test(formData.password)
                             ? "text-green-400"
-                            : "text-gray-500"
+                            : "text-muted-foreground dark:text-gray-500"
                         }`}
                       />
                       One number
@@ -322,7 +411,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium text-foreground/90 dark:text-gray-300"
               >
                 Confirm Password
               </label>
@@ -412,10 +501,13 @@ export default function RegisterPage() {
                 !passwordValidation.isValid ||
                 formData.password !== formData.confirmPassword
               }
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center items-center gap-2 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
-                <Loader className="h-4 w-4 animate-spin" />
+                <>
+                  <Loader className="h-4 w-4 animate-spin" />
+                  <span>{loadingMessage || "Processing..."}</span>
+                </>
               ) : (
                 "Create account"
               )}

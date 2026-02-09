@@ -68,6 +68,8 @@ export const MonetizationProvider: React.FC<{ children: React.ReactNode }> = ({
         onComplete={monetizationModal.handleComplete}
         title={monetizationModal.config.title}
         message={monetizationModal.config.message}
+        downloadUrl={monetizationModal.config.downloadUrl}
+        fileName={monetizationModal.config.fileName}
       />
     </MonetizationContext.Provider>
   );

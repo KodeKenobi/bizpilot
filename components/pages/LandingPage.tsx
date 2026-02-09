@@ -1,18 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Play,
-  FileText,
-  QrCode,
-  Image,
-  Zap,
-  Sparkles,
-} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Play, FileText, QrCode, Image, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@/contexts/NavigationContext";
+import SplitText from "@/components/SplitText";
+import DecryptedText from "@/components/DecryptedText";
+import TextType from "@/components/TextType";
+import { CircuitPulse } from "@/components/ui/CircuitPulse";
+import { FileConversionCard } from "@/components/ui/file-conversion-card";
+import { StarGrid } from "@/components/ui/StarGrid";
+import { cn } from "@/lib/utils";
+import { Globe } from "@/components/Globe";
 
 export default function LandingPage() {
   const { navigateTo } = useNavigation();
@@ -29,6 +29,12 @@ export default function LandingPage() {
     { text: "Generate custom QR codes instantly", icon: QrCode },
     { text: "Convert images between formats", icon: Image },
   ]);
+  const [isInitialMount, setIsInitialMount] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitialMount(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,96 +48,75 @@ export default function LandingPage() {
 
   return (
     <>
-      <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 page-content">
-        {/* Background Image Layer - Temporarily disabled */}
+      <div className="min-h-screen relative overflow-hidden page-content bg-background">
+        {/* Background Image Layer - Hidden on mobile */}
         {/* <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-30 hidden md:block"
           style={{
             background: 'url("/platform-hero-bg.png") no-repeat center top',
             backgroundSize: "contain",
             backgroundPosition: "center -50px",
           }}
         ></div> */}
-        {/* Background glow orbs */}
-        <motion.div
-          className="absolute w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[150px] top-[-200px] left-[-200px]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-        ></motion.div>
-        <motion.div
-          className="absolute w-[500px] h-[500px] bg-pink-500/20 rounded-full blur-[120px] top-[-100px] right-[-100px]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-        ></motion.div>
-        <motion.div
-          className="absolute w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] bottom-[-100px] left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-        ></motion.div>
-        <motion.div
-          className="absolute w-[300px] h-[300px] bg-orange-500/15 rounded-full blur-[80px] top-1/2 right-1/4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-        ></motion.div>
+        {/* Background elements removed - no gradients */}
 
         {/* Hero Section */}
         <main className="relative z-20 px-6 lg:px-12 pt-12 sm:pt-16 lg:pt-24 pb-32">
           <div className="max-w-6xl mx-auto text-center">
-            {/* Hero Text Container */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.1, delay: 0.02 }}
-              className="relative mb-12"
-            >
+            {/* Hero Text Container - CSS animations for faster initial paint */}
+            <div className="relative mb-12">
               {/* Main Headline */}
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.1, delay: 0.05 }}
-                className="text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight mt-4 sm:mt-8 lg:mt-14"
-              >
-                The only file conversion that{" "}
-                <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-                  works where you work
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl lg:text-6xl font-bold mb-8 leading-tight mt-4 sm:mt-8 lg:mt-14">
+                <DecryptedText
+                  text="The only file conversion that works where you work"
+                  animateOn="view"
+                  revealDirection="center"
+                  speed={30}
+                  maxIterations={15}
+                  className="text-white"
+                  encryptedClassName="text-gray-400"
+                />
+              </h1>
 
               {/* Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.1, delay: 0.1 }}
-                className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
-              >
-                Transform your media files with our intelligent conversion
-                system. From video to audio, PDF merging to QR generation,
-                manage everything in one place.
-              </motion.p>
-            </motion.div>
+              <p className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+                <DecryptedText
+                  text="Transform your media files with our intelligent conversion system. From video to audio, PDF merging to QR generation, manage everything in one place."
+                  animateOn="view"
+                  revealDirection="start"
+                  speed={60}
+                  maxIterations={12}
+                  viewDelay={600}
+                  className="text-gray-400"
+                  encryptedClassName="text-gray-600"
+                />
+              </p>
+            </div>
 
             {/* Stacked Cards */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.1, delay: 0.15 }}
-              className="max-w-2xl mx-auto px-4 sm:px-0"
-            >
+            <div className="max-w-2xl mx-auto px-4 sm:px-0">
               <div className="relative h-80 flex flex-col items-center">
                 {cardOrder.map((card, index) => {
                   const IconComponent = card.icon;
                   return (
                     <motion.div
-                      key={`${card.text}-${index}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
+                      key={card.text}
+                      initial={
+                        isInitialMount
+                          ? { opacity: 0.9, y: 10 }
+                          : { opacity: 1, y: 0 }
+                      }
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        width: `${Math.max(85, 100 - index * 10)}%`,
+                        height: `${90 - index * 9}px`,
+                        top: `${index * 8}%`,
+                      }}
                       transition={{
-                        duration: 0.6,
-                        delay: 1 + index * 0.1,
+                        duration: isInitialMount ? 0.2 : 0.4,
+                        delay: isInitialMount ? 0.05 + index * 0.03 : 0,
+                        ease: "easeInOut",
                       }}
                       whileHover={{
                         scale: 1.02,
@@ -140,67 +125,67 @@ export default function LandingPage() {
                       }}
                       className="absolute bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-white transition-all duration-300 hover:bg-white/20 hover:border-white/40"
                       style={{
-                        width: `${Math.max(85, 100 - index * 10)}%`,
-                        height: `${80 - index * 12}px`,
-                        top: `${index * 8}%`,
                         zIndex: 5 - index,
                         padding: `${16 - index * 2}px 20px`,
                       }}
                     >
                       <div className="flex items-center justify-center h-full text-center px-2">
                         <IconComponent className="text-gray-400 w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm opacity-90 leading-tight break-words">
-                          {card.text}
-                        </span>
+                        <DecryptedText
+                          text={card.text}
+                          animateOn="view"
+                          revealDirection="center"
+                          speed={25}
+                          maxIterations={8}
+                          className="text-xs sm:text-sm opacity-90 leading-tight break-words"
+                          encryptedClassName="text-gray-500 opacity-60"
+                        />
                       </div>
                     </motion.div>
                   );
                 })}
               </div>
-            </motion.div>
+            </div>
 
             {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="mt-[-120px] flex flex-row items-center justify-center space-x-2 sm:space-x-6 relative z-50"
-            >
+            <div className="mt-[-120px] flex flex-row items-center justify-center space-x-2 sm:space-x-6 relative z-50">
+              {/* Primary Button */}
               <Link
                 href="/tools"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 flex items-center space-x-1 sm:space-x-2 group text-sm sm:text-base hover:scale-105 active:scale-95 relative z-50"
+                className="bg-white/10 backdrop-blur-xl text-white hover:text-gray-900 font-bold px-3 sm:px-6 py-2.5 sm:py-3.5 rounded-lg 
+               transition-all duration-200 flex items-center 
+               space-x-1 sm:space-x-2 group text-xs sm:text-sm
+               hover:bg-neutral-200 hover:scale-[1.03] active:scale-95 relative z-50"
+                title="Free PDF Editor Tools"
               >
                 <span>Start Converting</span>
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1 text-[#ec4899]" />
               </Link>
+
+              {/* Secondary Button */}
               <Link
                 href="/api-docs"
-                className="text-gray-300 hover:text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl border border-white/20 hover:border-white/40 transition-all duration-200 text-sm sm:text-base hover:scale-105 active:scale-95 relative z-50"
+                className="bg-white text-gray-900 font-bold px-3 sm:px-6 py-2.5 sm:py-3.5 rounded-lg 
+               border border-black/20 hover:border-black/40 
+               transition-all duration-200 text-xs sm:text-sm
+               hover:bg-neutral-200 hover:scale-[1.03] active:scale-95 relative z-50"
+                title="PDF Processing API Documentation"
               >
                 API Docs
               </Link>
-            </motion.div>
-
-            {/* Ezoic Ad Placement - Above Features */}
-            <div id="ezoic-pub-ad-placeholder-101"></div>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  if (typeof ezstandalone !== 'undefined') {
-                    ezstandalone.cmd.push(function () {
-                      ezstandalone.showAds(101);
-                    });
-                  }
-                `,
-              }}
-            />
+            </div>
           </div>
         </main>
+
+        {/* Circuit Pulse Animation */}
+        <section className="relative z-10 py-16 sm:py-24 flex items-center justify-center">
+          <CircuitPulse />
+        </section>
 
         {/* Features Section */}
         <section
           id="features"
-          className="relative z-10 px-6 lg:px-12 py-20 mt-[-100px]"
+          className="relative z-10 px-6 lg:px-12 py-20 bg-background"
         >
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -210,163 +195,111 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl font-bold text-white mb-4">
-                Everything you need to convert files
-              </h2>
+              <SplitText
+                text="Everything you need to convert files"
+                tag="h2"
+                className="text-4xl font-bold text-white mb-4"
+                delay={30}
+                duration={0.1}
+              />
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                From simple file conversion to complex media processing,
-                Trevnoctilla has you covered with powerful features.
+                <SplitText
+                  text="Edit PDFs, merge documents, convert videos to MP3, transform images, generate QR codes, and more. All processing happens instantly in your browser with no software installation required."
+                  delay={10}
+                  duration={0}
+                />
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8 pt-8">
+            <div className="grid md:grid-cols-3 gap-6 pt-8">
               {[
                 {
+                  name: "Video Converter",
+                  description:
+                    "Convert videos to MP3 audio and generate animated GIFs with precise control over quality, compression, and output formats for optimal results.",
+                  category: "Video Processing",
                   icon: Play,
-                  title: "Video Processing",
-                  description:
-                    "Convert videos to MP3 audio and create animated GIFs with high quality output.",
-                  color: "from-green-500 to-emerald-500",
+                  inputFormats: ["MP4", "AVI", "MOV", "MKV", "WEBM", "FLV"],
+                  outputFormats: ["MP3", "GIF", "MP4", "AVI", "MOV"],
+                  features: ["All Formats", "Compression", "Quality Control", "GIF Generation"],
+                  processingSpeed: "Fast" as const,
+                  quality: "High" as const,
+                  maxFileSize: "2GB",
+                  popularity: 5,
+                  usageCount: 125000,
+                  activityData: [0.5, 0.6, 0.4, 0.7, 0.8, 0.9, 1.0, 0.95, 0.8, 0.85, 0.9, 0.92],
+                  isFree: true,
+                  isMobileOptimized: true,
+                  href: "/tools/video-converter",
                 },
                 {
+                  name: "PDF Tools",
+                  description:
+                    "Merge, split, sign, and prepare PDFs for real-world use cases including sharing, printing, archiving, and professional document workflows.",
+                  category: "Document Management",
                   icon: FileText,
-                  title: "Document Management",
-                  description:
-                    "Merge PDF files seamlessly and generate custom QR codes for any content.",
-                  color: "from-blue-500 to-cyan-500",
+                  inputFormats: ["PDF", "DOC", "DOCX", "TXT", "HTML"],
+                  outputFormats: ["PDF", "DOC", "TXT", "HTML"],
+                  features: ["Merge & Split", "Digital Sign", "Watermark", "Extract Text"],
+                  processingSpeed: "Instant" as const,
+                  quality: "Lossless" as const,
+                  maxFileSize: "100MB",
+                  popularity: 5,
+                  usageCount: 250000,
+                  activityData: [0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 0.98, 0.92, 0.94, 0.96],
+                  isFree: true,
+                  isMobileOptimized: true,
+                  href: "/tools/pdf-tools",
                 },
                 {
-                  icon: Image,
-                  title: "Image Conversion",
+                  name: "Image Converter",
                   description:
-                    "Convert images between different formats with quality preservation.",
-                  color: "from-purple-500 to-pink-500",
+                    "Convert images across all popular formats while preserving sharpness, color accuracy, metadata, and image quality throughout the process.",
+                  category: "Image Conversion",
+                  icon: Image,
+                  inputFormats: ["JPG", "PNG", "WEBP", "GIF", "BMP", "TIFF"],
+                  outputFormats: ["JPG", "PNG", "WEBP", "GIF", "SVG"],
+                  features: ["All Formats", "Resize", "Compress", "Preserve Quality"],
+                  processingSpeed: "Instant" as const,
+                  quality: "High" as const,
+                  maxFileSize: "50MB",
+                  popularity: 5,
+                  usageCount: 180000,
+                  activityData: [0.4, 0.5, 0.6, 0.65, 0.7, 0.8, 0.85, 0.9, 0.87, 0.82, 0.88, 0.85],
+                  isFree: true,
+                  isMobileOptimized: true,
+                  href: "/tools/image-converter",
                 },
-              ].map((feature, index) => (
-                <motion.div
-                  key={`feature-${index}`}
-                  initial={{ opacity: 0, y: 40, scale: 0.9, rotateY: -15 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: index * 0.2,
-                    type: "spring",
-                    stiffness: 100,
-                  }}
-                  viewport={{ once: true }}
-                  whileHover={{
-                    y: -10,
-                    scale: 1.02,
-                    rotateY: 5,
-                    transition: { duration: 0.3 },
-                  }}
-                  className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 text-center md:text-left"
-                >
+              ].map((tool, index) => (
+                <Link key={tool.name} href={tool.href}>
                   <motion.div
-                    className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-xl flex items-center justify-center mb-6 mx-auto md:mx-0`}
-                    initial={{ scale: 0, rotate: -180 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.2 + 0.3,
-                      type: "spring",
-                      stiffness: 200,
-                    }}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </motion.div>
-                  <motion.h3
-                    className="text-xl font-semibold text-white mb-4"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 + 0.4 }}
-                  >
-                    {feature.title}
-                  </motion.h3>
-                  <motion.p
-                    className="text-gray-400 leading-relaxed"
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 + 0.5 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.12,
+                      ease: "easeOut",
+                    }}
+                    viewport={{ once: true }}
                   >
-                    {feature.description}
-                  </motion.p>
-                </motion.div>
+                    <FileConversionCard
+                      theme="modern-dark"
+                      tool={tool}
+                    />
+                  </motion.div>
+                </Link>
               ))}
             </div>
-
-            {/* Ezoic Ad Placement - Between Features and Stats */}
-            <div id="ezoic-pub-ad-placeholder-102"></div>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  if (typeof ezstandalone !== 'undefined') {
-                    ezstandalone.cmd.push(function () {
-                      ezstandalone.showAds(102);
-                    });
-                  }
-                `,
-              }}
-            />
           </div>
         </section>
 
         {/* Stats Section */}
-        <section className="relative z-10 px-6 lg:px-12 py-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-3 gap-8 text-center">
-              {[
-                { number: "5+", label: "File Types" },
-                { number: "∞", label: "Unlimited Conversions" },
-                { number: "24/7", label: "Access" },
-              ].map((stat, index) => (
-                <motion.div
-                  key={`stat-${index}`}
-                  initial={{ opacity: 0, scale: 0.8, y: 30 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: index * 0.2,
-                    type: "spring",
-                    stiffness: 100,
-                  }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <motion.div
-                    className="text-4xl font-bold text-white mb-2"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.2 + 0.3,
-                      type: "spring",
-                      stiffness: 200,
-                    }}
-                  >
-                    {stat.number}
-                  </motion.div>
-                  <motion.div
-                    className="text-gray-400"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 + 0.4 }}
-                  >
-                    {stat.label}
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* <section className="relative z-10 px-6 lg:px-12 py-20"></section> */}
 
         {/* Powerful Tools CTA Section */}
         <section className="py-24 relative overflow-hidden">
           {/* Background Elements */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 bg-background"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
@@ -375,113 +308,156 @@ export default function LandingPage() {
               transition={{ duration: 0.8 }}
               className="text-center mb-16"
             >
-              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-6">
-                Powerful Tools for Every Need
-              </h2>
+              <SplitText
+                text="Powerful Tools for Every Need"
+                tag="h2"
+                className="text-2xl lg:text-3xl font-bold text-white mb-6"
+                delay={30}
+                duration={0.1}
+              />
               <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                From PDF editing to video conversion, our comprehensive toolkit
-                handles all your file processing needs with professional-grade
-                quality.
+                <SplitText
+                  text="From PDF editing to video conversion, our comprehensive toolkit handles all your file processing needs with professional-grade quality. Edit PDFs online for free, merge PDF files, and convert videos - all in your browser."
+                  delay={10}
+                  duration={0}
+                />
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
               {[
                 {
                   title: "PDF Powerhouse",
                   description:
-                    "Edit, split, merge, and convert PDFs with precision. Add watermarks, signatures, and more.",
+                    "Edit, split, merge, and convert PDFs with real-time processing.",
                   features: [
                     "Free PDF Editor",
                     "Split & Merge",
                     "Add Watermarks",
                     "Digital Signatures",
                   ],
-                  gradient: "from-red-500 to-pink-500",
+                  href: "/tools/pdf-tools",
                 },
                 {
                   title: "Media Converter",
                   description:
-                    "Convert videos, audio, and images between any format with advanced quality control.",
+                    "Convert videos, audio, and images between formats with precise quality control.",
                   features: [
                     "All Video Formats",
                     "Audio Conversion",
                     "Image Processing",
                     "Quality Control",
                   ],
-                  gradient: "from-green-500 to-cyan-500",
+                  href: "/tools/video-converter",
                 },
                 {
                   title: "Smart Tools",
                   description:
-                    "Generate QR codes, extract text with OCR, and automate your workflow.",
+                    "Generate QR codes, extract text with OCR, and automate workflows.",
                   features: [
                     "QR Generator",
                     "OCR Text Extraction",
                     "Batch Processing",
                     "API Integration",
                   ],
-                  gradient: "from-blue-500 to-purple-500",
+                  href: "/tools/qr-generator",
                 },
-              ].map((tool, index) => (
-                <motion.div
-                  key={tool.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-8 hover:border-cyan-500/50 transition-all duration-300 text-center md:text-left"
-                >
-                  <div
-                    className={`w-12 h-12 bg-gradient-to-r ${tool.gradient} rounded-xl flex items-center justify-center mb-6 mx-auto md:mx-0`}
-                  >
-                    <FileText className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    {tool.title}
-                  </h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    {tool.description}
-                  </p>
-                  <ul className="space-y-2">
-                    {tool.features.map((feature, idx) => (
-                      <li
-                        key={`${tool.title}-feature-${idx}`}
-                        className="flex items-center text-gray-400 justify-center md:justify-start"
-                      >
-                        <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </div>
+              ].map((tool, index) => {
+                const items = Array(40).fill(0);
+                return (
+                  <Link key={tool.title} href={tool.href}>
+                    <motion.article
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      whileHover={{ y: -3 }}
+                      className="
+                        group h-full
+                        relative
+                        rounded-2xl
+                        border border-gray-700/50
+                        bg-background
+                        overflow-hidden
+                        transition-all duration-300
+                        hover:border-gray-600/70
+                        hover:shadow-lg hover:shadow-cyan-500/10
+                      "
+                    >
+                      {/* Radial gradient background */}
+                      <div className="absolute inset-0 bg-[radial-gradient(40%_128px_at_50%_0%,rgba(255,255,255,0.03),transparent)]"></div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-center"
-            >
-              <motion.button
-                onClick={() => navigateTo("tools")}
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-lg px-10 py-5 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore All Tools
-              </motion.button>
-            </motion.div>
+                      {/* StarGrid */}
+                      <div className="px-6 pt-6 relative z-10">
+                        <StarGrid active={20} duration={100} featureDuration={1500} className="grid w-full grid-cols-10 gap-4">
+                          {items.map((item, itemIndex) => (
+                            <StarGrid.Item key={itemIndex} className="relative flex aspect-square w-full items-center justify-center">
+                              {({ isActive, isFeatured }) => (
+                                <>
+                                  <svg
+                                    className={cn(
+                                      isFeatured ? "scale-1" : "scale-0 opacity-0",
+                                      "absolute h-6 w-6 stroke-cyan-400/50 stroke-[1] transition-all duration-1000",
+                                    )}
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10.5" />
+                                  </svg>
+
+                                  <div
+                                    style={{ "--duration": `${(itemIndex % 3) * 1.5}s` } as React.CSSProperties}
+                                    className={cn(
+                                      {
+                                        "scale-50 bg-white/10": !isActive && !isFeatured,
+                                        "h-1 w-1": isActive || isFeatured,
+                                        "bg-white/30": isActive && !isFeatured,
+                                        "bg-cyan-400": isFeatured,
+                                      },
+                                      "relative h-1 w-1 rounded-full transition-all duration-500 [animation-duration:var(--duration)]",
+                                    )}></div>
+                                </>
+                              )}
+                            </StarGrid.Item>
+                          ))}
+                        </StarGrid>
+                      </div>
+
+                      {/* Content */}
+                      <div className="mt-6 px-8 pb-8 relative z-10">
+                        <div className="text-lg text-white font-medium">{tool.title}</div>
+
+                        <p className="mt-2 text-sm font-light leading-relaxed text-white/75">
+                          {tool.description}
+                        </p>
+
+                        <ul className="mt-6 space-y-2.5">
+                          {tool.features.map((feature) => (
+                            <li
+                              key={feature}
+                              className="flex items-center gap-2.5 text-sm text-white/75"
+                            >
+                              <span className="mt-[2px] block h-1.5 w-1.5 rounded-full bg-cyan-400 flex-shrink-0" />
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <div className="mt-6 text-sm text-cyan-400 group-hover:text-cyan-300 transition-colors flex items-center gap-2">
+                          <span>Open tool</span>
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </div>
+                      </div>
+                    </motion.article>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </section>
 
         {/* Developer APIs CTA Section */}
-        <section className="py-24 relative overflow-hidden">
-          {/* Background Elements */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
-
+        <section className="relative overflow-hidden bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -489,104 +465,128 @@ export default function LandingPage() {
               transition={{ duration: 0.8 }}
               className="text-center mb-16"
             >
-              <h2 className="text-2xl lg:text-3xl font-bold text-white mb-6">
-                Developer APIs for Powerful Computing
-              </h2>
+              <SplitText
+                text="Developer APIs for Powerful Computing"
+                tag="h2"
+                className="text-2xl lg:text-3xl font-bold text-white mb-6"
+                delay={50}
+                duration={0.1}
+              />
               <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Integrate our advanced file processing capabilities into your
-                applications with our comprehensive API suite. Built for
-                developers, by developers.
+                <SplitText
+                  text="Integrate our advanced file processing capabilities into your applications with our comprehensive API suite. Built for developers, by developers."
+                  delay={0}
+                  duration={0.1}
+                />
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-8 text-center md:text-left"
-              >
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6 mx-auto md:mx-0">
-                  <FileText className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  PDF Processing APIs
-                </h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  Advanced PDF manipulation with OCR, text extraction, form
-                  filling, and document analysis capabilities.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {[
+            <div className="grid md:grid-cols-2 gap-6 mb-16">
+              {[
+                {
+                  title: "PDF Processing APIs",
+                  description:
+                    "Programmatic PDF manipulation including OCR, text extraction, form handling, and document analysis.",
+                  features: [
                     "PDF to Text with OCR",
-                    "Form Field Detection & Filling",
+                    "Form Field Detection and Filling",
                     "Document Structure Analysis",
                     "Batch PDF Processing",
                     "Advanced Text Extraction",
                     "Metadata Extraction",
-                  ].map((feature, idx) => (
-                    <li
-                      key={`pdf-feature-${idx}`}
-                      className="flex items-center text-gray-400 justify-center md:justify-start"
-                    >
-                      <div className="w-2 h-2 bg-purple-400 rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <motion.button
-                  onClick={() => window.open("/api-docs", "_blank")}
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  View API Documentation
-                </motion.button>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-8 text-center md:text-left"
-              >
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center mb-6 mx-auto md:mx-0">
-                  <Zap className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  Media Conversion APIs
-                </h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  High-performance media processing with support for all major
-                  formats and advanced compression algorithms.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {[
+                  ],
+                  action: {
+                    label: "View API documentation",
+                    href: "/api-docs",
+                  },
+                  motion: { x: -20 },
+                },
+                {
+                  title: "Media Conversion APIs",
+                  description:
+                    "High-performance media processing with support for modern formats and configurable compression.",
+                  features: [
                     "Video Format Conversion",
-                    "Audio Processing & Compression",
-                    "Image Optimization & Resizing",
+                    "Audio Processing and Compression",
+                    "Image Optimization and Resizing",
                     "Real-time Processing",
                     "Custom Quality Settings",
                     "Batch Media Processing",
-                  ].map((feature, idx) => (
-                    <li
-                      key={`media-feature-${idx}`}
-                      className="flex items-center text-gray-400 justify-center md:justify-start"
-                    >
-                      <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <motion.button
-                  onClick={() => window.open("/auth/register", "_self")}
-                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  ],
+                  action: {
+                    label: "Request API access",
+                    href: "/auth/register",
+                  },
+                  motion: { x: 20 },
+                },
+              ].map((api, index) => (
+                <motion.article
+                  key={api.title}
+                  initial={{ opacity: 0, ...api.motion }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="
+                    group relative
+                    flex h-96 w-full
+                    flex-col overflow-hidden
+                    rounded-2xl border border-white/5
+                  "
                 >
-                  Get API Access
-                </motion.button>
-              </motion.div>
+                  {/* Radial gradient background */}
+                  <div className="absolute inset-0 bg-[radial-gradient(40%_128px_at_50%_0%,rgba(255,255,255,0.05),transparent)]"></div>
+
+                  {/* Globe */}
+                  <div>
+                    <Globe
+                      dark
+                      baseColor="#777A80"
+                      glowColor="#50505A"
+                      markerColor="#22d3ee"
+                      opacity={0.85}
+                      brightness={1}
+                      offsetX={320}
+                      offsetY={64}
+                      scale={1.125}
+                    />
+                  </div>
+
+                  {/* Content */}
+                  <div className="pointer-events-none mt-auto px-6 pb-6 relative z-10">
+                    <div className="relative transition duration-300 group-hover:-translate-y-9">
+                      <div className="text-lg text-white transition-all duration-300 group-hover:text-base">
+                        {api.title}
+                      </div>
+
+                      <p className="mt-2 text-sm font-light leading-relaxed text-white/75">
+                        {api.description}
+                      </p>
+
+                      <ul className="mt-4 space-y-1.5 text-sm text-white/75">
+                        {api.features.map((feature) => (
+                          <li
+                            key={feature}
+                            className="flex items-center gap-2"
+                          >
+                            <span className="mt-[2px] block h-1 w-1 rounded-full bg-white/40 flex-shrink-0" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="absolute -left-2 bottom-0 translate-y-11 opacity-0 transition duration-300 group-hover:opacity-100">
+                        <Link
+                          href={api.action.href}
+                          className="pointer-events-auto inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-xs font-medium text-white transition hover:bg-white/5"
+                        >
+                          <span>{api.action.label}</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
             </div>
           </div>
         </section>

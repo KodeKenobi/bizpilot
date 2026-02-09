@@ -55,7 +55,9 @@ export function ActivityTable({ activities, onDownload }: ActivityTableProps) {
       case "processing":
         return <Clock className="w-4 h-4 text-[#f59e0b] animate-pulse" />;
       default:
-        return <Clock className="w-4 h-4 text-gray-400" />;
+        return (
+          <Clock className="w-4 h-4 text-muted-foreground dark:text-gray-400" />
+        );
     }
   };
 
@@ -68,7 +70,7 @@ export function ActivityTable({ activities, onDownload }: ActivityTableProps) {
       case "processing":
         return "text-[#f59e0b]";
       default:
-        return "text-gray-400";
+        return "text-muted-foreground dark:text-gray-400";
     }
   };
 
@@ -84,22 +86,24 @@ export function ActivityTable({ activities, onDownload }: ActivityTableProps) {
   };
 
   return (
-    <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg">
-      <div className="px-6 py-4 border-b border-[#2a2a2a]">
+    <div className="bg-card dark:bg-[#1a1a1a] border border-border dark:border-[#2a2a2a] rounded-lg">
+      <div className="px-6 py-4 border-b border-border dark:border-[#2a2a2a]">
         <div className="flex items-center gap-3">
           <div className="relative">
             <div className="w-3 h-3 bg-gradient-to-r from-[#22c55e] to-[#16a34a] rounded-full animate-pulse"></div>
             <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-[#22c55e] to-[#16a34a] rounded-full blur-sm opacity-50"></div>
           </div>
-          <h3 className="text-lg font-semibold text-white">Recent Activity</h3>
+          <h3 className="text-lg font-semibold text-foreground dark:text-white">
+            Recent Activity
+          </h3>
         </div>
       </div>
 
-      <div className="divide-y divide-[#2a2a2a]">
+      <div className="divide-y divide-border dark:divide-[#2a2a2a]">
         {activities.map((activity) => (
           <div
             key={activity.id}
-            className="px-4 py-3 hover:bg-[#0a0a0a] cursor-pointer"
+            className="px-4 py-3 hover:bg-accent dark:hover:bg-[#0a0a0a] cursor-pointer"
             onClick={() =>
               setExpandedRow(expandedRow === activity.id ? null : activity.id)
             }
@@ -121,24 +125,24 @@ export function ActivityTable({ activities, onDownload }: ActivityTableProps) {
                   ></div>
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-white">
+                  <div className="text-sm font-medium text-foreground dark:text-white">
                     {activity.tool}
                   </div>
-                  <div className="text-xs text-gray-400">
+                  <div className="text-xs text-muted-foreground dark:text-gray-400">
                     {activity.operation}
                   </div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-right">
-                  <div className="text-sm text-white font-medium">
+                  <div className="text-sm text-foreground dark:text-white font-medium">
                     {formatFileSize(activity.fileSize)}
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-muted-foreground dark:text-gray-500">
                     {new Date(activity.timestamp).toLocaleTimeString()}
                   </div>
                 </div>
-                <button className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-[#2a2a2a] transition-colors">
+                <button className="text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white p-2 rounded-lg hover:bg-accent dark:hover:bg-[#2a2a2a] transition-colors">
                   {expandedRow === activity.id ? (
                     <ChevronUp className="w-4 h-4" />
                   ) : (
@@ -150,19 +154,23 @@ export function ActivityTable({ activities, onDownload }: ActivityTableProps) {
 
             {/* Expanded Details - Enhanced */}
             {expandedRow === activity.id && (
-              <div className="mt-4 pt-4 border-t border-[#2a2a2a]">
+              <div className="mt-4 pt-4 border-t border-border dark:border-[#2a2a2a]">
                 <div className="grid grid-cols-2 gap-6 text-xs">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-gradient-to-r from-[#3b82f6] to-[#2563eb] rounded-full"></div>
-                    <span className="text-gray-500">Endpoint:</span>
-                    <span className="text-white font-medium font-mono">
+                    <span className="text-muted-foreground dark:text-gray-500">
+                      Endpoint:
+                    </span>
+                    <span className="text-foreground dark:text-white font-medium font-mono">
                       {activity.endpoint}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-full"></div>
-                    <span className="text-gray-500">Response:</span>
-                    <span className="text-white font-medium">
+                    <span className="text-muted-foreground dark:text-gray-500">
+                      Response:
+                    </span>
+                    <span className="text-foreground dark:text-white font-medium">
                       {activity.responseTime}ms
                     </span>
                   </div>
@@ -190,13 +198,13 @@ export function ActivityTable({ activities, onDownload }: ActivityTableProps) {
           <div className="relative w-16 h-16 mx-auto mb-4">
             <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280] to-[#4b5563] rounded-full blur-lg opacity-30"></div>
             <div className="relative w-16 h-16 bg-gradient-to-r from-[#6b7280] to-[#4b5563] rounded-full flex items-center justify-center">
-              <FileText className="w-8 h-8 text-white" />
+              <FileText className="w-8 h-8 text-foreground dark:text-white" />
             </div>
           </div>
-          <h3 className="text-lg font-medium text-white mb-2">
+          <h3 className="text-lg font-medium text-foreground dark:text-white mb-2">
             No Recent Activity
           </h3>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-muted-foreground dark:text-gray-400">
             Your API activity will appear here
           </p>
         </div>
