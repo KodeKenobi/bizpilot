@@ -27,7 +27,7 @@ export default function CampaignMonitorPage() {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [formPreview, setFormPreview] = useState<string>('');
   const [loading, setLoading] = useState(true);
-  const [wsConnection, setWsConnection] = useState<WebSocket | null>(null);
+  const [eventSourceConnection, setEventSourceConnection] = useState<EventSource | null>(null);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState<'connecting' | 'processing' | 'success' | 'failed' | 'cancelled'>('connecting');
   const [hasCompleted, setHasCompleted] = useState(false); // Track if monitoring completed for this company
@@ -37,17 +37,16 @@ export default function CampaignMonitorPage() {
     fetchCampaign();
     
     return () => {
-      if (wsConnection) {
-        wsConnection.close();
+      if (eventSourceConnection) {
+        eventSourceConnection.close();
       }
     };
   }, [campaignId]);
 
   // Auto-start monitoring when company is selected (but NOT after completion)
   useEffect(() => {
-    if (selectedCompany && !isMonitoring && !wsConnection && !hasCompleted) {
+    if (selectedCompany && !isMonitoring && !eventSourceConnection && !hasCompleted) {
       console.log('[Monitor] Auto-starting monitoring for:', selectedCompany.company_name);
-      // Small delay to ensure UI is ready
       const timer = setTimeout(() => {
         startMonitoring();
       }, 500);
@@ -55,11 +54,11 @@ export default function CampaignMonitorPage() {
     } else if (selectedCompany) {
       console.log('[Monitor] Company selected but not starting:', {
         isMonitoring,
-        hasWsConnection: !!wsConnection,
+        hasEventSource: !!eventSourceConnection,
         hasCompleted
       });
     }
-  }, [selectedCompany, isMonitoring, wsConnection, hasCompleted]);
+  }, [selectedCompany, isMonitoring, eventSourceConnection, hasCompleted]);
 
   const fetchCampaign = async () => {
     try {
@@ -94,14 +93,14 @@ export default function CampaignMonitorPage() {
   };
 
   const stopMonitoring = () => {
-    if (wsConnection) {
-      wsConnection.close(1000, 'User cancelled');
-      setWsConnection(null);
+    if (eventSourceConnection) {
+      eventSourceConnection.close();
+      setEventSourceConnection(null);
     }
     setIsMonitoring(false);
     setStatus('cancelled');
     setCurrentStep('Monitoring cancelled by user');
-    setHasCompleted(true); // CRITICAL: Prevent auto-restart after cancel
+    setHasCompleted(true);
   };
 
   const startMonitoring = () => {
@@ -116,16 +115,16 @@ export default function CampaignMonitorPage() {
     setCurrentStep('Connecting to processor...');
     setProgress(5);
     
-    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'wss:';
+    const protocol = window.location.protocol === 'https:' ? 'https:' : 'https:';
     const backendUrl = 'web-production-737b.up.railway.app';
-    const wsUrl = `${wsProtocol}//${backendUrl}/ws/campaign/${campaignId}/monitor/${selectedCompany.id}`;
+    const sseUrl = `${protocol}//${backendUrl}/sse/campaign/${campaignId}/monitor/${selectedCompany.id}`;
     
-    console.log('[Monitor] Connecting to WebSocket:', wsUrl);
-    const ws = new WebSocket(wsUrl);
-    setWsConnection(ws);
+    console.log('[Monitor] Connecting to SSE:', sseUrl);
+    const eventSource = new EventSource(sseUrl);
+    setEventSourceConnection(eventSource);
     
-    ws.onopen = () => {
-      console.log('[Monitor] WebSocket connected');
+    eventSource.onopen = () => {
+      console.log('[Monitor] SSE connected');
       setStatus('processing');
       setCurrentStep('Connected - Starting browser...');
       setProgress(10);
@@ -135,10 +134,16 @@ export default function CampaignMonitorPage() {
       }
     };
     
-    ws.onmessage = (event) => {
+    eventSource.onmessage = (event) => {
       try {
         const message = JSON.parse(event.data);
-        console.log('[Monitor] WebSocket message:', message.type, message.data);
+        
+        // Skip connection messages
+        if (message.type === 'connected') {
+          return;
+        }
+        
+        console.log('[Monitor] SSE message:', message.type, message.data);
         
         if (message.type === 'log') {
           const log = message.data;
@@ -167,7 +172,6 @@ export default function CampaignMonitorPage() {
             }
           }
         } else if (message.type === 'form_preview' || message.type === 'screenshot_ready') {
-          // Handle both old form_preview (base64) and new screenshot_ready (URL)
           if (message.data?.image) {
             setFormPreview(message.data.image);
             setCurrentStep('✓ Form filled - Review screenshot');
@@ -180,56 +184,31 @@ export default function CampaignMonitorPage() {
           setCurrentStep('✓ Campaign completed successfully!');
           setProgress(100);
           setIsMonitoring(false);
-          setHasCompleted(true); // Prevent auto-restart
-          // Keep connection open briefly so user can see the success state
-          // Backend will close it after a few seconds anyway
+          setHasCompleted(true);
           setTimeout(() => {
-            if (ws.readyState === WebSocket.OPEN) {
-              ws.close(1000, 'Completed');
+            if (eventSource.readyState === EventSource.OPEN) {
+              eventSource.close();
             }
-          }, 3000); // Keep success state visible for 3 seconds
+          }, 3000);
         } else if (message.type === 'error') {
           setStatus('failed');
           setCurrentStep('✗ ' + (message.data?.message || 'Processing failed'));
           setIsMonitoring(false);
-          // Close with normal code
-          ws.close(1000, 'Error handled');
+          eventSource.close();
         }
       } catch (error) {
-        console.error('[WebSocket] Error:', error);
+        console.error('[SSE] Error:', error);
       }
     };
     
-    ws.onerror = (error) => {
-      console.error('[Monitor] WebSocket error:', error);
+    eventSource.onerror = (error) => {
+      console.error('[Monitor] SSE error:', error);
       setStatus('failed');
       setCurrentStep('Connection error - Please try again');
       setIsMonitoring(false);
-    };
-    
-    ws.onclose = (event) => {
-      console.log('[Monitor] WebSocket closed:', {
-        code: event.code,
-        reason: event.reason,
-        wasClean: event.wasClean
-      });
-      setIsMonitoring(false);
-      setWsConnection(null);
-      
-      // Only show "Connection lost" if it was an unexpected closure
-      // event.code 1000 = normal closure
-      // event.code 1001 = going away
-      // event.code 1006 = abnormal closure (no close frame)
-      if (event.code !== 1000 && event.code !== 1001) {
-        setStatus((prevStatus) => {
-          // Don't override success or already-failed status
-          if (prevStatus === 'success' || prevStatus === 'failed') {
-            return prevStatus;
-          }
-          setCurrentStep('Connection lost - Please try again');
-          return 'failed';
-        });
-      }
+      setEventSourceConnection(null);
+      // EventSource will auto-reconnect unless we close it
+      eventSource.close();
     };
   };
 
@@ -269,9 +248,9 @@ export default function CampaignMonitorPage() {
                     setFormPreview('');
                     setProgress(0);
                     setHasCompleted(false); // Reset completion flag for new company
-                    if (wsConnection) {
-                      wsConnection.close();
-                      setWsConnection(null);
+                    if (eventSourceConnection) {
+                      eventSourceConnection.close();
+                      setEventSourceConnection(null);
                     }
                   }}
                   className="px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:border-purple-500 focus:outline-none"

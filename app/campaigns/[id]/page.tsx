@@ -95,7 +95,7 @@ export default function CampaignDetailPage() {
   const [rapidProgress, setRapidProgress] = useState(0);
   const [rapidStatus, setRapidStatus] = useState<string>("");
   const [rapidCurrentCompany, setRapidCurrentCompany] = useState<string>("");
-  const [activeWebSocket, setActiveWebSocket] = useState<WebSocket | null>(
+  const [activeEventSource, setActiveEventSource] = useState<EventSource | null>(
     null
   );
   const [isRapidAllRunning, setIsRapidAllRunning] = useState(false);
@@ -385,25 +385,31 @@ export default function CampaignDetailPage() {
   };
 
   const connectToCampaignStream = (id: string) => {
-    if (activeWebSocket) {
-      activeWebSocket.close();
+    if (activeEventSource) {
+      activeEventSource.close();
     }
 
-    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const protocol = window.location.protocol === "https:" ? "https:" : "http:";
     const backendUrl = "web-production-737b.up.railway.app";
-    const wsUrl = `${wsProtocol}//${backendUrl}/ws/campaign/${id}`;
+    const sseUrl = `${protocol}//${backendUrl}/sse/campaign/${id}`;
 
-    console.log("[Stream] Connecting to Campaign WebSocket:", wsUrl);
-    const ws = new WebSocket(wsUrl);
-    setActiveWebSocket(ws);
+    console.log("[Stream] Connecting to Campaign SSE:", sseUrl);
+    const eventSource = new EventSource(sseUrl);
+    setActiveEventSource(eventSource);
 
-    ws.onopen = () => {
+    eventSource.onopen = () => {
       setRapidStatus("Processing…");
     };
 
-    ws.onmessage = (event) => {
+    eventSource.onmessage = (event) => {
       try {
         const message = JSON.parse(event.data);
+        
+        // Skip connection messages
+        if (message.type === "connected") {
+          return;
+        }
+        
         console.log("[Stream] Message received:", message.type);
 
         if (message.type === "campaign_start") {
@@ -453,7 +459,7 @@ export default function CampaignDetailPage() {
           setIsRapidAllRunning(false);
           setRapidStatus("Campaign Complete!");
           fetchCampaignDetails(true);
-          // ws.close(); // Keep open to see final logs?
+          // eventSource.close(); // Keep open to see final logs?
         }
 
         if (message.type === "campaign_stopped") {
@@ -473,16 +479,12 @@ export default function CampaignDetailPage() {
       }
     };
 
-    ws.onclose = () => {
-      console.log("[Stream] WebSocket disconnected");
-      setActiveWebSocket(null);
+    eventSource.onerror = (err) => {
+      console.error("[Stream] SSE error:", err);
+      // EventSource will auto-reconnect
     };
 
-    ws.onerror = (err) => {
-      console.error("[Stream] WebSocket error:", err);
-    };
-
-    return ws;
+    return eventSource;
   };
 
   const handleRapidProcess = async (companyId: number) => {
@@ -517,14 +519,14 @@ export default function CampaignDetailPage() {
   const emergencyStopAll = () => {
     console.log("[EMERGENCY STOP] Forcefully stopping all processing");
 
-    // Close active WebSocket
-    if (activeWebSocket) {
+    // Close active EventSource
+    if (activeEventSource) {
       try {
-        activeWebSocket.close(1000, "Emergency stop by user");
+        activeEventSource.close();
       } catch (e) {
-        console.error("Error closing WebSocket:", e);
+        console.error("Error closing EventSource:", e);
       }
-      setActiveWebSocket(null);
+      setActiveEventSource(null);
     }
 
     // Reset all processing states

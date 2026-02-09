@@ -29,47 +29,50 @@ export default function LiveMonitorView({
   const [events, setEvents] = useState<LiveEvent[]>([]);
   const [currentPage, setCurrentPage] = useState<string>(websiteUrl);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const wsRef = useRef<WebSocket | null>(null);
+  const eventSourceRef = useRef<EventSource | null>(null);
 
-  // WebSocket connection for real-time updates
+  // SSE connection for real-time updates
   useEffect(() => {
     if (!isPlaying) return;
 
-    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:5000';
-    const ws = new WebSocket(`${wsUrl}/ws/campaign/${companyId}`);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+    const sseUrl = `${apiUrl}/sse/campaign/${companyId}`;
+    const eventSource = new EventSource(sseUrl);
     
-    ws.onopen = () => {
-      console.log('WebSocket connected for live monitoring');
-      addEvent('Connected to live monitoring', 'success', 'WebSocket connected');
+    eventSource.onopen = () => {
+      console.log('SSE connected for live monitoring');
+      addEvent('Connected to live monitoring', 'success', 'SSE connected');
     };
 
-    ws.onmessage = (event) => {
+    eventSource.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        handleWebSocketMessage(data);
+        
+        // Skip connection messages
+        if (data.type === 'connected') {
+          return;
+        }
+        
+        handleSSEMessage(data);
       } catch (error) {
-        console.error('Error parsing WebSocket message:', error);
+        console.error('Error parsing SSE message:', error);
       }
     };
 
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-      addEvent('Connection error', 'error', 'WebSocket connection failed');
+    eventSource.onerror = (error) => {
+      console.error('SSE error:', error);
+      addEvent('Connection error', 'error', 'SSE connection failed');
+      // EventSource will auto-reconnect
     };
 
-    ws.onclose = () => {
-      console.log('WebSocket disconnected');
-      addEvent('Disconnected from live monitoring', 'warning', 'WebSocket closed');
-    };
-
-    wsRef.current = ws;
+    eventSourceRef.current = eventSource;
 
     return () => {
-      ws.close();
+      eventSource.close();
     };
   }, [isPlaying, companyId]);
 
-  const handleWebSocketMessage = (data: any) => {
+  const handleSSEMessage = (data: any) => {
     const { action, status, message, url, screenshot } = data;
 
     // Update iframe URL if page changed
@@ -122,7 +125,7 @@ export default function LiveMonitorView({
 
   const stopProcessing = () => {
     setIsPlaying(false);
-    wsRef.current?.close();
+    eventSourceRef.current?.close();
     addEvent('Stopped automation', 'warning', 'Processing stopped by user');
   };
 
