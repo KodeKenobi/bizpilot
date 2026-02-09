@@ -27,6 +27,7 @@ export default function LiveMonitorView({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [events, setEvents] = useState<LiveEvent[]>([]);
+  const [lastEventId, setLastEventId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<string>(websiteUrl);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
@@ -36,23 +37,31 @@ export default function LiveMonitorView({
     if (!isPlaying) return;
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-    const sseUrl = `${apiUrl}/sse/campaign/${companyId}`;
+    // Use last_id query param for manual resumption if needed
+    const sseUrl = `${apiUrl}/sse/campaign/${companyId}${lastEventId ? `?last_id=${lastEventId}` : ''}`;
     const eventSource = new EventSource(sseUrl);
     
     eventSource.onopen = () => {
       console.log('SSE connected for live monitoring');
-      addEvent('Connected to live monitoring', 'success', 'SSE connected');
+      if (!lastEventId) {
+        addEvent('Connected to live monitoring', 'success', 'SSE connected');
+      }
     };
 
     eventSource.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
         
-        // Skip connection messages
+        // Skip generic connection messages
         if (data.type === 'connected') {
           return;
         }
         
+        // Track the ID from the SSE event for resumption
+        if (event.lastEventId) {
+          setLastEventId(event.lastEventId);
+        }
+
         handleSSEMessage(data);
       } catch (error) {
         console.error('Error parsing SSE message:', error);
@@ -61,8 +70,7 @@ export default function LiveMonitorView({
 
     eventSource.onerror = (error) => {
       console.error('SSE error:', error);
-      addEvent('Connection error', 'error', 'SSE connection failed');
-      // EventSource will auto-reconnect
+      // EventSource will auto-reconnect using Last-Event-ID header automatically
     };
 
     eventSourceRef.current = eventSource;
@@ -70,7 +78,7 @@ export default function LiveMonitorView({
     return () => {
       eventSource.close();
     };
-  }, [isPlaying, companyId]);
+  }, [isPlaying, companyId]); // lastEventId is NOT in deps to avoid loop on every message
 
   const handleSSEMessage = (data: any) => {
     const { action, status, message, url, screenshot } = data;

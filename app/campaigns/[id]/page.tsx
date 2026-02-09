@@ -384,6 +384,8 @@ export default function CampaignDetailPage() {
     }
   };
 
+  const [lastEventId, setLastEventId] = useState<string>("0");
+
   const connectToCampaignStream = (id: string) => {
     if (activeEventSource) {
       activeEventSource.close();
@@ -391,9 +393,10 @@ export default function CampaignDetailPage() {
 
     const protocol = window.location.protocol === "https:" ? "https:" : "http:";
     const backendUrl = "web-production-737b.up.railway.app";
-    const sseUrl = `${protocol}//${backendUrl}/sse/campaign/${id}`;
+    // Passing last_id=0 initially fetches all history, ensuring UI is restored on refresh
+    const sseUrl = `${protocol}//${backendUrl}/sse/campaign/${id}?last_id=${lastEventId}`;
 
-    console.log("[Stream] Connecting to Campaign SSE:", sseUrl);
+    console.log("[Stream] Connecting to Campaign SSE (Last ID: " + lastEventId + "):", sseUrl);
     const eventSource = new EventSource(sseUrl);
     setActiveEventSource(eventSource);
 
@@ -405,6 +408,11 @@ export default function CampaignDetailPage() {
       try {
         const message = JSON.parse(event.data);
         
+        // Update lastEventId for resumption
+        if (event.lastEventId) {
+          setLastEventId(event.lastEventId);
+        }
+
         // Skip connection messages
         if (message.type === "connected") {
           return;
@@ -416,8 +424,13 @@ export default function CampaignDetailPage() {
           setIsRapidAllRunning(true);
           setRapidAllTotal(message.data.total_companies || 0);
           setRapidAllProgress(0);
-          setActivityLogs([]);
-          activityLogsRef.current = [];
+          // Only clear logs if we are NOT in a catch-up/reconnection phase
+          // (i.e., if this is a fresh start of a run)
+          // Simple heuristic: if we already have logs, don't clear them
+          if (activityLogsRef.current.length === 0) {
+            setActivityLogs([]);
+            activityLogsRef.current = [];
+          }
         }
         if (message.type === "company_processing") {
           const { company_id, company_name } = message.data;
@@ -434,17 +447,21 @@ export default function CampaignDetailPage() {
         if (message.type === "activity") {
           const log: ActivityLog = message.data;
           setActivityLogs((prev) => {
-            const newLogs = [...prev, log].slice(-50); // Keep last 50
+            // Avoid duplicate logs if they come through catch-up
+            // (Standard EventSource shouldn't, but safety first)
+            const isDuplicate = prev.some(l => l.timestamp === log.timestamp && l.message === log.message);
+            if (isDuplicate) return prev;
+
+            const newLogs = [...prev, log].slice(-100); // Increased to 100 for better history
             activityLogsRef.current = newLogs;
             return newLogs;
           });
-          // Mission Control: only show "Processing..." — no company names or technical jargon
           setRapidStatus("Processing...");
         }
 
         if (message.type === "company_completed") {
           const { company_id, status, screenshot_url, progress } = message.data;
-          processingCompanyIdRef.current = null; // clear ref first so in-flight poll merge won't keep this company as "processing"
+          processingCompanyIdRef.current = null;
           setProcessingCompanyId(null);
           setCompanies((prev) =>
             prev.map((c) =>
@@ -459,7 +476,6 @@ export default function CampaignDetailPage() {
           setIsRapidAllRunning(false);
           setRapidStatus("Campaign Complete!");
           fetchCampaignDetails(true);
-          // eventSource.close(); // Keep open to see final logs?
         }
 
         if (message.type === "campaign_stopped") {
@@ -481,7 +497,7 @@ export default function CampaignDetailPage() {
 
     eventSource.onerror = (err) => {
       console.error("[Stream] SSE error:", err);
-      // EventSource will auto-reconnect
+      // EventSource will auto-reconnect using Last-Event-ID automatically
     };
 
     return eventSource;

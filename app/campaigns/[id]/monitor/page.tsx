@@ -103,6 +103,8 @@ export default function CampaignMonitorPage() {
     setHasCompleted(true);
   };
 
+  const [lastEventId, setLastEventId] = useState<string>("0");
+
   const startMonitoring = () => {
     if (!selectedCompany) {
       console.error('[Monitor] Cannot start - no company selected');
@@ -115,21 +117,24 @@ export default function CampaignMonitorPage() {
     setCurrentStep('Connecting to processor...');
     setProgress(5);
     
-    const protocol = window.location.protocol === 'https:' ? 'https:' : 'https:';
+    const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
     const backendUrl = 'web-production-737b.up.railway.app';
-    const sseUrl = `${protocol}//${backendUrl}/sse/campaign/${campaignId}/monitor/${selectedCompany.id}`;
+    // Use last_id query param for resumption
+    const sseUrl = `${protocol}//${backendUrl}/sse/campaign/${campaignId}/monitor/${selectedCompany.id}?last_id=${lastEventId}`;
     
-    console.log('[Monitor] Connecting to SSE:', sseUrl);
+    console.log('[Monitor] Connecting to SSE (Last ID: ' + lastEventId + '):', sseUrl);
     const eventSource = new EventSource(sseUrl);
     setEventSourceConnection(eventSource);
     
     eventSource.onopen = () => {
       console.log('[Monitor] SSE connected');
       setStatus('processing');
-      setCurrentStep('Connected - Starting browser...');
-      setProgress(10);
+      if (lastEventId === "0") {
+        setCurrentStep('Connected - Starting browser...');
+        setProgress(10);
+      }
       setCurrentUrl(selectedCompany.website_url);
-      if (iframeRef.current) {
+      if (iframeRef.current && !currentUrl) {
         iframeRef.current.src = selectedCompany.website_url;
       }
     };
@@ -138,6 +143,11 @@ export default function CampaignMonitorPage() {
       try {
         const message = JSON.parse(event.data);
         
+        // Track the ID for resumption
+        if (event.lastEventId) {
+          setLastEventId(event.lastEventId);
+        }
+
         // Skip connection messages
         if (message.type === 'connected') {
           return;
