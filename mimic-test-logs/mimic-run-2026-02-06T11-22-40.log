@@ -1,0 +1,1630 @@
+Mimic test run started at 2026-02-06T11:22:40.497Z
+[2026-02-06T11:22:40.498Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-06T11-22-40.log
+[2026-02-06T11:22:40.505Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-06T11:22:44.208Z] Loading site and dismissing cookie modal...
+[2026-02-06T11:22:50.732Z] Cookie modal dismissed (Accept All)
+[2026-02-06T11:22:51.554Z] Filling login...
+[2026-02-06T11:22:58.302Z] Login OK
+[2026-02-06T11:22:58.303Z] Waiting 10s for dashboard to refresh...
+[2026-02-06T11:23:08.323Z] Dashboard wait done.
+[2026-02-06T11:23:08.355Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-06T11:23:09.915Z] Usage: daily_limit=-1 daily_used=67 unlimited=true daily_remaining=N/A
+[2026-02-06T11:23:09.917Z] Navigating to campaign upload...
+[2026-02-06T11:23:14.238Z] Upload OK
+[2026-02-06T11:23:15.145Z] Navigate to create OK
+[2026-02-06T11:23:19.665Z] Campaign created: 149
+[2026-02-06T11:23:21.670Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/149
+[2026-02-06T11:23:21.807Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-06T11:23:22.452Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-06T11:23:23.115Z] [Stream] Campaign started – total companies: 1070
+[2026-02-06T11:23:23.179Z] [Stream] Now processing: 2020 Innovation | 77267
+[2026-02-06T11:23:23.848Z] [Stream] [2020 Innovation] [info] Navigation: Opening https://2020innovation.com...
+[2026-02-06T11:23:24.514Z] Started processing 2000 companies...
+[2026-02-06T11:23:25.051Z] [Stream] [2020 Innovation] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:23:26.246Z] [Stream] [2020 Innovation] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:23:28.562Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: [aria-label*="Accept"]
+[2026-02-06T11:23:33.205Z] Status: 0 terminal, 1 processing | elapsed 9s | since last completion: 9s
+[2026-02-06T11:23:33.207Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T11:23:41.734Z] Status: 0 terminal, 1 processing | elapsed 17s | since last completion: 17s
+[2026-02-06T11:23:41.737Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T11:23:50.564Z] Status: 0 terminal, 1 processing | elapsed 26s | since last completion: 26s
+[2026-02-06T11:23:50.564Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T11:23:59.491Z] [Stream] [2020 Innovation] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T11:24:00.160Z] Status: 0 terminal, 1 processing | elapsed 36s | since last completion: 36s
+[2026-02-06T11:24:00.174Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T11:24:00.301Z] [Stream] [2020 Innovation] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:24:01.161Z] [Stream] [2020 Innovation] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:24:01.179Z] [Stream] [2020 Innovation] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:24:01.300Z] [Stream] [2020 Innovation] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:24:01.573Z] [Stream] [2020 Innovation] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:24:01.589Z] [Stream] [2020 Innovation] [info] Testing Link: Link 1: contact (
+                  https://www.2020innovation.com/contact
+              )
+[2026-02-06T11:24:02.526Z] [Stream] [2020 Innovation] [info] Contact Page: Loading contact page…
+[2026-02-06T11:24:03.629Z] [Stream] [2020 Innovation] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T11:24:04.049Z] [Stream] [2020 Innovation] [success] Form in iframe: Found form in frame 2 on contact page
+[2026-02-06T11:24:04.099Z] [Stream] [2020 Innovation] [info] Form Filling: Starting iframe fill on contact_page_frame_2
+[2026-02-06T11:24:05.254Z] [Stream] [2020 Innovation] [info] Form Filling: Extracted 9 fields from this form; filling by mapping
+[2026-02-06T11:24:05.283Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: first_name: name="firstname" label="First Name*"
+[2026-02-06T11:24:05.301Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: last_name: name="lastname" label="Last Name*"
+[2026-02-06T11:24:05.329Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: email: name="email" label="Email*"
+[2026-02-06T11:24:05.365Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: phone: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*"
+[2026-02-06T11:24:05.402Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: full_name: name="company" label="Company name*"
+[2026-02-06T11:24:05.482Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: checkbox_option: name="enquiry_type" label="Member Support"
+[2026-02-06T11:24:05.514Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: message: name="message" label="Message*"
+[2026-02-06T11:24:06.548Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: phone: name="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label=""
+[2026-02-06T11:24:06.551Z] [Stream] [2020 Innovation] [info] Form Fields Extracted: [contact_page_frame_2] 9 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:24:06.556Z] [Stream] [2020 Innovation] [info] Field: name="firstname" id="firstname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="First Name*" type=text tag=input required=True
+[2026-02-06T11:24:06.559Z] [Stream] [2020 Innovation] [info] Field: name="lastname" id="lastname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Last Name*" type=text tag=input required=True
+[2026-02-06T11:24:06.565Z] [Stream] [2020 Innovation] [info] Field: name="email" id="email-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Email*" type=email tag=input required=True
+[2026-02-06T11:24:06.567Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" type=tel tag=input required=True
+[2026-02-06T11:24:06.573Z] [Stream] [2020 Innovation] [info] Field: name="company" id="company-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Company name*" type=text tag=input required=True
+[2026-02-06T11:24:06.576Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type0-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Member Support" type=checkbox tag=input required=False
+[2026-02-06T11:24:06.581Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type1-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Sales" type=checkbox tag=input required=False
+[2026-02-06T11:24:06.587Z] [Stream] [2020 Innovation] [info] Field: name="message" id="message-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Message*" type=text tag=textarea required=True
+[2026-02-06T11:24:06.594Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="" type=select tag=select required=True
+[2026-02-06T11:24:06.602Z] [Stream] [2020 Innovation] [info] Form Fields Filled: [contact_page_frame_2] 8 field(s) — name/id, label, role, value
+[2026-02-06T11:24:06.607Z] [Stream] [2020 Innovation] [info] Filled: name="firstname" label="First Name*" role=first_name value="Test"
+[2026-02-06T11:24:06.612Z] [Stream] [2020 Innovation] [info] Filled: name="lastname" label="Last Name*" role=last_name value="User"
+[2026-02-06T11:24:06.623Z] [Stream] [2020 Innovation] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-06T11:24:06.631Z] [Stream] [2020 Innovation] [info] Filled: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" role=phone value="+27123456789"
+[2026-02-06T11:24:06.637Z] [Stream] [2020 Innovation] [info] Filled: name="company" label="Company name*" role=full_name value="Test User"
+[2026-02-06T11:24:06.640Z] [Stream] [2020 Innovation] [info] Filled: name="enquiry_type" label="Member Support" role=checkbox_option value="checked"
+[2026-02-06T11:24:06.642Z] [Stream] [2020 Innovation] [info] Filled: name="message" label="Message*" role=message value="Hello, this is a test."
+[2026-02-06T11:24:06.652Z] [Stream] [2020 Innovation] [info] Filled: name="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="" role=phone value="South Africa"
+[2026-02-06T11:24:06.657Z] [Stream] [2020 Innovation] [info] Form Fields Left Unsatisfied: [contact_page_frame_2] 0 field(s) — not filled
+[2026-02-06T11:24:06.660Z] [Stream] [2020 Innovation] [info] Submitting: Clicking submit button
+[2026-02-06T11:24:08.468Z] [Stream] [2020 Innovation] [success] Form Processed: Filled 8 fields (extract-then-fill) and submitted
+[2026-02-06T11:24:08.876Z] Status: 0 terminal, 1 processing | elapsed 44s | since last completion: 44s
+[2026-02-06T11:24:08.886Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T11:24:10.282Z] [Stream] Completed: company_id=77267 status=completed progress=?%
+[2026-02-06T11:24:10.595Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-06T11:24:11.455Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:24:12.108Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:24:17.630Z] Progress: 1 terminal (one just finished; 53s since previous) | elapsed 53s
+[2026-02-06T11:24:17.633Z] Status: 1 terminal, 1 processing | elapsed 53s | since last completion: 53s
+[2026-02-06T11:24:17.637Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:24:26.485Z] Status: 1 terminal, 1 processing | elapsed 1m 2s | since last completion: 9s
+[2026-02-06T11:24:26.486Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:24:35.226Z] Status: 1 terminal, 1 processing | elapsed 1m 11s | since last completion: 18s
+[2026-02-06T11:24:35.227Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:24:43.178Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T11:24:43.765Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:24:43.838Z] Status: 1 terminal, 1 processing | elapsed 1m 19s | since last completion: 26s
+[2026-02-06T11:24:43.838Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:24:44.567Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:24:44.577Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:24:44.691Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:24:44.939Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:24:44.941Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-06T11:24:45.399Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-06T11:24:52.408Z] Status: 1 terminal, 1 processing | elapsed 1m 28s | since last completion: 35s
+[2026-02-06T11:24:52.409Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:25:01.217Z] Status: 1 terminal, 1 processing | elapsed 1m 37s | since last completion: 44s
+[2026-02-06T11:25:01.228Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:25:09.836Z] Status: 1 terminal, 1 processing | elapsed 1m 45s | since last completion: 52s
+[2026-02-06T11:25:09.837Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:25:15.972Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-06T11:25:15.975Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T11:25:16.378Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-06T11:25:16.599Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:25:16.904Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:25:16.916Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:25:16.924Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-06T11:25:17.523Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-06T11:25:18.177Z] [Stream] Completed: company_id=77268 status=no_contact_found progress=?%
+[2026-02-06T11:25:18.701Z] Progress: 2 terminal (one just finished; 1m 1s since previous) | elapsed 1m 54s
+[2026-02-06T11:25:18.704Z] Status: 2 terminal, 0 processing | elapsed 1m 54s | since last completion: 1m 1s
+[2026-02-06T11:25:18.711Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-06T11:25:19.480Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:25:20.646Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:25:27.382Z] Status: 2 terminal, 1 processing | elapsed 2m 3s | since last completion: 9s
+[2026-02-06T11:25:27.384Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:25:36.983Z] Status: 2 terminal, 1 processing | elapsed 2m 12s | since last completion: 18s
+[2026-02-06T11:25:37.018Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:25:46.322Z] Status: 2 terminal, 1 processing | elapsed 2m 22s | since last completion: 28s
+[2026-02-06T11:25:46.406Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:25:51.599Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T11:25:52.167Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:25:52.934Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:25:52.945Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:25:53.065Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:25:53.263Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:25:53.272Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-06T11:25:53.747Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-06T11:25:55.268Z] Status: 2 terminal, 1 processing | elapsed 2m 31s | since last completion: 37s
+[2026-02-06T11:25:55.269Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:26:03.899Z] Status: 2 terminal, 1 processing | elapsed 2m 39s | since last completion: 45s
+[2026-02-06T11:26:03.909Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:26:17.530Z] Status: 2 terminal, 1 processing | elapsed 2m 53s | since last completion: 59s
+[2026-02-06T11:26:17.531Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:26:24.301Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-06T11:26:24.304Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T11:26:24.700Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-06T11:26:24.923Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:26:25.225Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:26:25.238Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:26:25.252Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-06T11:26:25.824Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-06T11:26:26.459Z] Status: 2 terminal, 1 processing | elapsed 3m 2s | since last completion: 1m 8s
+[2026-02-06T11:26:26.461Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T11:26:26.984Z] [Stream] Completed: company_id=77269 status=no_contact_found progress=?%
+[2026-02-06T11:26:27.299Z] [Stream] [4D modelshop Ltd] [info] Navigation: Opening https://modelshop.co.uk...
+[2026-02-06T11:26:28.102Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:26:28.590Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T11:26:28.591Z] [Stream] [4D modelshop Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:26:29.399Z] [Stream] [4D modelshop Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:26:29.406Z] [Stream] [4D modelshop Ltd] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:26:29.446Z] [Stream] [4D modelshop Ltd] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:26:29.485Z] [Stream] [4D modelshop Ltd] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:26:29.487Z] [Stream] [4D modelshop Ltd] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:26:29.790Z] [Stream] [4D modelshop Ltd] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:26:29.793Z] [Stream] [4D modelshop Ltd] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:26:30.154Z] [Stream] [4D modelshop Ltd] [success] Email Found: Found 1 email(s)
+[2026-02-06T11:26:30.236Z] [Stream] [4D modelshop Ltd] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-06T11:26:30.766Z] [Stream] Completed: company_id=77270 status=contact_info_found progress=?%
+[2026-02-06T11:26:31.081Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Navigation: Opening https://7core.co.uk...
+[2026-02-06T11:26:32.712Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:26:33.398Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Found 3 contact link(s) in footer; trying contact page first
+[2026-02-06T11:26:34.739Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T11:26:35.109Z] Progress: 4 terminal (one just finished; 1m 16s since previous) | elapsed 3m 11s
+[2026-02-06T11:26:35.112Z] Status: 4 terminal, 1 processing | elapsed 3m 11s | since last completion: 1m 16s
+[2026-02-06T11:26:35.115Z]   Current: 7 Core Electrical Wholesale Ltd | https://7core.co.uk
+[2026-02-06T11:26:35.308Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:26:35.314Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T11:26:35.341Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Trying form 2…
+[2026-02-06T11:26:37.433Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T11:26:37.575Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Starting standard fill on homepage
+[2026-02-06T11:26:37.815Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Extracted 7 fields from this form; filling by mapping
+[2026-02-06T11:26:37.834Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: first_name: name="first-name" label="First name"
+[2026-02-06T11:26:37.873Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: last_name: name="last-name" label="Last Name"
+[2026-02-06T11:26:37.885Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: email: name="email" label="Email"
+[2026-02-06T11:26:37.900Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: phone: name="phone" label="Phone"
+[2026-02-06T11:26:37.919Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: message: name="textarea_comp-jzdzfcus" label="Your message"
+[2026-02-06T11:26:37.938Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: company: name="company" label="Company"
+[2026-02-06T11:26:38.275Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: other: name="collection_comp-l70fhx3t" label="Branch"
+[2026-02-06T11:26:38.315Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Extracted: [homepage] 7 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:26:38.320Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="first-name" id="input_comp-jzdzfctw" label="First name" type=text tag=input required=False
+[2026-02-06T11:26:38.338Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="last-name" id="input_comp-jzdzfcu6" label="Last Name" type=text tag=input required=False
+[2026-02-06T11:26:38.352Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="email" id="input_comp-jzdzfcuc" label="Email" type=email tag=input required=True
+[2026-02-06T11:26:38.361Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="phone" id="input_comp-jzdzfcuk" label="Phone" type=tel tag=input required=False
+[2026-02-06T11:26:38.368Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="textarea_comp-jzdzfcus" label="Your message" type=text tag=textarea required=False
+[2026-02-06T11:26:38.374Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="company" id="input_comp-kettv73q" label="Company" type=text tag=input required=False
+[2026-02-06T11:26:38.385Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="collection_comp-l70fhx3t" label="Branch" type=select tag=select required=True
+[2026-02-06T11:26:38.387Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Filled: [homepage] 7 field(s) — name/id, label, role, value
+[2026-02-06T11:26:38.396Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="first-name" label="First name" role=first_name value="Test"
+[2026-02-06T11:26:38.400Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="last-name" label="Last Name" role=last_name value="User"
+[2026-02-06T11:26:38.404Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="email" label="Email" role=email value="test@example.com"
+[2026-02-06T11:26:38.417Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="phone" label="Phone" role=phone value="+27123456789"
+[2026-02-06T11:26:38.443Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="textarea_comp-jzdzfcus" label="Your message" role=message value="Hello, this is a test."
+[2026-02-06T11:26:38.449Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="company" label="Company" role=company value="Test Co"
+[2026-02-06T11:26:38.456Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="collection_comp-l70fhx3t" label="Branch" role=other value="Lincoln"
+[2026-02-06T11:26:38.462Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Left Unsatisfied: [homepage] 0 field(s) — not filled
+[2026-02-06T11:26:38.466Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Submitting: Clicking submit button
+[2026-02-06T11:26:40.219Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Processed: Filled 7 fields (extract-then-fill) and submitted
+[2026-02-06T11:26:40.221Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Detection: Filled form 2 on page (7 fields)
+[2026-02-06T11:26:41.781Z] [Stream] Completed: company_id=77271 status=completed progress=?%
+[2026-02-06T11:26:42.107Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Navigation: Opening https://80scasualclassics.co.uk...
+[2026-02-06T11:26:43.180Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:26:43.697Z] Progress: 5 terminal (one just finished; 9s since previous) | elapsed 3m 19s
+[2026-02-06T11:26:43.699Z] Status: 5 terminal, 1 processing | elapsed 3m 19s | since last completion: 9s
+[2026-02-06T11:26:43.700Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:26:44.297Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:26:46.240Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-06T11:26:46.258Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-06T11:26:46.264Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-06T11:26:46.429Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T11:26:47.409Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:26:47.449Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T11:26:47.466Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-06T11:26:47.492Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 3 (newsletter/signup)
+[2026-02-06T11:26:47.535Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: No form with 2+ fillable fields succeeded among 3 form(s)
+[2026-02-06T11:26:48.186Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:26:48.219Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Heuristics: Analyzing 8 orphan inputs...
+[2026-02-06T11:26:48.269Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:26:48.314Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Extracted 4 fields from this form; filling by mapping
+[2026-02-06T11:26:48.338Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-06T11:26:48.375Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-06T11:26:48.410Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics] 4 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:26:48.413Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="Search" type=search tag=input required=False
+[2026-02-06T11:26:48.415Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-6985ac6e2fe9e1690" label="Stay in the loop | Newsletter Sign up" type=email tag=input required=False
+[2026-02-06T11:26:48.417Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-6985ac6e335542450" label="" type=text tag=input required=False
+[2026-02-06T11:26:48.419Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="" id="currency-switcher" label="Currency" type=select tag=select required=False
+[2026-02-06T11:26:48.422Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics] 2 field(s) — name/id, label, role, value
+[2026-02-06T11:26:48.425Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="Stay in the loop | Newsletter Sign up" role=email value="test@example.com"
+[2026-02-06T11:26:48.428Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="" role=email value="test@example.com"
+[2026-02-06T11:26:48.429Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics] 2 field(s) — not filled
+[2026-02-06T11:26:48.431Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="Search"
+[2026-02-06T11:26:48.433Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="" id="currency-switcher" label="Currency"
+[2026-02-06T11:26:48.437Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-06T11:26:48.442Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: search, Name: query, Label: search, Text: query enter search... query search
+[2026-02-06T11:26:48.454Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-06T11:26:48.467Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-06T11:26:48.492Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: email, Name: email_address, Label: stay in the loop | newsletter sign up, Text: email_address enter email address... mailing_box-6985ac6e2fe9e1690 stay in the l
+[2026-02-06T11:26:48.617Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Email field filled: test@example.com
+[2026-02-06T11:26:48.635Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: newsletter_subscription, Label: , Text: newsletter_subscription  newsletter_subscription
+[2026-02-06T11:26:48.647Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-06T11:26:48.666Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-06T11:26:48.680Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: text, Name: email_address, Label: , Text: email_address enter email address... mailing_box_pop-6985ac6e335542450
+[2026-02-06T11:26:52.743Z] Status: 5 terminal, 1 processing | elapsed 3m 28s | since last completion: 9s
+[2026-02-06T11:26:52.772Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:27:01.439Z] Status: 5 terminal, 1 processing | elapsed 3m 37s | since last completion: 18s
+[2026-02-06T11:27:01.444Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:27:10.020Z] Status: 5 terminal, 1 processing | elapsed 3m 46s | since last completion: 26s
+[2026-02-06T11:27:10.021Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:27:18.687Z] Status: 5 terminal, 1 processing | elapsed 3m 54s | since last completion: 35s
+[2026-02-06T11:27:18.688Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:27:27.173Z] Status: 5 terminal, 1 processing | elapsed 4m 3s | since last completion: 43s
+[2026-02-06T11:27:27.174Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:27:35.746Z] Status: 5 terminal, 1 processing | elapsed 4m 11s | since last completion: 52s
+[2026-02-06T11:27:35.748Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:27:44.491Z] Status: 5 terminal, 1 processing | elapsed 4m 20s | since last completion: 1m 1s
+[2026-02-06T11:27:44.492Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:27:53.182Z] Status: 5 terminal, 1 processing | elapsed 4m 29s | since last completion: 1m 9s
+[2026-02-06T11:27:53.183Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:28:01.695Z] Status: 5 terminal, 1 processing | elapsed 4m 37s | since last completion: 1m 18s
+[2026-02-06T11:28:01.696Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:28:08.819Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Select "currency-switcher" -> Kr.DKK
+[2026-02-06T11:28:08.859Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics_heuristic] 4 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:28:08.861Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="search" type=search tag=input required=False
+[2026-02-06T11:28:08.863Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-6985ac6e2fe9e1690" label="stay in the loop | newsletter sign up" type=email tag=input required=False
+[2026-02-06T11:28:08.866Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-6985ac6e335542450" label="" type=text tag=input required=False
+[2026-02-06T11:28:08.867Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="currency-switcher" id="currency-switcher" label="currency" type=select tag=select required=False
+[2026-02-06T11:28:08.869Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics_heuristic] 2 field(s) — name/id, label, role, value
+[2026-02-06T11:28:08.871Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="stay in the loop | newsletter sign up" role=email value="test@example.com"
+[2026-02-06T11:28:08.873Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="currency-switcher" label="currency" role=branch value="Kr.DKK"
+[2026-02-06T11:28:08.876Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 1 field(s) — not filled
+[2026-02-06T11:28:08.877Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="search"
+[2026-02-06T11:28:09.746Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Submitting: Clicking submit button
+[2026-02-06T11:28:10.260Z] Status: 5 terminal, 1 processing | elapsed 4m 46s | since last completion: 1m 27s
+[2026-02-06T11:28:10.266Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T11:28:10.826Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-06T11:28:10.829Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:28:10.968Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:28:11.384Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:28:11.385Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Testing Link: Link 1: contact us (/contact-us-i3)
+[2026-02-06T11:28:11.958Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page: Loading contact page…
+[2026-02-06T11:28:13.019Z] [Stream] [80S CASUAL CLASSICS LTD] [success] Form Detection: Found 4 form(s) on contact page
+[2026-02-06T11:28:13.553Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-06T11:28:14.569Z] [Stream] Completed: company_id=77272 status=failed progress=?%
+[2026-02-06T11:28:14.896Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Navigation: Opening https://lymn.co.uk...
+[2026-02-06T11:28:16.519Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:28:17.056Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Strategy 0: Found 3 contact link(s) in footer; trying contact page first
+[2026-02-06T11:28:18.801Z] Progress: 6 terminal (one just finished; 1m 35s since previous) | elapsed 4m 54s
+[2026-02-06T11:28:18.802Z] Status: 6 terminal, 1 processing | elapsed 4m 54s | since last completion: 1m 35s
+[2026-02-06T11:28:18.802Z]   Current: A.W. Lymn The Family Funeral Service | https://lymn.co.uk
+[2026-02-06T11:28:18.803Z]   STUCK? No progress for 1m 35s (still 6 terminal, 1 processing)
+[2026-02-06T11:28:18.804Z]   Failed (new): 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk | Request timed out. Try again or skip.
+[2026-02-06T11:28:19.732Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-06T11:28:19.799Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Filling: Extracted 5 fields from this form; filling by mapping
+[2026-02-06T11:28:19.824Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: full_name: name="NAME" label="Name*"
+[2026-02-06T11:28:19.837Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: email: name="EMAIL" label="Email *"
+[2026-02-06T11:28:19.851Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: phone: name="NUMBER" label="Phone*"
+[2026-02-06T11:28:19.876Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: message: name="MESSAGE" label="Message*"
+[2026-02-06T11:28:19.879Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Extracted: [contact_page] 5 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:28:19.882Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="_hf_h465" id="" label="" type=text tag=input required=False
+[2026-02-06T11:28:19.884Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="NAME" id="name" label="Name*" type=text tag=input required=True
+[2026-02-06T11:28:19.886Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="EMAIL" id="email" label="Email *" type=email tag=input required=True
+[2026-02-06T11:28:19.889Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="NUMBER" id="" label="Phone*" type=text tag=input required=True
+[2026-02-06T11:28:19.891Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="MESSAGE" id="message" label="Message*" type=text tag=textarea required=True
+[2026-02-06T11:28:19.896Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Filled: [contact_page] 4 field(s) — name/id, label, role, value
+[2026-02-06T11:28:19.898Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="NAME" label="Name*" role=full_name value="Test User"
+[2026-02-06T11:28:19.900Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="EMAIL" label="Email *" role=email value="test@example.com"
+[2026-02-06T11:28:19.902Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="NUMBER" label="Phone*" role=phone value="+27123456789"
+[2026-02-06T11:28:19.904Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="MESSAGE" label="Message*" role=message value="Hello, this is a test."
+[2026-02-06T11:28:19.906Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Left Unsatisfied: [contact_page] 1 field(s) — not filled
+[2026-02-06T11:28:19.910Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unfilled: name="_hf_h465" id="" label=""
+[2026-02-06T11:28:19.921Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Submitting: Clicking submit button
+[2026-02-06T11:28:21.918Z] [Stream] [A.W. Lymn The Family Funeral Service] [success] Form Processed: Filled 4 fields (extract-then-fill) and submitted
+[2026-02-06T11:28:21.921Z] [Stream] [A.W. Lymn The Family Funeral Service] [success] Form Detection: Filled contact form from footer link
+[2026-02-06T11:28:23.481Z] [Stream] Completed: company_id=77273 status=completed progress=?%
+[2026-02-06T11:28:23.814Z] [Stream] [übbs pouches] [info] Navigation: Opening https://ubbspouches.com...
+[2026-02-06T11:28:27.364Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 5m 3s
+[2026-02-06T11:28:27.365Z] Status: 7 terminal, 1 processing | elapsed 5m 3s | since last completion: 9s
+[2026-02-06T11:28:27.366Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:28:35.882Z] Status: 7 terminal, 1 processing | elapsed 5m 11s | since last completion: 9s
+[2026-02-06T11:28:35.883Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:28:44.520Z] Status: 7 terminal, 1 processing | elapsed 5m 20s | since last completion: 17s
+[2026-02-06T11:28:44.521Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:28:53.070Z] Status: 7 terminal, 1 processing | elapsed 5m 29s | since last completion: 26s
+[2026-02-06T11:28:53.071Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:29:01.620Z] Status: 7 terminal, 1 processing | elapsed 5m 37s | since last completion: 34s
+[2026-02-06T11:29:01.621Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:29:10.170Z] Status: 7 terminal, 1 processing | elapsed 5m 46s | since last completion: 43s
+[2026-02-06T11:29:10.171Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:29:15.654Z] [Stream] [übbs pouches] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:29:16.681Z] [Stream] [übbs pouches] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-06T11:29:18.778Z] Status: 7 terminal, 1 processing | elapsed 5m 54s | since last completion: 51s
+[2026-02-06T11:29:18.779Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:29:27.297Z] Status: 7 terminal, 1 processing | elapsed 6m 3s | since last completion: 60s
+[2026-02-06T11:29:27.298Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:29:35.850Z] Status: 7 terminal, 1 processing | elapsed 6m 11s | since last completion: 1m 8s
+[2026-02-06T11:29:35.851Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:29:44.528Z] Status: 7 terminal, 1 processing | elapsed 6m 20s | since last completion: 1m 17s
+[2026-02-06T11:29:44.530Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:29:53.047Z] Status: 7 terminal, 1 processing | elapsed 6m 29s | since last completion: 1m 26s
+[2026-02-06T11:29:53.049Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:01.600Z] Status: 7 terminal, 1 processing | elapsed 6m 37s | since last completion: 1m 34s
+[2026-02-06T11:30:01.601Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:01.602Z]   STUCK? No progress for 1m 34s (still 7 terminal, 1 processing)
+[2026-02-06T11:30:09.472Z] [Stream] [übbs pouches] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T11:30:10.289Z] Status: 7 terminal, 1 processing | elapsed 6m 46s | since last completion: 1m 43s
+[2026-02-06T11:30:10.290Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:10.291Z]   STUCK? No progress for 1m 43s (still 7 terminal, 1 processing)
+[2026-02-06T11:30:18.798Z] Status: 7 terminal, 1 processing | elapsed 6m 54s | since last completion: 1m 51s
+[2026-02-06T11:30:18.799Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:18.800Z]   STUCK? No progress for 1m 51s (still 7 terminal, 1 processing)
+[2026-02-06T11:30:27.377Z] Status: 7 terminal, 1 processing | elapsed 7m 3s | since last completion: 2m
+[2026-02-06T11:30:27.379Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:27.385Z]   STUCK? No progress for 2m (still 7 terminal, 1 processing)
+[2026-02-06T11:30:36.101Z] Status: 7 terminal, 1 processing | elapsed 7m 12s | since last completion: 2m 9s
+[2026-02-06T11:30:36.102Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:36.103Z]   STUCK? No progress for 2m 9s (still 7 terminal, 1 processing)
+[2026-02-06T11:30:44.551Z] Status: 7 terminal, 1 processing | elapsed 7m 20s | since last completion: 2m 17s
+[2026-02-06T11:30:44.552Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:44.552Z]   STUCK? No progress for 2m 17s (still 7 terminal, 1 processing)
+[2026-02-06T11:30:53.081Z] Status: 7 terminal, 1 processing | elapsed 7m 29s | since last completion: 2m 26s
+[2026-02-06T11:30:53.082Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T11:30:53.083Z]   STUCK? No progress for 2m 26s (still 7 terminal, 1 processing)
+[2026-02-06T11:31:00.948Z] [Stream] Completed: company_id=77274 status=failed progress=?%
+[2026-02-06T11:31:01.294Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Navigation: Opening https://a2zcreatorz.com...
+[2026-02-06T11:31:01.715Z] Progress: 8 terminal (one just finished; 2m 34s since previous) | elapsed 7m 37s
+[2026-02-06T11:31:01.720Z] Status: 8 terminal, 1 processing | elapsed 7m 37s | since last completion: 2m 34s
+[2026-02-06T11:31:01.724Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:31:01.729Z]   STUCK? No progress for 2m 34s (still 8 terminal, 1 processing)
+[2026-02-06T11:31:01.731Z]   Failed (new): übbs pouches | https://ubbspouches.com | Request timed out. Try again or skip.
+[2026-02-06T11:31:10.279Z] Status: 8 terminal, 1 processing | elapsed 7m 46s | since last completion: 9s
+[2026-02-06T11:31:10.280Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:31:11.302Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [warning] Initial Navigation: Failed or timed out: Page.goto: Timeout 10000ms exceeded.
+Call log:
+  - navigating to "https://a2zcreatorz.com/", waiting until "domcontentloaded"
+[2026-02-06T11:31:11.306Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:31:12.592Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-06T11:31:18.852Z] Status: 8 terminal, 1 processing | elapsed 7m 54s | since last completion: 17s
+[2026-02-06T11:31:18.854Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:31:20.595Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [warning] Strategy 0: Footer contact link failed: Page.goto: Timeout 8000ms exceeded.
+Call log:
+  - navigating to "https://a2zcreatorz.com/contactus/", waiting until "domcontentloaded"
+; continuing to homepage forms
+[2026-02-06T11:31:27.419Z] Status: 8 terminal, 1 processing | elapsed 8m 3s | since last completion: 26s
+[2026-02-06T11:31:27.420Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:31:28.666Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:31:28.677Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T11:31:28.679Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-06T11:31:28.681Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: No form with 2+ fillable fields succeeded among 2 form(s)
+[2026-02-06T11:31:29.493Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:31:29.503Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Heuristics: Analyzing 12 orphan inputs...
+[2026-02-06T11:31:29.551Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:31:29.721Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Filling: Extracted 6 fields from this form; filling by mapping
+[2026-02-06T11:31:29.764Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): First name -> your-name
+[2026-02-06T11:31:29.832Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Email -> your-email
+[2026-02-06T11:31:29.886Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Phone -> your-phone (national only: False)
+[2026-02-06T11:31:29.906Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Message -> your-message
+[2026-02-06T11:31:32.831Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Required Select: Filled required select: your-service
+[2026-02-06T11:31:32.833Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Extracted: [page_heuristics] 6 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:31:32.834Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-name" id="" label="Name*" type=text tag=input required=True
+[2026-02-06T11:31:32.837Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-email" id="" label="Email*" type=email tag=input required=True
+[2026-02-06T11:31:32.842Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-phone" id="" label="Phone*" type=tel tag=input required=True
+[2026-02-06T11:31:32.847Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-message" id="" label="Message*" type=text tag=textarea required=True
+[2026-02-06T11:31:32.849Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="s" id="mfs-input" label="Type your search" type=search tag=input required=False
+[2026-02-06T11:31:32.851Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-service" id="" label="" type=select tag=select required=True
+[2026-02-06T11:31:32.853Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Filled: [page_heuristics] 5 field(s) — name/id, label, role, value
+[2026-02-06T11:31:32.855Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-name" label="Name*" role=first_name value="Test"
+[2026-02-06T11:31:32.857Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-email" label="Email*" role=email value="test@example.com"
+[2026-02-06T11:31:32.862Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-phone" label="Phone*" role=phone value="+27123456789"
+[2026-02-06T11:31:32.865Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-message" label="Message*" role=message value="Hello, this is a test."
+[2026-02-06T11:31:32.868Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-service" label="" role=subject value="Web Design & Development"
+[2026-02-06T11:31:32.870Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Left Unsatisfied: [page_heuristics] 1 field(s) — not filled
+[2026-02-06T11:31:32.872Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Unfilled: name="s" id="mfs-input" label="Type your search"
+[2026-02-06T11:31:32.874Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Clicking submit button
+[2026-02-06T11:31:36.067Z] Status: 8 terminal, 1 processing | elapsed 8m 12s | since last completion: 34s
+[2026-02-06T11:31:36.068Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:31:44.527Z] Status: 8 terminal, 1 processing | elapsed 8m 20s | since last completion: 43s
+[2026-02-06T11:31:44.529Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:31:53.063Z] Status: 8 terminal, 1 processing | elapsed 8m 29s | since last completion: 51s
+[2026-02-06T11:31:53.063Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:31:57.855Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Clicking submit button
+[2026-02-06T11:32:01.759Z] Status: 8 terminal, 1 processing | elapsed 8m 37s | since last completion: 1m
+[2026-02-06T11:32:01.760Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:32:10.274Z] Status: 8 terminal, 1 processing | elapsed 8m 46s | since last completion: 1m 9s
+[2026-02-06T11:32:10.275Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:32:18.824Z] Status: 8 terminal, 1 processing | elapsed 8m 54s | since last completion: 1m 17s
+[2026-02-06T11:32:18.829Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:32:27.324Z] Status: 8 terminal, 1 processing | elapsed 9m 3s | since last completion: 1m 26s
+[2026-02-06T11:32:27.325Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:32:35.850Z] Status: 8 terminal, 1 processing | elapsed 9m 11s | since last completion: 1m 34s
+[2026-02-06T11:32:35.851Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:32:35.851Z]   STUCK? No progress for 1m 34s (still 8 terminal, 1 processing)
+[2026-02-06T11:32:44.441Z] Status: 8 terminal, 1 processing | elapsed 9m 20s | since last completion: 1m 43s
+[2026-02-06T11:32:44.442Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T11:32:44.442Z]   STUCK? No progress for 1m 43s (still 8 terminal, 1 processing)
+[2026-02-06T11:32:47.896Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Form submitted via submit()
+[2026-02-06T11:32:49.699Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [success] Form Processed: Filled 5 fields (extract-then-fill) and submitted
+[2026-02-06T11:32:51.372Z] [Stream] Completed: company_id=77275 status=completed progress=?%
+[2026-02-06T11:32:51.688Z] [Stream] [Aabyss] [info] Navigation: Opening https://aabyss.uk...
+[2026-02-06T11:32:52.960Z] Progress: 9 terminal (one just finished; 1m 51s since previous) | elapsed 9m 28s
+[2026-02-06T11:32:52.961Z] Status: 9 terminal, 1 processing | elapsed 9m 28s | since last completion: 1m 51s
+[2026-02-06T11:32:52.962Z]   Current: Aabyss | https://aabyss.uk
+[2026-02-06T11:32:52.963Z]   STUCK? No progress for 1m 51s (still 9 terminal, 1 processing)
+[2026-02-06T11:32:52.979Z] [Stream] [Aabyss] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:32:53.583Z] [Stream] [Aabyss] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T11:32:53.584Z] [Stream] [Aabyss] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:32:53.587Z] [Stream] [Aabyss] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T11:32:53.589Z] [Stream] [Aabyss] [info] Strategy 1: No form with 2+ fillable fields succeeded among 1 form(s)
+[2026-02-06T11:32:54.396Z] [Stream] [Aabyss] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:32:54.401Z] [Stream] [Aabyss] [info] Heuristics: Analyzing 5 orphan inputs...
+[2026-02-06T11:32:54.438Z] [Stream] [Aabyss] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:32:54.498Z] [Stream] [Aabyss] [info] Form Filling: Extracted 3 fields from this form; filling by mapping
+[2026-02-06T11:32:54.518Z] [Stream] [Aabyss] [info] Field Filled (mapped): First name -> firstname
+[2026-02-06T11:32:54.535Z] [Stream] [Aabyss] [info] Field Filled (mapped): Last name -> lastname
+[2026-02-06T11:32:54.558Z] [Stream] [Aabyss] [info] Field Filled (mapped): Email -> email
+[2026-02-06T11:32:54.559Z] [Stream] [Aabyss] [info] Form Fields Extracted: [page_heuristics] 3 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:32:54.561Z] [Stream] [Aabyss] [info] Field: name="firstname" id="firstname-871f4001-b16a-4cf7-a85e-ca545f2075f0_4668" label="First name*" type=text tag=input required=True
+[2026-02-06T11:32:54.562Z] [Stream] [Aabyss] [info] Field: name="lastname" id="lastname-871f4001-b16a-4cf7-a85e-ca545f2075f0_4668" label="Last name*" type=text tag=input required=True
+[2026-02-06T11:32:54.565Z] [Stream] [Aabyss] [info] Field: name="email" id="email-871f4001-b16a-4cf7-a85e-ca545f2075f0_4668" label="Email*" type=email tag=input required=True
+[2026-02-06T11:32:54.566Z] [Stream] [Aabyss] [info] Form Fields Filled: [page_heuristics] 3 field(s) — name/id, label, role, value
+[2026-02-06T11:32:54.568Z] [Stream] [Aabyss] [info] Filled: name="firstname" label="First name*" role=first_name value="Test"
+[2026-02-06T11:32:54.570Z] [Stream] [Aabyss] [info] Filled: name="lastname" label="Last name*" role=last_name value="User"
+[2026-02-06T11:32:54.572Z] [Stream] [Aabyss] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-06T11:32:54.573Z] [Stream] [Aabyss] [info] Form Fields Left Unsatisfied: [page_heuristics] 0 field(s) — not filled
+[2026-02-06T11:32:54.575Z] [Stream] [Aabyss] [info] Submitting: Clicking submit button
+[2026-02-06T11:32:57.159Z] [Stream] [Aabyss] [success] Form Processed: Filled 3 fields (extract-then-fill) and submitted
+[2026-02-06T11:32:58.221Z] [Stream] Completed: company_id=77276 status=completed progress=?%
+[2026-02-06T11:32:58.543Z] [Stream] [Abbey DLD Group of Colleges] [info] Navigation: Opening https://abbeycolleges.co.uk...
+[2026-02-06T11:32:59.773Z] [Stream] [Abbey DLD Group of Colleges] [info] Cookie Modal: Dismissed using: div[role="alertdialog"] button:has-text("Accept")
+[2026-02-06T11:33:00.169Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:33:01.246Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-06T11:33:01.659Z] Progress: 10 terminal (one just finished; 9s since previous) | elapsed 9m 37s
+[2026-02-06T11:33:01.660Z] Status: 10 terminal, 1 processing | elapsed 9m 37s | since last completion: 9s
+[2026-02-06T11:33:01.664Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:33:03.097Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T11:33:03.555Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:33:03.573Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T11:33:03.575Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1: No form with 2+ fillable fields succeeded among 1 form(s)
+[2026-02-06T11:33:04.483Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:33:04.489Z] [Stream] [Abbey DLD Group of Colleges] [info] Heuristics: Analyzing 1 orphan inputs...
+[2026-02-06T11:33:04.533Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:33:04.566Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Extracted 1 fields from this form; filling by mapping
+[2026-02-06T11:33:04.753Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-06T11:33:04.754Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics] 1 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:33:04.757Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-06T11:33:04.759Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics] 1 field(s) — name/id, label, role, value
+[2026-02-06T11:33:04.762Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-06T11:33:04.764Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics] 0 field(s) — not filled
+[2026-02-06T11:33:04.765Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled from extract; falling back to discovery
+[2026-02-06T11:33:04.982Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Field: Type: text, Name: s, Label: , Text: s
+[2026-02-06T11:33:05.095Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-06T11:33:05.097Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics_heuristic] 1 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:33:05.099Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-06T11:33:05.101Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics_heuristic] 1 field(s) — name/id, label, role, value
+[2026-02-06T11:33:05.103Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-06T11:33:05.105Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 0 field(s) — not filled
+[2026-02-06T11:33:06.151Z] [Stream] [Abbey DLD Group of Colleges] [info] Submitting: Clicking submit button
+[2026-02-06T11:33:07.271Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled — likely newsletter/search, not contact form
+[2026-02-06T11:33:07.273Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:33:07.375Z] [Stream] [Abbey DLD Group of Colleges] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:33:08.373Z] [Stream] [Abbey DLD Group of Colleges] [info] Discovery: Found 2 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:33:08.375Z] [Stream] [Abbey DLD Group of Colleges] [info] Testing Link: Link 1: more info (https://www.abbeycolleges.co.uk/contact-us/)
+[2026-02-06T11:33:08.818Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page: Loading contact page…
+[2026-02-06T11:33:10.249Z] [Stream] [Abbey DLD Group of Colleges] [success] Form Detection: Found 1 form(s) on contact page
+[2026-02-06T11:33:10.259Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-06T11:33:10.294Z] Status: 10 terminal, 1 processing | elapsed 9m 46s | since last completion: 9s
+[2026-02-06T11:33:10.295Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:33:10.675Z] [Stream] [Abbey DLD Group of Colleges] [success] Form in iframe: Found form in frame 1 on contact page
+[2026-02-06T11:33:10.728Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting iframe fill on contact_page_frame_1
+[2026-02-06T11:33:10.736Z] [Stream] [Abbey DLD Group of Colleges] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-06T11:33:10.738Z] [Stream] [Abbey DLD Group of Colleges] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-06T11:33:10.988Z] [Stream] [Abbey DLD Group of Colleges] [info] Testing Link: Link 2: enquire (https://www.abbeycolleges.co.uk/contact-us/#form128)
+[2026-02-06T11:33:11.233Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page: Loading contact page…
+[2026-02-06T11:33:12.313Z] [Stream] [Abbey DLD Group of Colleges] [success] Form Detection: Found 1 form(s) on contact page
+[2026-02-06T11:33:12.319Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-06T11:33:12.723Z] [Stream] [Abbey DLD Group of Colleges] [success] Form in iframe: Found form in frame 1 on contact page
+[2026-02-06T11:33:12.773Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting iframe fill on contact_page_frame_1
+[2026-02-06T11:33:12.784Z] [Stream] [Abbey DLD Group of Colleges] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-06T11:33:12.785Z] [Stream] [Abbey DLD Group of Colleges] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-06T11:33:12.799Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:33:13.105Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 1: https://discover.abbeycolleges.co.uk/l/1060322/202...
+[2026-02-06T11:33:13.114Z] [Stream] [Abbey DLD Group of Colleges] [success] Frame Form Found: Found form in frame: https://discover.abbeycolleges.co.uk/l/1060322/202...
+[2026-02-06T11:33:13.162Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting iframe fill on frame_1
+[2026-02-06T11:33:13.165Z] [Stream] [Abbey DLD Group of Colleges] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-06T11:33:13.167Z] [Stream] [Abbey DLD Group of Colleges] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-06T11:33:13.169Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 2: about:blank...
+[2026-02-06T11:33:13.174Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 3: https://www.googletagmanager.com/static/service_wo...
+[2026-02-06T11:33:13.178Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 4: https://www.google.com/recaptcha/enterprise/anchor...
+[2026-02-06T11:33:13.181Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 5: about:blank...
+[2026-02-06T11:33:13.182Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 6: about:blank...
+[2026-02-06T11:33:13.184Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 7: https://www.google.com/recaptcha/enterprise/bframe...
+[2026-02-06T11:33:13.187Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:33:13.190Z] [Stream] [Abbey DLD Group of Colleges] [info] Heuristics: Analyzing 1 orphan inputs...
+[2026-02-06T11:33:13.233Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:33:13.367Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Extracted 1 fields from this form; filling by mapping
+[2026-02-06T11:33:13.401Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-06T11:33:13.402Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics] 1 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:33:13.404Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-06T11:33:13.408Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics] 1 field(s) — name/id, label, role, value
+[2026-02-06T11:33:13.411Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-06T11:33:13.414Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics] 0 field(s) — not filled
+[2026-02-06T11:33:13.416Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled from extract; falling back to discovery
+[2026-02-06T11:33:13.675Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Field: Type: text, Name: s, Label: , Text: s
+[2026-02-06T11:33:13.732Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-06T11:33:13.760Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics_heuristic] 1 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:33:13.763Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-06T11:33:13.765Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics_heuristic] 1 field(s) — name/id, label, role, value
+[2026-02-06T11:33:13.776Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-06T11:33:13.784Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 0 field(s) — not filled
+[2026-02-06T11:33:14.787Z] [Stream] [Abbey DLD Group of Colleges] [info] Submitting: Clicking submit button
+[2026-02-06T11:33:16.372Z] [Stream] [Abbey DLD Group of Colleges] [warning] Validation: Form reported validation errors after submit; attempting to fix required/empty fields
+[2026-02-06T11:33:18.837Z] Status: 10 terminal, 1 processing | elapsed 9m 54s | since last completion: 17s
+[2026-02-06T11:33:18.838Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:33:27.356Z] Status: 10 terminal, 1 processing | elapsed 10m 3s | since last completion: 26s
+[2026-02-06T11:33:27.357Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:33:35.883Z] Status: 10 terminal, 1 processing | elapsed 10m 11s | since last completion: 34s
+[2026-02-06T11:33:35.884Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:33:44.506Z] Status: 10 terminal, 1 processing | elapsed 10m 20s | since last completion: 43s
+[2026-02-06T11:33:44.507Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:33:53.150Z] Status: 10 terminal, 1 processing | elapsed 10m 29s | since last completion: 51s
+[2026-02-06T11:33:53.150Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:01.712Z] Status: 10 terminal, 1 processing | elapsed 10m 37s | since last completion: 1m
+[2026-02-06T11:34:01.714Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:10.246Z] Status: 10 terminal, 1 processing | elapsed 10m 46s | since last completion: 1m 9s
+[2026-02-06T11:34:10.248Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:18.814Z] Status: 10 terminal, 1 processing | elapsed 10m 54s | since last completion: 1m 17s
+[2026-02-06T11:34:18.815Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:27.294Z] Status: 10 terminal, 1 processing | elapsed 11m 3s | since last completion: 1m 26s
+[2026-02-06T11:34:27.295Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:35.842Z] Status: 10 terminal, 1 processing | elapsed 11m 11s | since last completion: 1m 34s
+[2026-02-06T11:34:35.843Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:35.844Z]   STUCK? No progress for 1m 34s (still 10 terminal, 1 processing)
+[2026-02-06T11:34:44.514Z] Status: 10 terminal, 1 processing | elapsed 11m 20s | since last completion: 1m 43s
+[2026-02-06T11:34:44.515Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:44.517Z]   STUCK? No progress for 1m 43s (still 10 terminal, 1 processing)
+[2026-02-06T11:34:53.022Z] Status: 10 terminal, 1 processing | elapsed 11m 29s | since last completion: 1m 51s
+[2026-02-06T11:34:53.023Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:34:53.023Z]   STUCK? No progress for 1m 51s (still 10 terminal, 1 processing)
+[2026-02-06T11:35:01.554Z] Status: 10 terminal, 1 processing | elapsed 11m 37s | since last completion: 1m 60s
+[2026-02-06T11:35:01.555Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:35:01.556Z]   STUCK? No progress for 1m 60s (still 10 terminal, 1 processing)
+[2026-02-06T11:35:10.087Z] Status: 10 terminal, 1 processing | elapsed 11m 46s | since last completion: 2m 8s
+[2026-02-06T11:35:10.088Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:35:10.089Z]   STUCK? No progress for 2m 8s (still 10 terminal, 1 processing)
+[2026-02-06T11:35:18.594Z] Status: 10 terminal, 1 processing | elapsed 11m 54s | since last completion: 2m 17s
+[2026-02-06T11:35:18.595Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T11:35:18.595Z]   STUCK? No progress for 2m 17s (still 10 terminal, 1 processing)
+[2026-02-06T11:35:21.530Z] [Stream] [Abbey DLD Group of Colleges] [info] Submitting: Clicking submit button
+[2026-02-06T11:35:22.577Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled — likely newsletter/search, not contact form
+[2026-02-06T11:35:22.579Z] [Stream] [Abbey DLD Group of Colleges] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:35:22.583Z] [Stream] [Abbey DLD Group of Colleges] [success] Email Found: Found 3 email(s)
+[2026-02-06T11:35:22.584Z] [Stream] [Abbey DLD Group of Colleges] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-06T11:35:24.159Z] [Stream] Completed: company_id=77277 status=contact_info_found progress=1%
+[2026-02-06T11:35:24.504Z] [Stream] [Abbey Multi Academy Trust] [info] Navigation: Opening https://abbeymat.co.uk...
+[2026-02-06T11:35:24.539Z] [Stream] [Abbey Multi Academy Trust] [warning] Initial Navigation: Failed or timed out: Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://abbeymat.co.uk/
+Call log:
+  - navigating to "https://abbeymat.co.uk/", waiting until "domcontentloaded"
+[2026-02-06T11:35:24.540Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:35:25.002Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T11:35:25.004Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:35:25.819Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:35:25.825Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:35:25.861Z] [Stream] [Abbey Multi Academy Trust] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:35:25.871Z] [Stream] [Abbey Multi Academy Trust] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:35:25.872Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:35:26.210Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:35:26.223Z] [Stream] [Abbey Multi Academy Trust] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:35:26.225Z] [Stream] [Abbey Multi Academy Trust] [error] No Contact Found: All strategies exhausted for https://abbeymat.co.uk
+[2026-02-06T11:35:26.665Z] [Stream] [Abbey Multi Academy Trust] [error] Discovery Failed: Title:  | Snippet: <html><head></head><body></body></html>
+[2026-02-06T11:35:27.309Z] [Stream] Completed: company_id=77278 status=no_contact_found progress=1%
+[2026-02-06T11:35:27.596Z] Progress: 11 terminal (one just finished; 2m 26s since previous) | elapsed 12m 3s
+[2026-02-06T11:35:27.597Z] Status: 11 terminal, 1 processing | elapsed 12m 3s | since last completion: 2m 26s
+[2026-02-06T11:35:27.597Z]   Current: Abbey Multi Academy Trust | https://abbeymat.co.uk
+[2026-02-06T11:35:27.598Z]   STUCK? No progress for 2m 26s (still 11 terminal, 1 processing)
+[2026-02-06T11:35:27.632Z] [Stream] [Able Training Support Ltd.] [info] Navigation: Opening https://able-training.co.uk...
+[2026-02-06T11:35:28.613Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Close")
+[2026-02-06T11:35:29.051Z] [Stream] [Able Training Support Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:35:30.068Z] [Stream] [Able Training Support Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:35:30.541Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Close")
+[2026-02-06T11:35:32.452Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T11:35:32.584Z] [Stream] [Able Training Support Ltd.] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-06T11:35:32.921Z] [Stream] [Able Training Support Ltd.] [info] Form Filling: Extracted 11 fields from this form; filling by mapping
+[2026-02-06T11:35:32.938Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: first_name: name="input_8" label="First name*"
+[2026-02-06T11:35:32.960Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: last_name: name="input_9" label="Last name*"
+[2026-02-06T11:35:32.972Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: email: name="input_4" label="Email*"
+[2026-02-06T11:35:32.994Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: phone: name="input_3" label="Phone number*"
+[2026-02-06T11:35:33.000Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: company: name="input_23" label="Company Name"
+[2026-02-06T11:35:33.014Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: message: name="input_22" label="Comments"
+[2026-02-06T11:35:36.112Z] Progress: 12 terminal (one just finished; 9s since previous) | elapsed 12m 12s
+[2026-02-06T11:35:36.113Z] Status: 12 terminal, 1 processing | elapsed 12m 12s | since last completion: 9s
+[2026-02-06T11:35:36.114Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:35:44.558Z] Status: 12 terminal, 1 processing | elapsed 12m 20s | since last completion: 8s
+[2026-02-06T11:35:44.559Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:35:53.109Z] Status: 12 terminal, 1 processing | elapsed 12m 29s | since last completion: 17s
+[2026-02-06T11:35:53.110Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:35:58.021Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: checkbox_option: name="input_26.1" label="You consent to Able Training processing "
+[2026-02-06T11:35:58.040Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: email: name="input_20.1" label="You consent to receiving marketing commu"
+[2026-02-06T11:35:58.055Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: other: name="input_24" label="I'm interest in"
+[2026-02-06T11:35:58.099Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: other: name="input_25" label="How did you hear about us?"
+[2026-02-06T11:35:58.101Z] [Stream] [Able Training Support Ltd.] [info] Form Fields Extracted: [contact_page] 11 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:35:58.103Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_27" id="input_7_27" label="Comments" type=text tag=input required=False
+[2026-02-06T11:35:58.105Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_8" id="input_7_8" label="First name*" type=text tag=input required=True
+[2026-02-06T11:35:58.107Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_9" id="input_7_9" label="Last name*" type=text tag=input required=True
+[2026-02-06T11:35:58.109Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_4" id="input_7_4" label="Email*" type=email tag=input required=True
+[2026-02-06T11:35:58.110Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_3" id="input_7_3" label="Phone number*" type=tel tag=input required=True
+[2026-02-06T11:35:58.113Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_23" id="input_7_23" label="Company Name" type=text tag=input required=False
+[2026-02-06T11:35:58.115Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_22" id="input_7_22" label="Comments" type=text tag=textarea required=False
+[2026-02-06T11:35:58.116Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_26.1" id="choice_7_26_1" label="You consent to Able Training processing your personal information so your enquir" type=checkbox tag=input required=False
+[2026-02-06T11:35:58.119Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_20.1" id="choice_7_20_1" label="You consent to receiving marketing communications from the Able Training by emai" type=checkbox tag=input required=False
+[2026-02-06T11:35:58.120Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_24" id="input_7_24" label="I'm interest in" type=select tag=select required=False
+[2026-02-06T11:35:58.122Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_25" id="input_7_25" label="How did you hear about us?" type=select tag=select required=False
+[2026-02-06T11:35:58.123Z] [Stream] [Able Training Support Ltd.] [info] Form Fields Filled: [contact_page] 10 field(s) — name/id, label, role, value
+[2026-02-06T11:35:58.125Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_8" label="First name*" role=first_name value="Test"
+[2026-02-06T11:35:58.127Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_9" label="Last name*" role=last_name value="User"
+[2026-02-06T11:35:58.128Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_4" label="Email*" role=email value="test@example.com"
+[2026-02-06T11:35:58.130Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_3" label="Phone number*" role=phone value="+27123456789"
+[2026-02-06T11:35:58.131Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_23" label="Company Name" role=company value="Test Co"
+[2026-02-06T11:35:58.133Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_22" label="Comments" role=message value="Hello, this is a test."
+[2026-02-06T11:35:58.135Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_26.1" label="You consent to Able Training processing your personal information so your enquir" role=checkbox_option value="checked"
+[2026-02-06T11:35:58.137Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_20.1" label="You consent to receiving marketing communications from the Able Training by emai" role=email value="test@example.com"
+[2026-02-06T11:35:58.139Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_24" label="I'm interest in" role=other value="Talking about a course"
+[2026-02-06T11:35:58.141Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_25" label="How did you hear about us?" role=other value="Search Engine"
+[2026-02-06T11:35:58.142Z] [Stream] [Able Training Support Ltd.] [info] Form Fields Left Unsatisfied: [contact_page] 1 field(s) — not filled
+[2026-02-06T11:35:58.145Z] [Stream] [Able Training Support Ltd.] [info] Unfilled: name="input_27" id="input_7_27" label="Comments"
+[2026-02-06T11:35:58.146Z] [Stream] [Able Training Support Ltd.] [info] Submitting: Clicking submit button
+[2026-02-06T11:36:01.787Z] Status: 12 terminal, 1 processing | elapsed 12m 37s | since last completion: 26s
+[2026-02-06T11:36:01.789Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:36:10.310Z] Status: 12 terminal, 1 processing | elapsed 12m 46s | since last completion: 34s
+[2026-02-06T11:36:10.311Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:36:18.862Z] Status: 12 terminal, 1 processing | elapsed 12m 54s | since last completion: 43s
+[2026-02-06T11:36:18.865Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:36:23.124Z] [Stream] [Able Training Support Ltd.] [info] Submitting: Clicking submit button
+[2026-02-06T11:36:27.381Z] Status: 12 terminal, 1 processing | elapsed 13m 3s | since last completion: 51s
+[2026-02-06T11:36:27.382Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:36:35.916Z] Status: 12 terminal, 1 processing | elapsed 13m 11s | since last completion: 60s
+[2026-02-06T11:36:35.917Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:36:44.388Z] Status: 12 terminal, 1 processing | elapsed 13m 20s | since last completion: 1m 8s
+[2026-02-06T11:36:44.389Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T11:36:48.142Z] [Stream] [Able Training Support Ltd.] [info] Submitting: Form submitted via submit()
+[2026-02-06T11:36:49.474Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Close")
+[2026-02-06T11:36:50.649Z] [Stream] [Able Training Support Ltd.] [success] Form Processed: Filled 10 fields (extract-then-fill) and submitted
+[2026-02-06T11:36:50.651Z] [Stream] [Able Training Support Ltd.] [success] Form Detection: Filled contact form from footer link
+[2026-02-06T11:36:52.249Z] [Stream] Completed: company_id=77279 status=completed progress=1%
+[2026-02-06T11:36:52.581Z] [Stream] [Abodus Student Living] [info] Navigation: Opening https://abodusstudents.com...
+[2026-02-06T11:36:53.003Z] Progress: 13 terminal (one just finished; 1m 17s since previous) | elapsed 13m 28s
+[2026-02-06T11:36:53.004Z] Status: 13 terminal, 1 processing | elapsed 13m 28s | since last completion: 1m 17s
+[2026-02-06T11:36:53.005Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T11:36:53.452Z] [Stream] [Abodus Student Living] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:36:54.018Z] [Stream] [Abodus Student Living] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T11:36:54.020Z] [Stream] [Abodus Student Living] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:36:54.024Z] [Stream] [Abodus Student Living] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T11:36:54.026Z] [Stream] [Abodus Student Living] [info] Strategy 1: No form with 2+ fillable fields succeeded among 1 form(s)
+[2026-02-06T11:36:54.833Z] [Stream] [Abodus Student Living] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:36:54.844Z] [Stream] [Abodus Student Living] [info] Heuristics: Analyzing 6 orphan inputs...
+[2026-02-06T11:36:55.092Z] [Stream] [Abodus Student Living] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T11:36:55.223Z] [Stream] [Abodus Student Living] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:36:55.352Z] [Stream] [Abodus Student Living] [info] Form Filling: Extracted 5 fields from this form; filling by mapping
+[2026-02-06T11:36:55.403Z] [Stream] [Abodus Student Living] [info] Form Fields Extracted: [page_heuristics] 5 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:36:55.405Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-functional-optin" label="Functional" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.406Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-preferences-optin" label="Preferences" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.409Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-statistics-optin" label="Statistics" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.411Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-marketing-optin" label="Marketing" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.413Z] [Stream] [Abodus Student Living] [info] Field: name="s" id="search-input-iwpaxg" label="Search ..." type=search tag=input required=False
+[2026-02-06T11:36:55.415Z] [Stream] [Abodus Student Living] [info] Form Fields Filled: [page_heuristics] 0 field(s) — name/id, label, role, value
+[2026-02-06T11:36:55.417Z] [Stream] [Abodus Student Living] [info] Form Fields Left Unsatisfied: [page_heuristics] 5 field(s) — not filled
+[2026-02-06T11:36:55.418Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-functional-optin" label="Functional"
+[2026-02-06T11:36:55.420Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-preferences-optin" label="Preferences"
+[2026-02-06T11:36:55.421Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-statistics-optin" label="Statistics"
+[2026-02-06T11:36:55.423Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-marketing-optin" label="Marketing"
+[2026-02-06T11:36:55.425Z] [Stream] [Abodus Student Living] [info] Unfilled: name="s" id="search-input-iwpaxg" label="Search ..."
+[2026-02-06T11:36:55.426Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: functional, Text:   cmplz-functional-optin functional
+[2026-02-06T11:36:55.428Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: preferences, Text:   cmplz-preferences-optin preferences
+[2026-02-06T11:36:55.456Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: statistics, Text:   cmplz-statistics-optin statistics
+[2026-02-06T11:36:55.485Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: marketing, Text:   cmplz-marketing-optin marketing
+[2026-02-06T11:36:55.508Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: search, Name: s, Label: search ..., Text: s find student accommodation search-input-iwpaxg search ...
+[2026-02-06T11:36:55.524Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: hidden, Name: jet_ajax_search_settings, Label: search ..., Text: jet_ajax_search_settings   search ...
+[2026-02-06T11:36:55.594Z] [Stream] [Abodus Student Living] [info] Checkbox Checked: Checkbox filled ()
+[2026-02-06T11:36:55.622Z] [Stream] [Abodus Student Living] [info] Form Fields Extracted: [page_heuristics_heuristic] 4 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:36:55.624Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-functional-optin" label="functional" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.627Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-preferences-optin" label="preferences" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.628Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-statistics-optin" label="statistics" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.630Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-marketing-optin" label="marketing" type=checkbox tag=input required=False
+[2026-02-06T11:36:55.632Z] [Stream] [Abodus Student Living] [info] Form Fields Filled: [page_heuristics_heuristic] 0 field(s) — name/id, label, role, value
+[2026-02-06T11:36:55.633Z] [Stream] [Abodus Student Living] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 4 field(s) — not filled
+[2026-02-06T11:36:55.635Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-functional-optin" label="functional"
+[2026-02-06T11:36:55.637Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-preferences-optin" label="preferences"
+[2026-02-06T11:36:55.638Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-statistics-optin" label="statistics"
+[2026-02-06T11:36:55.640Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-marketing-optin" label="marketing"
+[2026-02-06T11:36:56.632Z] [Stream] [Abodus Student Living] [info] Submitting: Form submitted via submit()
+[2026-02-06T11:36:57.650Z] [Stream] [Abodus Student Living] [warning] Form Partial: Only one field filled — likely newsletter/search, not contact form
+[2026-02-06T11:36:57.652Z] [Stream] [Abodus Student Living] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:36:57.692Z] [Stream] [Abodus Student Living] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:36:57.833Z] [Stream] [Abodus Student Living] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:36:57.834Z] [Stream] [Abodus Student Living] [info] Testing Link: Link 1: contact
+contact (https://abodusstudents.com/contact-us/)
+[2026-02-06T11:36:59.175Z] [Stream] [Abodus Student Living] [info] Contact Page: Loading contact page…
+[2026-02-06T11:37:01.515Z] Status: 13 terminal, 1 processing | elapsed 13m 37s | since last completion: 9s
+[2026-02-06T11:37:01.516Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T11:37:10.169Z] Status: 13 terminal, 1 processing | elapsed 13m 46s | since last completion: 17s
+[2026-02-06T11:37:10.170Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T11:37:18.734Z] Status: 13 terminal, 1 processing | elapsed 13m 54s | since last completion: 26s
+[2026-02-06T11:37:18.735Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T11:37:27.269Z] Status: 13 terminal, 1 processing | elapsed 14m 3s | since last completion: 34s
+[2026-02-06T11:37:27.272Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T11:37:29.808Z] [Stream] [Abodus Student Living] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-06T11:37:29.823Z] [Stream] [Abodus Student Living] [success] Form Detection: Found 2 form(s) on contact page
+[2026-02-06T11:37:30.306Z] [Stream] [Abodus Student Living] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-06T11:37:30.330Z] [Stream] [Abodus Student Living] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-06T11:37:30.409Z] [Stream] [Abodus Student Living] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-06T11:37:30.512Z] [Stream] [Abodus Student Living] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-06T11:37:30.991Z] [Stream] [Abodus Student Living] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:37:31.302Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-06T11:37:31.309Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 2: https://abodusstudents.com/wp-content/plugins/abod...
+[2026-02-06T11:37:31.315Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-06T11:37:31.322Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 4: about:blank...
+[2026-02-06T11:37:31.328Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 5: https://www.googletagmanager.com/static/service_wo...
+[2026-02-06T11:37:31.329Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 6: https://www.google.com/recaptcha/api2/anchor?ar=1&...
+[2026-02-06T11:37:31.331Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 7: about:blank...
+[2026-02-06T11:37:31.333Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 8: about:blank...
+[2026-02-06T11:37:31.335Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 9: https://www.google.com/recaptcha/api2/bframe?hl=en...
+[2026-02-06T11:37:31.339Z] [Stream] [Abodus Student Living] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:37:31.341Z] [Stream] [Abodus Student Living] [info] Heuristics: Analyzing 40 orphan inputs...
+[2026-02-06T11:37:31.380Z] [Stream] [Abodus Student Living] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:37:31.392Z] [Stream] [Abodus Student Living] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-06T11:37:31.395Z] [Stream] [Abodus Student Living] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-06T11:37:31.396Z] [Stream] [Abodus Student Living] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:37:31.404Z] [Stream] [Abodus Student Living] [error] No Contact Found: All strategies exhausted for https://abodusstudents.com
+[2026-02-06T11:37:32.252Z] [Stream] [Abodus Student Living] [error] Discovery Failed: Title: Contact Us - Abodus Student Living | Snippet: <!DOCTYPE html><html lang="en-US" prefix="og: https://ogp.me/ns#" style="--bricks-vh: 7.2px;"><head><style>.ssQIHO-checkbox-menu-item>span>span{background-color:#000;display:inline-block}@media (forced-colors:active),(prefers-contrast:more){.ssQIHO-checkbox-menu-item>span>span{background-color:ButtonText}} </style><style>.gm-style .gm-style-mtc label,.gm-style .gm-style-mtc div{font-weight:400}.gm-style .gm-style-mtc ul,.gm-style .gm-style-mtc li{-webkit-box-sizing:border-box;box-sizing:border-box}.gm-style-mtc-bbw{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap}.gm-style-mtc-bbw .gm-style-mtc:first-of-type>button{border-start-start-radius:2px;border-end-start-radius:2px}.gm-style-mtc-bbw .gm-style-mtc:last-of-type>button{border-start-end-radius:2px;border-end-end-radius:2px}sentinel{} </style><style>.LGLeeN-keyboard-shortcuts-view{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}.LGLeeN-keyboard-shor
+[2026-02-06T11:37:33.072Z] [Stream] Completed: company_id=77280 status=no_contact_found progress=1%
+[2026-02-06T11:37:33.414Z] [Stream] [Abundance Investment] [info] Navigation: Opening https://abundanceinvestment.com...
+[2026-02-06T11:37:34.198Z] [Stream] [Abundance Investment] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T11:37:34.652Z] [Stream] [Abundance Investment] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:37:35.408Z] [Stream] [Abundance Investment] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T11:37:35.410Z] [Stream] [Abundance Investment] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:37:35.789Z] Progress: 14 terminal (one just finished; 43s since previous) | elapsed 14m 11s
+[2026-02-06T11:37:35.790Z] Status: 14 terminal, 1 processing | elapsed 14m 11s | since last completion: 43s
+[2026-02-06T11:37:35.791Z]   Current: Abundance Investment | https://abundanceinvestment.com
+[2026-02-06T11:37:36.215Z] [Stream] [Abundance Investment] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:37:36.221Z] [Stream] [Abundance Investment] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:37:36.278Z] [Stream] [Abundance Investment] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:37:36.549Z] [Stream] [Abundance Investment] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:37:36.551Z] [Stream] [Abundance Investment] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:37:36.847Z] [Stream] [Abundance Investment] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-06T11:37:36.859Z] [Stream] [Abundance Investment] [info] Checking Frame: Checking frame 2: https://www.googletagmanager.com/static/service_wo...
+[2026-02-06T11:37:36.872Z] [Stream] [Abundance Investment] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-06T11:37:36.884Z] [Stream] [Abundance Investment] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:37:36.886Z] [Stream] [Abundance Investment] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:37:36.888Z] [Stream] [Abundance Investment] [success] Email Found: Found 1 email(s)
+[2026-02-06T11:37:36.896Z] [Stream] [Abundance Investment] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-06T11:37:37.120Z] [Stream] [Abundance Investment] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T11:37:38.884Z] [Stream] Completed: company_id=77281 status=contact_info_found progress=1%
+[2026-02-06T11:37:39.214Z] [Stream] [ACAI Outdoorwear] [info] Navigation: Opening https://acaioutdoorwear.com...
+[2026-02-06T11:37:40.394Z] [Stream] [ACAI Outdoorwear] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:37:42.139Z] [Stream] [ACAI Outdoorwear] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:37:44.357Z] Progress: 15 terminal (one just finished; 9s since previous) | elapsed 14m 20s
+[2026-02-06T11:37:44.358Z] Status: 15 terminal, 1 processing | elapsed 14m 20s | since last completion: 9s
+[2026-02-06T11:37:44.358Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:37:52.894Z] Status: 15 terminal, 1 processing | elapsed 14m 28s | since last completion: 9s
+[2026-02-06T11:37:52.894Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:38:01.460Z] Status: 15 terminal, 1 processing | elapsed 14m 37s | since last completion: 17s
+[2026-02-06T11:38:01.462Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:38:10.001Z] Status: 15 terminal, 1 processing | elapsed 14m 45s | since last completion: 26s
+[2026-02-06T11:38:10.002Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:38:18.509Z] Status: 15 terminal, 1 processing | elapsed 14m 54s | since last completion: 34s
+[2026-02-06T11:38:18.510Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:38:26.989Z] Status: 15 terminal, 1 processing | elapsed 15m 2s | since last completion: 43s
+[2026-02-06T11:38:26.990Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:38:35.525Z] Status: 15 terminal, 1 processing | elapsed 15m 11s | since last completion: 51s
+[2026-02-06T11:38:35.526Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:38:44.213Z] Status: 15 terminal, 1 processing | elapsed 15m 20s | since last completion: 60s
+[2026-02-06T11:38:44.215Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:38:52.755Z] Status: 15 terminal, 1 processing | elapsed 15m 28s | since last completion: 1m 8s
+[2026-02-06T11:38:52.756Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:01.625Z] Status: 15 terminal, 1 processing | elapsed 15m 37s | since last completion: 1m 17s
+[2026-02-06T11:39:01.642Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:03.834Z] [Stream] [ACAI Outdoorwear] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-06T11:39:03.884Z] [Stream] [ACAI Outdoorwear] [info] Form Filling: Extracted 3 fields from this form; filling by mapping
+[2026-02-06T11:39:03.925Z] [Stream] [ACAI Outdoorwear] [info] Unsatisfied Filled: subject: name="contact[name]" label="Name"
+[2026-02-06T11:39:03.949Z] [Stream] [ACAI Outdoorwear] [info] Unsatisfied Filled: email: name="contact[email]" label="E-mail"
+[2026-02-06T11:39:03.967Z] [Stream] [ACAI Outdoorwear] [info] Unsatisfied Filled: message: name="contact[body]" label="Message"
+[2026-02-06T11:39:03.968Z] [Stream] [ACAI Outdoorwear] [info] Form Fields Extracted: [contact_page] 3 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:39:03.970Z] [Stream] [ACAI Outdoorwear] [info] Field: name="contact[name]" id="input--template--26919813874050__contact-form--contactname" label="Name" type=text tag=input required=True
+[2026-02-06T11:39:03.977Z] [Stream] [ACAI Outdoorwear] [info] Field: name="contact[email]" id="input--template--26919813874050__contact-form--contactemail" label="E-mail" type=email tag=input required=True
+[2026-02-06T11:39:03.984Z] [Stream] [ACAI Outdoorwear] [info] Field: name="contact[body]" id="input--template--26919813874050__contact-form--contactbody" label="Message" type=text tag=textarea required=True
+[2026-02-06T11:39:03.986Z] [Stream] [ACAI Outdoorwear] [info] Form Fields Filled: [contact_page] 3 field(s) — name/id, label, role, value
+[2026-02-06T11:39:03.988Z] [Stream] [ACAI Outdoorwear] [info] Filled: name="contact[name]" label="Name" role=subject value="Partnership"
+[2026-02-06T11:39:03.993Z] [Stream] [ACAI Outdoorwear] [info] Filled: name="contact[email]" label="E-mail" role=email value="test@example.com"
+[2026-02-06T11:39:03.996Z] [Stream] [ACAI Outdoorwear] [info] Filled: name="contact[body]" label="Message" role=message value="Hello, this is a test."
+[2026-02-06T11:39:03.997Z] [Stream] [ACAI Outdoorwear] [info] Form Fields Left Unsatisfied: [contact_page] 0 field(s) — not filled
+[2026-02-06T11:39:04.015Z] [Stream] [ACAI Outdoorwear] [info] Submitting: Clicking submit button
+[2026-02-06T11:39:10.187Z] Status: 15 terminal, 1 processing | elapsed 15m 46s | since last completion: 1m 26s
+[2026-02-06T11:39:10.188Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:18.722Z] Status: 15 terminal, 1 processing | elapsed 15m 54s | since last completion: 1m 34s
+[2026-02-06T11:39:18.723Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:18.724Z]   STUCK? No progress for 1m 34s (still 15 terminal, 1 processing)
+[2026-02-06T11:39:27.227Z] Status: 15 terminal, 1 processing | elapsed 16m 3s | since last completion: 1m 43s
+[2026-02-06T11:39:27.228Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:27.229Z]   STUCK? No progress for 1m 43s (still 15 terminal, 1 processing)
+[2026-02-06T11:39:29.031Z] [Stream] [ACAI Outdoorwear] [info] Submitting: Clicking submit button
+[2026-02-06T11:39:35.757Z] Status: 15 terminal, 1 processing | elapsed 16m 11s | since last completion: 1m 51s
+[2026-02-06T11:39:35.758Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:35.758Z]   STUCK? No progress for 1m 51s (still 15 terminal, 1 processing)
+[2026-02-06T11:39:44.404Z] Status: 15 terminal, 1 processing | elapsed 16m 20s | since last completion: 2m
+[2026-02-06T11:39:44.405Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:44.406Z]   STUCK? No progress for 2m (still 15 terminal, 1 processing)
+[2026-02-06T11:39:53.112Z] Status: 15 terminal, 1 processing | elapsed 16m 29s | since last completion: 2m 9s
+[2026-02-06T11:39:53.113Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:39:53.113Z]   STUCK? No progress for 2m 9s (still 15 terminal, 1 processing)
+[2026-02-06T11:39:54.044Z] [Stream] [ACAI Outdoorwear] [info] Submitting: Clicking submit button
+[2026-02-06T11:40:01.777Z] Status: 15 terminal, 1 processing | elapsed 16m 37s | since last completion: 2m 17s
+[2026-02-06T11:40:01.799Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:40:01.824Z]   STUCK? No progress for 2m 17s (still 15 terminal, 1 processing)
+[2026-02-06T11:40:10.368Z] Status: 15 terminal, 1 processing | elapsed 16m 46s | since last completion: 2m 26s
+[2026-02-06T11:40:10.369Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:40:10.369Z]   STUCK? No progress for 2m 26s (still 15 terminal, 1 processing)
+[2026-02-06T11:40:18.942Z] Status: 15 terminal, 1 processing | elapsed 16m 54s | since last completion: 2m 35s
+[2026-02-06T11:40:18.978Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:40:18.987Z]   STUCK? No progress for 2m 35s (still 15 terminal, 1 processing)
+[2026-02-06T11:40:19.060Z] [Stream] [ACAI Outdoorwear] [info] Submitting: Form submitted via submit()
+[2026-02-06T11:40:27.531Z] Status: 15 terminal, 1 processing | elapsed 17m 3s | since last completion: 2m 43s
+[2026-02-06T11:40:27.533Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:40:27.534Z]   STUCK? No progress for 2m 43s (still 15 terminal, 1 processing)
+[2026-02-06T11:40:36.083Z] Status: 15 terminal, 1 processing | elapsed 17m 12s | since last completion: 2m 52s
+[2026-02-06T11:40:36.084Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:40:36.084Z]   STUCK? No progress for 2m 52s (still 15 terminal, 1 processing)
+[2026-02-06T11:40:44.588Z] Status: 15 terminal, 1 processing | elapsed 17m 20s | since last completion: 3m
+[2026-02-06T11:40:44.590Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:40:44.591Z]   STUCK? No progress for 3m (still 15 terminal, 1 processing)
+[2026-02-06T11:40:53.109Z] Status: 15 terminal, 1 processing | elapsed 17m 29s | since last completion: 3m 9s
+[2026-02-06T11:40:53.110Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:40:53.110Z]   STUCK? No progress for 3m 9s (still 15 terminal, 1 processing)
+[2026-02-06T11:41:02.626Z] Status: 15 terminal, 1 processing | elapsed 17m 38s | since last completion: 3m 18s
+[2026-02-06T11:41:02.644Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:41:02.656Z]   STUCK? No progress for 3m 18s (still 15 terminal, 1 processing)
+[2026-02-06T11:41:10.787Z] [Stream] [ACAI Outdoorwear] [success] Form Processed: Filled 3 fields (extract-then-fill) and submitted
+[2026-02-06T11:41:10.789Z] [Stream] [ACAI Outdoorwear] [success] Form Detection: Filled contact form from footer link
+[2026-02-06T11:41:11.670Z] Status: 15 terminal, 1 processing | elapsed 17m 47s | since last completion: 3m 27s
+[2026-02-06T11:41:11.670Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T11:41:11.671Z]   STUCK? No progress for 3m 27s (still 15 terminal, 1 processing)
+[2026-02-06T11:41:12.604Z] [Stream] Completed: company_id=77282 status=completed progress=1%
+[2026-02-06T11:41:12.887Z] [Stream] [Acasta Europe Ltd] [info] Navigation: Opening https://acastaeurope.co.uk...
+[2026-02-06T11:41:15.474Z] [Stream] [Acasta Europe Ltd] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T11:41:15.952Z] [Stream] [Acasta Europe Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:41:16.926Z] [Stream] [Acasta Europe Ltd] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:41:19.629Z] [Stream] [Acasta Europe Ltd] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T11:41:20.516Z] Progress: 16 terminal (one just finished; 3m 36s since previous) | elapsed 17m 56s
+[2026-02-06T11:41:20.520Z] Status: 16 terminal, 1 processing | elapsed 17m 56s | since last completion: 3m 36s
+[2026-02-06T11:41:20.525Z]   Current: Acasta Europe Ltd | https://acastaeurope.co.uk
+[2026-02-06T11:41:20.526Z]   STUCK? No progress for 3m 36s (still 16 terminal, 1 processing)
+[2026-02-06T11:41:20.794Z] [Stream] [Acasta Europe Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:41:21.609Z] [Stream] [Acasta Europe Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:41:21.616Z] [Stream] [Acasta Europe Ltd] [info] Heuristics: Analyzing 3 orphan inputs...
+[2026-02-06T11:41:21.660Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:41:21.721Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Extracted 3 fields from this form; filling by mapping
+[2026-02-06T11:41:21.749Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Extracted: [page_heuristics] 3 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:41:21.758Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                " type=checkbox tag=input required=False
+[2026-02-06T11:41:21.759Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  " type=checkbox tag=input required=False
+[2026-02-06T11:41:21.762Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       " type=checkbox tag=input required=False
+[2026-02-06T11:41:21.764Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Filled: [page_heuristics] 0 field(s) — name/id, label, role, value
+[2026-02-06T11:41:21.765Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics] 3 field(s) — not filled
+[2026-02-06T11:41:21.769Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                "
+[2026-02-06T11:41:21.770Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  "
+[2026-02-06T11:41:21.772Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       "
+[2026-02-06T11:41:21.785Z] [Stream] [Acasta Europe Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_strict_cookies, Label: enable or disable cookies        
+              
+ , Text: moove_gdpr_strict_cookies  moove_gdpr_strict_cookies enable or disable cookies
+[2026-02-06T11:41:21.796Z] [Stream] [Acasta Europe Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_performance_cookies, Label: enable or disable cookies     
+              
+    , Text: moove_gdpr_performance_cookies  moove_gdpr_performance_cookies enable or disable
+[2026-02-06T11:41:21.811Z] [Stream] [Acasta Europe Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_advanced_cookies, Label: enable or disable cookies
+              
+         , Text: moove_gdpr_advanced_cookies  moove_gdpr_advanced_cookies enable or disable cooki
+[2026-02-06T11:41:21.860Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Extracted: [page_heuristics_heuristic] 3 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:41:21.862Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="enable or disable cookies        
+              
+              
+                " type=checkbox tag=input required=False
+[2026-02-06T11:41:21.866Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="enable or disable cookies     
+              
+              
+                
+  " type=checkbox tag=input required=False
+[2026-02-06T11:41:21.868Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="enable or disable cookies
+              
+              
+                
+       " type=checkbox tag=input required=False
+[2026-02-06T11:41:21.869Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Filled: [page_heuristics_heuristic] 0 field(s) — name/id, label, role, value
+[2026-02-06T11:41:21.871Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 3 field(s) — not filled
+[2026-02-06T11:41:21.877Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="enable or disable cookies        
+              
+              
+                "
+[2026-02-06T11:41:21.879Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="enable or disable cookies     
+              
+              
+                
+  "
+[2026-02-06T11:41:21.881Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="enable or disable cookies
+              
+              
+                
+       "
+[2026-02-06T11:41:22.497Z] [Stream] [Acasta Europe Ltd] [warning] Form Empty: No fields were filled
+[2026-02-06T11:41:22.504Z] [Stream] [Acasta Europe Ltd] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:41:22.554Z] [Stream] [Acasta Europe Ltd] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:41:23.470Z] [Stream] [Acasta Europe Ltd] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:41:23.475Z] [Stream] [Acasta Europe Ltd] [info] Testing Link: Link 1: contact (https://www.acastaeurope.co.uk/contact/)
+[2026-02-06T11:41:23.820Z] [Stream] [Acasta Europe Ltd] [info] Contact Page: Loading contact page…
+[2026-02-06T11:41:24.915Z] [Stream] [Acasta Europe Ltd] [success] Form Detection: Found 1 form(s) on contact page
+[2026-02-06T11:41:24.955Z] [Stream] [Acasta Europe Ltd] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-06T11:41:25.368Z] [Stream] [Acasta Europe Ltd] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:41:25.671Z] [Stream] [Acasta Europe Ltd] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-06T11:41:25.681Z] [Stream] [Acasta Europe Ltd] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:41:25.687Z] [Stream] [Acasta Europe Ltd] [info] Heuristics: Analyzing 19 orphan inputs...
+[2026-02-06T11:41:25.732Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:41:25.887Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Extracted 10 fields from this form; filling by mapping
+[2026-02-06T11:41:25.903Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Full name -> item_meta[6]
+[2026-02-06T11:41:25.929Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Email -> item_meta[8]
+[2026-02-06T11:41:26.254Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Company -> item_meta[53]
+[2026-02-06T11:41:26.274Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Subject -> item_meta[9]
+[2026-02-06T11:41:26.295Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Message -> item_meta[10]
+[2026-02-06T11:41:26.338Z] [Stream] [Acasta Europe Ltd] [info] Unsatisfied Filled: last_name: name="item_meta[7]" label="Last
+        *"
+[2026-02-06T11:41:26.364Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Extracted: [page_heuristics] 10 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:41:26.366Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[6]" id="field_qh4icy2" label="Name
+        *" type=text tag=input required=True
+[2026-02-06T11:41:26.368Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[7]" id="field_ocfup12" label="Last
+        *" type=text tag=input required=True
+[2026-02-06T11:41:26.369Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[8]" id="field_29yf4d2" label="Email
+        *" type=email tag=input required=True
+[2026-02-06T11:41:26.375Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[53]" id="field_1pib3" label="Company (if applicable)" type=text tag=input required=False
+[2026-02-06T11:41:26.377Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[9]" id="field_e6lis62" label="Subject
+        *" type=text tag=input required=True
+[2026-02-06T11:41:26.381Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[10]" id="field_9jv0r12" label="Message
+        *" type=text tag=textarea required=True
+[2026-02-06T11:41:26.384Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[101]" id="field_4ybw4" label="If you are human, leave this field blank." type=text tag=input required=False
+[2026-02-06T11:41:26.387Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                " type=checkbox tag=input required=False
+[2026-02-06T11:41:26.391Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  " type=checkbox tag=input required=False
+[2026-02-06T11:41:26.392Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       " type=checkbox tag=input required=False
+[2026-02-06T11:41:26.396Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Filled: [page_heuristics] 6 field(s) — name/id, label, role, value
+[2026-02-06T11:41:26.397Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[6]" label="Name
+        *" role=full_name value="Test User"
+[2026-02-06T11:41:26.399Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[8]" label="Email
+        *" role=email value="test@example.com"
+[2026-02-06T11:41:26.401Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[53]" label="Company (if applicable)" role=company value="Test Co"
+[2026-02-06T11:41:26.403Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[9]" label="Subject
+        *" role=subject value="Partnership"
+[2026-02-06T11:41:26.405Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[10]" label="Message
+        *" role=message value="Hello, this is a test."
+[2026-02-06T11:41:26.408Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[7]" label="Last
+        *" role=last_name value="User"
+[2026-02-06T11:41:26.410Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics] 4 field(s) — not filled
+[2026-02-06T11:41:26.412Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="item_meta[101]" id="field_4ybw4" label="If you are human, leave this field blank."
+[2026-02-06T11:41:26.415Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                "
+[2026-02-06T11:41:26.418Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  "
+[2026-02-06T11:41:26.420Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       "
+[2026-02-06T11:41:26.426Z] [Stream] [Acasta Europe Ltd] [info] Submitting: Clicking submit button
+[2026-02-06T11:41:29.060Z] Status: 16 terminal, 1 processing | elapsed 18m 5s | since last completion: 9s
+[2026-02-06T11:41:29.061Z]   Current: Acasta Europe Ltd | https://acastaeurope.co.uk
+[2026-02-06T11:41:30.749Z] [Stream] [Acasta Europe Ltd] [success] Form Processed: Filled 6 fields (extract-then-fill) and submitted
+[2026-02-06T11:41:32.582Z] [Stream] Completed: company_id=77283 status=completed progress=1%
+[2026-02-06T11:41:32.925Z] [Stream] [Accelerate ME] [info] Navigation: Opening https://accelerateme.co...
+[2026-02-06T11:41:34.187Z] [Stream] [Accelerate ME] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:41:34.669Z] [Stream] [Accelerate ME] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T11:41:34.671Z] [Stream] [Accelerate ME] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:41:35.476Z] [Stream] [Accelerate ME] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:41:35.492Z] [Stream] [Accelerate ME] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:41:35.951Z] [Stream] [Accelerate ME] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:41:35.966Z] [Stream] [Accelerate ME] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:41:35.970Z] [Stream] [Accelerate ME] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T11:41:36.268Z] [Stream] [Accelerate ME] [info] Checking Frame: Checking frame 1: https://luma.com/embed/calendar/cal-byBzqS19Ac2igy...
+[2026-02-06T11:41:36.288Z] [Stream] [Accelerate ME] [info] Checking Frame: Checking frame 2: https://form.typeform.com/to/jhEx7yfm?typeform-emb...
+[2026-02-06T11:41:36.291Z] [Stream] [Accelerate ME] [info] Checking Frame: Checking frame 3: https://framer.com/edit?framerSiteId=ed47a3c3900a6...
+[2026-02-06T11:41:36.298Z] [Stream] [Accelerate ME] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T11:41:36.306Z] [Stream] [Accelerate ME] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T11:41:36.311Z] [Stream] [Accelerate ME] [error] No Contact Found: All strategies exhausted for https://accelerateme.co
+[2026-02-06T11:41:37.723Z] [Stream] [Accelerate ME] [error] Discovery Failed: Title: Accelerate ME | Snippet: <!DOCTYPE html><html lang="en"><head>     <meta charset="utf-8">               <script>try{if(localStorage.get("__framer_force_showing_editorbar_since")){const n=document.createElement("link");n.rel = "modulepreload";n.href="https://framer.com/edit/init.mjs";document.head.appendChild(n)}}catch(e){}</script>     <!-- Start of headStart -->          <!-- End of headStart -->     <meta name="viewport" content="width=device-width">     <meta name="generator" content="Framer 569b461">     <title>Accelerate ME</title>     <meta name="description" content="The UK's leading student-led startup accelerator.">     <meta name="framer-search-index" content="https://framerusercontent.com/sites/1tfmp3k2rnKQtwhIsAAjGF/searchIndex-zVa4jrTjsHsI.json">     <meta name="framer-search-index-fallback" content="https://framerusercontent.com/sites/1tfmp3k2rnKQtwhIsAAjGF/searchIndex-6aJY0t22PXOG.json">     <link href="https://framerusercontent.com/images/e8T94pSOJgXfWOEDlBkO0TXrFc.png" rel="icon" media="(prefe
+[2026-02-06T11:41:37.872Z] Progress: 17 terminal (one just finished; 17s since previous) | elapsed 18m 13s
+[2026-02-06T11:41:37.882Z] Status: 17 terminal, 1 processing | elapsed 18m 13s | since last completion: 17s
+[2026-02-06T11:41:37.893Z]   Current: Accelerate ME | https://accelerateme.co
+[2026-02-06T11:41:38.478Z] [Stream] Completed: company_id=77284 status=no_contact_found progress=1%
+[2026-02-06T11:41:38.907Z] [Stream] [AccelerComm Ltd] [info] Navigation: Opening https://accelercomm.com...
+[2026-02-06T11:41:39.690Z] [Stream] [AccelerComm Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:41:40.328Z] [Stream] [AccelerComm Ltd] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T11:41:40.330Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:41:40.336Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T11:41:40.339Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-06T11:41:40.340Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: No form with 2+ fillable fields succeeded among 2 form(s)
+[2026-02-06T11:41:41.146Z] [Stream] [AccelerComm Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:41:41.154Z] [Stream] [AccelerComm Ltd] [info] Heuristics: Analyzing 10 orphan inputs...
+[2026-02-06T11:41:41.191Z] [Stream] [AccelerComm Ltd] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:41:41.274Z] [Stream] [AccelerComm Ltd] [info] Form Filling: Extracted 4 fields from this form; filling by mapping
+[2026-02-06T11:41:41.305Z] [Stream] [AccelerComm Ltd] [info] Field Filled (mapped): First name -> firstname
+[2026-02-06T11:41:41.335Z] [Stream] [AccelerComm Ltd] [info] Field Filled (mapped): Last name -> lastname
+[2026-02-06T11:41:41.348Z] [Stream] [AccelerComm Ltd] [info] Field Filled (mapped): Email -> email
+[2026-02-06T11:41:41.356Z] [Stream] [AccelerComm Ltd] [info] Form Fields Extracted: [page_heuristics] 4 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:41:41.358Z] [Stream] [AccelerComm Ltd] [info] Field: name="term" id="term" label="Search" type=text tag=input required=False
+[2026-02-06T11:41:41.361Z] [Stream] [AccelerComm Ltd] [info] Field: name="firstname" id="firstname-c3b40224-6760-4449-adfe-4f2698148635_461" label="First name" type=text tag=input required=False
+[2026-02-06T11:41:41.364Z] [Stream] [AccelerComm Ltd] [info] Field: name="lastname" id="lastname-c3b40224-6760-4449-adfe-4f2698148635_461" label="Last name" type=text tag=input required=False
+[2026-02-06T11:41:41.366Z] [Stream] [AccelerComm Ltd] [info] Field: name="email" id="email-c3b40224-6760-4449-adfe-4f2698148635_461" label="Email*" type=email tag=input required=True
+[2026-02-06T11:41:41.369Z] [Stream] [AccelerComm Ltd] [info] Form Fields Filled: [page_heuristics] 3 field(s) — name/id, label, role, value
+[2026-02-06T11:41:41.372Z] [Stream] [AccelerComm Ltd] [info] Filled: name="firstname" label="First name" role=first_name value="Test"
+[2026-02-06T11:41:41.374Z] [Stream] [AccelerComm Ltd] [info] Filled: name="lastname" label="Last name" role=last_name value="User"
+[2026-02-06T11:41:41.375Z] [Stream] [AccelerComm Ltd] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-06T11:41:41.377Z] [Stream] [AccelerComm Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics] 1 field(s) — not filled
+[2026-02-06T11:41:41.379Z] [Stream] [AccelerComm Ltd] [info] Unfilled: name="term" id="term" label="Search"
+[2026-02-06T11:41:41.380Z] [Stream] [AccelerComm Ltd] [info] Submitting: Clicking submit button
+[2026-02-06T11:41:46.438Z] Progress: 18 terminal (one just finished; 9s since previous) | elapsed 18m 22s
+[2026-02-06T11:41:46.439Z] Status: 18 terminal, 1 processing | elapsed 18m 22s | since last completion: 9s
+[2026-02-06T11:41:46.440Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T11:41:54.950Z] Status: 18 terminal, 1 processing | elapsed 18m 30s | since last completion: 9s
+[2026-02-06T11:41:54.951Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T11:42:03.987Z] Status: 18 terminal, 1 processing | elapsed 18m 39s | since last completion: 18s
+[2026-02-06T11:42:03.991Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T11:42:06.379Z] [Stream] [AccelerComm Ltd] [info] Submitting: Clicking submit button
+[2026-02-06T11:42:12.536Z] Status: 18 terminal, 1 processing | elapsed 18m 48s | since last completion: 26s
+[2026-02-06T11:42:12.536Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T11:42:21.174Z] Status: 18 terminal, 1 processing | elapsed 18m 57s | since last completion: 35s
+[2026-02-06T11:42:21.175Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T11:42:29.977Z] Status: 18 terminal, 1 processing | elapsed 19m 5s | since last completion: 44s
+[2026-02-06T11:42:30.002Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T11:42:31.404Z] [Stream] [AccelerComm Ltd] [info] Submitting: Form submitted via submit()
+[2026-02-06T11:42:33.230Z] [Stream] [AccelerComm Ltd] [success] Form Processed: Filled 3 fields (extract-then-fill) and submitted
+[2026-02-06T11:42:34.515Z] [Stream] Completed: company_id=77285 status=completed progress=1%
+[2026-02-06T11:42:34.832Z] [Stream] [Accident Credit Group Ltd] [info] Navigation: Opening https://acg.co.uk...
+[2026-02-06T11:42:36.791Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:42:37.451Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T11:42:38.490Z] Progress: 19 terminal (one just finished; 52s since previous) | elapsed 19m 14s
+[2026-02-06T11:42:38.491Z] Status: 19 terminal, 1 processing | elapsed 19m 14s | since last completion: 52s
+[2026-02-06T11:42:38.492Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T11:42:47.180Z] Status: 19 terminal, 1 processing | elapsed 19m 23s | since last completion: 9s
+[2026-02-06T11:42:47.181Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T11:42:55.725Z] Status: 19 terminal, 1 processing | elapsed 19m 31s | since last completion: 17s
+[2026-02-06T11:42:55.726Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T11:43:04.232Z] Status: 19 terminal, 1 processing | elapsed 19m 40s | since last completion: 26s
+[2026-02-06T11:43:04.233Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T11:43:09.624Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T11:43:11.279Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T11:43:12.092Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T11:43:12.102Z] [Stream] [Accident Credit Group Ltd] [info] Heuristics: Analyzing 3 orphan inputs...
+[2026-02-06T11:43:12.247Z] [Stream] [Accident Credit Group Ltd] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T11:43:12.321Z] [Stream] [Accident Credit Group Ltd] [info] Form Filling: Extracted 3 fields from this form; filling by mapping
+[2026-02-06T11:43:12.337Z] [Stream] [Accident Credit Group Ltd] [info] Form Fields Extracted: [page_heuristics] 3 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:43:12.339Z] [Stream] [Accident Credit Group Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies" type=checkbox tag=input required=False
+[2026-02-06T11:43:12.341Z] [Stream] [Accident Credit Group Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies" type=checkbox tag=input required=False
+[2026-02-06T11:43:12.343Z] [Stream] [Accident Credit Group Ltd] [info] Field: name="g-recaptcha-response" id="g-recaptcha-response-100000" label="" type=text tag=textarea required=False
+[2026-02-06T11:43:12.345Z] [Stream] [Accident Credit Group Ltd] [info] Form Fields Filled: [page_heuristics] 0 field(s) — name/id, label, role, value
+[2026-02-06T11:43:12.346Z] [Stream] [Accident Credit Group Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics] 3 field(s) — not filled
+[2026-02-06T11:43:12.347Z] [Stream] [Accident Credit Group Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies"
+[2026-02-06T11:43:12.349Z] [Stream] [Accident Credit Group Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies"
+[2026-02-06T11:43:12.350Z] [Stream] [Accident Credit Group Ltd] [info] Unfilled: name="g-recaptcha-response" id="g-recaptcha-response-100000" label=""
+[2026-02-06T11:43:12.352Z] [Stream] [Accident Credit Group Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_strict_cookies, Label: enable or disable cookies, Text: moove_gdpr_strict_cookies  moove_gdpr_strict_cookies enable or disable cookies
+[2026-02-06T11:43:12.372Z] [Stream] [Accident Credit Group Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_performance_cookies, Label: enable or disable cookies, Text: moove_gdpr_performance_cookies  moove_gdpr_performance_cookies enable or disable
+[2026-02-06T11:43:12.396Z] [Stream] [Accident Credit Group Ltd] [info] Checking Field: Type: text, Name: g-recaptcha-response, Label: , Text: g-recaptcha-response  g-recaptcha-response-100000
+[2026-02-06T11:43:12.446Z] [Stream] [Accident Credit Group Ltd] [info] Form Fields Extracted: [page_heuristics_heuristic] 3 field(s) — name, id, label, type, tag, required
+[2026-02-06T11:43:12.452Z] [Stream] [Accident Credit Group Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="enable or disable cookies" type=checkbox tag=input required=False
+[2026-02-06T11:43:12.455Z] [Stream] [Accident Credit Group Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="enable or disable cookies" type=checkbox tag=input required=False
+[2026-02-06T11:43:12.456Z] [Stream] [Accident Credit Group Ltd] [info] Field: name="g-recaptcha-response" id="g-recaptcha-response-100000" label="" type=text tag=textarea required=False
+[2026-02-06T11:43:12.459Z] [Stream] [Accident Credit Group Ltd] [info] Form Fields Filled: [page_heuristics_heuristic] 0 field(s) — name/id, label, role, value
+[2026-02-06T11:43:12.460Z] [Stream] [Accident Credit Group Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 3 field(s) — not filled
+[2026-02-06T11:43:12.462Z] [Stream] [Accident Credit Group Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="enable or disable cookies"
+[2026-02-06T11:43:12.463Z] [Stream] [Accident Credit Group Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="enable or disable cookies"
+[2026-02-06T11:43:12.465Z] [Stream] [Accident Credit Group Ltd] [info] Unfilled: name="g-recaptcha-response" id="g-recaptcha-response-100000" label=""
+[2026-02-06T11:43:12.773Z] Status: 19 terminal, 1 processing | elapsed 19m 48s | since last completion: 34s
+[2026-02-06T11:43:12.774Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T11:43:13.442Z] [Stream] [Accident Credit Group Ltd] [warning] Form Empty: No fields were filled
+[2026-02-06T11:43:13.444Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T11:43:13.528Z] [Stream] [Accident Credit Group Ltd] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T11:43:13.706Z] [Stream] [Accident Credit Group Ltd] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T11:43:13.707Z] [Stream] [Accident Credit Group Ltd] [info] Testing Link: Link 1: about us (https://acg.co.uk/about-us/)
+[2026-02-06T11:43:15.416Z] [Stream] [Accident Credit Group Ltd] [info] Contact Page: Loading contact page…
+[2026-02-06T11:43:21.244Z] Status: 19 terminal, 1 processing | elapsed 19m 57s | since last completion: 43s
+[2026-02-06T11:43:21.245Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T11:43:46.003Z] [Stream] [Accident Credit Group Ltd] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-06T11:43:46.008Z] [Stream] [Accident Credit Group Ltd] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T11:43:46.486Z] [Stream] [Accident Credit Group Ltd] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-06T11:43:46.496Z] [Stream] [Accident Credit Group Ltd] [success] Email Found: Found 2 email(s)
+[2026-02-06T11:43:46.501Z] [Stream] [Accident Credit Group Ltd] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-06T11:43:46.732Z] [Stream] [Accident Credit Group Ltd] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T11:43:48.257Z] [Stream] Completed: company_id=77286 status=contact_info_found progress=1%
+[2026-02-06T11:43:48.578Z] [Stream] [Accommodation for Students] [info] Navigation: Opening https://accommodationforstudents.com...
+[2026-02-06T11:43:49.479Z] [Stream] [Accommodation for Students] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T11:43:50.495Z] [Stream] [Accommodation for Students] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-06T11:43:57.543Z] [Stream] Error: Invalid WebSocket frame: FIN must be set
+[2026-02-06T11:43:57.561Z] [Stream] Disconnected.
+[2026-02-06T11:43:59.493Z] Companies API error: 500 (poll #139)
+[2026-02-06T11:44:08.383Z] Progress: 20 terminal (one just finished; 1m 30s since previous) | elapsed 20m 44s
+[2026-02-06T11:44:08.385Z] Status: 20 terminal, 1 processing | elapsed 20m 44s | since last completion: 1m 30s
+[2026-02-06T11:44:08.385Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:44:16.927Z] Status: 20 terminal, 1 processing | elapsed 20m 52s | since last completion: 9s
+[2026-02-06T11:44:16.928Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:44:25.457Z] Status: 20 terminal, 1 processing | elapsed 21m 1s | since last completion: 17s
+[2026-02-06T11:44:25.458Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:44:34.091Z] Status: 20 terminal, 1 processing | elapsed 21m 10s | since last completion: 26s
+[2026-02-06T11:44:34.093Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:44:42.660Z] Status: 20 terminal, 1 processing | elapsed 21m 18s | since last completion: 34s
+[2026-02-06T11:44:42.661Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:44:51.169Z] Status: 20 terminal, 1 processing | elapsed 21m 27s | since last completion: 43s
+[2026-02-06T11:44:51.172Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:00.205Z] Status: 20 terminal, 1 processing | elapsed 21m 36s | since last completion: 52s
+[2026-02-06T11:45:00.365Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:08.934Z] Status: 20 terminal, 1 processing | elapsed 21m 44s | since last completion: 1m 1s
+[2026-02-06T11:45:08.935Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:17.486Z] Status: 20 terminal, 1 processing | elapsed 21m 53s | since last completion: 1m 9s
+[2026-02-06T11:45:17.487Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:26.243Z] Status: 20 terminal, 1 processing | elapsed 22m 2s | since last completion: 1m 18s
+[2026-02-06T11:45:26.244Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:34.797Z] Status: 20 terminal, 1 processing | elapsed 22m 10s | since last completion: 1m 26s
+[2026-02-06T11:45:34.798Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:43.428Z] Status: 20 terminal, 1 processing | elapsed 22m 19s | since last completion: 1m 35s
+[2026-02-06T11:45:43.429Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:43.429Z]   STUCK? No progress for 1m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:45:51.985Z] Status: 20 terminal, 1 processing | elapsed 22m 27s | since last completion: 1m 44s
+[2026-02-06T11:45:51.986Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:45:51.986Z]   STUCK? No progress for 1m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:46:00.792Z] Status: 20 terminal, 1 processing | elapsed 22m 36s | since last completion: 1m 52s
+[2026-02-06T11:46:00.794Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:46:00.808Z]   STUCK? No progress for 1m 52s (still 20 terminal, 1 processing)
+[2026-02-06T11:46:09.348Z] Status: 20 terminal, 1 processing | elapsed 22m 45s | since last completion: 2m 1s
+[2026-02-06T11:46:09.349Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:46:09.349Z]   STUCK? No progress for 2m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:46:18.027Z] Status: 20 terminal, 1 processing | elapsed 22m 54s | since last completion: 2m 10s
+[2026-02-06T11:46:18.031Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:46:18.033Z]   STUCK? No progress for 2m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:46:26.584Z] Status: 20 terminal, 1 processing | elapsed 23m 2s | since last completion: 2m 18s
+[2026-02-06T11:46:26.585Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:46:26.590Z]   STUCK? No progress for 2m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:46:35.128Z] Status: 20 terminal, 1 processing | elapsed 23m 11s | since last completion: 2m 27s
+[2026-02-06T11:46:35.129Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:46:35.129Z]   STUCK? No progress for 2m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:46:43.707Z] Status: 20 terminal, 1 processing | elapsed 23m 19s | since last completion: 2m 35s
+[2026-02-06T11:46:43.708Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:46:43.709Z]   STUCK? No progress for 2m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:46:52.343Z] Status: 20 terminal, 1 processing | elapsed 23m 28s | since last completion: 2m 44s
+[2026-02-06T11:46:52.344Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:46:52.345Z]   STUCK? No progress for 2m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:47:00.882Z] Status: 20 terminal, 1 processing | elapsed 23m 36s | since last completion: 2m 52s
+[2026-02-06T11:47:00.883Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:47:00.883Z]   STUCK? No progress for 2m 52s (still 20 terminal, 1 processing)
+[2026-02-06T11:47:09.419Z] Status: 20 terminal, 1 processing | elapsed 23m 45s | since last completion: 3m 1s
+[2026-02-06T11:47:09.420Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:47:09.420Z]   STUCK? No progress for 3m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:47:18.142Z] Status: 20 terminal, 1 processing | elapsed 23m 54s | since last completion: 3m 10s
+[2026-02-06T11:47:18.143Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:47:18.144Z]   STUCK? No progress for 3m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:47:26.628Z] Status: 20 terminal, 1 processing | elapsed 24m 2s | since last completion: 3m 18s
+[2026-02-06T11:47:26.629Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:47:26.630Z]   STUCK? No progress for 3m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:47:35.160Z] Status: 20 terminal, 1 processing | elapsed 24m 11s | since last completion: 3m 27s
+[2026-02-06T11:47:35.161Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:47:35.162Z]   STUCK? No progress for 3m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:47:43.705Z] Status: 20 terminal, 1 processing | elapsed 24m 19s | since last completion: 3m 35s
+[2026-02-06T11:47:43.706Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:47:43.707Z]   STUCK? No progress for 3m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:47:52.239Z] Status: 20 terminal, 1 processing | elapsed 24m 28s | since last completion: 3m 44s
+[2026-02-06T11:47:52.244Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:47:52.245Z]   STUCK? No progress for 3m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:48:00.959Z] Status: 20 terminal, 1 processing | elapsed 24m 36s | since last completion: 3m 53s
+[2026-02-06T11:48:00.960Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:48:00.964Z]   STUCK? No progress for 3m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:48:09.465Z] Status: 20 terminal, 1 processing | elapsed 24m 45s | since last completion: 4m 1s
+[2026-02-06T11:48:09.466Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:48:09.467Z]   STUCK? No progress for 4m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:48:18.028Z] Status: 20 terminal, 1 processing | elapsed 24m 54s | since last completion: 4m 10s
+[2026-02-06T11:48:18.029Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:48:18.029Z]   STUCK? No progress for 4m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:48:26.514Z] Status: 20 terminal, 1 processing | elapsed 25m 2s | since last completion: 4m 18s
+[2026-02-06T11:48:26.515Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:48:26.515Z]   STUCK? No progress for 4m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:48:35.039Z] Status: 20 terminal, 1 processing | elapsed 25m 11s | since last completion: 4m 27s
+[2026-02-06T11:48:35.040Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:48:35.041Z]   STUCK? No progress for 4m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:48:43.635Z] Status: 20 terminal, 1 processing | elapsed 25m 19s | since last completion: 4m 35s
+[2026-02-06T11:48:43.641Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:48:43.645Z]   STUCK? No progress for 4m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:48:52.164Z] Status: 20 terminal, 1 processing | elapsed 25m 28s | since last completion: 4m 44s
+[2026-02-06T11:48:52.165Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:48:52.165Z]   STUCK? No progress for 4m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:49:00.834Z] Status: 20 terminal, 1 processing | elapsed 25m 36s | since last completion: 4m 52s
+[2026-02-06T11:49:00.835Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:49:00.836Z]   STUCK? No progress for 4m 52s (still 20 terminal, 1 processing)
+[2026-02-06T11:49:09.352Z] Status: 20 terminal, 1 processing | elapsed 25m 45s | since last completion: 5m 1s
+[2026-02-06T11:49:09.353Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:49:09.353Z]   STUCK? No progress for 5m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:49:17.990Z] Status: 20 terminal, 1 processing | elapsed 25m 53s | since last completion: 5m 10s
+[2026-02-06T11:49:17.991Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:49:17.991Z]   STUCK? No progress for 5m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:49:26.464Z] Status: 20 terminal, 1 processing | elapsed 26m 2s | since last completion: 5m 18s
+[2026-02-06T11:49:26.465Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:49:26.466Z]   STUCK? No progress for 5m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:49:35.117Z] Status: 20 terminal, 1 processing | elapsed 26m 11s | since last completion: 5m 27s
+[2026-02-06T11:49:35.118Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:49:35.119Z]   STUCK? No progress for 5m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:49:43.637Z] Status: 20 terminal, 1 processing | elapsed 26m 19s | since last completion: 5m 35s
+[2026-02-06T11:49:43.638Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:49:43.639Z]   STUCK? No progress for 5m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:49:52.303Z] Status: 20 terminal, 1 processing | elapsed 26m 28s | since last completion: 5m 44s
+[2026-02-06T11:49:52.305Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:49:52.305Z]   STUCK? No progress for 5m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:50:00.846Z] Status: 20 terminal, 1 processing | elapsed 26m 36s | since last completion: 5m 52s
+[2026-02-06T11:50:00.847Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:50:00.848Z]   STUCK? No progress for 5m 52s (still 20 terminal, 1 processing)
+[2026-02-06T11:50:09.346Z] Status: 20 terminal, 1 processing | elapsed 26m 45s | since last completion: 6m 1s
+[2026-02-06T11:50:09.347Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:50:09.348Z]   STUCK? No progress for 6m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:50:17.982Z] Status: 20 terminal, 1 processing | elapsed 26m 53s | since last completion: 6m 10s
+[2026-02-06T11:50:17.982Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:50:17.983Z]   STUCK? No progress for 6m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:50:26.493Z] Status: 20 terminal, 1 processing | elapsed 27m 2s | since last completion: 6m 18s
+[2026-02-06T11:50:26.494Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:50:26.494Z]   STUCK? No progress for 6m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:50:35.042Z] Status: 20 terminal, 1 processing | elapsed 27m 11s | since last completion: 6m 27s
+[2026-02-06T11:50:35.043Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:50:35.044Z]   STUCK? No progress for 6m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:50:43.558Z] Status: 20 terminal, 1 processing | elapsed 27m 19s | since last completion: 6m 35s
+[2026-02-06T11:50:43.559Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:50:43.560Z]   STUCK? No progress for 6m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:50:52.072Z] Status: 20 terminal, 1 processing | elapsed 27m 28s | since last completion: 6m 44s
+[2026-02-06T11:50:52.073Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:50:52.074Z]   STUCK? No progress for 6m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:51:00.916Z] Status: 20 terminal, 1 processing | elapsed 27m 36s | since last completion: 6m 53s
+[2026-02-06T11:51:00.919Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:51:00.924Z]   STUCK? No progress for 6m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:51:09.451Z] Status: 20 terminal, 1 processing | elapsed 27m 45s | since last completion: 7m 1s
+[2026-02-06T11:51:09.452Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:51:09.453Z]   STUCK? No progress for 7m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:51:18.083Z] Status: 20 terminal, 1 processing | elapsed 27m 54s | since last completion: 7m 10s
+[2026-02-06T11:51:18.084Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:51:18.084Z]   STUCK? No progress for 7m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:51:26.536Z] Status: 20 terminal, 1 processing | elapsed 28m 2s | since last completion: 7m 18s
+[2026-02-06T11:51:26.537Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:51:26.537Z]   STUCK? No progress for 7m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:51:35.168Z] Status: 20 terminal, 1 processing | elapsed 28m 11s | since last completion: 7m 27s
+[2026-02-06T11:51:35.169Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:51:35.169Z]   STUCK? No progress for 7m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:51:43.734Z] Status: 20 terminal, 1 processing | elapsed 28m 19s | since last completion: 7m 35s
+[2026-02-06T11:51:43.735Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:51:43.736Z]   STUCK? No progress for 7m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:51:52.288Z] Status: 20 terminal, 1 processing | elapsed 28m 28s | since last completion: 7m 44s
+[2026-02-06T11:51:52.288Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:51:52.289Z]   STUCK? No progress for 7m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:52:00.821Z] Status: 20 terminal, 1 processing | elapsed 28m 36s | since last completion: 7m 52s
+[2026-02-06T11:52:00.822Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:52:00.823Z]   STUCK? No progress for 7m 52s (still 20 terminal, 1 processing)
+[2026-02-06T11:52:09.338Z] Status: 20 terminal, 1 processing | elapsed 28m 45s | since last completion: 8m 1s
+[2026-02-06T11:52:09.339Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:52:09.339Z]   STUCK? No progress for 8m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:52:18.075Z] Status: 20 terminal, 1 processing | elapsed 28m 54s | since last completion: 8m 10s
+[2026-02-06T11:52:18.076Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:52:18.076Z]   STUCK? No progress for 8m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:52:26.703Z] Status: 20 terminal, 1 processing | elapsed 29m 2s | since last completion: 8m 18s
+[2026-02-06T11:52:26.704Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:52:26.704Z]   STUCK? No progress for 8m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:52:35.242Z] Status: 20 terminal, 1 processing | elapsed 29m 11s | since last completion: 8m 27s
+[2026-02-06T11:52:35.244Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:52:35.244Z]   STUCK? No progress for 8m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:52:43.761Z] Status: 20 terminal, 1 processing | elapsed 29m 19s | since last completion: 8m 35s
+[2026-02-06T11:52:43.762Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:52:43.763Z]   STUCK? No progress for 8m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:52:52.317Z] Status: 20 terminal, 1 processing | elapsed 29m 28s | since last completion: 8m 44s
+[2026-02-06T11:52:52.318Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:52:52.319Z]   STUCK? No progress for 8m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:53:00.876Z] Status: 20 terminal, 1 processing | elapsed 29m 36s | since last completion: 8m 52s
+[2026-02-06T11:53:00.877Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:53:00.877Z]   STUCK? No progress for 8m 52s (still 20 terminal, 1 processing)
+[2026-02-06T11:53:09.374Z] Status: 20 terminal, 1 processing | elapsed 29m 45s | since last completion: 9m 1s
+[2026-02-06T11:53:09.375Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:53:09.375Z]   STUCK? No progress for 9m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:53:18.024Z] Status: 20 terminal, 1 processing | elapsed 29m 54s | since last completion: 9m 10s
+[2026-02-06T11:53:18.024Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:53:18.025Z]   STUCK? No progress for 9m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:53:26.581Z] Status: 20 terminal, 1 processing | elapsed 30m 2s | since last completion: 9m 18s
+[2026-02-06T11:53:26.582Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:53:26.583Z]   STUCK? No progress for 9m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:53:35.116Z] Status: 20 terminal, 1 processing | elapsed 30m 11s | since last completion: 9m 27s
+[2026-02-06T11:53:35.118Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:53:35.118Z]   STUCK? No progress for 9m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:53:43.640Z] Status: 20 terminal, 1 processing | elapsed 30m 19s | since last completion: 9m 35s
+[2026-02-06T11:53:43.640Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:53:43.641Z]   STUCK? No progress for 9m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:53:52.191Z] Status: 20 terminal, 1 processing | elapsed 30m 28s | since last completion: 9m 44s
+[2026-02-06T11:53:52.192Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:53:52.193Z]   STUCK? No progress for 9m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:54:00.903Z] Status: 20 terminal, 1 processing | elapsed 30m 36s | since last completion: 9m 53s
+[2026-02-06T11:54:00.904Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:54:00.905Z]   STUCK? No progress for 9m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:54:09.412Z] Status: 20 terminal, 1 processing | elapsed 30m 45s | since last completion: 10m 1s
+[2026-02-06T11:54:09.413Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:54:09.413Z]   STUCK? No progress for 10m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:54:18.181Z] Status: 20 terminal, 1 processing | elapsed 30m 54s | since last completion: 10m 10s
+[2026-02-06T11:54:18.182Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:54:18.182Z]   STUCK? No progress for 10m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:54:26.647Z] Status: 20 terminal, 1 processing | elapsed 31m 2s | since last completion: 10m 18s
+[2026-02-06T11:54:26.648Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:54:26.648Z]   STUCK? No progress for 10m 18s (still 20 terminal, 1 processing)
+[2026-02-06T11:54:35.195Z] Status: 20 terminal, 1 processing | elapsed 31m 11s | since last completion: 10m 27s
+[2026-02-06T11:54:35.196Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:54:35.197Z]   STUCK? No progress for 10m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:54:43.725Z] Status: 20 terminal, 1 processing | elapsed 31m 19s | since last completion: 10m 35s
+[2026-02-06T11:54:43.726Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:54:43.727Z]   STUCK? No progress for 10m 35s (still 20 terminal, 1 processing)
+[2026-02-06T11:54:52.244Z] Status: 20 terminal, 1 processing | elapsed 31m 28s | since last completion: 10m 44s
+[2026-02-06T11:54:52.245Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:54:52.245Z]   STUCK? No progress for 10m 44s (still 20 terminal, 1 processing)
+[2026-02-06T11:55:00.966Z] Status: 20 terminal, 1 processing | elapsed 31m 36s | since last completion: 10m 53s
+[2026-02-06T11:55:00.967Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:55:00.968Z]   STUCK? No progress for 10m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:55:09.449Z] Status: 20 terminal, 1 processing | elapsed 31m 45s | since last completion: 11m 1s
+[2026-02-06T11:55:09.450Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:55:09.451Z]   STUCK? No progress for 11m 1s (still 20 terminal, 1 processing)
+[2026-02-06T11:55:18.316Z] Status: 20 terminal, 1 processing | elapsed 31m 54s | since last completion: 11m 10s
+[2026-02-06T11:55:18.317Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:55:18.318Z]   STUCK? No progress for 11m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:55:26.979Z] Status: 20 terminal, 1 processing | elapsed 32m 2s | since last completion: 11m 19s
+[2026-02-06T11:55:26.980Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:55:26.981Z]   STUCK? No progress for 11m 19s (still 20 terminal, 1 processing)
+[2026-02-06T11:55:35.543Z] Status: 20 terminal, 1 processing | elapsed 32m 11s | since last completion: 11m 27s
+[2026-02-06T11:55:35.543Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:55:35.544Z]   STUCK? No progress for 11m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:55:44.380Z] Status: 20 terminal, 1 processing | elapsed 32m 20s | since last completion: 11m 36s
+[2026-02-06T11:55:44.381Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:55:44.381Z]   STUCK? No progress for 11m 36s (still 20 terminal, 1 processing)
+[2026-02-06T11:55:52.939Z] Status: 20 terminal, 1 processing | elapsed 32m 28s | since last completion: 11m 45s
+[2026-02-06T11:55:52.940Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:55:52.941Z]   STUCK? No progress for 11m 45s (still 20 terminal, 1 processing)
+[2026-02-06T11:56:01.509Z] Status: 20 terminal, 1 processing | elapsed 32m 37s | since last completion: 11m 53s
+[2026-02-06T11:56:01.510Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:56:01.510Z]   STUCK? No progress for 11m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:56:10.057Z] Status: 20 terminal, 1 processing | elapsed 32m 46s | since last completion: 12m 2s
+[2026-02-06T11:56:10.058Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:56:10.059Z]   STUCK? No progress for 12m 2s (still 20 terminal, 1 processing)
+[2026-02-06T11:56:18.678Z] Status: 20 terminal, 1 processing | elapsed 32m 54s | since last completion: 12m 10s
+[2026-02-06T11:56:18.679Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:56:18.680Z]   STUCK? No progress for 12m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:56:27.213Z] Status: 20 terminal, 1 processing | elapsed 33m 3s | since last completion: 12m 19s
+[2026-02-06T11:56:27.215Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:56:27.215Z]   STUCK? No progress for 12m 19s (still 20 terminal, 1 processing)
+[2026-02-06T11:56:35.758Z] Status: 20 terminal, 1 processing | elapsed 33m 11s | since last completion: 12m 27s
+[2026-02-06T11:56:35.759Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:56:35.760Z]   STUCK? No progress for 12m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:56:44.460Z] Status: 20 terminal, 1 processing | elapsed 33m 20s | since last completion: 12m 36s
+[2026-02-06T11:56:44.461Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:56:44.461Z]   STUCK? No progress for 12m 36s (still 20 terminal, 1 processing)
+[2026-02-06T11:56:52.994Z] Status: 20 terminal, 1 processing | elapsed 33m 28s | since last completion: 12m 45s
+[2026-02-06T11:56:52.998Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:56:52.999Z]   STUCK? No progress for 12m 45s (still 20 terminal, 1 processing)
+[2026-02-06T11:57:01.675Z] Status: 20 terminal, 1 processing | elapsed 33m 37s | since last completion: 12m 53s
+[2026-02-06T11:57:01.676Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:57:01.676Z]   STUCK? No progress for 12m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:57:10.207Z] Status: 20 terminal, 1 processing | elapsed 33m 46s | since last completion: 13m 2s
+[2026-02-06T11:57:10.208Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:57:10.209Z]   STUCK? No progress for 13m 2s (still 20 terminal, 1 processing)
+[2026-02-06T11:57:18.760Z] Status: 20 terminal, 1 processing | elapsed 33m 54s | since last completion: 13m 10s
+[2026-02-06T11:57:18.762Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:57:18.762Z]   STUCK? No progress for 13m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:57:27.383Z] Status: 20 terminal, 1 processing | elapsed 34m 3s | since last completion: 13m 19s
+[2026-02-06T11:57:27.384Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:57:27.384Z]   STUCK? No progress for 13m 19s (still 20 terminal, 1 processing)
+[2026-02-06T11:57:35.921Z] Status: 20 terminal, 1 processing | elapsed 34m 11s | since last completion: 13m 28s
+[2026-02-06T11:57:35.922Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:57:35.922Z]   STUCK? No progress for 13m 28s (still 20 terminal, 1 processing)
+[2026-02-06T11:57:44.447Z] Status: 20 terminal, 1 processing | elapsed 34m 20s | since last completion: 13m 36s
+[2026-02-06T11:57:44.448Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:57:44.448Z]   STUCK? No progress for 13m 36s (still 20 terminal, 1 processing)
+[2026-02-06T11:57:52.998Z] Status: 20 terminal, 1 processing | elapsed 34m 28s | since last completion: 13m 45s
+[2026-02-06T11:57:52.999Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:57:52.999Z]   STUCK? No progress for 13m 45s (still 20 terminal, 1 processing)
+[2026-02-06T11:58:01.620Z] Status: 20 terminal, 1 processing | elapsed 34m 37s | since last completion: 13m 53s
+[2026-02-06T11:58:01.623Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:58:01.623Z]   STUCK? No progress for 13m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:58:10.238Z] Status: 20 terminal, 1 processing | elapsed 34m 46s | since last completion: 14m 2s
+[2026-02-06T11:58:10.239Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:58:10.239Z]   STUCK? No progress for 14m 2s (still 20 terminal, 1 processing)
+[2026-02-06T11:58:18.760Z] Status: 20 terminal, 1 processing | elapsed 34m 54s | since last completion: 14m 10s
+[2026-02-06T11:58:18.760Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:58:18.761Z]   STUCK? No progress for 14m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:58:27.292Z] Status: 20 terminal, 1 processing | elapsed 35m 3s | since last completion: 14m 19s
+[2026-02-06T11:58:27.293Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:58:27.294Z]   STUCK? No progress for 14m 19s (still 20 terminal, 1 processing)
+[2026-02-06T11:58:35.844Z] Status: 20 terminal, 1 processing | elapsed 35m 11s | since last completion: 14m 27s
+[2026-02-06T11:58:35.845Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:58:35.845Z]   STUCK? No progress for 14m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:58:44.424Z] Status: 20 terminal, 1 processing | elapsed 35m 20s | since last completion: 14m 36s
+[2026-02-06T11:58:44.425Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:58:44.426Z]   STUCK? No progress for 14m 36s (still 20 terminal, 1 processing)
+[2026-02-06T11:58:52.962Z] Status: 20 terminal, 1 processing | elapsed 35m 28s | since last completion: 14m 45s
+[2026-02-06T11:58:52.963Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:58:52.964Z]   STUCK? No progress for 14m 45s (still 20 terminal, 1 processing)
+[2026-02-06T11:59:01.567Z] Status: 20 terminal, 1 processing | elapsed 35m 37s | since last completion: 14m 53s
+[2026-02-06T11:59:01.568Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:59:01.569Z]   STUCK? No progress for 14m 53s (still 20 terminal, 1 processing)
+[2026-02-06T11:59:10.115Z] Status: 20 terminal, 1 processing | elapsed 35m 46s | since last completion: 15m 2s
+[2026-02-06T11:59:10.116Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:59:10.116Z]   STUCK? No progress for 15m 2s (still 20 terminal, 1 processing)
+[2026-02-06T11:59:18.679Z] Status: 20 terminal, 1 processing | elapsed 35m 54s | since last completion: 15m 10s
+[2026-02-06T11:59:18.680Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:59:18.681Z]   STUCK? No progress for 15m 10s (still 20 terminal, 1 processing)
+[2026-02-06T11:59:27.167Z] Status: 20 terminal, 1 processing | elapsed 36m 3s | since last completion: 15m 19s
+[2026-02-06T11:59:27.168Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:59:27.168Z]   STUCK? No progress for 15m 19s (still 20 terminal, 1 processing)
+[2026-02-06T11:59:35.738Z] Status: 20 terminal, 1 processing | elapsed 36m 11s | since last completion: 15m 27s
+[2026-02-06T11:59:35.739Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:59:35.739Z]   STUCK? No progress for 15m 27s (still 20 terminal, 1 processing)
+[2026-02-06T11:59:44.525Z] Status: 20 terminal, 1 processing | elapsed 36m 20s | since last completion: 15m 36s
+[2026-02-06T11:59:44.526Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:59:44.527Z]   STUCK? No progress for 15m 36s (still 20 terminal, 1 processing)
+[2026-02-06T11:59:53.068Z] Status: 20 terminal, 1 processing | elapsed 36m 29s | since last completion: 15m 45s
+[2026-02-06T11:59:53.069Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T11:59:53.070Z]   STUCK? No progress for 15m 45s (still 20 terminal, 1 processing)
+[2026-02-06T12:00:01.607Z] Status: 20 terminal, 1 processing | elapsed 36m 37s | since last completion: 15m 53s
+[2026-02-06T12:00:01.608Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:00:01.609Z]   STUCK? No progress for 15m 53s (still 20 terminal, 1 processing)
+[2026-02-06T12:00:10.262Z] Status: 20 terminal, 1 processing | elapsed 36m 46s | since last completion: 16m 2s
+[2026-02-06T12:00:10.263Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:00:10.263Z]   STUCK? No progress for 16m 2s (still 20 terminal, 1 processing)
+[2026-02-06T12:00:18.823Z] Status: 20 terminal, 1 processing | elapsed 36m 54s | since last completion: 16m 10s
+[2026-02-06T12:00:18.824Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:00:18.825Z]   STUCK? No progress for 16m 10s (still 20 terminal, 1 processing)
+[2026-02-06T12:00:27.345Z] Status: 20 terminal, 1 processing | elapsed 37m 3s | since last completion: 16m 19s
+[2026-02-06T12:00:27.346Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:00:27.346Z]   STUCK? No progress for 16m 19s (still 20 terminal, 1 processing)
+[2026-02-06T12:00:35.887Z] Status: 20 terminal, 1 processing | elapsed 37m 11s | since last completion: 16m 28s
+[2026-02-06T12:00:35.888Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:00:35.888Z]   STUCK? No progress for 16m 28s (still 20 terminal, 1 processing)
+[2026-02-06T12:00:44.427Z] Status: 20 terminal, 1 processing | elapsed 37m 20s | since last completion: 16m 36s
+[2026-02-06T12:00:44.427Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:00:44.428Z]   STUCK? No progress for 16m 36s (still 20 terminal, 1 processing)
+[2026-02-06T12:00:53.080Z] Status: 20 terminal, 1 processing | elapsed 37m 29s | since last completion: 16m 45s
+[2026-02-06T12:00:53.081Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:00:53.081Z]   STUCK? No progress for 16m 45s (still 20 terminal, 1 processing)
+[2026-02-06T12:01:01.662Z] Status: 20 terminal, 1 processing | elapsed 37m 37s | since last completion: 16m 53s
+[2026-02-06T12:01:01.663Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:01:01.664Z]   STUCK? No progress for 16m 53s (still 20 terminal, 1 processing)
+[2026-02-06T12:01:10.216Z] Status: 20 terminal, 1 processing | elapsed 37m 46s | since last completion: 17m 2s
+[2026-02-06T12:01:10.217Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:01:10.217Z]   STUCK? No progress for 17m 2s (still 20 terminal, 1 processing)
+[2026-02-06T12:01:18.752Z] Status: 20 terminal, 1 processing | elapsed 37m 54s | since last completion: 17m 10s
+[2026-02-06T12:01:18.753Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:01:18.754Z]   STUCK? No progress for 17m 10s (still 20 terminal, 1 processing)
+[2026-02-06T12:01:27.252Z] Status: 20 terminal, 1 processing | elapsed 38m 3s | since last completion: 17m 19s
+[2026-02-06T12:01:27.253Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:01:27.254Z]   STUCK? No progress for 17m 19s (still 20 terminal, 1 processing)
+[2026-02-06T12:01:35.804Z] Status: 20 terminal, 1 processing | elapsed 38m 11s | since last completion: 17m 27s
+[2026-02-06T12:01:35.806Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:01:35.806Z]   STUCK? No progress for 17m 27s (still 20 terminal, 1 processing)
+[2026-02-06T12:01:44.504Z] Status: 20 terminal, 1 processing | elapsed 38m 20s | since last completion: 17m 36s
+[2026-02-06T12:01:44.505Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:01:44.506Z]   STUCK? No progress for 17m 36s (still 20 terminal, 1 processing)
+[2026-02-06T12:01:53.025Z] Status: 20 terminal, 1 processing | elapsed 38m 29s | since last completion: 17m 45s
+[2026-02-06T12:01:53.026Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:01:53.026Z]   STUCK? No progress for 17m 45s (still 20 terminal, 1 processing)
+[2026-02-06T12:02:01.569Z] Status: 20 terminal, 1 processing | elapsed 38m 37s | since last completion: 17m 53s
+[2026-02-06T12:02:01.570Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:02:01.570Z]   STUCK? No progress for 17m 53s (still 20 terminal, 1 processing)
+[2026-02-06T12:02:10.119Z] Status: 20 terminal, 1 processing | elapsed 38m 46s | since last completion: 18m 2s
+[2026-02-06T12:02:10.120Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:02:10.121Z]   STUCK? No progress for 18m 2s (still 20 terminal, 1 processing)
+[2026-02-06T12:02:18.686Z] Status: 20 terminal, 1 processing | elapsed 38m 54s | since last completion: 18m 10s
+[2026-02-06T12:02:18.687Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:02:18.687Z]   STUCK? No progress for 18m 10s (still 20 terminal, 1 processing)
+[2026-02-06T12:02:27.209Z] Status: 20 terminal, 1 processing | elapsed 39m 3s | since last completion: 18m 19s
+[2026-02-06T12:02:27.210Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:02:27.211Z]   STUCK? No progress for 18m 19s (still 20 terminal, 1 processing)
+[2026-02-06T12:02:35.763Z] Status: 20 terminal, 1 processing | elapsed 39m 11s | since last completion: 18m 27s
+[2026-02-06T12:02:35.764Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:02:35.765Z]   STUCK? No progress for 18m 27s (still 20 terminal, 1 processing)
+[2026-02-06T12:02:44.437Z] Status: 20 terminal, 1 processing | elapsed 39m 20s | since last completion: 18m 36s
+[2026-02-06T12:02:44.438Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:02:44.439Z]   STUCK? No progress for 18m 36s (still 20 terminal, 1 processing)
+[2026-02-06T12:02:53.088Z] Status: 20 terminal, 1 processing | elapsed 39m 29s | since last completion: 18m 45s
+[2026-02-06T12:02:53.089Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:02:53.090Z]   STUCK? No progress for 18m 45s (still 20 terminal, 1 processing)
+[2026-02-06T12:03:01.738Z] Status: 20 terminal, 1 processing | elapsed 39m 37s | since last completion: 18m 53s
+[2026-02-06T12:03:01.739Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:03:01.740Z]   STUCK? No progress for 18m 53s (still 20 terminal, 1 processing)
+[2026-02-06T12:03:10.280Z] Status: 20 terminal, 1 processing | elapsed 39m 46s | since last completion: 19m 2s
+[2026-02-06T12:03:10.281Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:03:10.281Z]   STUCK? No progress for 19m 2s (still 20 terminal, 1 processing)
+[2026-02-06T12:03:18.872Z] Status: 20 terminal, 1 processing | elapsed 39m 54s | since last completion: 19m 10s
+[2026-02-06T12:03:18.873Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:03:18.873Z]   STUCK? No progress for 19m 10s (still 20 terminal, 1 processing)
+[2026-02-06T12:03:27.390Z] Status: 20 terminal, 1 processing | elapsed 40m 3s | since last completion: 19m 19s
+[2026-02-06T12:03:27.391Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:03:27.392Z]   STUCK? No progress for 19m 19s (still 20 terminal, 1 processing)
+[2026-02-06T12:03:35.994Z] Status: 20 terminal, 1 processing | elapsed 40m 11s | since last completion: 19m 28s
+[2026-02-06T12:03:35.995Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:03:35.996Z]   STUCK? No progress for 19m 28s (still 20 terminal, 1 processing)
+[2026-02-06T12:03:44.760Z] Status: 20 terminal, 1 processing | elapsed 40m 20s | since last completion: 19m 36s
+[2026-02-06T12:03:44.761Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:03:44.761Z]   STUCK? No progress for 19m 36s (still 20 terminal, 1 processing)
+[2026-02-06T12:03:53.290Z] Status: 20 terminal, 1 processing | elapsed 40m 29s | since last completion: 19m 45s
+[2026-02-06T12:03:53.291Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:03:53.291Z]   STUCK? No progress for 19m 45s (still 20 terminal, 1 processing)
+[2026-02-06T12:04:02.589Z] Status: 20 terminal, 1 processing | elapsed 40m 38s | since last completion: 19m 54s
+[2026-02-06T12:04:02.589Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:04:02.590Z]   STUCK? No progress for 19m 54s (still 20 terminal, 1 processing)
+[2026-02-06T12:04:11.213Z] Status: 20 terminal, 1 processing | elapsed 40m 47s | since last completion: 20m 3s
+[2026-02-06T12:04:11.214Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:04:11.214Z]   STUCK? No progress for 20m 3s (still 20 terminal, 1 processing)
+[2026-02-06T12:04:19.831Z] Status: 20 terminal, 1 processing | elapsed 40m 55s | since last completion: 20m 11s
+[2026-02-06T12:04:19.832Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:04:19.833Z]   STUCK? No progress for 20m 11s (still 20 terminal, 1 processing)
+[2026-02-06T12:04:28.380Z] Status: 20 terminal, 1 processing | elapsed 41m 4s | since last completion: 20m 20s
+[2026-02-06T12:04:28.381Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:04:28.381Z]   STUCK? No progress for 20m 20s (still 20 terminal, 1 processing)
+[2026-02-06T12:04:36.913Z] Status: 20 terminal, 1 processing | elapsed 41m 12s | since last completion: 20m 29s
+[2026-02-06T12:04:36.914Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:04:36.915Z]   STUCK? No progress for 20m 29s (still 20 terminal, 1 processing)
+[2026-02-06T12:04:45.413Z] Status: 20 terminal, 1 processing | elapsed 41m 21s | since last completion: 20m 37s
+[2026-02-06T12:04:45.414Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:04:45.415Z]   STUCK? No progress for 20m 37s (still 20 terminal, 1 processing)
+[2026-02-06T12:04:53.970Z] Status: 20 terminal, 1 processing | elapsed 41m 29s | since last completion: 20m 46s
+[2026-02-06T12:04:53.971Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:04:53.971Z]   STUCK? No progress for 20m 46s (still 20 terminal, 1 processing)
+[2026-02-06T12:05:02.543Z] Status: 20 terminal, 1 processing | elapsed 41m 38s | since last completion: 20m 54s
+[2026-02-06T12:05:02.543Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:05:02.544Z]   STUCK? No progress for 20m 54s (still 20 terminal, 1 processing)
+[2026-02-06T12:05:11.294Z] Status: 20 terminal, 1 processing | elapsed 41m 47s | since last completion: 21m 3s
+[2026-02-06T12:05:11.295Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:05:11.296Z]   STUCK? No progress for 21m 3s (still 20 terminal, 1 processing)
+[2026-02-06T12:05:19.858Z] Status: 20 terminal, 1 processing | elapsed 41m 55s | since last completion: 21m 11s
+[2026-02-06T12:05:19.859Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:05:19.859Z]   STUCK? No progress for 21m 11s (still 20 terminal, 1 processing)
+[2026-02-06T12:05:28.418Z] Status: 20 terminal, 1 processing | elapsed 42m 4s | since last completion: 21m 20s
+[2026-02-06T12:05:28.429Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:05:28.433Z]   STUCK? No progress for 21m 20s (still 20 terminal, 1 processing)
+[2026-02-06T12:05:36.972Z] Status: 20 terminal, 1 processing | elapsed 42m 12s | since last completion: 21m 29s
+[2026-02-06T12:05:36.973Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:05:36.974Z]   STUCK? No progress for 21m 29s (still 20 terminal, 1 processing)
+[2026-02-06T12:05:45.465Z] Status: 20 terminal, 1 processing | elapsed 42m 21s | since last completion: 21m 37s
+[2026-02-06T12:05:45.466Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:05:45.466Z]   STUCK? No progress for 21m 37s (still 20 terminal, 1 processing)
+[2026-02-06T12:05:54.102Z] Status: 20 terminal, 1 processing | elapsed 42m 30s | since last completion: 21m 46s
+[2026-02-06T12:05:54.103Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:05:54.103Z]   STUCK? No progress for 21m 46s (still 20 terminal, 1 processing)
+[2026-02-06T12:06:02.527Z] Status: 20 terminal, 1 processing | elapsed 42m 38s | since last completion: 21m 54s
+[2026-02-06T12:06:02.527Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T12:06:02.528Z]   STUCK? No progress for 21m 54s (still 20 terminal, 1 processing)
+[2026-02-06T12:06:06.530Z] Error: page.waitForTimeout: Target page, context or browser has been closed
+Browser left open. Close the browser or press Ctrl+C to exit.

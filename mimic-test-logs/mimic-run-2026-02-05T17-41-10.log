@@ -1,0 +1,9 @@
+Mimic test run started at 2026-02-05T17:41:10.554Z
+[2026-02-05T17:41:10.555Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-05T17-41-10.log
+[2026-02-05T17:41:10.559Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-05T17:41:14.516Z] Loading site and dismissing cookie modal...
+[2026-02-05T17:41:23.058Z] Cookie modal dismissed (Accept All)
+[2026-02-05T17:41:23.874Z] Filling login...
+[2026-02-05T17:41:31.402Z] Login OK
+[2026-02-05T17:41:31.404Z] Waiting 10s for dashboard to refresh...
+[2026-02-05T17:41:36.506Z] Error: page.waitForTimeout: Target page, context or browser has been closed

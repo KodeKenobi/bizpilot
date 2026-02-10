@@ -1,0 +1,523 @@
+Mimic test run started at 2026-02-08T06:09:06.053Z
+[2026-02-08T06:09:06.055Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T06-09-06.log
+[2026-02-08T06:09:06.058Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T06:09:08.459Z] Loading site and dismissing cookie modal...
+[2026-02-08T06:09:15.310Z] Cookie modal dismissed (Accept All)
+[2026-02-08T06:09:16.124Z] Filling login...
+[2026-02-08T06:09:23.280Z] Login OK
+[2026-02-08T06:09:23.281Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T06:09:33.296Z] Dashboard wait done.
+[2026-02-08T06:09:33.327Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T06:09:35.756Z] Usage: daily_limit=-1 daily_used=199 unlimited=true daily_remaining=N/A
+[2026-02-08T06:09:35.757Z] Navigating to campaign upload...
+[2026-02-08T06:09:40.136Z] Upload OK
+[2026-02-08T06:09:40.793Z] Navigate to create OK
+[2026-02-08T06:09:44.818Z] Campaign created: 187
+[2026-02-08T06:09:46.831Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/187
+[2026-02-08T06:09:46.988Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-08T06:09:47.781Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-08T06:09:48.538Z] [Stream] Campaign started – total companies: 1070
+[2026-02-08T06:09:48.540Z] [Stream] Now processing: 2020 Innovation | 108293
+[2026-02-08T06:09:49.008Z] [Stream] [2020 Innovation] [info] Navigation: Opening https://2020innovation.com...
+[2026-02-08T06:09:49.439Z] Started processing 2000 companies...
+[2026-02-08T06:09:52.976Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("OK")
+[2026-02-08T06:09:53.759Z] [Stream] [2020 Innovation] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:09:54.562Z] [Stream] [2020 Innovation] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-08T06:09:56.169Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("Decline")
+[2026-02-08T06:09:58.379Z] Status: 0 terminal, 1 processing | elapsed 9s | since last completion: 9s
+[2026-02-08T06:09:58.380Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T06:10:04.954Z] [Stream] [2020 Innovation] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-08T06:10:06.513Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("OK")
+[2026-02-08T06:10:07.120Z] Status: 0 terminal, 1 processing | elapsed 18s | since last completion: 18s
+[2026-02-08T06:10:07.121Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T06:10:07.130Z] [Stream] [2020 Innovation] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:10:07.700Z] [Stream] [2020 Innovation] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T06:10:07.711Z] [Stream] [2020 Innovation] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T06:10:07.758Z] [Stream] [2020 Innovation] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T06:10:08.099Z] [Stream] [2020 Innovation] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-08T06:10:08.102Z] [Stream] [2020 Innovation] [info] Testing Link: Link 1: contact (
+[2026-02-08T06:10:09.085Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("OK")
+[2026-02-08T06:10:09.470Z] [Stream] [2020 Innovation] [info] Contact Page: Loading contact page…
+[2026-02-08T06:10:10.221Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-08T06:10:10.891Z] [Stream] [2020 Innovation] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-08T06:10:11.305Z] [Stream] [2020 Innovation] [success] Form in iframe: Found form in frame 1 on contact page
+[2026-02-08T06:10:11.433Z] [Stream] [2020 Innovation] [info] Form Filling: Starting iframe fill on contact_page_frame_1
+[2026-02-08T06:10:13.374Z] [Stream] [2020 Innovation] [info] Form Filling: Extracted 9 fields from this form; filling by mapping
+[2026-02-08T06:10:13.419Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: first_name: name="firstname" label="First Name*"
+[2026-02-08T06:10:13.455Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: last_name: name="lastname" label="Last Name*"
+[2026-02-08T06:10:13.493Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: email: name="email" label="Email*"
+[2026-02-08T06:10:13.542Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: phone: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*"
+[2026-02-08T06:10:13.578Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: full_name: name="company" label="Company name*"
+[2026-02-08T06:10:13.643Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: checkbox_option: name="enquiry_type" label="Member Support"
+[2026-02-08T06:10:13.669Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: message: name="message" label="Message*"
+[2026-02-08T06:10:15.476Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: phone: name="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label=""
+[2026-02-08T06:10:15.477Z] [Stream] [2020 Innovation] [info] Form Fields Extracted: [contact_page_frame_1] 9 field(s) — name, id, label, type, tag, required
+[2026-02-08T06:10:15.480Z] [Stream] [2020 Innovation] [info] Field: name="firstname" id="firstname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="First Name*" type=text tag=input required=True
+[2026-02-08T06:10:15.482Z] [Stream] [2020 Innovation] [info] Field: name="lastname" id="lastname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Last Name*" type=text tag=input required=True
+[2026-02-08T06:10:15.484Z] [Stream] [2020 Innovation] [info] Field: name="email" id="email-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Email*" type=email tag=input required=True
+[2026-02-08T06:10:15.490Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" type=tel tag=input required=True
+[2026-02-08T06:10:15.500Z] [Stream] [2020 Innovation] [info] Field: name="company" id="company-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Company name*" type=text tag=input required=True
+[2026-02-08T06:10:15.502Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type0-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Member Support" type=checkbox tag=input required=False
+[2026-02-08T06:10:15.504Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type1-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Sales" type=checkbox tag=input required=False
+[2026-02-08T06:10:15.506Z] [Stream] [2020 Innovation] [info] Field: name="message" id="message-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Message*" type=text tag=textarea required=True
+[2026-02-08T06:10:15.507Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="" type=select tag=select required=True
+[2026-02-08T06:10:15.513Z] [Stream] [2020 Innovation] [info] Form Fields Filled: [contact_page_frame_1] 8 field(s) — name/id, label, role, value
+[2026-02-08T06:10:15.515Z] [Stream] [2020 Innovation] [info] Filled: name="firstname" label="First Name*" role=first_name value="Test"
+[2026-02-08T06:10:15.517Z] [Stream] [2020 Innovation] [info] Filled: name="lastname" label="Last Name*" role=last_name value="User"
+[2026-02-08T06:10:15.519Z] [Stream] [2020 Innovation] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-08T06:10:15.520Z] [Stream] [2020 Innovation] [info] Filled: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" role=phone value="+27123456789"
+[2026-02-08T06:10:15.522Z] [Stream] [2020 Innovation] [info] Filled: name="company" label="Company name*" role=full_name value="Test User"
+[2026-02-08T06:10:15.524Z] [Stream] [2020 Innovation] [info] Filled: name="enquiry_type" label="Member Support" role=checkbox_option value="checked"
+[2026-02-08T06:10:15.526Z] [Stream] [2020 Innovation] [info] Filled: name="message" label="Message*" role=message value="Hello, this is a test."
+[2026-02-08T06:10:15.527Z] [Stream] [2020 Innovation] [info] Filled: name="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="" role=phone value="South Africa"
+[2026-02-08T06:10:15.530Z] [Stream] [2020 Innovation] [info] Form Fields Left Unsatisfied: [contact_page_frame_1] 0 field(s) — not filled
+[2026-02-08T06:10:15.677Z] Status: 0 terminal, 1 processing | elapsed 26s | since last completion: 26s
+[2026-02-08T06:10:15.678Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T06:10:16.785Z] [Stream] [2020 Innovation] [info] Submitting: Clicking submit button
+[2026-02-08T06:10:17.821Z] [Stream] [2020 Innovation] [success] Form Processed: Filled 8 fields (extract-then-fill) and submitted
+[2026-02-08T06:10:20.057Z] [Stream] Now processing: 3 Line Electrical Wholesale Ltd. | 108294
+[2026-02-08T06:10:20.541Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-08T06:10:21.719Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:10:22.843Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-08T06:10:24.430Z] Progress: 1 terminal (one just finished; 35s since previous) | elapsed 35s
+[2026-02-08T06:10:24.431Z] Status: 1 terminal, 1 processing | elapsed 35s | since last completion: 35s
+[2026-02-08T06:10:24.432Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T06:10:24.433Z]   Failed (new): 2020 Innovation | https://2020innovation.com | Instance <Company at 0x7f749ef46c50> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:10:31.837Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-08T06:10:32.496Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:10:33.032Z] Status: 1 terminal, 1 processing | elapsed 44s | since last completion: 9s
+[2026-02-08T06:10:33.033Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T06:10:33.427Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T06:10:33.429Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T06:10:33.481Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T06:10:33.796Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-08T06:10:33.800Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-08T06:10:34.336Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-08T06:10:41.661Z] Status: 1 terminal, 1 processing | elapsed 52s | since last completion: 17s
+[2026-02-08T06:10:41.662Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T06:10:42.943Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-08T06:10:42.948Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-08T06:10:43.351Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-08T06:10:43.536Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-08T06:10:43.840Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-08T06:10:43.853Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-08T06:10:43.874Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-08T06:10:45.474Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-08T06:10:46.425Z] [Stream] Now processing: 3 Line Electrical Wholesale Ltd. | 108295
+[2026-02-08T06:10:46.917Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-08T06:10:47.899Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:10:48.959Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-08T06:10:50.311Z] Progress: 2 terminal (one just finished; 26s since previous) | elapsed 1m 1s
+[2026-02-08T06:10:50.312Z] Status: 2 terminal, 1 processing | elapsed 1m 1s | since last completion: 26s
+[2026-02-08T06:10:50.312Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T06:10:50.313Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | Instance <Company at 0x7f749e6d0c90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:10:57.990Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-08T06:10:58.588Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:10:58.956Z] Status: 2 terminal, 1 processing | elapsed 1m 10s | since last completion: 9s
+[2026-02-08T06:10:58.958Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T06:10:59.426Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T06:10:59.430Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T06:10:59.501Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T06:10:59.831Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-08T06:10:59.833Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-08T06:11:00.348Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-08T06:11:07.587Z] Status: 2 terminal, 1 processing | elapsed 1m 18s | since last completion: 17s
+[2026-02-08T06:11:07.588Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T06:11:08.960Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-08T06:11:08.966Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-08T06:11:09.459Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-08T06:11:09.541Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-08T06:11:09.844Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-08T06:11:09.850Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-08T06:11:09.856Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-08T06:11:11.158Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-08T06:11:12.293Z] [Stream] Now processing: 4D modelshop Ltd | 108296
+[2026-02-08T06:11:12.777Z] [Stream] [4D modelshop Ltd] [info] Navigation: Opening https://modelshop.co.uk...
+[2026-02-08T06:11:13.300Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:11:14.109Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-08T06:11:14.110Z] [Stream] [4D modelshop Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:11:14.923Z] [Stream] [4D modelshop Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T06:11:14.924Z] [Stream] [4D modelshop Ltd] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T06:11:14.979Z] [Stream] [4D modelshop Ltd] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T06:11:15.018Z] [Stream] [4D modelshop Ltd] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-08T06:11:15.020Z] [Stream] [4D modelshop Ltd] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-08T06:11:15.493Z] [Stream] [4D modelshop Ltd] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-08T06:11:15.494Z] [Stream] [4D modelshop Ltd] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-08T06:11:15.496Z] [Stream] [4D modelshop Ltd] [success] Email Found: Found 1 email(s)
+[2026-02-08T06:11:15.498Z] [Stream] [4D modelshop Ltd] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-08T06:11:16.186Z] Progress: 3 terminal (one just finished; 26s since previous) | elapsed 1m 27s
+[2026-02-08T06:11:16.187Z] Status: 3 terminal, 1 processing | elapsed 1m 27s | since last completion: 26s
+[2026-02-08T06:11:16.188Z]   Current: 4D modelshop Ltd | https://modelshop.co.uk
+[2026-02-08T06:11:16.189Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | Instance <Company at 0x7f749ec11410> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:11:17.509Z] [Stream] Now processing: 7 Core Electrical Wholesale Ltd | 108297
+[2026-02-08T06:11:18.016Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Navigation: Opening https://7core.co.uk...
+[2026-02-08T06:11:19.478Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:11:20.567Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Found 3 contact link(s) in footer; trying contact page first
+[2026-02-08T06:11:22.191Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-08T06:11:22.988Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:11:23.020Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-08T06:11:23.068Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Trying form 2…
+[2026-02-08T06:11:24.789Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-08T06:11:24.813Z] Progress: 4 terminal (one just finished; 9s since previous) | elapsed 1m 35s
+[2026-02-08T06:11:24.814Z] Status: 4 terminal, 1 processing | elapsed 1m 35s | since last completion: 9s
+[2026-02-08T06:11:24.814Z]   Current: 7 Core Electrical Wholesale Ltd | https://7core.co.uk
+[2026-02-08T06:11:24.815Z]   Failed (new): 4D modelshop Ltd | https://modelshop.co.uk | Instance <Company at 0x7f749f049210> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:11:25.011Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Starting standard fill on homepage
+[2026-02-08T06:11:25.557Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Extracted 7 fields from this form; filling by mapping
+[2026-02-08T06:11:25.600Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: first_name: name="first-name" label="First name"
+[2026-02-08T06:11:25.641Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: last_name: name="last-name" label="Last Name"
+[2026-02-08T06:11:25.672Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: email: name="email" label="Email"
+[2026-02-08T06:11:25.710Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: phone: name="phone" label="Phone"
+[2026-02-08T06:11:25.738Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: message: name="textarea_comp-jzdzfcus" label="Your message"
+[2026-02-08T06:11:25.776Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: company: name="company" label="Company"
+[2026-02-08T06:11:25.847Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: other: name="collection_comp-l70fhx3t" label="Branch"
+[2026-02-08T06:11:25.850Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Extracted: [homepage] 7 field(s) — name, id, label, type, tag, required
+[2026-02-08T06:11:25.852Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="first-name" id="input_comp-jzdzfctw" label="First name" type=text tag=input required=False
+[2026-02-08T06:11:25.853Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="last-name" id="input_comp-jzdzfcu6" label="Last Name" type=text tag=input required=False
+[2026-02-08T06:11:25.855Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="email" id="input_comp-jzdzfcuc" label="Email" type=email tag=input required=True
+[2026-02-08T06:11:25.856Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="phone" id="input_comp-jzdzfcuk" label="Phone" type=tel tag=input required=False
+[2026-02-08T06:11:25.858Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="textarea_comp-jzdzfcus" label="Your message" type=text tag=textarea required=False
+[2026-02-08T06:11:25.860Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="company" id="input_comp-kettv73q" label="Company" type=text tag=input required=False
+[2026-02-08T06:11:25.861Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="collection_comp-l70fhx3t" label="Branch" type=select tag=select required=True
+[2026-02-08T06:11:25.863Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Filled: [homepage] 7 field(s) — name/id, label, role, value
+[2026-02-08T06:11:25.864Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="first-name" label="First name" role=first_name value="Test"
+[2026-02-08T06:11:25.866Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="last-name" label="Last Name" role=last_name value="User"
+[2026-02-08T06:11:25.867Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="email" label="Email" role=email value="test@example.com"
+[2026-02-08T06:11:25.869Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="phone" label="Phone" role=phone value="+27123456789"
+[2026-02-08T06:11:25.871Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="textarea_comp-jzdzfcus" label="Your message" role=message value="Hello, this is a test."
+[2026-02-08T06:11:25.875Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="company" label="Company" role=company value="Test Co"
+[2026-02-08T06:11:25.876Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="collection_comp-l70fhx3t" label="Branch" role=other value="Lincoln"
+[2026-02-08T06:11:25.878Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Left Unsatisfied: [homepage] 0 field(s) — not filled
+[2026-02-08T06:11:27.917Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Submitting: Clicking submit button
+[2026-02-08T06:11:28.978Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Processed: Filled 7 fields (extract-then-fill) and submitted
+[2026-02-08T06:11:28.980Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Detection: Filled form 2 on page (7 fields)
+[2026-02-08T06:11:31.874Z] [Stream] Now processing: 80S CASUAL CLASSICS LTD | 108298
+[2026-02-08T06:11:32.377Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Navigation: Opening https://80scasualclassics.co.uk...
+[2026-02-08T06:11:33.670Z] Progress: 5 terminal (one just finished; 9s since previous) | elapsed 1m 44s
+[2026-02-08T06:11:33.671Z] Status: 5 terminal, 1 processing | elapsed 1m 44s | since last completion: 9s
+[2026-02-08T06:11:33.672Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T06:11:33.673Z]   Failed (new): 7 Core Electrical Wholesale Ltd | https://7core.co.uk | Instance <Company at 0x7f749f0ddf10> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:11:33.925Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Cookie Modal: Dismissed using: a:has-text("Reject all")
+[2026-02-08T06:11:34.699Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:11:35.929Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-08T06:11:39.141Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-08T06:11:39.757Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Captcha: Detected probable captcha: [class*="captcha" i]
+[2026-02-08T06:11:39.759Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-08T06:11:39.855Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-08T06:11:40.934Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:11:40.955Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-08T06:11:40.957Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-08T06:11:40.959Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 3 (newsletter/signup)
+[2026-02-08T06:11:40.963Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: No form with 2+ fillable fields succeeded among 3 form(s)
+[2026-02-08T06:11:41.788Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T06:11:41.790Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Heuristics: Analyzing 8 orphan inputs...
+[2026-02-08T06:11:41.948Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-08T06:11:42.274Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Extracted 4 fields from this form; filling by mapping
+[2026-02-08T06:11:42.278Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-08T06:11:42.281Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-08T06:11:42.284Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics] 4 field(s) — name, id, label, type, tag, required
+[2026-02-08T06:11:42.285Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="Search" type=search tag=input required=False
+[2026-02-08T06:11:42.287Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-69881a6897f726920" label="Stay in the loop | Newsletter Sign up" type=email tag=input required=False
+[2026-02-08T06:11:42.289Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-69881a689ba0c1852" label="" type=text tag=input required=False
+[2026-02-08T06:11:42.291Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="" id="currency-switcher" label="Currency" type=select tag=select required=False
+[2026-02-08T06:11:42.293Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics] 2 field(s) — name/id, label, role, value
+[2026-02-08T06:11:42.296Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="Stay in the loop | Newsletter Sign up" role=email value="test@example.com"
+[2026-02-08T06:11:42.298Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="" role=email value="test@example.com"
+[2026-02-08T06:11:42.300Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics] 2 field(s) — not filled
+[2026-02-08T06:11:42.302Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="Search"
+[2026-02-08T06:11:42.306Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="" id="currency-switcher" label="Currency"
+[2026-02-08T06:11:42.318Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-08T06:11:42.345Z] Status: 5 terminal, 1 processing | elapsed 1m 53s | since last completion: 9s
+[2026-02-08T06:11:42.346Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T06:11:42.349Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: search, Name: query, Label: search, Text: query enter search... query search
+[2026-02-08T06:11:42.351Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-08T06:11:42.355Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-08T06:11:42.361Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: email, Name: email_address, Label: stay in the loop | newsletter sign up, Text: email_address enter email address... mailing_box-69881a6897f726920 stay in the l
+[2026-02-08T06:11:42.438Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Email field filled: test@example.com
+[2026-02-08T06:11:42.458Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: newsletter_subscription, Label: , Text: newsletter_subscription  newsletter_subscription
+[2026-02-08T06:11:42.488Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-08T06:11:42.515Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-08T06:11:42.538Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: text, Name: email_address, Label: , Text: email_address enter email address... mailing_box_pop-69881a689ba0c1852
+[2026-02-08T06:11:51.096Z] Status: 5 terminal, 1 processing | elapsed 2m 2s | since last completion: 17s
+[2026-02-08T06:11:51.097Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T06:11:59.736Z] Status: 5 terminal, 1 processing | elapsed 2m 10s | since last completion: 26s
+[2026-02-08T06:11:59.737Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T06:12:07.817Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Select "currency-switcher" -> Kr.DKK
+[2026-02-08T06:12:07.819Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics_heuristic] 4 field(s) — name, id, label, type, tag, required
+[2026-02-08T06:12:07.821Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="search" type=search tag=input required=False
+[2026-02-08T06:12:07.823Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-69881a6897f726920" label="stay in the loop | newsletter sign up" type=email tag=input required=False
+[2026-02-08T06:12:07.825Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-69881a689ba0c1852" label="" type=text tag=input required=False
+[2026-02-08T06:12:07.827Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="currency-switcher" id="currency-switcher" label="currency" type=select tag=select required=False
+[2026-02-08T06:12:07.828Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics_heuristic] 2 field(s) — name/id, label, role, value
+[2026-02-08T06:12:07.830Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="stay in the loop | newsletter sign up" role=email value="test@example.com"
+[2026-02-08T06:12:07.832Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="currency-switcher" label="currency" role=branch value="Kr.DKK"
+[2026-02-08T06:12:07.833Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 1 field(s) — not filled
+[2026-02-08T06:12:07.835Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="search"
+[2026-02-08T06:12:08.482Z] Status: 5 terminal, 1 processing | elapsed 2m 19s | since last completion: 35s
+[2026-02-08T06:12:08.483Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T06:12:09.823Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Submitting: Clicking submit button
+[2026-02-08T06:12:10.916Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-08T06:12:10.918Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T06:12:10.982Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T06:12:11.648Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-08T06:12:11.650Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Testing Link: Link 1: contact us (/contact-us-i3)
+[2026-02-08T06:12:13.219Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page: Loading contact page…
+[2026-02-08T06:12:14.396Z] [Stream] [80S CASUAL CLASSICS LTD] [success] Form Detection: Found 4 form(s) on contact page
+[2026-02-08T06:12:14.902Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-08T06:12:14.914Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Captcha: Detected probable captcha: [class*="captcha" i]
+[2026-02-08T06:12:14.918Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-08T06:12:15.146Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-08T06:12:15.606Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-08T06:12:15.905Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-08T06:12:15.918Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 2: https://www.googletagmanager.com/static/service_wo...
+[2026-02-08T06:12:15.923Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-08T06:12:15.928Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 4: about:blank...
+[2026-02-08T06:12:15.930Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-08T06:12:15.946Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Heuristics: Analyzing 18 orphan inputs...
+[2026-02-08T06:12:16.071Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-08T06:12:16.088Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Captcha: Detected probable captcha: [class*="captcha" i]
+[2026-02-08T06:12:16.090Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-08T06:12:16.092Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-08T06:12:16.102Z] [Stream] [80S CASUAL CLASSICS LTD] [error] No Contact Found: All strategies exhausted for https://80scasualclassics.co.uk
+[2026-02-08T06:12:17.084Z] Status: 5 terminal, 1 processing | elapsed 2m 28s | since last completion: 43s
+[2026-02-08T06:12:17.085Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T06:12:17.496Z] [Stream] [80S CASUAL CLASSICS LTD] [error] Discovery Failed: Title: Contact Us | Snippet: <!DOCTYPE html><html class="js no-touch flexbox" lang="en-GB" id="html-pages"><head><script async="" src="https://scripts.clarity.ms/0.8.53/clarity.js"></script><script type="text/javascript" async="" src="/media/js/reviews_co_uk_merchant,blank-21102025SF24.js" data-store="80s-casuals-classics-ltd" data-color="" data-position="right" data-hidewidget=""></script><script async="" src="https://www.clarity.ms/tag/bxcvtexs8o"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/plugins/ua/ec.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-K3VQDX7NNN&amp;cx=c&amp;gtm=4e6241"></script><script type="text/javascript" async="" src="https://analytics.tiktok.com/i18n/pixel/static/main.MWIwNzUxMTllMA.js" data-id="CD2GP9JC77U5RH87FBAG"></script><script type="text/javascript" async="" src="https://analytics.tiktok.com/i18n/pixel/static/identify_31760074.js"></script><script type="text/javascript" async="" src="h
+[2026-02-08T06:12:18.634Z] [Stream] Now processing: A.W. Lymn The Family Funeral Service | 108299
+[2026-02-08T06:12:19.161Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Navigation: Opening https://lymn.co.uk...
+[2026-02-08T06:12:20.732Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:12:21.730Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Strategy 0: Found 3 contact link(s) in footer; trying contact page first
+[2026-02-08T06:12:24.384Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-08T06:12:24.570Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Filling: Extracted 5 fields from this form; filling by mapping
+[2026-02-08T06:12:24.620Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: full_name: name="NAME" label="Name*"
+[2026-02-08T06:12:24.662Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: email: name="EMAIL" label="Email *"
+[2026-02-08T06:12:24.688Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: phone: name="NUMBER" label="Phone*"
+[2026-02-08T06:12:24.720Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: message: name="MESSAGE" label="Message*"
+[2026-02-08T06:12:24.722Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Extracted: [contact_page] 5 field(s) — name, id, label, type, tag, required
+[2026-02-08T06:12:24.724Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="_hf_h465" id="" label="" type=text tag=input required=False
+[2026-02-08T06:12:24.725Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="NAME" id="name" label="Name*" type=text tag=input required=True
+[2026-02-08T06:12:24.727Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="EMAIL" id="email" label="Email *" type=email tag=input required=True
+[2026-02-08T06:12:24.730Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="NUMBER" id="" label="Phone*" type=text tag=input required=True
+[2026-02-08T06:12:24.731Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="MESSAGE" id="message" label="Message*" type=text tag=textarea required=True
+[2026-02-08T06:12:24.733Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Filled: [contact_page] 4 field(s) — name/id, label, role, value
+[2026-02-08T06:12:24.740Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="NAME" label="Name*" role=full_name value="Test User"
+[2026-02-08T06:12:24.743Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="EMAIL" label="Email *" role=email value="test@example.com"
+[2026-02-08T06:12:24.746Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="NUMBER" label="Phone*" role=phone value="+27123456789"
+[2026-02-08T06:12:24.750Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="MESSAGE" label="Message*" role=message value="Hello, this is a test."
+[2026-02-08T06:12:24.752Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Left Unsatisfied: [contact_page] 1 field(s) — not filled
+[2026-02-08T06:12:24.754Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unfilled: name="_hf_h465" id="" label=""
+[2026-02-08T06:12:25.774Z] Progress: 6 terminal (one just finished; 52s since previous) | elapsed 2m 36s
+[2026-02-08T06:12:25.775Z] Status: 6 terminal, 1 processing | elapsed 2m 36s | since last completion: 52s
+[2026-02-08T06:12:25.776Z]   Current: A.W. Lymn The Family Funeral Service | https://lymn.co.uk
+[2026-02-08T06:12:25.777Z]   Failed (new): 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk | Instance <Company at 0x7f749ed3cf50> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:12:26.154Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Submitting: Clicking submit button
+[2026-02-08T06:12:27.468Z] [Stream] [A.W. Lymn The Family Funeral Service] [success] Form Processed: Filled 4 fields (extract-then-fill) and submitted
+[2026-02-08T06:12:27.470Z] [Stream] [A.W. Lymn The Family Funeral Service] [success] Form Detection: Filled contact form from footer link
+[2026-02-08T06:12:29.060Z] [Stream] Now processing: übbs pouches | 108300
+[2026-02-08T06:12:29.584Z] [Stream] [übbs pouches] [info] Navigation: Opening https://ubbspouches.com...
+[2026-02-08T06:12:34.396Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 2m 45s
+[2026-02-08T06:12:34.397Z] Status: 7 terminal, 1 processing | elapsed 2m 45s | since last completion: 9s
+[2026-02-08T06:12:34.397Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:12:34.398Z]   Failed (new): A.W. Lymn The Family Funeral Service | https://lymn.co.uk | Instance <Company at 0x7f749ed3c890> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:12:43.042Z] Status: 7 terminal, 1 processing | elapsed 2m 54s | since last completion: 9s
+[2026-02-08T06:12:43.043Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:12:46.301Z] [Stream] [übbs pouches] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:12:47.968Z] [Stream] [übbs pouches] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-08T06:12:51.658Z] Status: 7 terminal, 1 processing | elapsed 3m 2s | since last completion: 17s
+[2026-02-08T06:12:51.659Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:13:00.319Z] Status: 7 terminal, 1 processing | elapsed 3m 11s | since last completion: 26s
+[2026-02-08T06:13:00.320Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:13:08.958Z] Status: 7 terminal, 1 processing | elapsed 3m 20s | since last completion: 35s
+[2026-02-08T06:13:08.959Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:13:12.574Z] [Stream] [übbs pouches] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-08T06:13:17.647Z] Status: 7 terminal, 1 processing | elapsed 3m 28s | since last completion: 43s
+[2026-02-08T06:13:17.648Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:13:26.314Z] Status: 7 terminal, 1 processing | elapsed 3m 37s | since last completion: 52s
+[2026-02-08T06:13:26.315Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:13:28.926Z] [Stream] [übbs pouches] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:13:28.953Z] [Stream] [übbs pouches] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-08T06:13:28.961Z] [Stream] [übbs pouches] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-08T06:13:28.964Z] [Stream] [übbs pouches] [info] Strategy 1: Skipping form 3 (newsletter/signup)
+[2026-02-08T06:13:28.976Z] [Stream] [übbs pouches] [info] Strategy 1: Skipping form 4 (newsletter/signup)
+[2026-02-08T06:13:28.978Z] [Stream] [übbs pouches] [info] Strategy 1: Skipping form 5 (newsletter/signup)
+[2026-02-08T06:13:28.982Z] [Stream] [übbs pouches] [info] Strategy 1: No form with 2+ fillable fields succeeded among 5 form(s)
+[2026-02-08T06:13:29.834Z] [Stream] [übbs pouches] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T06:13:29.865Z] [Stream] [übbs pouches] [info] Heuristics: Capping 50 inputs to 20 to stay within time budget
+[2026-02-08T06:13:29.868Z] [Stream] [übbs pouches] [info] Heuristics: Analyzing 20 orphan inputs...
+[2026-02-08T06:13:34.945Z] Status: 7 terminal, 1 processing | elapsed 3m 46s | since last completion: 1m 1s
+[2026-02-08T06:13:34.945Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:13:43.587Z] Status: 7 terminal, 1 processing | elapsed 3m 54s | since last completion: 1m 9s
+[2026-02-08T06:13:43.588Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T06:13:45.006Z] [Stream] [übbs pouches] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-08T06:13:45.837Z] [Stream] [übbs pouches] [info] Form Filling: Extracted 43 fields from this form; filling by mapping
+[2026-02-08T06:13:46.214Z] [Stream] [übbs pouches] [info] Field Filled (mapped): Email -> contact[email]
+[2026-02-08T06:13:47.316Z] [Stream] [übbs pouches] [info] Form Fields Extracted: [page_heuristics] 43 field(s) — name, id, label, type, tag, required
+[2026-02-08T06:13:47.318Z] [Stream] [übbs pouches] [info] Field: name="q" id="Search-In-Modal-1" label="Search" type=search tag=input required=False
+[2026-02-08T06:13:47.319Z] [Stream] [übbs pouches] [info] Field: name="q" id="Search-In-Modal" label="Search" type=search tag=input required=False
+[2026-02-08T06:13:47.321Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-coffee" id="56069706809719-1-0" label="Mild: 4mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.322Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Coffee Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.324Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-cherry" id="55828928528759-1-0" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.326Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Cherry Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.327Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-peppermint" id="40139708792929-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.332Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-peppermint" id="40139708825697-1-1" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.336Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-peppermint" id="56170214785399-1-2" label="Intense: 20mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.348Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Peppermint Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.377Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-menthol" id="40139710398561-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.388Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-menthol" id="40139710431329-1-1" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.389Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-menthol" id="41064552333409-1-2" label="Max: 14mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.391Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Menthol Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.393Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-spearmint" id="40139710267489-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.394Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-spearmint" id="40139710300257-1-1" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.396Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Spearmint Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.397Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-spicy-cherry" id="55082316300663-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.399Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Spicy Cherry Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.400Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-zest-ice" id="54924805210487-1-0" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.402Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Zest Ice Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.403Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-salted-caramel" id="41692249686113-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.407Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-salted-caramel" id="54797015056759-1-1" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.410Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Salted Caramel Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.419Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-watermelon" id="40139710529633-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.421Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-watermelon" id="40139710562401-1-1" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.423Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-watermelon" id="41491989037153-1-2" label="Max: 14mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.425Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Watermelon Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.426Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-berry" id="40139710693473-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.428Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-berry" id="40139710726241-1-1" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.429Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Berry Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.430Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-cola-ice" id="40703519391841-1-0" label="Regular: 6mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.432Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-cola-ice" id="40703519424609-1-1" label="Strong: 11mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.434Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Cola Ice Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.435Z] [Stream] [übbs pouches] [info] Field: name="Nicotine Strength-peach-passion" id="41783102373985-1-0" label="Mild: 4mg / pouch" type=radio tag=input required=False
+[2026-02-08T06:13:47.437Z] [Stream] [übbs pouches] [info] Field: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Peach Passion Nicotine Pouches" type=number tag=input required=False
+[2026-02-08T06:13:47.438Z] [Stream] [übbs pouches] [info] Field: name="contact[email]" id="NewsletterForm--template--26407462273399__1656923393be83e5bf" label="Enter your email" type=email tag=input required=True
+[2026-02-08T06:13:47.440Z] [Stream] [übbs pouches] [info] Field: name="email" id="RecoverEmail" label="Email" type=email tag=input required=False
+[2026-02-08T06:13:47.442Z] [Stream] [übbs pouches] [info] Field: name="customer[email]" id="CustomerEmail" label="Email" type=email tag=input required=False
+[2026-02-08T06:13:47.444Z] [Stream] [übbs pouches] [info] Field: name="customer[password]" id="CustomerPassword" label="Password" type=password tag=input required=False
+[2026-02-08T06:13:47.445Z] [Stream] [übbs pouches] [info] Field: name="bmonth" id="bmonth" label="" type=select tag=select required=False
+[2026-02-08T06:13:47.447Z] [Stream] [übbs pouches] [info] Field: name="bday" id="bday" label="" type=select tag=select required=False
+[2026-02-08T06:13:47.448Z] [Stream] [übbs pouches] [info] Field: name="byear" id="byear" label="" type=select tag=select required=False
+[2026-02-08T06:13:47.450Z] [Stream] [übbs pouches] [info] Form Fields Filled: [page_heuristics] 1 field(s) — name/id, label, role, value
+[2026-02-08T06:13:47.451Z] [Stream] [übbs pouches] [info] Filled: name="contact[email]" label="Enter your email" role=email value="test@example.com"
+[2026-02-08T06:13:47.453Z] [Stream] [übbs pouches] [info] Form Fields Left Unsatisfied: [page_heuristics] 42 field(s) — not filled
+[2026-02-08T06:13:47.454Z] [Stream] [übbs pouches] [info] Unfilled: name="q" id="Search-In-Modal-1" label="Search"
+[2026-02-08T06:13:47.456Z] [Stream] [übbs pouches] [info] Unfilled: name="q" id="Search-In-Modal" label="Search"
+[2026-02-08T06:13:47.471Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-coffee" id="56069706809719-1-0" label="Mild: 4mg / pouch"
+[2026-02-08T06:13:47.473Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Coffee Nicotine Pouches"
+[2026-02-08T06:13:47.474Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-cherry" id="55828928528759-1-0" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.476Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Cherry Nicotine Pouches"
+[2026-02-08T06:13:47.477Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-peppermint" id="40139708792929-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.479Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-peppermint" id="40139708825697-1-1" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.480Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-peppermint" id="56170214785399-1-2" label="Intense: 20mg / pouch"
+[2026-02-08T06:13:47.482Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Peppermint Nicotine Pouches"
+[2026-02-08T06:13:47.483Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-menthol" id="40139710398561-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.485Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-menthol" id="40139710431329-1-1" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.487Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-menthol" id="41064552333409-1-2" label="Max: 14mg / pouch"
+[2026-02-08T06:13:47.488Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Menthol Nicotine Pouches"
+[2026-02-08T06:13:47.490Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-spearmint" id="40139710267489-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.491Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-spearmint" id="40139710300257-1-1" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.493Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Spearmint Nicotine Pouches"
+[2026-02-08T06:13:47.494Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-spicy-cherry" id="55082316300663-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.496Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Spicy Cherry Nicotine Pouches"
+[2026-02-08T06:13:47.497Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-zest-ice" id="54924805210487-1-0" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.499Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Zest Ice Nicotine Pouches"
+[2026-02-08T06:13:47.501Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-salted-caramel" id="41692249686113-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.503Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-salted-caramel" id="54797015056759-1-1" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.505Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Salted Caramel Nicotine Pouches"
+[2026-02-08T06:13:47.507Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-watermelon" id="40139710529633-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.508Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-watermelon" id="40139710562401-1-1" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.510Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-watermelon" id="41491989037153-1-2" label="Max: 14mg / pouch"
+[2026-02-08T06:13:47.511Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Watermelon Nicotine Pouches"
+[2026-02-08T06:13:47.512Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-berry" id="40139710693473-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.514Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-berry" id="40139710726241-1-1" label="Strong: 11mg / pouch"
+[2026-02-08T06:13:47.515Z] [Stream] [übbs pouches] [info] Unfilled: name="quantity" id="Quantity-template--26407462273399__1657886647b142e86f" label="Decrease quantity for Übbs Berry Nicotine Pouches"
+[2026-02-08T06:13:47.517Z] [Stream] [übbs pouches] [info] Unfilled: name="Nicotine Strength-cola-ice" id="40703519391841-1-0" label="Regular: 6mg / pouch"
+[2026-02-08T06:13:47.518Z] [Stream] [übbs pouches] [error] Form Fill Error: [Errno 11] write could not complete without blocking
+[2026-02-08T06:13:47.520Z] [Stream] [übbs pouches] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T06:13:47.522Z] [Stream] [übbs pouches] [error] Processing Error: [Errno 11] write could not complete without blocking
+[2026-02-08T06:13:48.054Z] [Stream] Now processing: A2Z Creatorz (Trusted Digital Partner) | 108301
+[2026-02-08T06:13:48.576Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Navigation: Opening https://a2zcreatorz.com...
+[2026-02-08T06:13:52.228Z] Progress: 8 terminal (one just finished; 1m 18s since previous) | elapsed 4m 3s
+[2026-02-08T06:13:52.229Z] Status: 8 terminal, 1 processing | elapsed 4m 3s | since last completion: 1m 18s
+[2026-02-08T06:13:52.230Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:13:52.231Z]   Failed (new): übbs pouches | https://ubbspouches.com | Instance <Company at 0x7f749f0cbe10> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T06:13:53.990Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T06:13:56.038Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-08T06:13:59.908Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-08T06:14:05.017Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T06:14:05.035Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-08T06:14:05.040Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-08T06:14:05.043Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: No form with 2+ fillable fields succeeded among 2 form(s)
+[2026-02-08T06:14:05.861Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T06:14:05.868Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Heuristics: Analyzing 12 orphan inputs...
+[2026-02-08T06:14:06.014Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-08T06:14:06.256Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Filling: Extracted 6 fields from this form; filling by mapping
+[2026-02-08T06:14:06.274Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): First name -> your-name
+[2026-02-08T06:14:06.301Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Email -> your-email
+[2026-02-08T06:14:06.317Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Phone -> your-phone (national only: False)
+[2026-02-08T06:14:06.338Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Message -> your-message
+[2026-02-08T06:14:12.403Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Required Select: Filled required select: your-service
+[2026-02-08T06:14:12.406Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Extracted: [page_heuristics] 6 field(s) — name, id, label, type, tag, required
+[2026-02-08T06:14:12.407Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-name" id="" label="Name*" type=text tag=input required=True
+[2026-02-08T06:14:12.410Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-email" id="" label="Email*" type=email tag=input required=True
+[2026-02-08T06:14:12.411Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-phone" id="" label="Phone*" type=tel tag=input required=True
+[2026-02-08T06:14:12.413Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-message" id="" label="Message*" type=text tag=textarea required=True
+[2026-02-08T06:14:12.415Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="s" id="mfs-input" label="Type your search" type=search tag=input required=False
+[2026-02-08T06:14:12.416Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-service" id="" label="" type=select tag=select required=True
+[2026-02-08T06:14:12.418Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Filled: [page_heuristics] 5 field(s) — name/id, label, role, value
+[2026-02-08T06:14:12.420Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-name" label="Name*" role=first_name value="Test"
+[2026-02-08T06:14:12.421Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-email" label="Email*" role=email value="test@example.com"
+[2026-02-08T06:14:12.422Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-phone" label="Phone*" role=phone value="+27123456789"
+[2026-02-08T06:14:12.424Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-message" label="Message*" role=message value="Hello, this is a test."
+[2026-02-08T06:14:12.426Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-service" label="" role=subject value="Web Design & Development"
+[2026-02-08T06:14:12.428Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Left Unsatisfied: [page_heuristics] 1 field(s) — not filled
+[2026-02-08T06:14:12.433Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Unfilled: name="s" id="mfs-input" label="Type your search"
+[2026-02-08T06:14:13.964Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Clicking submit button
+[2026-02-08T06:14:18.982Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Clicking submit button
+[2026-02-08T06:14:23.839Z] [Stream] Error: Invalid WebSocket frame: FIN must be set
+[2026-02-08T06:14:23.852Z] [Stream] Disconnected.
+[2026-02-08T06:14:29.806Z] Status: 8 terminal, 1 processing | elapsed 4m 40s | since last completion: 38s
+[2026-02-08T06:14:29.807Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:14:37.823Z] Stream disconnected; continuing to poll for progress.
+[2026-02-08T06:14:38.465Z] Status: 8 terminal, 1 processing | elapsed 4m 49s | since last completion: 46s
+[2026-02-08T06:14:38.466Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:14:47.098Z] Status: 8 terminal, 1 processing | elapsed 4m 58s | since last completion: 55s
+[2026-02-08T06:14:47.099Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:14:55.750Z] Status: 8 terminal, 1 processing | elapsed 5m 6s | since last completion: 1m 4s
+[2026-02-08T06:14:55.751Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:04.330Z] Status: 8 terminal, 1 processing | elapsed 5m 15s | since last completion: 1m 12s
+[2026-02-08T06:15:04.331Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:12.954Z] Status: 8 terminal, 1 processing | elapsed 5m 24s | since last completion: 1m 21s
+[2026-02-08T06:15:12.955Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:21.633Z] Status: 8 terminal, 1 processing | elapsed 5m 32s | since last completion: 1m 29s
+[2026-02-08T06:15:21.635Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:30.318Z] Status: 8 terminal, 1 processing | elapsed 5m 41s | since last completion: 1m 38s
+[2026-02-08T06:15:30.319Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:30.319Z]   STUCK? No progress for 1m 38s (still 8 terminal, 1 processing)
+[2026-02-08T06:15:38.941Z] Status: 8 terminal, 1 processing | elapsed 5m 50s | since last completion: 1m 47s
+[2026-02-08T06:15:38.942Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:38.942Z]   STUCK? No progress for 1m 47s (still 8 terminal, 1 processing)
+[2026-02-08T06:15:47.585Z] Status: 8 terminal, 1 processing | elapsed 5m 58s | since last completion: 1m 55s
+[2026-02-08T06:15:47.586Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:47.587Z]   STUCK? No progress for 1m 55s (still 8 terminal, 1 processing)
+[2026-02-08T06:15:56.230Z] Status: 8 terminal, 1 processing | elapsed 6m 7s | since last completion: 2m 4s
+[2026-02-08T06:15:56.232Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:15:56.234Z]   STUCK? No progress for 2m 4s (still 8 terminal, 1 processing)
+[2026-02-08T06:16:04.873Z] Status: 8 terminal, 1 processing | elapsed 6m 15s | since last completion: 2m 13s
+[2026-02-08T06:16:04.873Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:16:04.874Z]   STUCK? No progress for 2m 13s (still 8 terminal, 1 processing)
+[2026-02-08T06:16:13.513Z] Status: 8 terminal, 1 processing | elapsed 6m 24s | since last completion: 2m 21s
+[2026-02-08T06:16:13.514Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:16:13.514Z]   STUCK? No progress for 2m 21s (still 8 terminal, 1 processing)
+[2026-02-08T06:16:22.083Z] Status: 8 terminal, 1 processing | elapsed 6m 33s | since last completion: 2m 30s
+[2026-02-08T06:16:22.084Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:16:22.085Z]   STUCK? No progress for 2m 30s (still 8 terminal, 1 processing)
+[2026-02-08T06:16:30.713Z] Status: 8 terminal, 1 processing | elapsed 6m 41s | since last completion: 2m 38s
+[2026-02-08T06:16:30.714Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:16:30.715Z]   STUCK? No progress for 2m 38s (still 8 terminal, 1 processing)
+[2026-02-08T06:16:39.620Z] Status: 8 terminal, 1 processing | elapsed 6m 50s | since last completion: 2m 47s
+[2026-02-08T06:16:39.621Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:16:39.622Z]   STUCK? No progress for 2m 47s (still 8 terminal, 1 processing)
+[2026-02-08T06:16:48.243Z] Status: 8 terminal, 1 processing | elapsed 6m 59s | since last completion: 2m 56s
+[2026-02-08T06:16:48.244Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:16:48.245Z]   STUCK? No progress for 2m 56s (still 8 terminal, 1 processing)
+[2026-02-08T06:16:56.958Z] Status: 8 terminal, 1 processing | elapsed 7m 8s | since last completion: 3m 5s
+[2026-02-08T06:16:56.960Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-08T06:16:56.961Z]   STUCK? No progress for 3m 5s (still 8 terminal, 1 processing)

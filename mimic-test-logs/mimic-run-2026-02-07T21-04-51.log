@@ -1,0 +1,58 @@
+Mimic test run started at 2026-02-07T21:04:51.307Z
+[2026-02-07T21:04:51.308Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-07T21-04-51.log
+[2026-02-07T21:04:51.312Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-07T21:04:53.654Z] Loading site and dismissing cookie modal...
+[2026-02-07T21:05:01.177Z] Cookie modal dismissed (Accept All)
+[2026-02-07T21:05:01.991Z] Filling login...
+[2026-02-07T21:05:10.778Z] Login OK
+[2026-02-07T21:05:10.779Z] Waiting 10s for dashboard to refresh...
+[2026-02-07T21:05:20.782Z] Dashboard wait done.
+[2026-02-07T21:05:20.804Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-07T21:05:22.598Z] Usage: daily_limit=-1 daily_used=640 unlimited=true daily_remaining=N/A
+[2026-02-07T21:05:22.599Z] Navigating to campaign upload...
+[2026-02-07T21:05:26.670Z] Upload OK
+[2026-02-07T21:05:29.166Z] Navigate to create OK
+[2026-02-07T21:05:34.543Z] Campaign created: 165
+[2026-02-07T21:05:36.549Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/165
+[2026-02-07T21:05:36.724Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-07T21:05:37.573Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-07T21:05:46.863Z] Started processing 2000 companies...
+[2026-02-07T21:05:55.764Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T21:05:55.765Z] Status: 0 terminal, 0 processing | elapsed 9s | since last completion: 9s
+[2026-02-07T21:06:04.446Z] Status: 0 terminal, 0 processing | elapsed 18s | since last completion: 18s
+[2026-02-07T21:06:13.115Z] Status: 0 terminal, 0 processing | elapsed 26s | since last completion: 26s
+[2026-02-07T21:06:21.755Z] Status: 0 terminal, 0 processing | elapsed 35s | since last completion: 35s
+[2026-02-07T21:06:30.469Z] Status: 0 terminal, 0 processing | elapsed 44s | since last completion: 44s
+[2026-02-07T21:06:39.172Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T21:06:39.173Z] Status: 0 terminal, 0 processing | elapsed 52s | since last completion: 52s
+[2026-02-07T21:06:47.913Z] Status: 0 terminal, 0 processing | elapsed 1m 1s | since last completion: 1m 1s
+[2026-02-07T21:06:56.550Z] Status: 0 terminal, 0 processing | elapsed 1m 10s | since last completion: 1m 10s
+[2026-02-07T21:07:05.545Z] Status: 0 terminal, 0 processing | elapsed 1m 19s | since last completion: 1m 19s
+[2026-02-07T21:07:14.213Z] Status: 0 terminal, 0 processing | elapsed 1m 27s | since last completion: 1m 27s
+[2026-02-07T21:07:22.835Z] Status: 0 terminal, 0 processing | elapsed 1m 36s | since last completion: 1m 36s
+[2026-02-07T21:07:31.516Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T21:07:31.517Z] Status: 0 terminal, 0 processing | elapsed 1m 45s | since last completion: 1m 45s
+[2026-02-07T21:07:40.166Z] Status: 0 terminal, 0 processing | elapsed 1m 53s | since last completion: 1m 53s
+[2026-02-07T21:07:48.850Z] Status: 0 terminal, 0 processing | elapsed 2m 2s | since last completion: 2m 2s
+[2026-02-07T21:07:57.489Z] Status: 0 terminal, 0 processing | elapsed 2m 11s | since last completion: 2m 11s
+[2026-02-07T21:08:06.122Z] Status: 0 terminal, 0 processing | elapsed 2m 19s | since last completion: 2m 19s
+[2026-02-07T21:08:14.772Z] Status: 0 terminal, 0 processing | elapsed 2m 28s | since last completion: 2m 28s
+[2026-02-07T21:08:23.734Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T21:08:23.736Z] Status: 0 terminal, 0 processing | elapsed 2m 37s | since last completion: 2m 37s
+[2026-02-07T21:08:32.381Z] Status: 0 terminal, 0 processing | elapsed 2m 46s | since last completion: 2m 46s
+[2026-02-07T21:08:41.206Z] Status: 0 terminal, 0 processing | elapsed 2m 54s | since last completion: 2m 54s
+[2026-02-07T21:08:49.897Z] Status: 0 terminal, 0 processing | elapsed 3m 3s | since last completion: 3m 3s
+[2026-02-07T21:08:58.528Z] Status: 0 terminal, 0 processing | elapsed 3m 12s | since last completion: 3m 12s
+[2026-02-07T21:09:07.171Z] Status: 0 terminal, 0 processing | elapsed 3m 20s | since last completion: 3m 20s
+[2026-02-07T21:09:15.816Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T21:09:15.817Z] Status: 0 terminal, 0 processing | elapsed 3m 29s | since last completion: 3m 29s
+[2026-02-07T21:09:24.444Z] Status: 0 terminal, 0 processing | elapsed 3m 38s | since last completion: 3m 38s
+[2026-02-07T21:09:33.136Z] Status: 0 terminal, 0 processing | elapsed 3m 46s | since last completion: 3m 46s
+[2026-02-07T21:09:41.781Z] Status: 0 terminal, 0 processing | elapsed 3m 55s | since last completion: 3m 55s
+[2026-02-07T21:09:50.448Z] Status: 0 terminal, 0 processing | elapsed 4m 4s | since last completion: 4m 4s
+[2026-02-07T21:09:59.362Z] Status: 0 terminal, 0 processing | elapsed 4m 12s | since last completion: 4m 12s
+[2026-02-07T21:10:07.985Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T21:10:07.986Z] Status: 0 terminal, 0 processing | elapsed 4m 21s | since last completion: 4m 21s
+[2026-02-07T21:10:16.629Z] Status: 0 terminal, 0 processing | elapsed 4m 30s | since last completion: 4m 30s
+[2026-02-07T21:10:25.272Z] Status: 0 terminal, 0 processing | elapsed 4m 38s | since last completion: 4m 38s
+[2026-02-07T21:10:34.148Z] Status: 0 terminal, 0 processing | elapsed 4m 47s | since last completion: 4m 47s

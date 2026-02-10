@@ -1,0 +1,33 @@
+Mimic test run started at 2026-02-07T08:16:13.820Z
+[2026-02-07T08:16:13.822Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-07T08-16-13.log
+[2026-02-07T08:16:13.830Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-07T08:16:17.555Z] Loading site and dismissing cookie modal...
+[2026-02-07T08:16:25.566Z] Cookie modal dismissed (Accept All)
+[2026-02-07T08:16:26.374Z] Filling login...
+[2026-02-07T08:16:34.849Z] Login OK
+[2026-02-07T08:16:34.854Z] Waiting 10s for dashboard to refresh...
+[2026-02-07T08:16:44.880Z] Dashboard wait done.
+[2026-02-07T08:16:44.944Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-07T08:16:46.793Z] Usage: daily_limit=-1 daily_used=6 unlimited=true daily_remaining=N/A
+[2026-02-07T08:16:46.805Z] Navigating to campaign upload...
+[2026-02-07T08:16:56.523Z] Upload OK
+[2026-02-07T08:16:57.282Z] Navigate to create OK
+[2026-02-07T08:17:04.355Z] Campaign created: 152
+[2026-02-07T08:17:06.370Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/152
+[2026-02-07T08:17:06.488Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-07T08:17:06.780Z] --skip-submit: starting via API (fill forms but do not submit).
+[2026-02-07T08:17:07.231Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-07T08:17:08.178Z] [Stream] Campaign started – total companies: 1070
+[2026-02-07T08:17:08.261Z] [Stream] Now processing: 2020 Innovation | 80477
+[2026-02-07T08:17:08.549Z] Started (skip submit).
+[2026-02-07T08:17:08.550Z] Started processing 2000 companies...
+[2026-02-07T08:17:17.484Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T08:17:17.489Z] Status: 0 terminal, 0 processing | elapsed 9s | since last completion: 9s
+[2026-02-07T08:17:26.092Z] Status: 0 terminal, 0 processing | elapsed 18s | since last completion: 18s
+[2026-02-07T08:17:34.657Z] Status: 0 terminal, 0 processing | elapsed 26s | since last completion: 26s
+[2026-02-07T08:17:43.269Z] Status: 0 terminal, 0 processing | elapsed 35s | since last completion: 35s
+[2026-02-07T08:17:51.989Z] Status: 0 terminal, 0 processing | elapsed 43s | since last completion: 43s
+[2026-02-07T08:18:00.594Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T08:18:00.595Z] Status: 0 terminal, 0 processing | elapsed 52s | since last completion: 52s
+[2026-02-07T08:18:09.176Z] Status: 0 terminal, 0 processing | elapsed 1m 1s | since last completion: 1m 1s
+[2026-02-07T08:18:17.785Z] Status: 0 terminal, 0 processing | elapsed 1m 9s | since last completion: 1m 9s

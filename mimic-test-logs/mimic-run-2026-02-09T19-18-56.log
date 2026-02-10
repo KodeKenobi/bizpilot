@@ -1,0 +1,160 @@
+Mimic test run started at 2026-02-09T19:18:56.642Z
+[2026-02-09T19:18:56.643Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-09T19-18-56.log
+[2026-02-09T19:18:56.644Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-09T19:18:57.603Z] Loading site and dismissing cookie modal...
+[2026-02-09T19:18:57.606Z] Navigation attempt 1 to /auth/login (90s timeout)...
+[2026-02-09T19:19:06.350Z] Cookie modal dismissed (Accept All)
+[2026-02-09T19:19:07.354Z] Filling login... (Target: https://www.trevnoctilla.com/auth/login)
+[2026-02-09T19:19:07.475Z] Clicking login button...
+[2026-02-09T19:19:07.527Z] Waiting for navigation away from login...
+[2026-02-09T19:19:14.363Z] Login OK (Navigated to: https://www.trevnoctilla.com/enterprise)
+[2026-02-09T19:19:14.364Z] Waiting 10s for dashboard to refresh...
+[2026-02-09T19:19:24.380Z] Dashboard wait done.
+[2026-02-09T19:19:24.391Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-09T19:19:25.882Z] Usage: daily_limit=-1 daily_used=989 unlimited=true daily_remaining=N/A
+[2026-02-09T19:19:25.882Z] Navigating to campaign upload...
+[2026-02-09T19:19:29.210Z] Upload OK
+[2026-02-09T19:19:29.784Z] Navigate to create OK
+[2026-02-09T19:19:33.082Z] Campaign created: UbVbMMNj
+[2026-02-09T19:19:35.085Z] Connecting to backend live stream (SSE): https://www.trevnoctilla.com/sse/campaign/UbVbMMNj
+[2026-02-09T19:19:35.124Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-09T19:19:35.248Z] --skip-submit: set flag and clicking Start (fill forms but do not submit).
+[2026-02-09T19:19:37.373Z] Started processing 2000 companies...
+[2026-02-09T19:19:38.089Z] [Stream] Failed to connect (Status: 404)
+[2026-02-09T19:19:38.091Z] [Stream] Error details: <!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try agai
+[2026-02-09T19:19:46.320Z] Status: 0 terminal, 5 processing | elapsed 9s | since last completion: 9s
+[2026-02-09T19:19:46.320Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T19:19:54.961Z] Progress: 1 terminal (one just finished; 18s since previous) | elapsed 18s
+[2026-02-09T19:19:54.962Z] Status: 1 terminal, 5 processing | elapsed 18s | since last completion: 18s
+[2026-02-09T19:19:54.962Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T19:20:03.969Z] Progress: 2 terminal (one just finished; 9s since previous) | elapsed 27s
+[2026-02-09T19:20:03.969Z] Status: 2 terminal, 5 processing | elapsed 27s | since last completion: 9s
+[2026-02-09T19:20:03.969Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T19:20:12.649Z] Progress: 5 terminal (one just finished; 9s since previous) | elapsed 35s
+[2026-02-09T19:20:12.649Z] Status: 5 terminal, 5 processing | elapsed 35s | since last completion: 9s
+[2026-02-09T19:20:12.649Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-09T19:20:21.281Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 44s
+[2026-02-09T19:20:21.281Z] Status: 7 terminal, 5 processing | elapsed 44s | since last completion: 9s
+[2026-02-09T19:20:21.281Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-09T19:20:29.892Z] Progress: 8 terminal (one just finished; 9s since previous) | elapsed 53s
+[2026-02-09T19:20:29.892Z] Status: 8 terminal, 5 processing | elapsed 53s | since last completion: 9s
+[2026-02-09T19:20:29.892Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-09T19:20:38.936Z] Progress: 9 terminal (one just finished; 9s since previous) | elapsed 1m 2s
+[2026-02-09T19:20:38.936Z] Status: 9 terminal, 5 processing | elapsed 1m 2s | since last completion: 9s
+[2026-02-09T19:20:38.936Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:20:47.584Z] Progress: 12 terminal (one just finished; 9s since previous) | elapsed 1m 10s
+[2026-02-09T19:20:47.585Z] Status: 12 terminal, 5 processing | elapsed 1m 10s | since last completion: 9s
+[2026-02-09T19:20:47.585Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:20:56.224Z] Progress: 14 terminal (one just finished; 9s since previous) | elapsed 1m 19s
+[2026-02-09T19:20:56.225Z] Status: 14 terminal, 5 processing | elapsed 1m 19s | since last completion: 9s
+[2026-02-09T19:20:56.225Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:21:05.027Z] Progress: 17 terminal (one just finished; 9s since previous) | elapsed 1m 28s
+[2026-02-09T19:21:05.027Z] Status: 17 terminal, 5 processing | elapsed 1m 28s | since last completion: 9s
+[2026-02-09T19:21:05.028Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:21:13.671Z] Status: 17 terminal, 5 processing | elapsed 1m 36s | since last completion: 9s
+[2026-02-09T19:21:13.671Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:21:22.348Z] Status: 17 terminal, 5 processing | elapsed 1m 45s | since last completion: 17s
+[2026-02-09T19:21:22.348Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:21:31.173Z] Status: 17 terminal, 5 processing | elapsed 1m 54s | since last completion: 26s
+[2026-02-09T19:21:31.174Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:21:40.212Z] Progress: 19 terminal (one just finished; 35s since previous) | elapsed 2m 3s
+[2026-02-09T19:21:40.212Z] Status: 19 terminal, 5 processing | elapsed 2m 3s | since last completion: 35s
+[2026-02-09T19:21:40.213Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T19:21:48.882Z] Progress: 21 terminal (one just finished; 9s since previous) | elapsed 2m 12s
+[2026-02-09T19:21:48.882Z] Status: 21 terminal, 5 processing | elapsed 2m 12s | since last completion: 9s
+[2026-02-09T19:21:48.883Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T19:21:48.883Z]   Failed (new): übbs pouches | https://ubbspouches.com | Request timed out. Try again or skip.
+[2026-02-09T19:21:58.135Z] Progress: 24 terminal (one just finished; 9s since previous) | elapsed 2m 21s
+[2026-02-09T19:21:58.136Z] Status: 24 terminal, 5 processing | elapsed 2m 21s | since last completion: 9s
+[2026-02-09T19:21:58.136Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T19:22:06.853Z] Progress: 26 terminal (one just finished; 9s since previous) | elapsed 2m 29s
+[2026-02-09T19:22:06.853Z] Status: 26 terminal, 5 processing | elapsed 2m 29s | since last completion: 9s
+[2026-02-09T19:22:06.854Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T19:22:15.809Z] Progress: 27 terminal (one just finished; 9s since previous) | elapsed 2m 38s
+[2026-02-09T19:22:15.810Z] Status: 27 terminal, 5 processing | elapsed 2m 38s | since last completion: 9s
+[2026-02-09T19:22:15.810Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T19:22:24.708Z] Progress: 29 terminal (one just finished; 9s since previous) | elapsed 2m 47s
+[2026-02-09T19:22:24.708Z] Status: 29 terminal, 5 processing | elapsed 2m 47s | since last completion: 9s
+[2026-02-09T19:22:24.709Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:22:33.364Z] Status: 29 terminal, 5 processing | elapsed 2m 56s | since last completion: 9s
+[2026-02-09T19:22:33.365Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:22:46.115Z] Progress: 30 terminal (one just finished; 21s since previous) | elapsed 3m 9s
+[2026-02-09T19:22:46.116Z] Status: 30 terminal, 5 processing | elapsed 3m 9s | since last completion: 21s
+[2026-02-09T19:22:46.116Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:22:54.926Z] Status: 30 terminal, 5 processing | elapsed 3m 18s | since last completion: 9s
+[2026-02-09T19:22:54.927Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:23:04.322Z] Progress: 31 terminal (one just finished; 18s since previous) | elapsed 3m 27s
+[2026-02-09T19:23:04.323Z] Status: 31 terminal, 5 processing | elapsed 3m 27s | since last completion: 18s
+[2026-02-09T19:23:04.323Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:23:12.970Z] Progress: 34 terminal (one just finished; 9s since previous) | elapsed 3m 36s
+[2026-02-09T19:23:12.971Z] Status: 34 terminal, 5 processing | elapsed 3m 36s | since last completion: 9s
+[2026-02-09T19:23:12.971Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:23:22.251Z] Progress: 35 terminal (one just finished; 9s since previous) | elapsed 3m 45s
+[2026-02-09T19:23:22.252Z] Status: 35 terminal, 5 processing | elapsed 3m 45s | since last completion: 9s
+[2026-02-09T19:23:22.252Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:23:30.882Z] Progress: 36 terminal (one just finished; 9s since previous) | elapsed 3m 54s
+[2026-02-09T19:23:30.883Z] Status: 36 terminal, 5 processing | elapsed 3m 54s | since last completion: 9s
+[2026-02-09T19:23:30.883Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T19:23:40.097Z] Progress: 37 terminal (one just finished; 9s since previous) | elapsed 4m 3s
+[2026-02-09T19:23:40.098Z] Status: 37 terminal, 5 processing | elapsed 4m 3s | since last completion: 9s
+[2026-02-09T19:23:40.098Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-09T19:23:40.099Z]   Failed (new): Adapt Commercial Cleaning | https://adaptcommercialcleaning.com | Request timed out. Try again or skip.
+[2026-02-09T19:23:51.167Z] Status: 37 terminal, 5 processing | elapsed 4m 14s | since last completion: 11s
+[2026-02-09T19:23:51.168Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-09T19:24:02.872Z] Progress: 38 terminal (one just finished; 23s since previous) | elapsed 4m 25s
+[2026-02-09T19:24:02.873Z] Status: 38 terminal, 5 processing | elapsed 4m 25s | since last completion: 23s
+[2026-02-09T19:24:02.873Z]   Current: Air Power Products Ltd | https://airpowerproducts.co.uk
+[2026-02-09T19:24:11.513Z] Status: 38 terminal, 5 processing | elapsed 4m 34s | since last completion: 9s
+[2026-02-09T19:24:11.513Z]   Current: Air Power Products Ltd | https://airpowerproducts.co.uk
+[2026-02-09T19:24:20.282Z] Progress: 39 terminal (one just finished; 17s since previous) | elapsed 4m 43s
+[2026-02-09T19:24:20.283Z] Status: 39 terminal, 5 processing | elapsed 4m 43s | since last completion: 17s
+[2026-02-09T19:24:20.283Z]   Current: AJ Bell Investcentre | https://investcentre.co.uk
+[2026-02-09T19:24:28.928Z] Progress: 41 terminal (one just finished; 9s since previous) | elapsed 4m 52s
+[2026-02-09T19:24:28.929Z] Status: 41 terminal, 5 processing | elapsed 4m 52s | since last completion: 9s
+[2026-02-09T19:24:28.929Z]   Current: AJ Bell Investcentre | https://investcentre.co.uk
+[2026-02-09T19:24:37.803Z] Progress: 45 terminal (one just finished; 9s since previous) | elapsed 5m
+[2026-02-09T19:24:37.803Z] Status: 45 terminal, 5 processing | elapsed 5m | since last completion: 9s
+[2026-02-09T19:24:37.803Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-09T19:24:46.583Z] Progress: 48 terminal (one just finished; 9s since previous) | elapsed 5m 9s
+[2026-02-09T19:24:46.583Z] Status: 48 terminal, 5 processing | elapsed 5m 9s | since last completion: 9s
+[2026-02-09T19:24:46.583Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-09T19:24:56.326Z] Progress: 49 terminal (one just finished; 10s since previous) | elapsed 5m 19s
+[2026-02-09T19:24:56.327Z] Status: 49 terminal, 5 processing | elapsed 5m 19s | since last completion: 10s
+[2026-02-09T19:24:56.327Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-09T19:25:09.231Z] Progress: 51 terminal (one just finished; 13s since previous) | elapsed 5m 32s
+[2026-02-09T19:25:09.231Z] Status: 51 terminal, 5 processing | elapsed 5m 32s | since last completion: 13s
+[2026-02-09T19:25:09.232Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T19:25:17.845Z] Progress: 52 terminal (one just finished; 9s since previous) | elapsed 5m 40s
+[2026-02-09T19:25:17.845Z] Status: 52 terminal, 5 processing | elapsed 5m 40s | since last completion: 9s
+[2026-02-09T19:25:17.845Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T19:25:26.475Z] Progress: 55 terminal (one just finished; 9s since previous) | elapsed 5m 49s
+[2026-02-09T19:25:26.476Z] Status: 55 terminal, 5 processing | elapsed 5m 49s | since last completion: 9s
+[2026-02-09T19:25:26.476Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T19:25:35.120Z] Progress: 56 terminal (one just finished; 9s since previous) | elapsed 5m 58s
+[2026-02-09T19:25:35.120Z] Status: 56 terminal, 5 processing | elapsed 5m 58s | since last completion: 9s
+[2026-02-09T19:25:35.120Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T19:25:43.767Z] Progress: 57 terminal (one just finished; 9s since previous) | elapsed 6m 6s
+[2026-02-09T19:25:43.768Z] Status: 57 terminal, 5 processing | elapsed 6m 6s | since last completion: 9s
+[2026-02-09T19:25:43.768Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-09T19:25:52.569Z] Progress: 58 terminal (one just finished; 9s since previous) | elapsed 6m 15s
+[2026-02-09T19:25:52.569Z] Status: 58 terminal, 5 processing | elapsed 6m 15s | since last completion: 9s
+[2026-02-09T19:25:52.569Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-09T19:26:02.013Z] Status: 58 terminal, 5 processing | elapsed 6m 25s | since last completion: 9s
+[2026-02-09T19:26:02.014Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-09T19:26:13.886Z] Progress: 62 terminal (one just finished; 21s since previous) | elapsed 6m 37s
+[2026-02-09T19:26:13.886Z] Status: 62 terminal, 5 processing | elapsed 6m 37s | since last completion: 21s
+[2026-02-09T19:26:13.886Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T19:26:22.690Z] Status: 62 terminal, 5 processing | elapsed 6m 45s | since last completion: 9s
+[2026-02-09T19:26:22.690Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T19:26:31.285Z] Progress: 63 terminal (one just finished; 17s since previous) | elapsed 6m 54s
+[2026-02-09T19:26:31.287Z] Status: 63 terminal, 5 processing | elapsed 6m 54s | since last completion: 17s
+[2026-02-09T19:26:31.287Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T19:26:40.193Z] Progress: 64 terminal (one just finished; 9s since previous) | elapsed 7m 3s
+[2026-02-09T19:26:40.194Z] Status: 64 terminal, 5 processing | elapsed 7m 3s | since last completion: 9s
+[2026-02-09T19:26:40.194Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T19:26:48.907Z] Status: 64 terminal, 5 processing | elapsed 7m 12s | since last completion: 9s
+[2026-02-09T19:26:48.907Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business

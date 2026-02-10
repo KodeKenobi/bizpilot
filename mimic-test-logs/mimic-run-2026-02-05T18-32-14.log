@@ -1,0 +1,33 @@
+Mimic test run started at 2026-02-05T18:32:15.005Z
+[2026-02-05T18:32:15.006Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-05T18-32-14.log
+[2026-02-05T18:32:15.009Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-05T18:32:17.336Z] Loading site and dismissing cookie modal...
+[2026-02-05T18:32:33.795Z] Cookie modal dismissed (Accept All)
+[2026-02-05T18:32:34.615Z] Filling login...
+[2026-02-05T18:32:41.331Z] Login OK
+[2026-02-05T18:32:41.333Z] Waiting 10s for dashboard to refresh...
+[2026-02-05T18:32:51.354Z] Dashboard wait done.
+[2026-02-05T18:32:51.381Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-05T18:32:52.756Z] Usage: daily_limit=-1 daily_used=116 unlimited=true daily_remaining=N/A
+[2026-02-05T18:32:52.757Z] Navigating to campaign upload...
+[2026-02-05T18:32:56.660Z] Upload OK
+[2026-02-05T18:32:57.347Z] Navigate to create OK
+[2026-02-05T18:33:01.541Z] Campaign created: 118
+[2026-02-05T18:33:03.550Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/118
+[2026-02-05T18:33:04.698Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-05T18:33:06.247Z] Started processing 1000 companies...
+[2026-02-05T18:33:15.106Z] Status: 0 terminal, 0 processing | elapsed 9s | since last completion: 9s
+[2026-02-05T18:33:23.787Z] Status: 0 terminal, 0 processing | elapsed 18s | since last completion: 18s
+[2026-02-05T18:33:32.317Z] Status: 0 terminal, 0 processing | elapsed 26s | since last completion: 26s
+[2026-02-05T18:33:40.917Z] Status: 0 terminal, 0 processing | elapsed 35s | since last completion: 35s
+[2026-02-05T18:33:49.513Z] Status: 0 terminal, 0 processing | elapsed 43s | since last completion: 43s
+[2026-02-05T18:33:58.130Z] Status: 0 terminal, 0 processing | elapsed 52s | since last completion: 52s
+[2026-02-05T18:34:06.712Z] Status: 0 terminal, 0 processing | elapsed 1m | since last completion: 1m
+[2026-02-05T18:34:15.315Z] Status: 0 terminal, 0 processing | elapsed 1m 9s | since last completion: 1m 9s
+[2026-02-05T18:34:24.052Z] Status: 0 terminal, 0 processing | elapsed 1m 18s | since last completion: 1m 18s
+[2026-02-05T18:34:32.724Z] Status: 0 terminal, 0 processing | elapsed 1m 26s | since last completion: 1m 26s
+[2026-02-05T18:34:41.367Z] Status: 0 terminal, 0 processing | elapsed 1m 35s | since last completion: 1m 35s
+[2026-02-05T18:34:50.279Z] Status: 0 terminal, 0 processing | elapsed 1m 44s | since last completion: 1m 44s
+[2026-02-05T18:34:58.876Z] Status: 0 terminal, 0 processing | elapsed 1m 53s | since last completion: 1m 53s
+[2026-02-05T18:35:07.470Z] Status: 0 terminal, 0 processing | elapsed 2m 1s | since last completion: 2m 1s
+[2026-02-05T18:35:10.190Z] Error: page.waitForTimeout: Target page, context or browser has been closed

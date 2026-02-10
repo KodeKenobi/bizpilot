@@ -1,0 +1,489 @@
+Mimic test run started at 2026-02-09T15:51:28.523Z
+[2026-02-09T15:51:28.523Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-09T15-51-28.log
+[2026-02-09T15:51:28.524Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-09T15:51:29.497Z] Loading site and dismissing cookie modal...
+[2026-02-09T15:51:34.219Z] Cookie modal dismissed (Accept All)
+[2026-02-09T15:51:35.032Z] Filling login...
+[2026-02-09T15:51:41.712Z] Login OK
+[2026-02-09T15:51:41.712Z] Waiting 10s for dashboard to refresh...
+[2026-02-09T15:51:51.714Z] Dashboard wait done.
+[2026-02-09T15:51:51.726Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-09T15:51:53.254Z] Usage: daily_limit=-1 daily_used=721 unlimited=true daily_remaining=N/A
+[2026-02-09T15:51:53.254Z] Navigating to campaign upload...
+[2026-02-09T15:51:58.160Z] Upload OK
+[2026-02-09T15:52:00.362Z] Navigate to create OK
+[2026-02-09T15:52:05.938Z] Campaign created: rALxxTkf
+[2026-02-09T15:52:07.947Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/rALxxTkf
+[2026-02-09T15:52:08.039Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-09T15:52:08.877Z] [Stream] Error: Unexpected server response: 404
+[2026-02-09T15:52:08.877Z] [Stream] Disconnected.
+[2026-02-09T15:52:10.025Z] --skip-submit: set flag and clicking Start (fill forms but do not submit).
+[2026-02-09T15:52:14.087Z] Started processing 2000 companies...
+[2026-02-09T15:52:22.100Z] Stream disconnected; continuing to poll for progress.
+[2026-02-09T15:52:23.044Z] Status: 0 terminal, 5 processing | elapsed 9s | since last completion: 9s
+[2026-02-09T15:52:23.045Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T15:52:31.903Z] Progress: 1 terminal (one just finished; 18s since previous) | elapsed 18s
+[2026-02-09T15:52:31.904Z] Status: 1 terminal, 5 processing | elapsed 18s | since last completion: 18s
+[2026-02-09T15:52:31.904Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T15:52:40.530Z] Progress: 2 terminal (one just finished; 9s since previous) | elapsed 26s
+[2026-02-09T15:52:40.530Z] Status: 2 terminal, 5 processing | elapsed 26s | since last completion: 9s
+[2026-02-09T15:52:40.531Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T15:52:49.465Z] Progress: 5 terminal (one just finished; 9s since previous) | elapsed 35s
+[2026-02-09T15:52:49.465Z] Status: 5 terminal, 5 processing | elapsed 35s | since last completion: 9s
+[2026-02-09T15:52:49.466Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-09T15:52:58.098Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 44s
+[2026-02-09T15:52:58.098Z] Status: 7 terminal, 5 processing | elapsed 44s | since last completion: 9s
+[2026-02-09T15:52:58.098Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-09T15:53:07.070Z] Progress: 8 terminal (one just finished; 9s since previous) | elapsed 53s
+[2026-02-09T15:53:07.070Z] Status: 8 terminal, 5 processing | elapsed 53s | since last completion: 9s
+[2026-02-09T15:53:07.070Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-09T15:53:15.679Z] Progress: 9 terminal (one just finished; 9s since previous) | elapsed 1m 2s
+[2026-02-09T15:53:15.680Z] Status: 9 terminal, 5 processing | elapsed 1m 2s | since last completion: 9s
+[2026-02-09T15:53:15.680Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T15:53:24.681Z] Progress: 13 terminal (one just finished; 9s since previous) | elapsed 1m 11s
+[2026-02-09T15:53:24.682Z] Status: 13 terminal, 5 processing | elapsed 1m 11s | since last completion: 9s
+[2026-02-09T15:53:24.682Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T15:53:33.334Z] Progress: 14 terminal (one just finished; 9s since previous) | elapsed 1m 19s
+[2026-02-09T15:53:33.334Z] Status: 14 terminal, 5 processing | elapsed 1m 19s | since last completion: 9s
+[2026-02-09T15:53:33.335Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T15:53:42.000Z] Progress: 17 terminal (one just finished; 9s since previous) | elapsed 1m 28s
+[2026-02-09T15:53:42.000Z] Status: 17 terminal, 5 processing | elapsed 1m 28s | since last completion: 9s
+[2026-02-09T15:53:42.001Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T15:53:50.726Z] Status: 17 terminal, 5 processing | elapsed 1m 37s | since last completion: 9s
+[2026-02-09T15:53:50.726Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T15:53:59.384Z] Status: 17 terminal, 5 processing | elapsed 1m 45s | since last completion: 17s
+[2026-02-09T15:53:59.384Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-09T15:54:08.345Z] Progress: 18 terminal (one just finished; 26s since previous) | elapsed 1m 54s
+[2026-02-09T15:54:08.345Z] Status: 18 terminal, 5 processing | elapsed 1m 54s | since last completion: 26s
+[2026-02-09T15:54:08.345Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-09T15:54:08.346Z]   Failed (new): übbs pouches | https://ubbspouches.com | [Errno 11] write could not complete without blocking
+[2026-02-09T15:54:16.961Z] Progress: 20 terminal (one just finished; 9s since previous) | elapsed 2m 3s
+[2026-02-09T15:54:16.961Z] Status: 20 terminal, 5 processing | elapsed 2m 3s | since last completion: 9s
+[2026-02-09T15:54:16.961Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T15:54:26.021Z] Progress: 23 terminal (one just finished; 9s since previous) | elapsed 2m 12s
+[2026-02-09T15:54:26.021Z] Status: 23 terminal, 5 processing | elapsed 2m 12s | since last completion: 9s
+[2026-02-09T15:54:26.021Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T15:54:34.633Z] Progress: 26 terminal (one just finished; 9s since previous) | elapsed 2m 21s
+[2026-02-09T15:54:34.634Z] Status: 26 terminal, 5 processing | elapsed 2m 21s | since last completion: 9s
+[2026-02-09T15:54:34.634Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T15:54:43.418Z] Progress: 27 terminal (one just finished; 9s since previous) | elapsed 2m 29s
+[2026-02-09T15:54:43.418Z] Status: 27 terminal, 5 processing | elapsed 2m 29s | since last completion: 9s
+[2026-02-09T15:54:43.419Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T15:54:52.131Z] Progress: 28 terminal (one just finished; 9s since previous) | elapsed 2m 38s
+[2026-02-09T15:54:52.131Z] Status: 28 terminal, 5 processing | elapsed 2m 38s | since last completion: 9s
+[2026-02-09T15:54:52.132Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-09T15:55:01.142Z] Progress: 29 terminal (one just finished; 9s since previous) | elapsed 2m 47s
+[2026-02-09T15:55:01.142Z] Status: 29 terminal, 5 processing | elapsed 2m 47s | since last completion: 9s
+[2026-02-09T15:55:01.142Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T15:55:09.752Z] Status: 29 terminal, 5 processing | elapsed 2m 56s | since last completion: 9s
+[2026-02-09T15:55:09.753Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T15:55:22.104Z] Progress: 30 terminal (one just finished; 21s since previous) | elapsed 3m 8s
+[2026-02-09T15:55:22.104Z] Status: 30 terminal, 5 processing | elapsed 3m 8s | since last completion: 21s
+[2026-02-09T15:55:22.104Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T15:55:34.866Z] Progress: 31 terminal (one just finished; 13s since previous) | elapsed 3m 21s
+[2026-02-09T15:55:34.866Z] Status: 31 terminal, 5 processing | elapsed 3m 21s | since last completion: 13s
+[2026-02-09T15:55:34.867Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T15:55:43.913Z] Progress: 34 terminal (one just finished; 9s since previous) | elapsed 3m 30s
+[2026-02-09T15:55:43.913Z] Status: 34 terminal, 5 processing | elapsed 3m 30s | since last completion: 9s
+[2026-02-09T15:55:43.914Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T15:55:52.545Z] Progress: 36 terminal (one just finished; 9s since previous) | elapsed 3m 38s
+[2026-02-09T15:55:52.545Z] Status: 36 terminal, 5 processing | elapsed 3m 38s | since last completion: 9s
+[2026-02-09T15:55:52.545Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T15:56:01.292Z] Status: 36 terminal, 5 processing | elapsed 3m 47s | since last completion: 9s
+[2026-02-09T15:56:01.292Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-09T15:56:09.907Z] Progress: 37 terminal (one just finished; 17s since previous) | elapsed 3m 56s
+[2026-02-09T15:56:09.907Z] Status: 37 terminal, 5 processing | elapsed 3m 56s | since last completion: 17s
+[2026-02-09T15:56:09.908Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-09T15:56:09.908Z]   Failed (new): Adapt Commercial Cleaning | https://adaptcommercialcleaning.com | Request timed out. Try again or skip.
+[2026-02-09T15:56:19.050Z] Status: 37 terminal, 5 processing | elapsed 4m 5s | since last completion: 9s
+[2026-02-09T15:56:19.050Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-09T15:56:27.673Z] Status: 37 terminal, 5 processing | elapsed 4m 14s | since last completion: 18s
+[2026-02-09T15:56:27.673Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-09T15:56:37.053Z] Progress: 38 terminal (one just finished; 27s since previous) | elapsed 4m 23s
+[2026-02-09T15:56:37.054Z] Status: 38 terminal, 5 processing | elapsed 4m 23s | since last completion: 27s
+[2026-02-09T15:56:37.054Z]   Current: Air Power Products Ltd | https://airpowerproducts.co.uk
+[2026-02-09T15:56:45.692Z] Status: 38 terminal, 5 processing | elapsed 4m 32s | since last completion: 9s
+[2026-02-09T15:56:45.693Z]   Current: Air Power Products Ltd | https://airpowerproducts.co.uk
+[2026-02-09T15:56:54.810Z] Progress: 39 terminal (one just finished; 18s since previous) | elapsed 4m 41s
+[2026-02-09T15:56:54.811Z] Status: 39 terminal, 5 processing | elapsed 4m 41s | since last completion: 18s
+[2026-02-09T15:56:54.811Z]   Current: AJ Bell Investcentre | https://investcentre.co.uk
+[2026-02-09T15:57:03.464Z] Progress: 45 terminal (one just finished; 9s since previous) | elapsed 4m 49s
+[2026-02-09T15:57:03.464Z] Status: 45 terminal, 5 processing | elapsed 4m 49s | since last completion: 9s
+[2026-02-09T15:57:03.464Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-09T15:57:12.245Z] Progress: 47 terminal (one just finished; 9s since previous) | elapsed 4m 58s
+[2026-02-09T15:57:12.245Z] Status: 47 terminal, 5 processing | elapsed 4m 58s | since last completion: 9s
+[2026-02-09T15:57:12.245Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-09T15:57:20.882Z] Progress: 49 terminal (one just finished; 9s since previous) | elapsed 5m 7s
+[2026-02-09T15:57:20.882Z] Status: 49 terminal, 5 processing | elapsed 5m 7s | since last completion: 9s
+[2026-02-09T15:57:20.883Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-09T15:57:31.108Z] Status: 49 terminal, 5 processing | elapsed 5m 17s | since last completion: 10s
+[2026-02-09T15:57:31.108Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-09T15:57:40.408Z] Progress: 52 terminal (one just finished; 20s since previous) | elapsed 5m 26s
+[2026-02-09T15:57:40.409Z] Status: 52 terminal, 5 processing | elapsed 5m 26s | since last completion: 20s
+[2026-02-09T15:57:40.409Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T15:57:49.418Z] Status: 52 terminal, 5 processing | elapsed 5m 35s | since last completion: 9s
+[2026-02-09T15:57:49.419Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T15:57:58.059Z] Progress: 55 terminal (one just finished; 18s since previous) | elapsed 5m 44s
+[2026-02-09T15:57:58.059Z] Status: 55 terminal, 5 processing | elapsed 5m 44s | since last completion: 18s
+[2026-02-09T15:57:58.059Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T15:58:06.906Z] Progress: 56 terminal (one just finished; 9s since previous) | elapsed 5m 53s
+[2026-02-09T15:58:06.907Z] Status: 56 terminal, 5 processing | elapsed 5m 53s | since last completion: 9s
+[2026-02-09T15:58:06.907Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-09T15:58:15.545Z] Progress: 57 terminal (one just finished; 9s since previous) | elapsed 6m 1s
+[2026-02-09T15:58:15.545Z] Status: 57 terminal, 5 processing | elapsed 6m 1s | since last completion: 9s
+[2026-02-09T15:58:15.545Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-09T15:58:24.278Z] Progress: 58 terminal (one just finished; 9s since previous) | elapsed 6m 10s
+[2026-02-09T15:58:24.278Z] Status: 58 terminal, 5 processing | elapsed 6m 10s | since last completion: 9s
+[2026-02-09T15:58:24.278Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-09T15:58:35.095Z] Progress: 59 terminal (one just finished; 11s since previous) | elapsed 6m 21s
+[2026-02-09T15:58:35.095Z] Status: 59 terminal, 5 processing | elapsed 6m 21s | since last completion: 11s
+[2026-02-09T15:58:35.095Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T15:58:43.951Z] Progress: 62 terminal (one just finished; 9s since previous) | elapsed 6m 30s
+[2026-02-09T15:58:43.951Z] Status: 62 terminal, 5 processing | elapsed 6m 30s | since last completion: 9s
+[2026-02-09T15:58:43.951Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T15:58:52.559Z] Status: 62 terminal, 5 processing | elapsed 6m 38s | since last completion: 9s
+[2026-02-09T15:58:52.559Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T15:59:01.340Z] Progress: 63 terminal (one just finished; 17s since previous) | elapsed 6m 47s
+[2026-02-09T15:59:01.340Z] Status: 63 terminal, 5 processing | elapsed 6m 47s | since last completion: 17s
+[2026-02-09T15:59:01.340Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T15:59:10.206Z] Progress: 64 terminal (one just finished; 9s since previous) | elapsed 6m 56s
+[2026-02-09T15:59:10.206Z] Status: 64 terminal, 5 processing | elapsed 6m 56s | since last completion: 9s
+[2026-02-09T15:59:10.206Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T15:59:18.926Z] Status: 64 terminal, 5 processing | elapsed 7m 5s | since last completion: 9s
+[2026-02-09T15:59:18.926Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T15:59:27.582Z] Progress: 65 terminal (one just finished; 17s since previous) | elapsed 7m 13s
+[2026-02-09T15:59:27.583Z] Status: 65 terminal, 5 processing | elapsed 7m 13s | since last completion: 17s
+[2026-02-09T15:59:27.583Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-09T15:59:38.713Z] Progress: 68 terminal (one just finished; 11s since previous) | elapsed 7m 25s
+[2026-02-09T15:59:38.713Z] Status: 68 terminal, 5 processing | elapsed 7m 25s | since last completion: 11s
+[2026-02-09T15:59:38.714Z]   Current: Art Click | https://theartclick.com
+[2026-02-09T15:59:38.714Z]   Failed (new): Appetite for Business | Microsoft 365 | BCorp | https://appetite.business | Request timed out. Try again or skip.
+[2026-02-09T15:59:47.533Z] Progress: 69 terminal (one just finished; 9s since previous) | elapsed 7m 33s
+[2026-02-09T15:59:47.533Z] Status: 69 terminal, 5 processing | elapsed 7m 33s | since last completion: 9s
+[2026-02-09T15:59:47.533Z]   Current: Art Click | https://theartclick.com
+[2026-02-09T15:59:56.256Z] Progress: 70 terminal (one just finished; 9s since previous) | elapsed 7m 42s
+[2026-02-09T15:59:56.256Z] Status: 70 terminal, 5 processing | elapsed 7m 42s | since last completion: 9s
+[2026-02-09T15:59:56.256Z]   Current: Art Click | https://theartclick.com
+[2026-02-09T16:00:05.563Z] Progress: 72 terminal (one just finished; 9s since previous) | elapsed 7m 51s
+[2026-02-09T16:00:05.563Z] Status: 72 terminal, 5 processing | elapsed 7m 51s | since last completion: 9s
+[2026-02-09T16:00:05.563Z]   Current: Art Click | https://theartclick.com
+[2026-02-09T16:00:14.357Z] Progress: 73 terminal (one just finished; 9s since previous) | elapsed 8m
+[2026-02-09T16:00:14.358Z] Status: 73 terminal, 5 processing | elapsed 8m | since last completion: 9s
+[2026-02-09T16:00:14.358Z]   Current: Art Click | https://theartclick.com
+[2026-02-09T16:00:23.413Z] Progress: 75 terminal (one just finished; 9s since previous) | elapsed 8m 9s
+[2026-02-09T16:00:23.414Z] Status: 75 terminal, 5 processing | elapsed 8m 9s | since last completion: 9s
+[2026-02-09T16:00:23.414Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-09T16:00:23.414Z]   Failed (new): Art Click | https://theartclick.com | Request timed out. Try again or skip.
+[2026-02-09T16:00:32.380Z] Progress: 76 terminal (one just finished; 9s since previous) | elapsed 8m 18s
+[2026-02-09T16:00:32.381Z] Status: 76 terminal, 5 processing | elapsed 8m 18s | since last completion: 9s
+[2026-02-09T16:00:32.381Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-09T16:00:44.599Z] Progress: 78 terminal (one just finished; 12s since previous) | elapsed 8m 31s
+[2026-02-09T16:00:44.600Z] Status: 78 terminal, 5 processing | elapsed 8m 31s | since last completion: 12s
+[2026-02-09T16:00:44.600Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-09T16:00:53.643Z] Progress: 80 terminal (one just finished; 9s since previous) | elapsed 8m 40s
+[2026-02-09T16:00:53.643Z] Status: 80 terminal, 5 processing | elapsed 8m 40s | since last completion: 9s
+[2026-02-09T16:00:53.644Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-09T16:01:02.399Z] Progress: 83 terminal (one just finished; 9s since previous) | elapsed 8m 48s
+[2026-02-09T16:01:02.400Z] Status: 83 terminal, 5 processing | elapsed 8m 48s | since last completion: 9s
+[2026-02-09T16:01:02.400Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-09T16:01:11.318Z] Progress: 84 terminal (one just finished; 9s since previous) | elapsed 8m 57s
+[2026-02-09T16:01:11.318Z] Status: 84 terminal, 5 processing | elapsed 8m 57s | since last completion: 9s
+[2026-02-09T16:01:11.318Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-09T16:01:20.044Z] Progress: 86 terminal (one just finished; 9s since previous) | elapsed 9m 6s
+[2026-02-09T16:01:20.045Z] Status: 86 terminal, 5 processing | elapsed 9m 6s | since last completion: 9s
+[2026-02-09T16:01:20.045Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:01:28.857Z] Progress: 87 terminal (one just finished; 9s since previous) | elapsed 9m 15s
+[2026-02-09T16:01:28.857Z] Status: 87 terminal, 5 processing | elapsed 9m 15s | since last completion: 9s
+[2026-02-09T16:01:28.858Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:01:37.879Z] Progress: 88 terminal (one just finished; 9s since previous) | elapsed 9m 24s
+[2026-02-09T16:01:37.879Z] Status: 88 terminal, 5 processing | elapsed 9m 24s | since last completion: 9s
+[2026-02-09T16:01:37.880Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:01:48.863Z] Progress: 89 terminal (one just finished; 11s since previous) | elapsed 9m 35s
+[2026-02-09T16:01:48.863Z] Status: 89 terminal, 5 processing | elapsed 9m 35s | since last completion: 11s
+[2026-02-09T16:01:48.864Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:01:58.113Z] Progress: 93 terminal (one just finished; 9s since previous) | elapsed 9m 44s
+[2026-02-09T16:01:58.113Z] Status: 93 terminal, 5 processing | elapsed 9m 44s | since last completion: 9s
+[2026-02-09T16:01:58.113Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:02:07.051Z] Progress: 94 terminal (one just finished; 9s since previous) | elapsed 9m 53s
+[2026-02-09T16:02:07.051Z] Status: 94 terminal, 5 processing | elapsed 9m 53s | since last completion: 9s
+[2026-02-09T16:02:07.051Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:02:15.825Z] Progress: 97 terminal (one just finished; 9s since previous) | elapsed 10m 2s
+[2026-02-09T16:02:15.826Z] Status: 97 terminal, 5 processing | elapsed 10m 2s | since last completion: 9s
+[2026-02-09T16:02:15.826Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:02:25.559Z] Status: 97 terminal, 5 processing | elapsed 10m 11s | since last completion: 10s
+[2026-02-09T16:02:25.563Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:02:34.497Z] Progress: 98 terminal (one just finished; 19s since previous) | elapsed 10m 20s
+[2026-02-09T16:02:34.499Z] Status: 98 terminal, 5 processing | elapsed 10m 20s | since last completion: 19s
+[2026-02-09T16:02:34.499Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-09T16:02:43.264Z] Progress: 102 terminal (one just finished; 9s since previous) | elapsed 10m 29s
+[2026-02-09T16:02:43.265Z] Status: 102 terminal, 5 processing | elapsed 10m 29s | since last completion: 9s
+[2026-02-09T16:02:43.265Z]   Current: Beam Group | https://beamgroup.co.uk
+[2026-02-09T16:02:43.266Z]   Failed (new): Axcess Merchant Services | https://axcessms.com | Request timed out. Try again or skip.
+[2026-02-09T16:02:53.012Z] Progress: 103 terminal (one just finished; 10s since previous) | elapsed 10m 39s
+[2026-02-09T16:02:53.013Z] Status: 103 terminal, 5 processing | elapsed 10m 39s | since last completion: 10s
+[2026-02-09T16:02:53.013Z]   Current: Beam Group | https://beamgroup.co.uk
+[2026-02-09T16:03:05.323Z] Progress: 106 terminal (one just finished; 12s since previous) | elapsed 10m 51s
+[2026-02-09T16:03:05.324Z] Status: 106 terminal, 5 processing | elapsed 10m 51s | since last completion: 12s
+[2026-02-09T16:03:05.324Z]   Current: Bedroq | https://bedroq.co.uk
+[2026-02-09T16:03:14.037Z] Progress: 109 terminal (one just finished; 9s since previous) | elapsed 10m 60s
+[2026-02-09T16:03:14.038Z] Status: 109 terminal, 5 processing | elapsed 10m 60s | since last completion: 9s
+[2026-02-09T16:03:14.039Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-09T16:03:22.659Z] Progress: 110 terminal (one just finished; 9s since previous) | elapsed 11m 9s
+[2026-02-09T16:03:22.659Z] Status: 110 terminal, 5 processing | elapsed 11m 9s | since last completion: 9s
+[2026-02-09T16:03:22.660Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-09T16:03:31.434Z] Status: 110 terminal, 5 processing | elapsed 11m 17s | since last completion: 9s
+[2026-02-09T16:03:31.435Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-09T16:03:40.093Z] Progress: 111 terminal (one just finished; 17s since previous) | elapsed 11m 26s
+[2026-02-09T16:03:40.094Z] Status: 111 terminal, 5 processing | elapsed 11m 26s | since last completion: 17s
+[2026-02-09T16:03:40.094Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-09T16:03:49.176Z] Progress: 113 terminal (one just finished; 9s since previous) | elapsed 11m 35s
+[2026-02-09T16:03:49.177Z] Status: 113 terminal, 5 processing | elapsed 11m 35s | since last completion: 9s
+[2026-02-09T16:03:49.177Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-09T16:03:58.028Z] Progress: 115 terminal (one just finished; 9s since previous) | elapsed 11m 44s
+[2026-02-09T16:03:58.028Z] Status: 115 terminal, 5 processing | elapsed 11m 44s | since last completion: 9s
+[2026-02-09T16:03:58.028Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-09T16:04:09.686Z] Progress: 116 terminal (one just finished; 12s since previous) | elapsed 11m 56s
+[2026-02-09T16:04:09.686Z] Status: 116 terminal, 5 processing | elapsed 11m 56s | since last completion: 12s
+[2026-02-09T16:04:09.686Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-09T16:04:18.665Z] Progress: 117 terminal (one just finished; 9s since previous) | elapsed 12m 5s
+[2026-02-09T16:04:18.665Z] Status: 117 terminal, 5 processing | elapsed 12m 5s | since last completion: 9s
+[2026-02-09T16:04:18.666Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-09T16:04:27.286Z] Progress: 119 terminal (one just finished; 9s since previous) | elapsed 12m 13s
+[2026-02-09T16:04:27.286Z] Status: 119 terminal, 5 processing | elapsed 12m 13s | since last completion: 9s
+[2026-02-09T16:04:27.286Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-09T16:04:35.965Z] Progress: 122 terminal (one just finished; 9s since previous) | elapsed 12m 22s
+[2026-02-09T16:04:35.965Z] Status: 122 terminal, 5 processing | elapsed 12m 22s | since last completion: 9s
+[2026-02-09T16:04:35.965Z]   Current: Black Country Chamber of Commerce | https://blackcountrychamber.co.uk
+[2026-02-09T16:04:35.965Z]   Failed (new): Birdie Fortescue | https://birdiefortescue.co.uk | Request timed out. Try again or skip.
+[2026-02-09T16:04:44.684Z] Progress: 124 terminal (one just finished; 9s since previous) | elapsed 12m 31s
+[2026-02-09T16:04:44.684Z] Status: 124 terminal, 5 processing | elapsed 12m 31s | since last completion: 9s
+[2026-02-09T16:04:44.685Z]   Current: Boardwalk Property Co. | https://boardwalkpropertyco.com
+[2026-02-09T16:04:53.671Z] Progress: 126 terminal (one just finished; 9s since previous) | elapsed 12m 40s
+[2026-02-09T16:04:53.671Z] Status: 126 terminal, 5 processing | elapsed 12m 40s | since last completion: 9s
+[2026-02-09T16:04:53.671Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-09T16:05:02.322Z] Progress: 128 terminal (one just finished; 9s since previous) | elapsed 12m 48s
+[2026-02-09T16:05:02.322Z] Status: 128 terminal, 5 processing | elapsed 12m 48s | since last completion: 9s
+[2026-02-09T16:05:02.323Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-09T16:05:14.351Z] Progress: 130 terminal (one just finished; 12s since previous) | elapsed 13m
+[2026-02-09T16:05:14.352Z] Status: 130 terminal, 5 processing | elapsed 13m | since last completion: 12s
+[2026-02-09T16:05:14.352Z]   Current: boobydoo | https://boobydoo.co.uk
+[2026-02-09T16:05:22.971Z] Progress: 133 terminal (one just finished; 9s since previous) | elapsed 13m 9s
+[2026-02-09T16:05:22.971Z] Status: 133 terminal, 5 processing | elapsed 13m 9s | since last completion: 9s
+[2026-02-09T16:05:22.972Z]   Current: Bower Collective | https://bowercollective.com
+[2026-02-09T16:05:31.739Z] Progress: 135 terminal (one just finished; 9s since previous) | elapsed 13m 18s
+[2026-02-09T16:05:31.740Z] Status: 135 terminal, 5 processing | elapsed 13m 18s | since last completion: 9s
+[2026-02-09T16:05:31.740Z]   Current: Brackenwood Windows | https://brackenwood.com
+[2026-02-09T16:05:40.390Z] Progress: 137 terminal (one just finished; 9s since previous) | elapsed 13m 26s
+[2026-02-09T16:05:40.390Z] Status: 137 terminal, 5 processing | elapsed 13m 26s | since last completion: 9s
+[2026-02-09T16:05:40.391Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-09T16:05:49.173Z] Progress: 139 terminal (one just finished; 9s since previous) | elapsed 13m 35s
+[2026-02-09T16:05:49.173Z] Status: 139 terminal, 5 processing | elapsed 13m 35s | since last completion: 9s
+[2026-02-09T16:05:49.174Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-09T16:05:57.919Z] Progress: 142 terminal (one just finished; 9s since previous) | elapsed 13m 44s
+[2026-02-09T16:05:57.919Z] Status: 142 terminal, 5 processing | elapsed 13m 44s | since last completion: 9s
+[2026-02-09T16:05:57.919Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-09T16:06:06.923Z] Progress: 144 terminal (one just finished; 9s since previous) | elapsed 13m 53s
+[2026-02-09T16:06:06.923Z] Status: 144 terminal, 5 processing | elapsed 13m 53s | since last completion: 9s
+[2026-02-09T16:06:06.923Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-09T16:06:16.781Z] Status: 144 terminal, 5 processing | elapsed 14m 3s | since last completion: 10s
+[2026-02-09T16:06:16.782Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-09T16:06:25.446Z] Progress: 146 terminal (one just finished; 19s since previous) | elapsed 14m 11s
+[2026-02-09T16:06:25.447Z] Status: 146 terminal, 5 processing | elapsed 14m 11s | since last completion: 19s
+[2026-02-09T16:06:25.447Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-09T16:06:34.081Z] Progress: 149 terminal (one just finished; 9s since previous) | elapsed 14m 20s
+[2026-02-09T16:06:34.082Z] Status: 149 terminal, 5 processing | elapsed 14m 20s | since last completion: 9s
+[2026-02-09T16:06:34.082Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-09T16:06:43.161Z] Progress: 150 terminal (one just finished; 9s since previous) | elapsed 14m 29s
+[2026-02-09T16:06:43.162Z] Status: 150 terminal, 5 processing | elapsed 14m 29s | since last completion: 9s
+[2026-02-09T16:06:43.163Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-09T16:06:51.932Z] Progress: 153 terminal (one just finished; 9s since previous) | elapsed 14m 38s
+[2026-02-09T16:06:51.932Z] Status: 153 terminal, 5 processing | elapsed 14m 38s | since last completion: 9s
+[2026-02-09T16:06:51.932Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-09T16:07:00.923Z] Progress: 156 terminal (one just finished; 9s since previous) | elapsed 14m 47s
+[2026-02-09T16:07:00.923Z] Status: 156 terminal, 5 processing | elapsed 14m 47s | since last completion: 9s
+[2026-02-09T16:07:00.923Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-09T16:07:10.147Z] Status: 156 terminal, 5 processing | elapsed 14m 56s | since last completion: 9s
+[2026-02-09T16:07:10.148Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-09T16:07:22.323Z] Progress: 157 terminal (one just finished; 21s since previous) | elapsed 15m 8s
+[2026-02-09T16:07:22.323Z] Status: 157 terminal, 5 processing | elapsed 15m 8s | since last completion: 21s
+[2026-02-09T16:07:22.323Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-09T16:07:31.092Z] Progress: 159 terminal (one just finished; 9s since previous) | elapsed 15m 17s
+[2026-02-09T16:07:31.092Z] Status: 159 terminal, 5 processing | elapsed 15m 17s | since last completion: 9s
+[2026-02-09T16:07:31.094Z]   Current: Butterfly Data | https://butterflydata.co.uk
+[2026-02-09T16:07:39.871Z] Progress: 160 terminal (one just finished; 9s since previous) | elapsed 15m 26s
+[2026-02-09T16:07:39.871Z] Status: 160 terminal, 5 processing | elapsed 15m 26s | since last completion: 9s
+[2026-02-09T16:07:39.871Z]   Current: Butterfly Data | https://butterflydata.co.uk
+[2026-02-09T16:07:48.962Z] Progress: 161 terminal (one just finished; 9s since previous) | elapsed 15m 35s
+[2026-02-09T16:07:48.963Z] Status: 161 terminal, 5 processing | elapsed 15m 35s | since last completion: 9s
+[2026-02-09T16:07:48.963Z]   Current: Butterfly Data | https://butterflydata.co.uk
+[2026-02-09T16:07:57.741Z] Progress: 164 terminal (one just finished; 9s since previous) | elapsed 15m 44s
+[2026-02-09T16:07:57.741Z] Status: 164 terminal, 5 processing | elapsed 15m 44s | since last completion: 9s
+[2026-02-09T16:07:57.741Z]   Current: Cambridge Support | https://cambridgesupport.com
+[2026-02-09T16:07:57.741Z]   Failed (new): Butterfly Data | https://butterflydata.co.uk | Request timed out. Try again or skip.
+[2026-02-09T16:08:06.753Z] Status: 164 terminal, 5 processing | elapsed 15m 53s | since last completion: 9s
+[2026-02-09T16:08:06.753Z]   Current: Cambridge Support | https://cambridgesupport.com
+[2026-02-09T16:08:15.693Z] Progress: 166 terminal (one just finished; 18s since previous) | elapsed 16m 2s
+[2026-02-09T16:08:15.693Z] Status: 166 terminal, 5 processing | elapsed 16m 2s | since last completion: 18s
+[2026-02-09T16:08:15.694Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-09T16:08:27.283Z] Progress: 168 terminal (one just finished; 12s since previous) | elapsed 16m 13s
+[2026-02-09T16:08:27.284Z] Status: 168 terminal, 5 processing | elapsed 16m 13s | since last completion: 12s
+[2026-02-09T16:08:27.284Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-09T16:08:35.909Z] Progress: 170 terminal (one just finished; 9s since previous) | elapsed 16m 22s
+[2026-02-09T16:08:35.909Z] Status: 170 terminal, 5 processing | elapsed 16m 22s | since last completion: 9s
+[2026-02-09T16:08:35.909Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-09T16:08:44.643Z] Progress: 171 terminal (one just finished; 9s since previous) | elapsed 16m 31s
+[2026-02-09T16:08:44.643Z] Status: 171 terminal, 5 processing | elapsed 16m 31s | since last completion: 9s
+[2026-02-09T16:08:44.643Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-09T16:08:53.344Z] Progress: 174 terminal (one just finished; 9s since previous) | elapsed 16m 39s
+[2026-02-09T16:08:53.344Z] Status: 174 terminal, 5 processing | elapsed 16m 39s | since last completion: 9s
+[2026-02-09T16:08:53.345Z]   Current: CareScribe | https://carescribe.io
+[2026-02-09T16:08:53.345Z]   Failed (new): CastleBrae Sales & Letting | https://castlebrae.com | [Errno 11] write could not complete without blocking
+[2026-02-09T16:09:01.989Z] Progress: 178 terminal (one just finished; 9s since previous) | elapsed 16m 48s
+[2026-02-09T16:09:01.990Z] Status: 178 terminal, 5 processing | elapsed 16m 48s | since last completion: 9s
+[2026-02-09T16:09:01.990Z]   Current: Carrie Elizabeth Jewellery Limited | https://carrieelizabeth.co.uk
+[2026-02-09T16:09:01.990Z]   Failed (new): CERT - Whats next | https://starts here. | Malformed URL: [url] here.
+[2026-02-09T16:09:10.651Z] Progress: 180 terminal (one just finished; 9s since previous) | elapsed 16m 57s
+[2026-02-09T16:09:10.652Z] Status: 180 terminal, 5 processing | elapsed 16m 57s | since last completion: 9s
+[2026-02-09T16:09:10.652Z]   Current: Causeway Securities | https://causeway-securities.com
+[2026-02-09T16:09:19.392Z] Status: 180 terminal, 5 processing | elapsed 17m 5s | since last completion: 9s
+[2026-02-09T16:09:19.392Z]   Current: Causeway Securities | https://causeway-securities.com
+[2026-02-09T16:09:32.698Z] Progress: 183 terminal (one just finished; 22s since previous) | elapsed 17m 19s
+[2026-02-09T16:09:32.698Z] Status: 183 terminal, 5 processing | elapsed 17m 19s | since last completion: 22s
+[2026-02-09T16:09:32.702Z]   Current: Causeway Securities | https://causeway-securities.com
+[2026-02-09T16:09:32.702Z]   Failed (new): Cherwell Collective | https://CIC | Malformed URL: [url]
+[2026-02-09T16:09:41.360Z] Progress: 186 terminal (one just finished; 9s since previous) | elapsed 17m 27s
+[2026-02-09T16:09:41.361Z] Status: 186 terminal, 5 processing | elapsed 17m 27s | since last completion: 9s
+[2026-02-09T16:09:41.361Z]   Current: centre:mk | https://centremk.com
+[2026-02-09T16:09:41.361Z]   Failed (new): Christ Church Cathedral School | https://Oxford | Malformed URL: [url]
+[2026-02-09T16:09:41.361Z]   Failed (new): Christ Church Cathedral School | https://Oxford | Malformed URL: [url]
+[2026-02-09T16:09:49.992Z] Progress: 188 terminal (one just finished; 9s since previous) | elapsed 17m 36s
+[2026-02-09T16:09:49.992Z] Status: 188 terminal, 5 processing | elapsed 17m 36s | since last completion: 9s
+[2026-02-09T16:09:49.992Z]   Current: Changing Social | https://changingsocial.com
+[2026-02-09T16:09:58.700Z] Status: 188 terminal, 5 processing | elapsed 17m 45s | since last completion: 9s
+[2026-02-09T16:09:58.701Z]   Current: Changing Social | https://changingsocial.com
+[2026-02-09T16:10:07.444Z] Progress: 189 terminal (one just finished; 17s since previous) | elapsed 17m 53s
+[2026-02-09T16:10:07.445Z] Status: 189 terminal, 5 processing | elapsed 17m 53s | since last completion: 17s
+[2026-02-09T16:10:07.446Z]   Current: Changing Social | https://changingsocial.com
+[2026-02-09T16:10:16.251Z] Progress: 190 terminal (one just finished; 9s since previous) | elapsed 18m 2s
+[2026-02-09T16:10:16.251Z] Status: 190 terminal, 5 processing | elapsed 18m 2s | since last completion: 9s
+[2026-02-09T16:10:16.251Z]   Current: CINEsync | https://cinesync.io
+[2026-02-09T16:10:25.027Z] Progress: 192 terminal (one just finished; 9s since previous) | elapsed 18m 11s
+[2026-02-09T16:10:25.028Z] Status: 192 terminal, 5 processing | elapsed 18m 11s | since last completion: 9s
+[2026-02-09T16:10:25.028Z]   Current: CINEsync | https://cinesync.io
+[2026-02-09T16:10:34.725Z] Progress: 194 terminal (one just finished; 10s since previous) | elapsed 18m 21s
+[2026-02-09T16:10:34.725Z] Status: 194 terminal, 5 processing | elapsed 18m 21s | since last completion: 10s
+[2026-02-09T16:10:34.725Z]   Current: Ciptex | https://ciptex.com
+[2026-02-09T16:10:43.424Z] Progress: 196 terminal (one just finished; 9s since previous) | elapsed 18m 29s
+[2026-02-09T16:10:43.425Z] Status: 196 terminal, 5 processing | elapsed 18m 29s | since last completion: 9s
+[2026-02-09T16:10:43.425Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:10:52.166Z] Progress: 197 terminal (one just finished; 9s since previous) | elapsed 18m 38s
+[2026-02-09T16:10:52.167Z] Status: 197 terminal, 5 processing | elapsed 18m 38s | since last completion: 9s
+[2026-02-09T16:10:52.167Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:11:01.065Z] Status: 197 terminal, 5 processing | elapsed 18m 47s | since last completion: 9s
+[2026-02-09T16:11:01.066Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:11:09.790Z] Progress: 200 terminal (one just finished; 18s since previous) | elapsed 18m 56s
+[2026-02-09T16:11:09.790Z] Status: 200 terminal, 5 processing | elapsed 18m 56s | since last completion: 18s
+[2026-02-09T16:11:09.790Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:11:18.774Z] Progress: 201 terminal (one just finished; 9s since previous) | elapsed 19m 5s
+[2026-02-09T16:11:18.774Z] Status: 201 terminal, 5 processing | elapsed 19m 5s | since last completion: 9s
+[2026-02-09T16:11:18.774Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:11:27.886Z] Status: 201 terminal, 5 processing | elapsed 19m 14s | since last completion: 9s
+[2026-02-09T16:11:27.886Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:11:37.295Z] Progress: 202 terminal (one just finished; 19s since previous) | elapsed 19m 23s
+[2026-02-09T16:11:37.296Z] Status: 202 terminal, 5 processing | elapsed 19m 23s | since last completion: 19s
+[2026-02-09T16:11:37.296Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:11:46.111Z] Progress: 206 terminal (one just finished; 9s since previous) | elapsed 19m 32s
+[2026-02-09T16:11:46.112Z] Status: 206 terminal, 5 processing | elapsed 19m 32s | since last completion: 9s
+[2026-02-09T16:11:46.112Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:11:54.981Z] Progress: 208 terminal (one just finished; 9s since previous) | elapsed 19m 41s
+[2026-02-09T16:11:54.981Z] Status: 208 terminal, 5 processing | elapsed 19m 41s | since last completion: 9s
+[2026-02-09T16:11:54.981Z]   Current: Clarilis | https://clarilis.com
+[2026-02-09T16:12:04.144Z] Progress: 212 terminal (one just finished; 9s since previous) | elapsed 19m 50s
+[2026-02-09T16:12:04.144Z] Status: 212 terminal, 5 processing | elapsed 19m 50s | since last completion: 9s
+[2026-02-09T16:12:04.145Z]   Current: Cognassist | https://cognassist.com
+[2026-02-09T16:12:04.145Z]   Failed (new): Clarilis | https://clarilis.com | Request timed out. Try again or skip.
+[2026-02-09T16:12:13.135Z] Progress: 216 terminal (one just finished; 9s since previous) | elapsed 19m 59s
+[2026-02-09T16:12:13.135Z] Status: 216 terminal, 5 processing | elapsed 19m 59s | since last completion: 9s
+[2026-02-09T16:12:13.135Z]   Current: Cognassist | https://cognassist.com
+[2026-02-09T16:12:13.136Z]   Failed (new): Company Name | https://Website | Malformed URL: [url]
+[2026-02-09T16:12:21.861Z] Progress: 218 terminal (one just finished; 9s since previous) | elapsed 20m 8s
+[2026-02-09T16:12:21.861Z] Status: 218 terminal, 5 processing | elapsed 20m 8s | since last completion: 9s
+[2026-02-09T16:12:21.861Z]   Current: Cognassist | https://cognassist.com
+[2026-02-09T16:12:32.150Z] Progress: 219 terminal (one just finished; 10s since previous) | elapsed 20m 18s
+[2026-02-09T16:12:32.150Z] Status: 219 terminal, 5 processing | elapsed 20m 18s | since last completion: 10s
+[2026-02-09T16:12:32.150Z]   Current: Cognassist | https://cognassist.com
+[2026-02-09T16:12:41.307Z] Progress: 222 terminal (one just finished; 9s since previous) | elapsed 20m 27s
+[2026-02-09T16:12:41.308Z] Status: 222 terminal, 5 processing | elapsed 20m 27s | since last completion: 9s
+[2026-02-09T16:12:41.308Z]   Current: Concerva Limited - Chartered Financial Planners | https://concerva.co.uk
+[2026-02-09T16:12:49.913Z] Progress: 224 terminal (one just finished; 9s since previous) | elapsed 20m 36s
+[2026-02-09T16:12:49.914Z] Status: 224 terminal, 5 processing | elapsed 20m 36s | since last completion: 9s
+[2026-02-09T16:12:49.914Z]   Current: Consider IT | https://considerit.com
+[2026-02-09T16:13:28.250Z] Companies API error: 500 (poll #136)
+[2026-02-09T16:14:06.564Z] Companies API error: 500 (poll #137)
+[2026-02-09T16:14:44.907Z] Companies API error: 500 (poll #138)
+[2026-02-09T16:15:23.204Z] Companies API error: 500 (poll #139)
+[2026-02-09T16:16:01.541Z] Companies API error: 500 (poll #140)
+[2026-02-09T16:16:39.915Z] Companies API error: 500 (poll #141)
+[2026-02-09T16:16:48.813Z] Progress: 268 terminal (one just finished; 3m 59s since previous) | elapsed 24m 35s
+[2026-02-09T16:16:48.813Z] Status: 268 terminal, 5 processing | elapsed 24m 35s | since last completion: 3m 59s
+[2026-02-09T16:16:48.813Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:16:48.813Z]   STUCK? No progress for 3m 59s (still 268 terminal, 5 processing)
+[2026-02-09T16:16:48.814Z]   Failed (new): Cornerstone VR | https://part of The Antser Group | Malformed URL: [url] of The Antser Group
+[2026-02-09T16:16:48.814Z]   Failed (new): CPS Homes | https://cpshomes.co.uk | [Errno 11] write could not complete without blocking
+[2026-02-09T16:16:48.814Z]   Failed (new): Datrix Training | https://datrixtraining.com | Request timed out. Try again or skip.
+[2026-02-09T16:16:57.459Z] Status: 268 terminal, 5 processing | elapsed 24m 43s | since last completion: 9s
+[2026-02-09T16:16:57.460Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:17:06.132Z] Status: 268 terminal, 5 processing | elapsed 24m 52s | since last completion: 17s
+[2026-02-09T16:17:06.133Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:17:14.900Z] Status: 268 terminal, 5 processing | elapsed 25m 1s | since last completion: 26s
+[2026-02-09T16:17:14.901Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:17:23.524Z] Status: 268 terminal, 5 processing | elapsed 25m 9s | since last completion: 35s
+[2026-02-09T16:17:23.524Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:17:32.184Z] Status: 268 terminal, 5 processing | elapsed 25m 18s | since last completion: 43s
+[2026-02-09T16:17:32.184Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:17:40.775Z] Status: 268 terminal, 5 processing | elapsed 25m 27s | since last completion: 52s
+[2026-02-09T16:17:40.776Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:17:49.427Z] Status: 268 terminal, 5 processing | elapsed 25m 35s | since last completion: 1m 1s
+[2026-02-09T16:17:49.427Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:17:58.083Z] Status: 268 terminal, 5 processing | elapsed 25m 44s | since last completion: 1m 9s
+[2026-02-09T16:17:58.084Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:06.891Z] Status: 268 terminal, 5 processing | elapsed 25m 53s | since last completion: 1m 18s
+[2026-02-09T16:18:06.891Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:15.512Z] Status: 268 terminal, 5 processing | elapsed 26m 1s | since last completion: 1m 27s
+[2026-02-09T16:18:15.513Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:24.619Z] Status: 268 terminal, 5 processing | elapsed 26m 11s | since last completion: 1m 36s
+[2026-02-09T16:18:24.619Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:24.619Z]   STUCK? No progress for 1m 36s (still 268 terminal, 5 processing)
+[2026-02-09T16:18:33.266Z] Status: 268 terminal, 5 processing | elapsed 26m 19s | since last completion: 1m 44s
+[2026-02-09T16:18:33.266Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:33.267Z]   STUCK? No progress for 1m 44s (still 268 terminal, 5 processing)
+[2026-02-09T16:18:42.026Z] Status: 268 terminal, 5 processing | elapsed 26m 28s | since last completion: 1m 53s
+[2026-02-09T16:18:42.026Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:42.026Z]   STUCK? No progress for 1m 53s (still 268 terminal, 5 processing)
+[2026-02-09T16:18:50.732Z] Status: 268 terminal, 5 processing | elapsed 26m 37s | since last completion: 2m 2s
+[2026-02-09T16:18:50.733Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:50.733Z]   STUCK? No progress for 2m 2s (still 268 terminal, 5 processing)
+[2026-02-09T16:18:59.351Z] Status: 268 terminal, 5 processing | elapsed 26m 45s | since last completion: 2m 11s
+[2026-02-09T16:18:59.351Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:18:59.351Z]   STUCK? No progress for 2m 11s (still 268 terminal, 5 processing)
+[2026-02-09T16:19:08.148Z] Status: 268 terminal, 5 processing | elapsed 26m 54s | since last completion: 2m 19s
+[2026-02-09T16:19:08.149Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:19:08.149Z]   STUCK? No progress for 2m 19s (still 268 terminal, 5 processing)
+[2026-02-09T16:19:16.774Z] Status: 268 terminal, 5 processing | elapsed 27m 3s | since last completion: 2m 28s
+[2026-02-09T16:19:16.774Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:19:16.775Z]   STUCK? No progress for 2m 28s (still 268 terminal, 5 processing)
+[2026-02-09T16:19:25.465Z] Status: 268 terminal, 5 processing | elapsed 27m 11s | since last completion: 2m 37s
+[2026-02-09T16:19:25.465Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:19:25.465Z]   STUCK? No progress for 2m 37s (still 268 terminal, 5 processing)
+[2026-02-09T16:19:34.070Z] Status: 268 terminal, 5 processing | elapsed 27m 20s | since last completion: 2m 45s
+[2026-02-09T16:19:34.070Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:19:34.070Z]   STUCK? No progress for 2m 45s (still 268 terminal, 5 processing)
+[2026-02-09T16:19:43.057Z] Status: 268 terminal, 5 processing | elapsed 27m 29s | since last completion: 2m 54s
+[2026-02-09T16:19:43.057Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:19:43.058Z]   STUCK? No progress for 2m 54s (still 268 terminal, 5 processing)
+[2026-02-09T16:19:51.640Z] Status: 268 terminal, 5 processing | elapsed 27m 38s | since last completion: 3m 3s
+[2026-02-09T16:19:51.641Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:19:51.641Z]   STUCK? No progress for 3m 3s (still 268 terminal, 5 processing)
+[2026-02-09T16:20:00.659Z] Status: 268 terminal, 5 processing | elapsed 27m 47s | since last completion: 3m 12s
+[2026-02-09T16:20:00.659Z]   Current: Deans Computer Services Ltd | https://deansplc.co.uk
+[2026-02-09T16:20:00.659Z]   STUCK? No progress for 3m 12s (still 268 terminal, 5 processing)

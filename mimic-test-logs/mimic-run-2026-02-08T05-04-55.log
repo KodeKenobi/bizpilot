@@ -1,0 +1,136 @@
+Mimic test run started at 2026-02-08T05:04:55.879Z
+[2026-02-08T05:04:55.883Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T05-04-55.log
+[2026-02-08T05:04:55.894Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T05:05:00.439Z] Loading site and dismissing cookie modal...
+[2026-02-08T05:05:23.144Z] Cookie modal dismissed (Accept All)
+[2026-02-08T05:05:24.003Z] Filling login...
+[2026-02-08T05:05:31.250Z] Login OK
+[2026-02-08T05:05:31.269Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T05:05:41.306Z] Dashboard wait done.
+[2026-02-08T05:05:41.376Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T05:05:54.924Z] Usage: daily_limit=-1 daily_used=79 unlimited=true daily_remaining=N/A
+[2026-02-08T05:05:54.954Z] Navigating to campaign upload...
+[2026-02-08T05:06:23.525Z] Upload OK
+[2026-02-08T05:06:31.808Z] Navigate to create OK
+[2026-02-08T05:06:41.582Z] Campaign created: 186
+[2026-02-08T05:06:43.634Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/186
+[2026-02-08T05:06:45.443Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-08T05:06:51.690Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-08T05:06:59.901Z] Started processing 2000 companies...
+[2026-02-08T05:07:01.081Z] [Stream] Campaign started – total companies: 1070
+[2026-02-08T05:07:01.093Z] [Stream] Now processing: 2020 Innovation | 107223
+[2026-02-08T05:07:09.639Z] [Stream] [2020 Innovation] [info] Navigation: Opening https://2020innovation.com...
+[2026-02-08T05:07:09.708Z] Status: 0 terminal, 1 processing | elapsed 10s | since last completion: 10s
+[2026-02-08T05:07:09.710Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T05:07:14.903Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("OK")
+[2026-02-08T05:07:16.431Z] [Stream] [2020 Innovation] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T05:07:17.329Z] [Stream] [2020 Innovation] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-08T05:07:18.524Z] Status: 0 terminal, 1 processing | elapsed 19s | since last completion: 19s
+[2026-02-08T05:07:18.532Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T05:07:19.502Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("Decline")
+[2026-02-08T05:07:27.282Z] Status: 0 terminal, 1 processing | elapsed 27s | since last completion: 27s
+[2026-02-08T05:07:27.285Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T05:07:28.409Z] [Stream] [2020 Innovation] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-08T05:07:30.008Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("OK")
+[2026-02-08T05:07:30.508Z] [Stream] [2020 Innovation] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T05:07:31.319Z] [Stream] [2020 Innovation] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T05:07:31.333Z] [Stream] [2020 Innovation] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T05:07:31.379Z] [Stream] [2020 Innovation] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T05:07:31.762Z] [Stream] [2020 Innovation] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-08T05:07:31.766Z] [Stream] [2020 Innovation] [info] Testing Link: Link 1: contact (
+[2026-02-08T05:07:32.684Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("OK")
+[2026-02-08T05:07:33.041Z] [Stream] [2020 Innovation] [info] Contact Page: Loading contact page…
+[2026-02-08T05:07:33.835Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-08T05:07:34.515Z] [Stream] [2020 Innovation] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-08T05:07:34.942Z] [Stream] [2020 Innovation] [success] Form in iframe: Found form in frame 1 on contact page
+[2026-02-08T05:07:35.082Z] [Stream] [2020 Innovation] [info] Form Filling: Starting iframe fill on contact_page_frame_1
+[2026-02-08T05:07:36.107Z] Status: 0 terminal, 1 processing | elapsed 36s | since last completion: 36s
+[2026-02-08T05:07:36.109Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T05:07:37.297Z] [Stream] [2020 Innovation] [info] Form Filling: Extracted 9 fields from this form; filling by mapping
+[2026-02-08T05:07:37.308Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: first_name: name="firstname" label="First Name*"
+[2026-02-08T05:07:37.323Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: last_name: name="lastname" label="Last Name*"
+[2026-02-08T05:07:37.350Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: email: name="email" label="Email*"
+[2026-02-08T05:07:37.364Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: phone: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*"
+[2026-02-08T05:07:37.374Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: full_name: name="company" label="Company name*"
+[2026-02-08T05:07:37.391Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: checkbox_option: name="enquiry_type" label="Member Support"
+[2026-02-08T05:07:37.409Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: message: name="message" label="Message*"
+[2026-02-08T05:07:38.957Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: phone: name="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label=""
+[2026-02-08T05:07:38.979Z] [Stream] [2020 Innovation] [info] Form Fields Extracted: [contact_page_frame_1] 9 field(s) — name, id, label, type, tag, required
+[2026-02-08T05:07:38.988Z] [Stream] [2020 Innovation] [info] Field: name="firstname" id="firstname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="First Name*" type=text tag=input required=True
+[2026-02-08T05:07:39.000Z] [Stream] [2020 Innovation] [info] Field: name="lastname" id="lastname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Last Name*" type=text tag=input required=True
+[2026-02-08T05:07:39.018Z] [Stream] [2020 Innovation] [info] Field: name="email" id="email-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Email*" type=email tag=input required=True
+[2026-02-08T05:07:39.024Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" type=tel tag=input required=True
+[2026-02-08T05:07:39.034Z] [Stream] [2020 Innovation] [info] Field: name="company" id="company-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Company name*" type=text tag=input required=True
+[2026-02-08T05:07:39.048Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type0-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Member Support" type=checkbox tag=input required=False
+[2026-02-08T05:07:39.051Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type1-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Sales" type=checkbox tag=input required=False
+[2026-02-08T05:07:39.054Z] [Stream] [2020 Innovation] [info] Field: name="message" id="message-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Message*" type=text tag=textarea required=True
+[2026-02-08T05:07:39.057Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="" type=select tag=select required=True
+[2026-02-08T05:07:39.060Z] [Stream] [2020 Innovation] [info] Form Fields Filled: [contact_page_frame_1] 8 field(s) — name/id, label, role, value
+[2026-02-08T05:07:39.066Z] [Stream] [2020 Innovation] [info] Filled: name="firstname" label="First Name*" role=first_name value="Test"
+[2026-02-08T05:07:39.084Z] [Stream] [2020 Innovation] [info] Filled: name="lastname" label="Last Name*" role=last_name value="User"
+[2026-02-08T05:07:39.087Z] [Stream] [2020 Innovation] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-08T05:07:39.090Z] [Stream] [2020 Innovation] [info] Filled: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" role=phone value="+27123456789"
+[2026-02-08T05:07:39.094Z] [Stream] [2020 Innovation] [info] Filled: name="company" label="Company name*" role=full_name value="Test User"
+[2026-02-08T05:07:39.097Z] [Stream] [2020 Innovation] [info] Filled: name="enquiry_type" label="Member Support" role=checkbox_option value="checked"
+[2026-02-08T05:07:39.100Z] [Stream] [2020 Innovation] [info] Filled: name="message" label="Message*" role=message value="Hello, this is a test."
+[2026-02-08T05:07:39.106Z] [Stream] [2020 Innovation] [info] Filled: name="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="" role=phone value="South Africa"
+[2026-02-08T05:07:39.120Z] [Stream] [2020 Innovation] [info] Form Fields Left Unsatisfied: [contact_page_frame_1] 0 field(s) — not filled
+[2026-02-08T05:07:40.223Z] [Stream] [2020 Innovation] [info] Submitting: Clicking submit button
+[2026-02-08T05:07:41.279Z] [Stream] [2020 Innovation] [success] Form Processed: Filled 8 fields (extract-then-fill) and submitted
+[2026-02-08T05:07:43.995Z] [Stream] Now processing: 3 Line Electrical Wholesale Ltd. | 107224
+[2026-02-08T05:07:44.707Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-08T05:07:44.809Z] Progress: 1 terminal (one just finished; 45s since previous) | elapsed 45s
+[2026-02-08T05:07:44.811Z] Status: 1 terminal, 1 processing | elapsed 45s | since last completion: 45s
+[2026-02-08T05:07:44.812Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T05:07:44.814Z]   Failed (new): 2020 Innovation | https://2020innovation.com | Instance <Company at 0x7f749f7d7810> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T05:07:45.686Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T05:07:46.745Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-08T05:07:53.834Z] Status: 1 terminal, 1 processing | elapsed 54s | since last completion: 9s
+[2026-02-08T05:07:53.840Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T05:07:55.738Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-08T05:07:56.355Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T05:07:57.207Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T05:07:57.213Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T05:07:57.316Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T05:07:57.606Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-08T05:07:57.609Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-08T05:07:58.101Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-08T05:08:02.683Z] Status: 1 terminal, 1 processing | elapsed 1m 3s | since last completion: 18s
+[2026-02-08T05:08:02.689Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T05:08:06.717Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-08T05:08:06.721Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-08T05:08:07.115Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-08T05:08:07.335Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-08T05:08:07.636Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-08T05:08:07.641Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-08T05:08:07.653Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-08T05:08:08.998Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-08T05:08:10.213Z] [Stream] Now processing: 3 Line Electrical Wholesale Ltd. | 107225
+[2026-02-08T05:08:10.698Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-08T05:08:11.424Z] Progress: 2 terminal (one just finished; 27s since previous) | elapsed 1m 11s
+[2026-02-08T05:08:11.425Z] Status: 2 terminal, 1 processing | elapsed 1m 11s | since last completion: 27s
+[2026-02-08T05:08:11.426Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T05:08:11.427Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | Instance <Company at 0x7f749f03fd50> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T05:08:11.715Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-08T05:08:13.033Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-08T05:08:20.246Z] Status: 2 terminal, 1 processing | elapsed 1m 20s | since last completion: 9s
+[2026-02-08T05:08:20.247Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T05:08:21.712Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-08T05:08:22.359Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-08T05:08:23.201Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-08T05:08:23.208Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-08T05:08:23.284Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-08T05:08:23.667Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-08T05:08:23.671Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-08T05:08:24.269Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-08T05:08:29.158Z] Status: 2 terminal, 1 processing | elapsed 1m 29s | since last completion: 18s
+[2026-02-08T05:08:29.160Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T05:08:32.909Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-08T05:08:32.911Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-08T05:08:33.317Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-08T05:08:33.492Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-08T05:08:33.799Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-08T05:08:33.816Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-08T05:08:33.820Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-08T05:08:35.160Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-08T05:08:36.432Z] [Stream] Now processing: 4D modelshop Ltd | 107226

@@ -1,0 +1,78 @@
+Mimic test run started at 2026-02-07T18:07:23.786Z
+[2026-02-07T18:07:23.788Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-07T18-07-23.log
+[2026-02-07T18:07:23.794Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-07T18:07:26.992Z] Loading site and dismissing cookie modal...
+[2026-02-07T18:07:39.351Z] Cookie modal dismissed (Accept All)
+[2026-02-07T18:07:40.160Z] Filling login...
+[2026-02-07T18:07:49.258Z] Login OK
+[2026-02-07T18:07:49.260Z] Waiting 10s for dashboard to refresh...
+[2026-02-07T18:07:59.284Z] Dashboard wait done.
+[2026-02-07T18:07:59.319Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-07T18:08:01.731Z] Usage: daily_limit=-1 daily_used=149 unlimited=true daily_remaining=N/A
+[2026-02-07T18:08:01.732Z] Navigating to campaign upload...
+[2026-02-07T18:08:07.146Z] Upload OK
+[2026-02-07T18:08:09.415Z] Navigate to create OK
+[2026-02-07T18:08:17.295Z] Campaign created: 159
+[2026-02-07T18:08:19.311Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/159
+[2026-02-07T18:08:19.444Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-07T18:08:20.318Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-07T18:08:27.359Z] [Stream] Campaign started – total companies: 1070
+[2026-02-07T18:08:27.442Z] [Stream] Now processing: 2020 Innovation | 87967
+[2026-02-07T18:08:29.081Z] Started processing 2000 companies...
+[2026-02-07T18:08:29.615Z] [Stream] Completed: company_id=87967 status=failed progress=?%
+[2026-02-07T18:08:31.221Z] [Stream] Completed: company_id=87968 status=failed progress=?%
+[2026-02-07T18:08:32.275Z] [Stream] Completed: company_id=87969 status=failed progress=?%
+[2026-02-07T18:08:33.511Z] [Stream] Completed: company_id=87970 status=failed progress=?%
+[2026-02-07T18:08:34.643Z] [Stream] Completed: company_id=87971 status=failed progress=?%
+[2026-02-07T18:08:35.725Z] [Stream] Completed: company_id=87972 status=failed progress=?%
+[2026-02-07T18:08:37.116Z] [Stream] Completed: company_id=87973 status=failed progress=?%
+[2026-02-07T18:08:38.027Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 9s
+[2026-02-07T18:08:38.028Z] Status: 7 terminal, 1 processing | elapsed 9s | since last completion: 9s
+[2026-02-07T18:08:38.029Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-07T18:08:38.030Z]   Failed (new): 2020 Innovation | https://2020innovation.com | name 'time' is not defined
+[2026-02-07T18:08:38.031Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | name 'time' is not defined
+[2026-02-07T18:08:38.031Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | name 'time' is not defined
+[2026-02-07T18:08:38.032Z]   Failed (new): 4D modelshop Ltd | https://modelshop.co.uk | name 'time' is not defined
+[2026-02-07T18:08:38.032Z]   Failed (new): 7 Core Electrical Wholesale Ltd | https://7core.co.uk | name 'time' is not defined
+[2026-02-07T18:08:38.033Z]   Failed (new): 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk | name 'time' is not defined
+[2026-02-07T18:08:38.033Z]   Failed (new): A.W. Lymn The Family Funeral Service | https://lymn.co.uk | name 'time' is not defined
+[2026-02-07T18:08:38.402Z] [Stream] Completed: company_id=87974 status=failed progress=?%
+[2026-02-07T18:08:39.691Z] [Stream] Completed: company_id=87975 status=failed progress=?%
+[2026-02-07T18:08:40.861Z] [Stream] Completed: company_id=87976 status=failed progress=?%
+[2026-02-07T18:08:41.973Z] [Stream] Completed: company_id=87977 status=failed progress=1%
+[2026-02-07T18:08:43.388Z] [Stream] Completed: company_id=87978 status=failed progress=1%
+[2026-02-07T18:08:44.439Z] [Stream] Completed: company_id=87979 status=failed progress=1%
+[2026-02-07T18:08:45.446Z] [Stream] Completed: company_id=87980 status=failed progress=1%
+[2026-02-07T18:08:46.523Z] [Stream] Completed: company_id=87981 status=failed progress=1%
+[2026-02-07T18:08:47.123Z] Progress: 15 terminal (one just finished; 9s since previous) | elapsed 18s
+[2026-02-07T18:08:47.124Z] Status: 15 terminal, 0 processing | elapsed 18s | since last completion: 9s
+[2026-02-07T18:08:47.126Z]   Failed (new): übbs pouches | https://ubbspouches.com | name 'time' is not defined
+[2026-02-07T18:08:47.126Z]   Failed (new): A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com | name 'time' is not defined
+[2026-02-07T18:08:47.127Z]   Failed (new): Aabyss | https://aabyss.uk | name 'time' is not defined
+[2026-02-07T18:08:47.127Z]   Failed (new): Abbey DLD Group of Colleges | https://abbeycolleges.co.uk | name 'time' is not defined
+[2026-02-07T18:08:47.128Z]   Failed (new): Abbey Multi Academy Trust | https://abbeymat.co.uk | name 'time' is not defined
+[2026-02-07T18:08:47.129Z]   Failed (new): Able Training Support Ltd. | https://able-training.co.uk | name 'time' is not defined
+[2026-02-07T18:08:47.129Z]   Failed (new): Abodus Student Living | https://abodusstudents.com | name 'time' is not defined
+[2026-02-07T18:08:47.130Z]   Failed (new): Abundance Investment | https://abundanceinvestment.com | name 'time' is not defined
+[2026-02-07T18:08:47.791Z] [Stream] Completed: company_id=87982 status=failed progress=1%
+[2026-02-07T18:08:49.278Z] [Stream] Completed: company_id=87983 status=failed progress=1%
+[2026-02-07T18:08:50.344Z] [Stream] Completed: company_id=87984 status=failed progress=1%
+[2026-02-07T18:08:51.398Z] [Stream] Completed: company_id=87985 status=failed progress=1%
+[2026-02-07T18:08:52.650Z] [Stream] Completed: company_id=87986 status=failed progress=1%
+[2026-02-07T18:08:53.548Z] [Stream] Completed: company_id=87987 status=failed progress=1%
+[2026-02-07T18:08:54.950Z] [Stream] Completed: company_id=87988 status=failed progress=2%
+[2026-02-07T18:08:56.277Z] [Stream] Completed: company_id=87989 status=failed progress=2%
+[2026-02-07T18:08:56.944Z] Progress: 22 terminal (one just finished; 10s since previous) | elapsed 28s
+[2026-02-07T18:08:56.946Z] Status: 22 terminal, 1 processing | elapsed 28s | since last completion: 10s
+[2026-02-07T18:08:56.948Z]   Current: ACE Training - Construction Centre | https://acetraining.co.uk
+[2026-02-07T18:08:56.949Z]   Failed (new): ACAI Outdoorwear | https://acaioutdoorwear.com | name 'time' is not defined
+[2026-02-07T18:08:56.950Z]   Failed (new): Acasta Europe Ltd | https://acastaeurope.co.uk | name 'time' is not defined
+[2026-02-07T18:08:56.952Z]   Failed (new): Accelerate ME | https://accelerateme.co | name 'time' is not defined
+[2026-02-07T18:08:56.953Z]   Failed (new): AccelerComm Ltd | https://accelercomm.com | name 'time' is not defined
+[2026-02-07T18:08:56.954Z]   Failed (new): Accident Credit Group Ltd | https://acg.co.uk | name 'time' is not defined
+[2026-02-07T18:08:56.954Z]   Failed (new): Accommodation for Students | https://accommodationforstudents.com | name 'time' is not defined
+[2026-02-07T18:08:56.955Z]   Failed (new): Accountants Plus | https://accountantsplus.net | name 'time' is not defined
+[2026-02-07T18:08:57.556Z] [Stream] Completed: company_id=87990 status=failed progress=2%
+[2026-02-07T18:08:58.733Z] [Stream] Completed: company_id=87991 status=failed progress=2%
+[2026-02-07T18:08:59.758Z] [Stream] Completed: company_id=87992 status=failed progress=2%
+[2026-02-07T18:09:01.197Z] [Stream] Completed: company_id=87993 status=failed progress=2%

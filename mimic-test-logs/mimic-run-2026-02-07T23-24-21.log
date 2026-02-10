@@ -1,0 +1,36 @@
+Mimic test run started at 2026-02-07T23:24:21.583Z
+[2026-02-07T23:24:21.585Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-07T23-24-21.log
+[2026-02-07T23:24:21.592Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-07T23:24:24.209Z] Loading site and dismissing cookie modal...
+[2026-02-07T23:24:30.815Z] Cookie modal dismissed (Accept All)
+[2026-02-07T23:24:31.636Z] Filling login...
+[2026-02-07T23:24:39.208Z] Login OK
+[2026-02-07T23:24:39.209Z] Waiting 10s for dashboard to refresh...
+[2026-02-07T23:24:49.213Z] Dashboard wait done.
+[2026-02-07T23:24:49.236Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-07T23:24:51.697Z] Usage: daily_limit=-1 daily_used=1339 unlimited=true daily_remaining=N/A
+[2026-02-07T23:24:51.698Z] Navigating to campaign upload...
+[2026-02-07T23:24:56.123Z] Upload OK
+[2026-02-07T23:24:58.628Z] Navigate to create OK
+[2026-02-07T23:25:04.244Z] Campaign created: 169
+[2026-02-07T23:25:06.253Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/169
+[2026-02-07T23:25:06.367Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-07T23:25:07.056Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-07T23:25:16.128Z] Started processing 2000 companies...
+[2026-02-07T23:25:24.996Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T23:25:24.997Z] Status: 0 terminal, 0 processing | elapsed 9s | since last completion: 9s
+[2026-02-07T23:25:33.664Z] Status: 0 terminal, 0 processing | elapsed 18s | since last completion: 18s
+[2026-02-07T23:25:42.286Z] Status: 0 terminal, 0 processing | elapsed 26s | since last completion: 26s
+[2026-02-07T23:25:50.940Z] Status: 0 terminal, 0 processing | elapsed 35s | since last completion: 35s
+[2026-02-07T23:25:59.723Z] Status: 0 terminal, 0 processing | elapsed 44s | since last completion: 44s
+[2026-02-07T23:26:08.379Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T23:26:08.380Z] Status: 0 terminal, 0 processing | elapsed 52s | since last completion: 52s
+[2026-02-07T23:26:17.079Z] Status: 0 terminal, 0 processing | elapsed 1m 1s | since last completion: 1m 1s
+[2026-02-07T23:26:25.874Z] Status: 0 terminal, 0 processing | elapsed 1m 10s | since last completion: 1m 10s
+[2026-02-07T23:26:34.573Z] Status: 0 terminal, 0 processing | elapsed 1m 18s | since last completion: 1m 18s
+[2026-02-07T23:26:43.272Z] Status: 0 terminal, 0 processing | elapsed 1m 27s | since last completion: 1m 27s
+[2026-02-07T23:26:52.030Z] Status: 0 terminal, 0 processing | elapsed 1m 36s | since last completion: 1m 36s
+[2026-02-07T23:27:00.746Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-07T23:27:00.747Z] Status: 0 terminal, 0 processing | elapsed 1m 45s | since last completion: 1m 45s
+[2026-02-07T23:27:09.459Z] Status: 0 terminal, 0 processing | elapsed 1m 53s | since last completion: 1m 53s
+[2026-02-07T23:27:17.471Z] Page/context closed; continuing to poll in background (processing continues on server).

@@ -1,0 +1,7 @@
+Mimic test run started at 2026-02-09T17:31:05.176Z
+[2026-02-09T17:31:05.176Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-09T17-31-05.log
+[2026-02-09T17:31:05.178Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-09T17:31:15.393Z] Loading site and dismissing cookie modal...
+[2026-02-09T17:31:19.844Z] Cookie modal dismissed (Accept All)
+[2026-02-09T17:31:20.651Z] Filling login...
+[2026-02-09T17:31:42.327Z] Error: Login failed: still on login page

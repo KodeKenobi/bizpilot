@@ -1,0 +1,34 @@
+Mimic test run started at 2026-02-09T10:45:46.460Z
+[2026-02-09T10:45:46.460Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-09T10-45-46.log
+[2026-02-09T10:45:46.463Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-09T10:45:47.433Z] Loading site and dismissing cookie modal...
+[2026-02-09T10:45:59.319Z] Cookie modal dismissed (Accept All)
+[2026-02-09T10:46:00.124Z] Filling login...
+[2026-02-09T10:46:08.484Z] Login OK
+[2026-02-09T10:46:08.485Z] Waiting 10s for dashboard to refresh...
+[2026-02-09T10:46:18.490Z] Dashboard wait done.
+[2026-02-09T10:46:18.512Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-09T10:46:19.736Z] Usage: daily_limit=-1 daily_used=610 unlimited=true daily_remaining=N/A
+[2026-02-09T10:46:19.736Z] Navigating to campaign upload...
+[2026-02-09T10:46:23.715Z] Upload OK
+[2026-02-09T10:46:26.109Z] Navigate to create OK
+[2026-02-09T10:46:30.124Z] Campaign created: d3EQvU-g
+[2026-02-09T10:46:32.141Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/d3EQvU-g
+[2026-02-09T10:46:32.222Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-09T10:46:32.906Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-09T10:46:34.199Z] --skip-submit: set flag and clicking Start (fill forms but do not submit).
+[2026-02-09T10:46:38.259Z] Started processing 2000 companies...
+[2026-02-09T10:46:47.204Z] Status: 0 terminal, 3 processing | elapsed 9s | since last completion: 9s
+[2026-02-09T10:46:47.204Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T10:46:55.923Z] Status: 0 terminal, 3 processing | elapsed 18s | since last completion: 18s
+[2026-02-09T10:46:55.923Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-09T10:47:04.636Z] Progress: 3 terminal (one just finished; 26s since previous) | elapsed 26s
+[2026-02-09T10:47:04.636Z] Status: 3 terminal, 0 processing | elapsed 26s | since last completion: 26s
+[2026-02-09T10:47:04.637Z]   Failed (new): 2020 Innovation | https://2020innovation.com | Expecting value: line 1 column 1 (char 0)
+[2026-02-09T10:47:04.638Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | Expecting value: line 1 column 1 (char 0)
+[2026-02-09T10:47:04.638Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | Expecting value: line 1 column 1 (char 0)
+[2026-02-09T10:47:13.338Z] Status: 3 terminal, 0 processing | elapsed 35s | since last completion: 9s
+[2026-02-09T10:47:22.255Z] Status: 3 terminal, 0 processing | elapsed 44s | since last completion: 18s
+[2026-02-09T10:47:31.073Z] Status: 3 terminal, 0 processing | elapsed 53s | since last completion: 26s
+[2026-02-09T10:47:40.003Z] Status: 3 terminal, 0 processing | elapsed 1m 2s | since last completion: 35s
+[2026-02-09T10:47:48.729Z] Status: 3 terminal, 0 processing | elapsed 1m 10s | since last completion: 44s

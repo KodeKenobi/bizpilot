@@ -1,0 +1,45 @@
+Mimic test run started at 2026-02-08T08:32:43.552Z
+[2026-02-08T08:32:43.553Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T08-32-43.log
+[2026-02-08T08:32:43.556Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T08:32:45.830Z] Loading site and dismissing cookie modal...
+[2026-02-08T08:32:52.609Z] Cookie modal dismissed (Accept All)
+[2026-02-08T08:32:53.422Z] Filling login...
+[2026-02-08T08:33:01.632Z] Login OK
+[2026-02-08T08:33:01.634Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T08:33:11.642Z] Dashboard wait done.
+[2026-02-08T08:33:11.676Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T08:33:14.327Z] Usage: daily_limit=-1 daily_used=782 unlimited=true daily_remaining=N/A
+[2026-02-08T08:33:14.329Z] Navigating to campaign upload...
+[2026-02-08T08:33:18.452Z] Upload OK
+[2026-02-08T08:33:19.199Z] Navigate to create OK
+[2026-02-08T08:33:51.735Z] Create campaign FAILED or timed out. URL: https://www.trevnoctilla.com/campaigns/create
+[2026-02-08T08:33:51.737Z] Page error message: (psycopg2.errors.UndefinedColumn) column "public_id" of relation "campaigns" does not exist
+LINE 1: INSERT INTO campaigns (public_id, user_id, session_id, name,...
+                               ^
+
+[SQL: INSERT INTO campaigns (public_id, user_id, session_id, name, message_template, status, spreadsheet_filename, spreadsheet_path, total_companies, processed_count, success_count, failed_count, captcha_count, created_at, started_at, completed_at, last_heartbeat_at) VALUES (%(public_id)s, %(user_id)s, %(session_id)s, %(name)s, %(message_template)s, %(status)s, %(spreadsheet_filename)s, %(spreadsheet_path)s, %(total_companies)s, %(processed_count)s, %(success_count)s, %(failed_count)s, %(captcha_count)s, %(created_at)s, %(started_at)s, %(completed_at)s, %(last_heartbeat_at)s) RETURNING campaigns.id]
+[parameters: {'public_id': 'W8VWkCtk', 'user_id': '94', 'session_id': None, 'name': 'Mimic Test 1770539599305', 'message_template': '{"sender_name":"Test User","sender_first_name":"Test","sender_last_name":"User","sender_email":"test@example.com","sender_phone":"+27123456789","send ... (28 characters truncated) ... r_country":"South Africa","sender_address":"123 Test St","subject":"Partnership","message":"Hello, this is a test.","email_found_when_no_form":false}', 'status': 'draft', 'spreadsheet_filename': None, 'spreadsheet_path': None, 'total_companies': 1070, 'processed_count': 0, 'success_count': 0, 'failed_count': 0, 'captcha_count': 0, 'created_at': datetime.datetime(2026, 2, 8, 8, 33, 23, 120234), 'started_at': None, 'completed_at': None, 'last_heartbeat_at': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+[2026-02-08T08:33:51.743Z] Page snippet (first 500 chars): Trevnoctilla
+Home
+Tools
+Video Converter
+Audio Converter
+Image Converter
+PDF Tools
+QR Generator
+Campaigns
+API
+← Back
+Create Campaign
+
+1070 companies ready • Fill in your details and message
+
+(psycopg2.errors.UndefinedColumn) column "public_id" of relation "campaigns" does not exist LINE 1: INSERT INTO campaigns (public_id, user_id, session_id, name,... ^ [SQL: INSERT INTO campaigns (public_id, user_id, session_id, name, message_template, status, spreadsheet_filename, spreadsheet_path, total_compa
+[2026-02-08T08:33:51.744Z] Error: Create campaign did not redirect to campaign page: (psycopg2.errors.UndefinedColumn) column "public_id" of relation "campaigns" does not exist
+LINE 1: INSERT INTO campaigns (public_id, user_id, session_id, name,...
+                               ^
+
+[SQL: INSERT INTO campaigns (public_id, user_id, session_id, name, message_template, status, spreadsheet_filename, spreadsheet_path, total_companies, processed_count, success_count, failed_count, captcha_count, created_at, started_at, completed_at, last_heartbeat_at) VALUES (%(public_id)s, %(user_id)s, %(session_id)s, %(name)s, %(message_template)s, %(status)s, %(spreadsheet_filename)s, %(spreadsheet_path)s, %(total_companies)s, %(processed_count)s, %(success_count)s, %(failed_count)s, %(captcha_count)s, %(created_at)s, %(started_at)s, %(completed_at)s, %(last_heartbeat_at)s) RETURNING campaigns.id]
+[parameters: {'public_id': 'W8VWkCtk', 'user_id': '94', 'session_id': None, 'name': 'Mimic Test 1770539599305', 'message_template': '{"sender_name":"Test User","sender_first_name":"Test","sender_last_name":"User","sender_email":"test@example.com","sender_phone":"+27123456789","send ... (28 characters truncated) ... r_country":"South Africa","sender_address":"123 Test St","subject":"Partnership","message":"Hello, this is a test.","email_found_when_no_form":false}', 'status': 'draft', 'spreadsheet_filename': None, 'spreadsheet_path': None, 'total_companies': 1070, 'processed_count': 0, 'success_count': 0, 'failed_count': 0, 'captcha_count': 0, 'created_at': datetime.datetime(2026, 2, 8, 8, 33, 23, 120234), 'started_at': None, 'completed_at': None, 'last_heartbeat_at': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)

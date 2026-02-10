@@ -1,0 +1,1765 @@
+Mimic test run started at 2026-02-08T14:51:33.721Z
+[2026-02-08T14:51:33.723Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T14-51-33.log
+[2026-02-08T14:51:33.726Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T14:51:36.006Z] Loading site and dismissing cookie modal...
+[2026-02-08T14:51:48.183Z] Cookie modal dismissed (Accept All)
+[2026-02-08T14:51:48.999Z] Filling login...
+[2026-02-08T14:51:56.505Z] Login OK
+[2026-02-08T14:51:56.506Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T14:52:06.513Z] Dashboard wait done.
+[2026-02-08T14:52:06.547Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T14:52:08.323Z] Usage: daily_limit=-1 daily_used=336 unlimited=true daily_remaining=N/A
+[2026-02-08T14:52:08.324Z] Navigating to campaign upload...
+[2026-02-08T14:52:12.486Z] Upload OK
+[2026-02-08T14:52:13.305Z] Navigate to create OK
+[2026-02-08T14:52:17.885Z] Campaign created: Go3Ok9Us
+[2026-02-08T14:52:19.898Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/Go3Ok9Us
+[2026-02-08T14:52:20.010Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-08T14:52:20.365Z] --skip-submit: set flag and clicking Start (fill forms but do not submit).
+[2026-02-08T14:52:20.588Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-08T14:52:22.642Z] Started processing 2000 companies...
+[2026-02-08T14:52:31.466Z] Status: 0 terminal, 5 processing | elapsed 9s | since last completion: 9s
+[2026-02-08T14:52:31.467Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T14:52:40.221Z] Progress: 2 terminal (one just finished; 18s since previous) | elapsed 18s
+[2026-02-08T14:52:40.222Z] Status: 2 terminal, 5 processing | elapsed 18s | since last completion: 18s
+[2026-02-08T14:52:40.223Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T14:52:48.748Z] Progress: 5 terminal (one just finished; 9s since previous) | elapsed 26s
+[2026-02-08T14:52:48.749Z] Status: 5 terminal, 5 processing | elapsed 26s | since last completion: 9s
+[2026-02-08T14:52:48.750Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-08T14:52:57.562Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 35s
+[2026-02-08T14:52:57.563Z] Status: 7 terminal, 5 processing | elapsed 35s | since last completion: 9s
+[2026-02-08T14:52:57.564Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T14:53:06.524Z] Progress: 8 terminal (one just finished; 9s since previous) | elapsed 44s
+[2026-02-08T14:53:06.526Z] Status: 8 terminal, 5 processing | elapsed 44s | since last completion: 9s
+[2026-02-08T14:53:06.527Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T14:53:15.278Z] Status: 8 terminal, 5 processing | elapsed 53s | since last completion: 9s
+[2026-02-08T14:53:15.279Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T14:53:23.991Z] Progress: 11 terminal (one just finished; 17s since previous) | elapsed 1m 1s
+[2026-02-08T14:53:23.992Z] Status: 11 terminal, 5 processing | elapsed 1m 1s | since last completion: 17s
+[2026-02-08T14:53:23.993Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T14:53:32.722Z] Progress: 12 terminal (one just finished; 9s since previous) | elapsed 1m 10s
+[2026-02-08T14:53:32.723Z] Status: 12 terminal, 5 processing | elapsed 1m 10s | since last completion: 9s
+[2026-02-08T14:53:32.723Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T14:53:41.354Z] Status: 12 terminal, 5 processing | elapsed 1m 19s | since last completion: 9s
+[2026-02-08T14:53:41.355Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T14:53:50.349Z] Progress: 16 terminal (one just finished; 18s since previous) | elapsed 1m 28s
+[2026-02-08T14:53:50.350Z] Status: 16 terminal, 5 processing | elapsed 1m 28s | since last completion: 18s
+[2026-02-08T14:53:50.350Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T14:53:58.961Z] Progress: 17 terminal (one just finished; 9s since previous) | elapsed 1m 36s
+[2026-02-08T14:53:58.962Z] Status: 17 terminal, 5 processing | elapsed 1m 36s | since last completion: 9s
+[2026-02-08T14:53:58.963Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T14:54:07.653Z] Status: 17 terminal, 5 processing | elapsed 1m 45s | since last completion: 9s
+[2026-02-08T14:54:07.654Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T14:54:16.270Z] Progress: 18 terminal (one just finished; 17s since previous) | elapsed 1m 54s
+[2026-02-08T14:54:16.271Z] Status: 18 terminal, 5 processing | elapsed 1m 54s | since last completion: 17s
+[2026-02-08T14:54:16.272Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T14:54:24.926Z] Progress: 20 terminal (one just finished; 9s since previous) | elapsed 2m 2s
+[2026-02-08T14:54:24.927Z] Status: 20 terminal, 5 processing | elapsed 2m 2s | since last completion: 9s
+[2026-02-08T14:54:24.928Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T14:54:24.929Z]   Failed (new): übbs pouches | https://ubbspouches.com | Request timed out. Try again or skip.
+[2026-02-08T14:54:33.566Z] Progress: 21 terminal (one just finished; 9s since previous) | elapsed 2m 11s
+[2026-02-08T14:54:33.567Z] Status: 21 terminal, 5 processing | elapsed 2m 11s | since last completion: 9s
+[2026-02-08T14:54:33.573Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T14:54:42.192Z] Progress: 25 terminal (one just finished; 9s since previous) | elapsed 2m 20s
+[2026-02-08T14:54:42.193Z] Status: 25 terminal, 5 processing | elapsed 2m 20s | since last completion: 9s
+[2026-02-08T14:54:42.193Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T14:54:50.817Z] Progress: 27 terminal (one just finished; 9s since previous) | elapsed 2m 28s
+[2026-02-08T14:54:50.818Z] Status: 27 terminal, 5 processing | elapsed 2m 28s | since last completion: 9s
+[2026-02-08T14:54:50.819Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T14:54:59.421Z] Status: 27 terminal, 5 processing | elapsed 2m 37s | since last completion: 9s
+[2026-02-08T14:54:59.422Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T14:55:08.026Z] Progress: 29 terminal (one just finished; 17s since previous) | elapsed 2m 45s
+[2026-02-08T14:55:08.027Z] Status: 29 terminal, 5 processing | elapsed 2m 45s | since last completion: 17s
+[2026-02-08T14:55:08.028Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:55:16.670Z] Status: 29 terminal, 5 processing | elapsed 2m 54s | since last completion: 9s
+[2026-02-08T14:55:16.671Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:55:25.203Z] Progress: 30 terminal (one just finished; 17s since previous) | elapsed 3m 3s
+[2026-02-08T14:55:25.218Z] Status: 30 terminal, 5 processing | elapsed 3m 3s | since last completion: 17s
+[2026-02-08T14:55:25.223Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:55:33.987Z] Status: 30 terminal, 5 processing | elapsed 3m 11s | since last completion: 9s
+[2026-02-08T14:55:33.988Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:55:42.969Z] Progress: 31 terminal (one just finished; 18s since previous) | elapsed 3m 20s
+[2026-02-08T14:55:42.970Z] Status: 31 terminal, 5 processing | elapsed 3m 20s | since last completion: 18s
+[2026-02-08T14:55:42.971Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:55:51.595Z] Progress: 35 terminal (one just finished; 9s since previous) | elapsed 3m 29s
+[2026-02-08T14:55:51.596Z] Status: 35 terminal, 5 processing | elapsed 3m 29s | since last completion: 9s
+[2026-02-08T14:55:51.597Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:56:00.497Z] Progress: 36 terminal (one just finished; 9s since previous) | elapsed 3m 38s
+[2026-02-08T14:56:00.498Z] Status: 36 terminal, 5 processing | elapsed 3m 38s | since last completion: 9s
+[2026-02-08T14:56:00.499Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:56:09.122Z] Status: 36 terminal, 5 processing | elapsed 3m 46s | since last completion: 9s
+[2026-02-08T14:56:09.123Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T14:56:17.752Z] Progress: 37 terminal (one just finished; 17s since previous) | elapsed 3m 55s
+[2026-02-08T14:56:17.752Z] Status: 37 terminal, 5 processing | elapsed 3m 55s | since last completion: 17s
+[2026-02-08T14:56:17.753Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-08T14:56:17.754Z]   Failed (new): Adapt Commercial Cleaning | https://adaptcommercialcleaning.com | Request timed out. Try again or skip.
+[2026-02-08T14:56:26.415Z] Status: 37 terminal, 5 processing | elapsed 4m 4s | since last completion: 9s
+[2026-02-08T14:56:26.416Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-08T14:56:35.043Z] Status: 37 terminal, 5 processing | elapsed 4m 12s | since last completion: 17s
+[2026-02-08T14:56:35.045Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-08T14:56:43.669Z] Progress: 38 terminal (one just finished; 26s since previous) | elapsed 4m 21s
+[2026-02-08T14:56:43.670Z] Status: 38 terminal, 5 processing | elapsed 4m 21s | since last completion: 26s
+[2026-02-08T14:56:43.671Z]   Current: Air Power Products Ltd | https://airpowerproducts.co.uk
+[2026-02-08T14:56:52.262Z] Status: 38 terminal, 5 processing | elapsed 4m 30s | since last completion: 9s
+[2026-02-08T14:56:52.262Z]   Current: Air Power Products Ltd | https://airpowerproducts.co.uk
+[2026-02-08T14:57:01.437Z] Progress: 40 terminal (one just finished; 18s since previous) | elapsed 4m 39s
+[2026-02-08T14:57:01.438Z] Status: 40 terminal, 4 processing | elapsed 4m 39s | since last completion: 18s
+[2026-02-08T14:57:01.439Z]   Current: Akoni Technologies | https://akonitechnologies.co.uk
+[2026-02-08T14:57:10.139Z] Progress: 43 terminal (one just finished; 9s since previous) | elapsed 4m 47s
+[2026-02-08T14:57:10.140Z] Status: 43 terminal, 5 processing | elapsed 4m 47s | since last completion: 9s
+[2026-02-08T14:57:10.141Z]   Current: Akoni Technologies | https://akonitechnologies.co.uk
+[2026-02-08T14:57:19.007Z] Progress: 46 terminal (one just finished; 9s since previous) | elapsed 4m 56s
+[2026-02-08T14:57:19.008Z] Status: 46 terminal, 5 processing | elapsed 4m 56s | since last completion: 9s
+[2026-02-08T14:57:19.009Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T14:57:27.647Z] Progress: 48 terminal (one just finished; 9s since previous) | elapsed 5m 5s
+[2026-02-08T14:57:27.648Z] Status: 48 terminal, 5 processing | elapsed 5m 5s | since last completion: 9s
+[2026-02-08T14:57:27.649Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T14:57:36.541Z] Status: 48 terminal, 5 processing | elapsed 5m 14s | since last completion: 9s
+[2026-02-08T14:57:36.542Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T14:57:45.156Z] Progress: 50 terminal (one just finished; 18s since previous) | elapsed 5m 23s
+[2026-02-08T14:57:45.157Z] Status: 50 terminal, 5 processing | elapsed 5m 23s | since last completion: 18s
+[2026-02-08T14:57:45.158Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T14:57:53.794Z] Progress: 51 terminal (one just finished; 9s since previous) | elapsed 5m 31s
+[2026-02-08T14:57:53.795Z] Status: 51 terminal, 5 processing | elapsed 5m 31s | since last completion: 9s
+[2026-02-08T14:57:53.796Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-08T14:58:02.724Z] Progress: 52 terminal (one just finished; 9s since previous) | elapsed 5m 40s
+[2026-02-08T14:58:02.725Z] Status: 52 terminal, 5 processing | elapsed 5m 40s | since last completion: 9s
+[2026-02-08T14:58:02.726Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-08T14:58:11.343Z] Progress: 55 terminal (one just finished; 9s since previous) | elapsed 5m 49s
+[2026-02-08T14:58:11.344Z] Status: 55 terminal, 5 processing | elapsed 5m 49s | since last completion: 9s
+[2026-02-08T14:58:11.345Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-08T14:58:19.915Z] Progress: 56 terminal (one just finished; 9s since previous) | elapsed 5m 57s
+[2026-02-08T14:58:19.916Z] Status: 56 terminal, 5 processing | elapsed 5m 57s | since last completion: 9s
+[2026-02-08T14:58:19.919Z]   Current: Antala Ltd. (DGE UK & Ireland) | https://antala.uk
+[2026-02-08T14:58:28.555Z] Progress: 57 terminal (one just finished; 9s since previous) | elapsed 6m 6s
+[2026-02-08T14:58:28.556Z] Status: 57 terminal, 5 processing | elapsed 6m 6s | since last completion: 9s
+[2026-02-08T14:58:28.557Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-08T14:58:37.310Z] Status: 57 terminal, 5 processing | elapsed 6m 15s | since last completion: 9s
+[2026-02-08T14:58:37.311Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-08T14:58:45.930Z] Progress: 61 terminal (one just finished; 17s since previous) | elapsed 6m 23s
+[2026-02-08T14:58:45.932Z] Status: 61 terminal, 5 processing | elapsed 6m 23s | since last completion: 17s
+[2026-02-08T14:58:45.932Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T14:58:54.930Z] Status: 61 terminal, 5 processing | elapsed 6m 32s | since last completion: 9s
+[2026-02-08T14:58:54.931Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T14:59:03.569Z] Progress: 63 terminal (one just finished; 18s since previous) | elapsed 6m 41s
+[2026-02-08T14:59:03.570Z] Status: 63 terminal, 5 processing | elapsed 6m 41s | since last completion: 18s
+[2026-02-08T14:59:03.570Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T14:59:12.340Z] Status: 63 terminal, 5 processing | elapsed 6m 50s | since last completion: 9s
+[2026-02-08T14:59:12.341Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T14:59:20.930Z] Status: 63 terminal, 5 processing | elapsed 6m 58s | since last completion: 17s
+[2026-02-08T14:59:20.931Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T14:59:29.669Z] Progress: 64 terminal (one just finished; 26s since previous) | elapsed 7m 7s
+[2026-02-08T14:59:29.670Z] Status: 64 terminal, 5 processing | elapsed 7m 7s | since last completion: 26s
+[2026-02-08T14:59:29.671Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T14:59:38.352Z] Progress: 65 terminal (one just finished; 9s since previous) | elapsed 7m 16s
+[2026-02-08T14:59:38.353Z] Status: 65 terminal, 5 processing | elapsed 7m 16s | since last completion: 9s
+[2026-02-08T14:59:38.354Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T14:59:47.114Z] Progress: 68 terminal (one just finished; 9s since previous) | elapsed 7m 24s
+[2026-02-08T14:59:47.115Z] Status: 68 terminal, 5 processing | elapsed 7m 24s | since last completion: 9s
+[2026-02-08T14:59:47.115Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T14:59:47.116Z]   Failed (new): Appetite for Business | Microsoft 365 | BCorp | https://appetite.business | Request timed out. Try again or skip.
+[2026-02-08T14:59:55.734Z] Progress: 69 terminal (one just finished; 9s since previous) | elapsed 7m 33s
+[2026-02-08T14:59:55.735Z] Status: 69 terminal, 5 processing | elapsed 7m 33s | since last completion: 9s
+[2026-02-08T14:59:55.736Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T15:00:04.708Z] Progress: 71 terminal (one just finished; 9s since previous) | elapsed 7m 42s
+[2026-02-08T15:00:04.709Z] Status: 71 terminal, 5 processing | elapsed 7m 42s | since last completion: 9s
+[2026-02-08T15:00:04.710Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T15:00:13.446Z] Status: 71 terminal, 5 processing | elapsed 7m 51s | since last completion: 9s
+[2026-02-08T15:00:13.447Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T15:00:22.849Z] Progress: 75 terminal (one just finished; 18s since previous) | elapsed 8m
+[2026-02-08T15:00:22.849Z] Status: 75 terminal, 5 processing | elapsed 8m | since last completion: 18s
+[2026-02-08T15:00:22.850Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T15:00:22.851Z]   Failed (new): Art Click | https://theartclick.com | Request timed out. Try again or skip.
+[2026-02-08T15:00:31.739Z] Status: 75 terminal, 5 processing | elapsed 8m 9s | since last completion: 9s
+[2026-02-08T15:00:31.740Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T15:00:40.645Z] Progress: 77 terminal (one just finished; 18s since previous) | elapsed 8m 18s
+[2026-02-08T15:00:40.646Z] Status: 77 terminal, 5 processing | elapsed 8m 18s | since last completion: 18s
+[2026-02-08T15:00:40.647Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T15:00:49.292Z] Progress: 78 terminal (one just finished; 9s since previous) | elapsed 8m 27s
+[2026-02-08T15:00:49.293Z] Status: 78 terminal, 5 processing | elapsed 8m 27s | since last completion: 9s
+[2026-02-08T15:00:49.294Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T15:00:58.210Z] Progress: 79 terminal (one just finished; 9s since previous) | elapsed 8m 36s
+[2026-02-08T15:00:58.211Z] Status: 79 terminal, 5 processing | elapsed 8m 36s | since last completion: 9s
+[2026-02-08T15:00:58.211Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T15:01:06.963Z] Progress: 82 terminal (one just finished; 9s since previous) | elapsed 8m 44s
+[2026-02-08T15:01:06.964Z] Status: 82 terminal, 5 processing | elapsed 8m 44s | since last completion: 9s
+[2026-02-08T15:01:06.965Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-08T15:01:15.731Z] Progress: 84 terminal (one just finished; 9s since previous) | elapsed 8m 53s
+[2026-02-08T15:01:15.732Z] Status: 84 terminal, 5 processing | elapsed 8m 53s | since last completion: 9s
+[2026-02-08T15:01:15.733Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-08T15:01:24.709Z] Progress: 85 terminal (one just finished; 9s since previous) | elapsed 9m 2s
+[2026-02-08T15:01:24.710Z] Status: 85 terminal, 5 processing | elapsed 9m 2s | since last completion: 9s
+[2026-02-08T15:01:24.710Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-08T15:01:33.507Z] Progress: 87 terminal (one just finished; 9s since previous) | elapsed 9m 11s
+[2026-02-08T15:01:33.508Z] Status: 87 terminal, 5 processing | elapsed 9m 11s | since last completion: 9s
+[2026-02-08T15:01:33.509Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:01:42.142Z] Status: 87 terminal, 5 processing | elapsed 9m 19s | since last completion: 9s
+[2026-02-08T15:01:42.143Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:01:51.141Z] Progress: 88 terminal (one just finished; 18s since previous) | elapsed 9m 28s
+[2026-02-08T15:01:51.142Z] Status: 88 terminal, 5 processing | elapsed 9m 28s | since last completion: 18s
+[2026-02-08T15:01:51.143Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:02:00.027Z] Progress: 92 terminal (one just finished; 9s since previous) | elapsed 9m 37s
+[2026-02-08T15:02:00.028Z] Status: 92 terminal, 5 processing | elapsed 9m 37s | since last completion: 9s
+[2026-02-08T15:02:00.029Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:02:09.030Z] Progress: 93 terminal (one just finished; 9s since previous) | elapsed 9m 46s
+[2026-02-08T15:02:09.031Z] Status: 93 terminal, 5 processing | elapsed 9m 46s | since last completion: 9s
+[2026-02-08T15:02:09.032Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:02:18.159Z] Progress: 95 terminal (one just finished; 9s since previous) | elapsed 9m 56s
+[2026-02-08T15:02:18.160Z] Status: 95 terminal, 5 processing | elapsed 9m 56s | since last completion: 9s
+[2026-02-08T15:02:18.161Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:02:27.002Z] Progress: 97 terminal (one just finished; 9s since previous) | elapsed 10m 4s
+[2026-02-08T15:02:27.003Z] Status: 97 terminal, 5 processing | elapsed 10m 4s | since last completion: 9s
+[2026-02-08T15:02:27.004Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:02:35.626Z] Progress: 99 terminal (one just finished; 9s since previous) | elapsed 10m 13s
+[2026-02-08T15:02:35.627Z] Status: 99 terminal, 5 processing | elapsed 10m 13s | since last completion: 9s
+[2026-02-08T15:02:35.628Z]   Current: Axcess Merchant Services | https://axcessms.com
+[2026-02-08T15:02:44.661Z] Progress: 103 terminal (one just finished; 9s since previous) | elapsed 10m 22s
+[2026-02-08T15:02:44.662Z] Status: 103 terminal, 5 processing | elapsed 10m 22s | since last completion: 9s
+[2026-02-08T15:02:44.663Z]   Current: BCRS Business Loans | https://bcrs.org.uk
+[2026-02-08T15:02:44.663Z]   Failed (new): Axcess Merchant Services | https://axcessms.com | Request timed out. Try again or skip.
+[2026-02-08T15:02:53.543Z] Progress: 105 terminal (one just finished; 9s since previous) | elapsed 10m 31s
+[2026-02-08T15:02:53.544Z] Status: 105 terminal, 5 processing | elapsed 10m 31s | since last completion: 9s
+[2026-02-08T15:02:53.545Z]   Current: Bedroq | https://bedroq.co.uk
+[2026-02-08T15:03:02.300Z] Progress: 106 terminal (one just finished; 9s since previous) | elapsed 10m 40s
+[2026-02-08T15:03:02.301Z] Status: 106 terminal, 5 processing | elapsed 10m 40s | since last completion: 9s
+[2026-02-08T15:03:02.301Z]   Current: Bedroq | https://bedroq.co.uk
+[2026-02-08T15:03:10.894Z] Progress: 109 terminal (one just finished; 9s since previous) | elapsed 10m 48s
+[2026-02-08T15:03:10.895Z] Status: 109 terminal, 5 processing | elapsed 10m 48s | since last completion: 9s
+[2026-02-08T15:03:10.895Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-08T15:03:19.620Z] Progress: 110 terminal (one just finished; 9s since previous) | elapsed 10m 57s
+[2026-02-08T15:03:19.622Z] Status: 110 terminal, 5 processing | elapsed 10m 57s | since last completion: 9s
+[2026-02-08T15:03:19.623Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-08T15:03:28.244Z] Status: 110 terminal, 5 processing | elapsed 11m 6s | since last completion: 9s
+[2026-02-08T15:03:28.244Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-08T15:03:37.171Z] Progress: 111 terminal (one just finished; 18s since previous) | elapsed 11m 15s
+[2026-02-08T15:03:37.181Z] Status: 111 terminal, 5 processing | elapsed 11m 15s | since last completion: 18s
+[2026-02-08T15:03:37.185Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-08T15:03:45.878Z] Progress: 113 terminal (one just finished; 9s since previous) | elapsed 11m 23s
+[2026-02-08T15:03:45.883Z] Status: 113 terminal, 5 processing | elapsed 11m 23s | since last completion: 9s
+[2026-02-08T15:03:45.888Z]   Current: Beyond Law Group | https://beyondlaw.com
+[2026-02-08T15:03:55.250Z] Progress: 115 terminal (one just finished; 9s since previous) | elapsed 11m 33s
+[2026-02-08T15:03:55.251Z] Status: 115 terminal, 5 processing | elapsed 11m 33s | since last completion: 9s
+[2026-02-08T15:03:55.252Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-08T15:04:03.857Z] Progress: 116 terminal (one just finished; 9s since previous) | elapsed 11m 41s
+[2026-02-08T15:04:03.858Z] Status: 116 terminal, 5 processing | elapsed 11m 41s | since last completion: 9s
+[2026-02-08T15:04:03.859Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-08T15:04:12.949Z] Progress: 117 terminal (one just finished; 9s since previous) | elapsed 11m 50s
+[2026-02-08T15:04:12.951Z] Status: 117 terminal, 5 processing | elapsed 11m 50s | since last completion: 9s
+[2026-02-08T15:04:12.952Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-08T15:04:21.604Z] Progress: 119 terminal (one just finished; 9s since previous) | elapsed 11m 59s
+[2026-02-08T15:04:21.605Z] Status: 119 terminal, 5 processing | elapsed 11m 59s | since last completion: 9s
+[2026-02-08T15:04:21.605Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-08T15:04:30.235Z] Progress: 121 terminal (one just finished; 9s since previous) | elapsed 12m 8s
+[2026-02-08T15:04:30.236Z] Status: 121 terminal, 5 processing | elapsed 12m 8s | since last completion: 9s
+[2026-02-08T15:04:30.236Z]   Current: Birdie Fortescue | https://birdiefortescue.co.uk
+[2026-02-08T15:04:38.857Z] Progress: 124 terminal (one just finished; 9s since previous) | elapsed 12m 16s
+[2026-02-08T15:04:38.858Z] Status: 124 terminal, 5 processing | elapsed 12m 16s | since last completion: 9s
+[2026-02-08T15:04:38.859Z]   Current: Boardwalk Property Co. | https://boardwalkpropertyco.com
+[2026-02-08T15:04:38.860Z]   Failed (new): Birdie Fortescue | https://birdiefortescue.co.uk | Request timed out. Try again or skip.
+[2026-02-08T15:04:47.456Z] Progress: 126 terminal (one just finished; 9s since previous) | elapsed 12m 25s
+[2026-02-08T15:04:47.457Z] Status: 126 terminal, 5 processing | elapsed 12m 25s | since last completion: 9s
+[2026-02-08T15:04:47.458Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T15:04:56.112Z] Progress: 129 terminal (one just finished; 9s since previous) | elapsed 12m 33s
+[2026-02-08T15:04:56.113Z] Status: 129 terminal, 5 processing | elapsed 12m 33s | since last completion: 9s
+[2026-02-08T15:04:56.114Z]   Current: boobydoo | https://boobydoo.co.uk
+[2026-02-08T15:05:04.796Z] Progress: 131 terminal (one just finished; 9s since previous) | elapsed 12m 42s
+[2026-02-08T15:05:04.797Z] Status: 131 terminal, 5 processing | elapsed 12m 42s | since last completion: 9s
+[2026-02-08T15:05:04.798Z]   Current: boobydoo | https://boobydoo.co.uk
+[2026-02-08T15:05:13.458Z] Progress: 132 terminal (one just finished; 9s since previous) | elapsed 12m 51s
+[2026-02-08T15:05:13.459Z] Status: 132 terminal, 5 processing | elapsed 12m 51s | since last completion: 9s
+[2026-02-08T15:05:13.459Z]   Current: boobydoo | https://boobydoo.co.uk
+[2026-02-08T15:05:22.120Z] Progress: 135 terminal (one just finished; 9s since previous) | elapsed 12m 59s
+[2026-02-08T15:05:22.122Z] Status: 135 terminal, 5 processing | elapsed 12m 59s | since last completion: 9s
+[2026-02-08T15:05:22.122Z]   Current: Brackenwood Windows | https://brackenwood.com
+[2026-02-08T15:05:30.992Z] Progress: 137 terminal (one just finished; 9s since previous) | elapsed 13m 8s
+[2026-02-08T15:05:30.993Z] Status: 137 terminal, 5 processing | elapsed 13m 8s | since last completion: 9s
+[2026-02-08T15:05:30.993Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-08T15:05:39.849Z] Progress: 140 terminal (one just finished; 9s since previous) | elapsed 13m 17s
+[2026-02-08T15:05:39.850Z] Status: 140 terminal, 5 processing | elapsed 13m 17s | since last completion: 9s
+[2026-02-08T15:05:39.851Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-08T15:05:48.997Z] Progress: 144 terminal (one just finished; 9s since previous) | elapsed 13m 26s
+[2026-02-08T15:05:48.998Z] Status: 144 terminal, 5 processing | elapsed 13m 26s | since last completion: 9s
+[2026-02-08T15:05:48.998Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-08T15:05:57.635Z] Status: 144 terminal, 5 processing | elapsed 13m 35s | since last completion: 9s
+[2026-02-08T15:05:57.636Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-08T15:06:06.726Z] Status: 144 terminal, 5 processing | elapsed 13m 44s | since last completion: 18s
+[2026-02-08T15:06:06.727Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-08T15:06:15.351Z] Progress: 147 terminal (one just finished; 26s since previous) | elapsed 13m 53s
+[2026-02-08T15:06:15.352Z] Status: 147 terminal, 5 processing | elapsed 13m 53s | since last completion: 26s
+[2026-02-08T15:06:15.352Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-08T15:06:24.000Z] Progress: 148 terminal (one just finished; 9s since previous) | elapsed 14m 1s
+[2026-02-08T15:06:24.001Z] Status: 148 terminal, 5 processing | elapsed 14m 1s | since last completion: 9s
+[2026-02-08T15:06:24.002Z]   Current: Bridgeall | https://bridgeall.com
+[2026-02-08T15:06:32.611Z] Progress: 150 terminal (one just finished; 9s since previous) | elapsed 14m 10s
+[2026-02-08T15:06:32.613Z] Status: 150 terminal, 5 processing | elapsed 14m 10s | since last completion: 9s
+[2026-02-08T15:06:32.613Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-08T15:06:41.215Z] Progress: 152 terminal (one just finished; 9s since previous) | elapsed 14m 19s
+[2026-02-08T15:06:41.216Z] Status: 152 terminal, 5 processing | elapsed 14m 19s | since last completion: 9s
+[2026-02-08T15:06:41.217Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-08T15:06:49.820Z] Progress: 154 terminal (one just finished; 9s since previous) | elapsed 14m 27s
+[2026-02-08T15:06:49.821Z] Status: 154 terminal, 5 processing | elapsed 14m 27s | since last completion: 9s
+[2026-02-08T15:06:49.821Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-08T15:06:58.465Z] Progress: 155 terminal (one just finished; 9s since previous) | elapsed 14m 36s
+[2026-02-08T15:06:58.466Z] Status: 155 terminal, 5 processing | elapsed 14m 36s | since last completion: 9s
+[2026-02-08T15:06:58.467Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-08T15:07:07.204Z] Progress: 156 terminal (one just finished; 9s since previous) | elapsed 14m 45s
+[2026-02-08T15:07:07.205Z] Status: 156 terminal, 5 processing | elapsed 14m 45s | since last completion: 9s
+[2026-02-08T15:07:07.206Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-08T15:07:16.109Z] Status: 156 terminal, 5 processing | elapsed 14m 53s | since last completion: 9s
+[2026-02-08T15:07:16.110Z]   Current: BuildLoan | https://buildloan.co.uk
+[2026-02-08T15:07:24.886Z] Progress: 157 terminal (one just finished; 18s since previous) | elapsed 15m 2s
+[2026-02-08T15:07:24.887Z] Status: 157 terminal, 5 processing | elapsed 15m 2s | since last completion: 18s
+[2026-02-08T15:07:24.887Z]   Current: Butterfly Data | https://butterflydata.co.uk
+[2026-02-08T15:07:33.494Z] Progress: 158 terminal (one just finished; 9s since previous) | elapsed 15m 11s
+[2026-02-08T15:07:33.495Z] Status: 158 terminal, 5 processing | elapsed 15m 11s | since last completion: 9s
+[2026-02-08T15:07:33.496Z]   Current: Butterfly Data | https://butterflydata.co.uk
+[2026-02-08T15:07:42.112Z] Progress: 160 terminal (one just finished; 9s since previous) | elapsed 15m 19s
+[2026-02-08T15:07:42.113Z] Status: 160 terminal, 5 processing | elapsed 15m 19s | since last completion: 9s
+[2026-02-08T15:07:42.114Z]   Current: Cabot Communications | https://cabot.co.uk
+[2026-02-08T15:07:42.115Z]   Failed (new): Butterfly Data | https://butterflydata.co.uk | Request timed out. Try again or skip.
+[2026-02-08T15:07:50.744Z] Progress: 161 terminal (one just finished; 9s since previous) | elapsed 15m 28s
+[2026-02-08T15:07:50.745Z] Status: 161 terminal, 5 processing | elapsed 15m 28s | since last completion: 9s
+[2026-02-08T15:07:50.745Z]   Current: Cabot Communications | https://cabot.co.uk
+[2026-02-08T15:07:59.396Z] Progress: 162 terminal (one just finished; 9s since previous) | elapsed 15m 37s
+[2026-02-08T15:07:59.397Z] Status: 162 terminal, 5 processing | elapsed 15m 37s | since last completion: 9s
+[2026-02-08T15:07:59.398Z]   Current: Cabot Communications | https://cabot.co.uk
+[2026-02-08T15:08:08.042Z] Progress: 164 terminal (one just finished; 9s since previous) | elapsed 15m 45s
+[2026-02-08T15:08:08.043Z] Status: 164 terminal, 5 processing | elapsed 15m 45s | since last completion: 9s
+[2026-02-08T15:08:08.044Z]   Current: Cambridge Support | https://cambridgesupport.com
+[2026-02-08T15:08:08.044Z]   Failed (new): Cabot Communications | https://cabot.co.uk | Request timed out. Try again or skip.
+[2026-02-08T15:08:16.689Z] Progress: 165 terminal (one just finished; 9s since previous) | elapsed 15m 54s
+[2026-02-08T15:08:16.690Z] Status: 165 terminal, 5 processing | elapsed 15m 54s | since last completion: 9s
+[2026-02-08T15:08:16.691Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-08T15:08:25.223Z] Progress: 167 terminal (one just finished; 9s since previous) | elapsed 16m 3s
+[2026-02-08T15:08:25.224Z] Status: 167 terminal, 5 processing | elapsed 16m 3s | since last completion: 9s
+[2026-02-08T15:08:25.225Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-08T15:08:33.960Z] Progress: 169 terminal (one just finished; 9s since previous) | elapsed 16m 11s
+[2026-02-08T15:08:33.961Z] Status: 169 terminal, 5 processing | elapsed 16m 11s | since last completion: 9s
+[2026-02-08T15:08:33.962Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-08T15:08:43.069Z] Progress: 170 terminal (one just finished; 9s since previous) | elapsed 16m 20s
+[2026-02-08T15:08:43.069Z] Status: 170 terminal, 5 processing | elapsed 16m 20s | since last completion: 9s
+[2026-02-08T15:08:43.070Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-08T15:08:51.692Z] Progress: 172 terminal (one just finished; 9s since previous) | elapsed 16m 29s
+[2026-02-08T15:08:51.693Z] Status: 172 terminal, 5 processing | elapsed 16m 29s | since last completion: 9s
+[2026-02-08T15:08:51.693Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-08T15:09:00.951Z] Progress: 175 terminal (one just finished; 9s since previous) | elapsed 16m 38s
+[2026-02-08T15:09:00.952Z] Status: 175 terminal, 5 processing | elapsed 16m 38s | since last completion: 9s
+[2026-02-08T15:09:00.953Z]   Current: Capital Credit Union | https://capitalcreditunion.com
+[2026-02-08T15:09:00.954Z]   Failed (new): CastleBrae Sales & Letting | https://castlebrae.com | [Errno 11] write could not complete without blocking
+[2026-02-08T15:09:09.671Z] Progress: 179 terminal (one just finished; 9s since previous) | elapsed 16m 47s
+[2026-02-08T15:09:09.672Z] Status: 179 terminal, 5 processing | elapsed 16m 47s | since last completion: 9s
+[2026-02-08T15:09:09.673Z]   Current: Carrie Elizabeth Jewellery Limited | https://carrieelizabeth.co.uk
+[2026-02-08T15:09:09.673Z]   Failed (new): CERT - Whats next | https://starts here. | Malformed URL: [url] here.
+[2026-02-08T15:09:18.889Z] Progress: 180 terminal (one just finished; 9s since previous) | elapsed 16m 56s
+[2026-02-08T15:09:18.890Z] Status: 180 terminal, 5 processing | elapsed 16m 56s | since last completion: 9s
+[2026-02-08T15:09:18.890Z]   Current: Causeway Securities | https://causeway-securities.com
+[2026-02-08T15:09:27.918Z] Status: 180 terminal, 5 processing | elapsed 17m 5s | since last completion: 9s
+[2026-02-08T15:09:27.919Z]   Current: Causeway Securities | https://causeway-securities.com
+[2026-02-08T15:09:37.213Z] Progress: 186 terminal (one just finished; 18s since previous) | elapsed 17m 15s
+[2026-02-08T15:09:37.214Z] Status: 186 terminal, 5 processing | elapsed 17m 15s | since last completion: 18s
+[2026-02-08T15:09:37.215Z]   Current: centre:mk | https://centremk.com
+[2026-02-08T15:09:37.216Z]   Failed (new): Cherwell Collective | https://CIC | Malformed URL: [url]
+[2026-02-08T15:09:37.216Z]   Failed (new): Christ Church Cathedral School | https://Oxford | Malformed URL: [url]
+[2026-02-08T15:09:37.217Z]   Failed (new): Christ Church Cathedral School | https://Oxford | Malformed URL: [url]
+[2026-02-08T15:09:45.803Z] Status: 186 terminal, 5 processing | elapsed 17m 23s | since last completion: 9s
+[2026-02-08T15:09:45.804Z]   Current: centre:mk | https://centremk.com
+[2026-02-08T15:09:55.481Z] Progress: 188 terminal (one just finished; 18s since previous) | elapsed 17m 33s
+[2026-02-08T15:09:55.482Z] Status: 188 terminal, 5 processing | elapsed 17m 33s | since last completion: 18s
+[2026-02-08T15:09:55.482Z]   Current: Changing Social | https://changingsocial.com
+[2026-02-08T15:10:04.117Z] Progress: 189 terminal (one just finished; 9s since previous) | elapsed 17m 41s
+[2026-02-08T15:10:04.118Z] Status: 189 terminal, 5 processing | elapsed 17m 41s | since last completion: 9s
+[2026-02-08T15:10:04.119Z]   Current: Changing Social | https://changingsocial.com
+[2026-02-08T15:10:13.518Z] Progress: 190 terminal (one just finished; 9s since previous) | elapsed 17m 51s
+[2026-02-08T15:10:13.519Z] Status: 190 terminal, 5 processing | elapsed 17m 51s | since last completion: 9s
+[2026-02-08T15:10:13.520Z]   Current: CINEsync | https://cinesync.io
+[2026-02-08T15:10:22.503Z] Progress: 191 terminal (one just finished; 9s since previous) | elapsed 17m 60s
+[2026-02-08T15:10:22.504Z] Status: 191 terminal, 5 processing | elapsed 17m 60s | since last completion: 9s
+[2026-02-08T15:10:22.504Z]   Current: CINEsync | https://cinesync.io
+[2026-02-08T15:10:31.679Z] Progress: 195 terminal (one just finished; 9s since previous) | elapsed 18m 9s
+[2026-02-08T15:10:31.680Z] Status: 195 terminal, 5 processing | elapsed 18m 9s | since last completion: 9s
+[2026-02-08T15:10:31.680Z]   Current: Ciptex | https://ciptex.com
+[2026-02-08T15:10:40.569Z] Status: 195 terminal, 5 processing | elapsed 18m 18s | since last completion: 9s
+[2026-02-08T15:10:40.570Z]   Current: Ciptex | https://ciptex.com
+[2026-02-08T15:10:49.961Z] Progress: 199 terminal (one just finished; 18s since previous) | elapsed 18m 27s
+[2026-02-08T15:10:49.962Z] Status: 199 terminal, 5 processing | elapsed 18m 27s | since last completion: 18s
+[2026-02-08T15:10:49.963Z]   Current: Clarke Bell (Insolvency Practitioners) | https://clarkebell.com
+[2026-02-08T15:10:58.585Z] Progress: 200 terminal (one just finished; 9s since previous) | elapsed 18m 36s
+[2026-02-08T15:10:58.586Z] Status: 200 terminal, 5 processing | elapsed 18m 36s | since last completion: 9s
+[2026-02-08T15:10:58.586Z]   Current: Clarke Bell (Insolvency Practitioners) | https://clarkebell.com
+[2026-02-08T15:11:07.448Z] Progress: 201 terminal (one just finished; 9s since previous) | elapsed 18m 45s
+[2026-02-08T15:11:07.449Z] Status: 201 terminal, 5 processing | elapsed 18m 45s | since last completion: 9s
+[2026-02-08T15:11:07.450Z]   Current: Clarke Bell (Insolvency Practitioners) | https://clarkebell.com
+[2026-02-08T15:11:16.271Z] Progress: 205 terminal (one just finished; 9s since previous) | elapsed 18m 54s
+[2026-02-08T15:11:16.272Z] Status: 205 terminal, 5 processing | elapsed 18m 54s | since last completion: 9s
+[2026-02-08T15:11:16.273Z]   Current: C-Link | https://c-link.com
+[2026-02-08T15:11:25.186Z] Progress: 209 terminal (one just finished; 9s since previous) | elapsed 19m 3s
+[2026-02-08T15:11:25.187Z] Status: 209 terminal, 5 processing | elapsed 19m 3s | since last completion: 9s
+[2026-02-08T15:11:25.187Z]   Current: C-Link | https://c-link.com
+[2026-02-08T15:11:33.934Z] Progress: 211 terminal (one just finished; 9s since previous) | elapsed 19m 11s
+[2026-02-08T15:11:33.935Z] Status: 211 terminal, 5 processing | elapsed 19m 11s | since last completion: 9s
+[2026-02-08T15:11:33.936Z]   Current: C-Link | https://c-link.com
+[2026-02-08T15:11:43.863Z] Progress: 213 terminal (one just finished; 10s since previous) | elapsed 19m 21s
+[2026-02-08T15:11:43.864Z] Status: 213 terminal, 5 processing | elapsed 19m 21s | since last completion: 10s
+[2026-02-08T15:11:43.866Z]   Current: C-Link | https://c-link.com
+[2026-02-08T15:11:52.708Z] Progress: 215 terminal (one just finished; 9s since previous) | elapsed 19m 30s
+[2026-02-08T15:11:52.709Z] Status: 215 terminal, 5 processing | elapsed 19m 30s | since last completion: 9s
+[2026-02-08T15:11:52.710Z]   Current: C-Link | https://c-link.com
+[2026-02-08T15:11:52.711Z]   Failed (new): Company Name | https://Website | Malformed URL: [url]
+[2026-02-08T15:12:01.269Z] Progress: 217 terminal (one just finished; 9s since previous) | elapsed 19m 39s
+[2026-02-08T15:12:01.270Z] Status: 217 terminal, 5 processing | elapsed 19m 39s | since last completion: 9s
+[2026-02-08T15:12:01.270Z]   Current: C-Link | https://c-link.com
+[2026-02-08T15:12:09.908Z] Progress: 220 terminal (one just finished; 9s since previous) | elapsed 19m 47s
+[2026-02-08T15:12:09.908Z] Status: 220 terminal, 5 processing | elapsed 19m 47s | since last completion: 9s
+[2026-02-08T15:12:09.909Z]   Current: Computime Systems | https://computimeuk.com
+[2026-02-08T15:12:19.061Z] Progress: 221 terminal (one just finished; 9s since previous) | elapsed 19m 56s
+[2026-02-08T15:12:19.062Z] Status: 221 terminal, 5 processing | elapsed 19m 56s | since last completion: 9s
+[2026-02-08T15:12:19.063Z]   Current: Concerva Limited - Chartered Financial Planners | https://concerva.co.uk
+[2026-02-08T15:12:27.715Z] Progress: 224 terminal (one just finished; 9s since previous) | elapsed 20m 5s
+[2026-02-08T15:12:27.716Z] Status: 224 terminal, 5 processing | elapsed 20m 5s | since last completion: 9s
+[2026-02-08T15:12:27.717Z]   Current: Consider IT | https://considerit.com
+[2026-02-08T15:12:37.181Z] Progress: 225 terminal (one just finished; 9s since previous) | elapsed 20m 15s
+[2026-02-08T15:12:37.182Z] Status: 225 terminal, 5 processing | elapsed 20m 15s | since last completion: 9s
+[2026-02-08T15:12:37.182Z]   Current: Consider IT | https://considerit.com
+[2026-02-08T15:12:46.074Z] Progress: 230 terminal (one just finished; 9s since previous) | elapsed 20m 23s
+[2026-02-08T15:12:46.075Z] Status: 230 terminal, 5 processing | elapsed 20m 23s | since last completion: 9s
+[2026-02-08T15:12:46.075Z]   Current: Content Catalyst | https://contentcatalyst.com
+[2026-02-08T15:12:46.076Z]   Failed (new): Cornerstone VR | https://part of The Antser Group | Malformed URL: [url] of The Antser Group
+[2026-02-08T15:12:55.069Z] Progress: 233 terminal (one just finished; 9s since previous) | elapsed 20m 32s
+[2026-02-08T15:12:55.071Z] Status: 233 terminal, 5 processing | elapsed 20m 32s | since last completion: 9s
+[2026-02-08T15:12:55.071Z]   Current: Content Formula | https://contentformula.com
+[2026-02-08T15:13:04.023Z] Progress: 235 terminal (one just finished; 9s since previous) | elapsed 20m 41s
+[2026-02-08T15:13:04.024Z] Status: 235 terminal, 5 processing | elapsed 20m 41s | since last completion: 9s
+[2026-02-08T15:13:04.025Z]   Current: Cool Services Ltd | https://coolservices.co.uk
+[2026-02-08T15:13:13.103Z] Progress: 238 terminal (one just finished; 9s since previous) | elapsed 20m 50s
+[2026-02-08T15:13:13.104Z] Status: 238 terminal, 5 processing | elapsed 20m 50s | since last completion: 9s
+[2026-02-08T15:13:13.105Z]   Current: Counter | https://counter.partners
+[2026-02-08T15:13:21.743Z] Progress: 240 terminal (one just finished; 9s since previous) | elapsed 20m 59s
+[2026-02-08T15:13:21.744Z] Status: 240 terminal, 5 processing | elapsed 20m 59s | since last completion: 9s
+[2026-02-08T15:13:21.745Z]   Current: Counter | https://counter.partners
+[2026-02-08T15:13:31.356Z] Progress: 241 terminal (one just finished; 10s since previous) | elapsed 21m 9s
+[2026-02-08T15:13:31.359Z] Status: 241 terminal, 5 processing | elapsed 21m 9s | since last completion: 10s
+[2026-02-08T15:13:31.360Z]   Current: Counter | https://counter.partners
+[2026-02-08T15:13:40.056Z] Progress: 243 terminal (one just finished; 9s since previous) | elapsed 21m 17s
+[2026-02-08T15:13:40.057Z] Status: 243 terminal, 5 processing | elapsed 21m 17s | since last completion: 9s
+[2026-02-08T15:13:40.058Z]   Current: Counter | https://counter.partners
+[2026-02-08T15:13:49.161Z] Progress: 245 terminal (one just finished; 9s since previous) | elapsed 21m 27s
+[2026-02-08T15:13:49.162Z] Status: 245 terminal, 5 processing | elapsed 21m 27s | since last completion: 9s
+[2026-02-08T15:13:49.162Z]   Current: Counter | https://counter.partners
+[2026-02-08T15:13:57.807Z] Progress: 246 terminal (one just finished; 9s since previous) | elapsed 21m 35s
+[2026-02-08T15:13:57.808Z] Status: 246 terminal, 5 processing | elapsed 21m 35s | since last completion: 9s
+[2026-02-08T15:13:57.809Z]   Current: Counter | https://counter.partners
+[2026-02-08T15:14:06.998Z] Progress: 250 terminal (one just finished; 9s since previous) | elapsed 21m 44s
+[2026-02-08T15:14:06.999Z] Status: 250 terminal, 5 processing | elapsed 21m 44s | since last completion: 9s
+[2026-02-08T15:14:07.000Z]   Current: Criterion | https://criterion.org.uk
+[2026-02-08T15:14:39.004Z] [Stream] Error: Invalid WebSocket frame: FIN must be set
+[2026-02-08T15:14:39.020Z] [Stream] Disconnected.
+[2026-02-08T15:14:45.358Z] Companies API error: 500 (poll #149)
+[2026-02-08T15:14:53.362Z] Stream disconnected; continuing to poll for progress.
+[2026-02-08T15:15:23.636Z] Companies API error: 500 (poll #150)
+[2026-02-08T15:16:01.927Z] Companies API error: 500 (poll #151)
+[2026-02-08T15:16:40.194Z] Companies API error: 500 (poll #152)
+[2026-02-08T15:17:18.472Z] Companies API error: 500 (poll #153)
+[2026-02-08T15:17:55.662Z] Progress: 285 terminal (one just finished; 3m 49s since previous) | elapsed 25m 33s
+[2026-02-08T15:17:55.663Z] Status: 285 terminal, 5 processing | elapsed 25m 33s | since last completion: 3m 49s
+[2026-02-08T15:17:55.663Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:17:55.664Z]   STUCK? No progress for 3m 49s (still 285 terminal, 5 processing)
+[2026-02-08T15:17:55.665Z]   Failed (new): Datrix Training | https://datrixtraining.com | Request timed out. Try again or skip.
+[2026-02-08T15:17:55.665Z]   Failed (new): DDQ INVEST | https://ddqinvest.com | Request timed out. Try again or skip.
+[2026-02-08T15:18:04.297Z] Status: 285 terminal, 5 processing | elapsed 25m 42s | since last completion: 9s
+[2026-02-08T15:18:04.298Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:18:12.879Z] Status: 285 terminal, 5 processing | elapsed 25m 50s | since last completion: 17s
+[2026-02-08T15:18:12.880Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:18:21.489Z] Status: 285 terminal, 5 processing | elapsed 25m 59s | since last completion: 26s
+[2026-02-08T15:18:21.490Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:18:30.484Z] Status: 285 terminal, 5 processing | elapsed 26m 8s | since last completion: 35s
+[2026-02-08T15:18:30.486Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:18:39.127Z] Status: 285 terminal, 5 processing | elapsed 26m 16s | since last completion: 43s
+[2026-02-08T15:18:39.128Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:18:47.820Z] Status: 285 terminal, 5 processing | elapsed 26m 25s | since last completion: 52s
+[2026-02-08T15:18:47.821Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:18:56.449Z] Status: 285 terminal, 5 processing | elapsed 26m 34s | since last completion: 1m 1s
+[2026-02-08T15:18:56.451Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:05.079Z] Status: 285 terminal, 5 processing | elapsed 26m 42s | since last completion: 1m 9s
+[2026-02-08T15:19:05.080Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:13.758Z] Status: 285 terminal, 5 processing | elapsed 26m 51s | since last completion: 1m 18s
+[2026-02-08T15:19:13.759Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:22.381Z] Status: 285 terminal, 5 processing | elapsed 26m 60s | since last completion: 1m 27s
+[2026-02-08T15:19:22.382Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:30.955Z] Status: 285 terminal, 5 processing | elapsed 27m 8s | since last completion: 1m 35s
+[2026-02-08T15:19:30.956Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:30.957Z]   STUCK? No progress for 1m 35s (still 285 terminal, 5 processing)
+[2026-02-08T15:19:39.689Z] Status: 285 terminal, 5 processing | elapsed 27m 17s | since last completion: 1m 44s
+[2026-02-08T15:19:39.690Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:39.690Z]   STUCK? No progress for 1m 44s (still 285 terminal, 5 processing)
+[2026-02-08T15:19:48.549Z] Status: 285 terminal, 5 processing | elapsed 27m 26s | since last completion: 1m 53s
+[2026-02-08T15:19:48.550Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:48.551Z]   STUCK? No progress for 1m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:19:57.198Z] Status: 285 terminal, 5 processing | elapsed 27m 35s | since last completion: 2m 2s
+[2026-02-08T15:19:57.199Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:19:57.200Z]   STUCK? No progress for 2m 2s (still 285 terminal, 5 processing)
+[2026-02-08T15:20:05.838Z] Status: 285 terminal, 5 processing | elapsed 27m 43s | since last completion: 2m 10s
+[2026-02-08T15:20:05.839Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:20:05.840Z]   STUCK? No progress for 2m 10s (still 285 terminal, 5 processing)
+[2026-02-08T15:20:14.461Z] Status: 285 terminal, 5 processing | elapsed 27m 52s | since last completion: 2m 19s
+[2026-02-08T15:20:14.462Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:20:14.463Z]   STUCK? No progress for 2m 19s (still 285 terminal, 5 processing)
+[2026-02-08T15:20:23.066Z] Status: 285 terminal, 5 processing | elapsed 28m | since last completion: 2m 27s
+[2026-02-08T15:20:23.067Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:20:23.067Z]   STUCK? No progress for 2m 27s (still 285 terminal, 5 processing)
+[2026-02-08T15:20:31.625Z] Status: 285 terminal, 5 processing | elapsed 28m 9s | since last completion: 2m 36s
+[2026-02-08T15:20:31.626Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:20:31.627Z]   STUCK? No progress for 2m 36s (still 285 terminal, 5 processing)
+[2026-02-08T15:20:40.243Z] Status: 285 terminal, 5 processing | elapsed 28m 18s | since last completion: 2m 45s
+[2026-02-08T15:20:40.244Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:20:40.245Z]   STUCK? No progress for 2m 45s (still 285 terminal, 5 processing)
+[2026-02-08T15:20:48.899Z] Status: 285 terminal, 5 processing | elapsed 28m 26s | since last completion: 2m 53s
+[2026-02-08T15:20:48.900Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:20:48.900Z]   STUCK? No progress for 2m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:20:57.573Z] Status: 285 terminal, 5 processing | elapsed 28m 35s | since last completion: 3m 2s
+[2026-02-08T15:20:57.574Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:20:57.574Z]   STUCK? No progress for 3m 2s (still 285 terminal, 5 processing)
+[2026-02-08T15:21:06.165Z] Status: 285 terminal, 5 processing | elapsed 28m 44s | since last completion: 3m 11s
+[2026-02-08T15:21:06.166Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:21:06.166Z]   STUCK? No progress for 3m 11s (still 285 terminal, 5 processing)
+[2026-02-08T15:21:14.846Z] Status: 285 terminal, 5 processing | elapsed 28m 52s | since last completion: 3m 19s
+[2026-02-08T15:21:14.848Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:21:14.849Z]   STUCK? No progress for 3m 19s (still 285 terminal, 5 processing)
+[2026-02-08T15:21:23.451Z] Status: 285 terminal, 5 processing | elapsed 29m 1s | since last completion: 3m 28s
+[2026-02-08T15:21:23.452Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:21:23.453Z]   STUCK? No progress for 3m 28s (still 285 terminal, 5 processing)
+[2026-02-08T15:21:32.003Z] Status: 285 terminal, 5 processing | elapsed 29m 9s | since last completion: 3m 36s
+[2026-02-08T15:21:32.004Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:21:32.004Z]   STUCK? No progress for 3m 36s (still 285 terminal, 5 processing)
+[2026-02-08T15:21:40.603Z] Status: 285 terminal, 5 processing | elapsed 29m 18s | since last completion: 3m 45s
+[2026-02-08T15:21:40.604Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:21:40.604Z]   STUCK? No progress for 3m 45s (still 285 terminal, 5 processing)
+[2026-02-08T15:21:49.159Z] Status: 285 terminal, 5 processing | elapsed 29m 27s | since last completion: 3m 53s
+[2026-02-08T15:21:49.160Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:21:49.160Z]   STUCK? No progress for 3m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:21:57.771Z] Status: 285 terminal, 5 processing | elapsed 29m 35s | since last completion: 4m 2s
+[2026-02-08T15:21:57.772Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:21:57.773Z]   STUCK? No progress for 4m 2s (still 285 terminal, 5 processing)
+[2026-02-08T15:22:06.753Z] Status: 285 terminal, 5 processing | elapsed 29m 44s | since last completion: 4m 11s
+[2026-02-08T15:22:06.755Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:22:06.755Z]   STUCK? No progress for 4m 11s (still 285 terminal, 5 processing)
+[2026-02-08T15:22:15.381Z] Status: 285 terminal, 5 processing | elapsed 29m 53s | since last completion: 4m 20s
+[2026-02-08T15:22:15.382Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:22:15.383Z]   STUCK? No progress for 4m 20s (still 285 terminal, 5 processing)
+[2026-02-08T15:22:25.181Z] Status: 285 terminal, 5 processing | elapsed 30m 3s | since last completion: 4m 30s
+[2026-02-08T15:22:25.182Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:22:25.183Z]   STUCK? No progress for 4m 30s (still 285 terminal, 5 processing)
+[2026-02-08T15:22:33.773Z] Status: 285 terminal, 5 processing | elapsed 30m 11s | since last completion: 4m 38s
+[2026-02-08T15:22:33.774Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:22:33.775Z]   STUCK? No progress for 4m 38s (still 285 terminal, 5 processing)
+[2026-02-08T15:22:42.438Z] Status: 285 terminal, 5 processing | elapsed 30m 20s | since last completion: 4m 47s
+[2026-02-08T15:22:42.439Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:22:42.440Z]   STUCK? No progress for 4m 47s (still 285 terminal, 5 processing)
+[2026-02-08T15:22:50.982Z] Status: 285 terminal, 5 processing | elapsed 30m 28s | since last completion: 4m 55s
+[2026-02-08T15:22:50.983Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:22:50.984Z]   STUCK? No progress for 4m 55s (still 285 terminal, 5 processing)
+[2026-02-08T15:22:59.631Z] Status: 285 terminal, 5 processing | elapsed 30m 37s | since last completion: 5m 4s
+[2026-02-08T15:22:59.632Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:22:59.632Z]   STUCK? No progress for 5m 4s (still 285 terminal, 5 processing)
+[2026-02-08T15:23:08.308Z] Status: 285 terminal, 5 processing | elapsed 30m 46s | since last completion: 5m 13s
+[2026-02-08T15:23:08.309Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:23:08.310Z]   STUCK? No progress for 5m 13s (still 285 terminal, 5 processing)
+[2026-02-08T15:23:16.962Z] Status: 285 terminal, 5 processing | elapsed 30m 54s | since last completion: 5m 21s
+[2026-02-08T15:23:16.963Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:23:16.964Z]   STUCK? No progress for 5m 21s (still 285 terminal, 5 processing)
+[2026-02-08T15:23:26.018Z] Status: 285 terminal, 5 processing | elapsed 31m 3s | since last completion: 5m 30s
+[2026-02-08T15:23:26.019Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:23:26.019Z]   STUCK? No progress for 5m 30s (still 285 terminal, 5 processing)
+[2026-02-08T15:23:34.640Z] Status: 285 terminal, 5 processing | elapsed 31m 12s | since last completion: 5m 39s
+[2026-02-08T15:23:34.641Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:23:34.641Z]   STUCK? No progress for 5m 39s (still 285 terminal, 5 processing)
+[2026-02-08T15:23:43.250Z] Status: 285 terminal, 5 processing | elapsed 31m 21s | since last completion: 5m 48s
+[2026-02-08T15:23:43.251Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:23:43.252Z]   STUCK? No progress for 5m 48s (still 285 terminal, 5 processing)
+[2026-02-08T15:23:51.854Z] Status: 285 terminal, 5 processing | elapsed 31m 29s | since last completion: 5m 56s
+[2026-02-08T15:23:51.855Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:23:51.856Z]   STUCK? No progress for 5m 56s (still 285 terminal, 5 processing)
+[2026-02-08T15:24:00.566Z] Status: 285 terminal, 5 processing | elapsed 31m 38s | since last completion: 6m 5s
+[2026-02-08T15:24:00.567Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:24:00.568Z]   STUCK? No progress for 6m 5s (still 285 terminal, 5 processing)
+[2026-02-08T15:24:09.218Z] Status: 285 terminal, 5 processing | elapsed 31m 47s | since last completion: 6m 14s
+[2026-02-08T15:24:09.219Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:24:09.219Z]   STUCK? No progress for 6m 14s (still 285 terminal, 5 processing)
+[2026-02-08T15:24:17.938Z] Status: 285 terminal, 5 processing | elapsed 31m 55s | since last completion: 6m 22s
+[2026-02-08T15:24:17.939Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:24:17.940Z]   STUCK? No progress for 6m 22s (still 285 terminal, 5 processing)
+[2026-02-08T15:24:26.483Z] Status: 285 terminal, 5 processing | elapsed 32m 4s | since last completion: 6m 31s
+[2026-02-08T15:24:26.485Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:24:26.485Z]   STUCK? No progress for 6m 31s (still 285 terminal, 5 processing)
+[2026-02-08T15:24:35.179Z] Status: 285 terminal, 5 processing | elapsed 32m 13s | since last completion: 6m 40s
+[2026-02-08T15:24:35.180Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:24:35.181Z]   STUCK? No progress for 6m 40s (still 285 terminal, 5 processing)
+[2026-02-08T15:24:43.860Z] Status: 285 terminal, 5 processing | elapsed 32m 21s | since last completion: 6m 48s
+[2026-02-08T15:24:43.861Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:24:43.862Z]   STUCK? No progress for 6m 48s (still 285 terminal, 5 processing)
+[2026-02-08T15:24:52.539Z] Status: 285 terminal, 5 processing | elapsed 32m 30s | since last completion: 6m 57s
+[2026-02-08T15:24:52.540Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:24:52.541Z]   STUCK? No progress for 6m 57s (still 285 terminal, 5 processing)
+[2026-02-08T15:25:01.169Z] Status: 285 terminal, 5 processing | elapsed 32m 39s | since last completion: 7m 6s
+[2026-02-08T15:25:01.170Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:25:01.171Z]   STUCK? No progress for 7m 6s (still 285 terminal, 5 processing)
+[2026-02-08T15:25:09.825Z] Status: 285 terminal, 5 processing | elapsed 32m 47s | since last completion: 7m 14s
+[2026-02-08T15:25:09.826Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:25:09.827Z]   STUCK? No progress for 7m 14s (still 285 terminal, 5 processing)
+[2026-02-08T15:25:18.460Z] Status: 285 terminal, 5 processing | elapsed 32m 56s | since last completion: 7m 23s
+[2026-02-08T15:25:18.462Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:25:18.462Z]   STUCK? No progress for 7m 23s (still 285 terminal, 5 processing)
+[2026-02-08T15:25:27.055Z] Status: 285 terminal, 5 processing | elapsed 33m 4s | since last completion: 7m 31s
+[2026-02-08T15:25:27.056Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:25:27.057Z]   STUCK? No progress for 7m 31s (still 285 terminal, 5 processing)
+[2026-02-08T15:25:35.715Z] Status: 285 terminal, 5 processing | elapsed 33m 13s | since last completion: 7m 40s
+[2026-02-08T15:25:35.716Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:25:35.716Z]   STUCK? No progress for 7m 40s (still 285 terminal, 5 processing)
+[2026-02-08T15:25:44.227Z] Status: 285 terminal, 5 processing | elapsed 33m 22s | since last completion: 7m 49s
+[2026-02-08T15:25:44.228Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:25:44.228Z]   STUCK? No progress for 7m 49s (still 285 terminal, 5 processing)
+[2026-02-08T15:25:52.834Z] Status: 285 terminal, 5 processing | elapsed 33m 30s | since last completion: 7m 57s
+[2026-02-08T15:25:52.835Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:25:52.836Z]   STUCK? No progress for 7m 57s (still 285 terminal, 5 processing)
+[2026-02-08T15:26:01.700Z] Status: 285 terminal, 5 processing | elapsed 33m 39s | since last completion: 8m 6s
+[2026-02-08T15:26:01.701Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:26:01.701Z]   STUCK? No progress for 8m 6s (still 285 terminal, 5 processing)
+[2026-02-08T15:26:10.319Z] Status: 285 terminal, 5 processing | elapsed 33m 48s | since last completion: 8m 15s
+[2026-02-08T15:26:10.319Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:26:10.320Z]   STUCK? No progress for 8m 15s (still 285 terminal, 5 processing)
+[2026-02-08T15:26:18.922Z] Status: 285 terminal, 5 processing | elapsed 33m 56s | since last completion: 8m 23s
+[2026-02-08T15:26:18.923Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:26:18.924Z]   STUCK? No progress for 8m 23s (still 285 terminal, 5 processing)
+[2026-02-08T15:26:27.685Z] Status: 285 terminal, 5 processing | elapsed 34m 5s | since last completion: 8m 32s
+[2026-02-08T15:26:27.686Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:26:27.687Z]   STUCK? No progress for 8m 32s (still 285 terminal, 5 processing)
+[2026-02-08T15:26:36.303Z] Status: 285 terminal, 5 processing | elapsed 34m 14s | since last completion: 8m 41s
+[2026-02-08T15:26:36.304Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:26:36.305Z]   STUCK? No progress for 8m 41s (still 285 terminal, 5 processing)
+[2026-02-08T15:26:44.965Z] Status: 285 terminal, 5 processing | elapsed 34m 22s | since last completion: 8m 49s
+[2026-02-08T15:26:44.966Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:26:44.967Z]   STUCK? No progress for 8m 49s (still 285 terminal, 5 processing)
+[2026-02-08T15:26:53.576Z] Status: 285 terminal, 5 processing | elapsed 34m 31s | since last completion: 8m 58s
+[2026-02-08T15:26:53.577Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:26:53.578Z]   STUCK? No progress for 8m 58s (still 285 terminal, 5 processing)
+[2026-02-08T15:27:02.226Z] Status: 285 terminal, 5 processing | elapsed 34m 40s | since last completion: 9m 7s
+[2026-02-08T15:27:02.227Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:27:02.228Z]   STUCK? No progress for 9m 7s (still 285 terminal, 5 processing)
+[2026-02-08T15:27:10.956Z] Status: 285 terminal, 5 processing | elapsed 34m 48s | since last completion: 9m 15s
+[2026-02-08T15:27:10.957Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:27:10.957Z]   STUCK? No progress for 9m 15s (still 285 terminal, 5 processing)
+[2026-02-08T15:27:19.909Z] Status: 285 terminal, 5 processing | elapsed 34m 57s | since last completion: 9m 24s
+[2026-02-08T15:27:19.909Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:27:19.910Z]   STUCK? No progress for 9m 24s (still 285 terminal, 5 processing)
+[2026-02-08T15:27:28.585Z] Status: 285 terminal, 5 processing | elapsed 35m 6s | since last completion: 9m 33s
+[2026-02-08T15:27:28.586Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:27:28.587Z]   STUCK? No progress for 9m 33s (still 285 terminal, 5 processing)
+[2026-02-08T15:27:37.313Z] Status: 285 terminal, 5 processing | elapsed 35m 15s | since last completion: 9m 42s
+[2026-02-08T15:27:37.314Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:27:37.314Z]   STUCK? No progress for 9m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:27:45.930Z] Status: 285 terminal, 5 processing | elapsed 35m 23s | since last completion: 9m 50s
+[2026-02-08T15:27:45.931Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:27:45.932Z]   STUCK? No progress for 9m 50s (still 285 terminal, 5 processing)
+[2026-02-08T15:27:54.645Z] Status: 285 terminal, 5 processing | elapsed 35m 32s | since last completion: 9m 59s
+[2026-02-08T15:27:54.645Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:27:54.646Z]   STUCK? No progress for 9m 59s (still 285 terminal, 5 processing)
+[2026-02-08T15:28:03.203Z] Status: 285 terminal, 5 processing | elapsed 35m 41s | since last completion: 10m 8s
+[2026-02-08T15:28:03.204Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:28:03.205Z]   STUCK? No progress for 10m 8s (still 285 terminal, 5 processing)
+[2026-02-08T15:28:11.918Z] Status: 285 terminal, 5 processing | elapsed 35m 49s | since last completion: 10m 16s
+[2026-02-08T15:28:11.919Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:28:11.920Z]   STUCK? No progress for 10m 16s (still 285 terminal, 5 processing)
+[2026-02-08T15:28:20.546Z] Status: 285 terminal, 5 processing | elapsed 35m 58s | since last completion: 10m 25s
+[2026-02-08T15:28:20.547Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:28:20.548Z]   STUCK? No progress for 10m 25s (still 285 terminal, 5 processing)
+[2026-02-08T15:28:29.189Z] Status: 285 terminal, 5 processing | elapsed 36m 7s | since last completion: 10m 34s
+[2026-02-08T15:28:29.190Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:28:29.191Z]   STUCK? No progress for 10m 34s (still 285 terminal, 5 processing)
+[2026-02-08T15:28:37.843Z] Status: 285 terminal, 5 processing | elapsed 36m 15s | since last completion: 10m 42s
+[2026-02-08T15:28:37.850Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:28:37.853Z]   STUCK? No progress for 10m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:28:46.479Z] Status: 285 terminal, 5 processing | elapsed 36m 24s | since last completion: 10m 51s
+[2026-02-08T15:28:46.481Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:28:46.481Z]   STUCK? No progress for 10m 51s (still 285 terminal, 5 processing)
+[2026-02-08T15:28:55.107Z] Status: 285 terminal, 5 processing | elapsed 36m 32s | since last completion: 10m 59s
+[2026-02-08T15:28:55.108Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:28:55.108Z]   STUCK? No progress for 10m 59s (still 285 terminal, 5 processing)
+[2026-02-08T15:29:03.731Z] Status: 285 terminal, 5 processing | elapsed 36m 41s | since last completion: 11m 8s
+[2026-02-08T15:29:03.732Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:29:03.733Z]   STUCK? No progress for 11m 8s (still 285 terminal, 5 processing)
+[2026-02-08T15:29:12.313Z] Status: 285 terminal, 5 processing | elapsed 36m 50s | since last completion: 11m 17s
+[2026-02-08T15:29:12.313Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:29:12.314Z]   STUCK? No progress for 11m 17s (still 285 terminal, 5 processing)
+[2026-02-08T15:29:20.867Z] Status: 285 terminal, 5 processing | elapsed 36m 58s | since last completion: 11m 25s
+[2026-02-08T15:29:20.869Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:29:20.869Z]   STUCK? No progress for 11m 25s (still 285 terminal, 5 processing)
+[2026-02-08T15:29:29.488Z] Status: 285 terminal, 5 processing | elapsed 37m 7s | since last completion: 11m 34s
+[2026-02-08T15:29:29.489Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:29:29.490Z]   STUCK? No progress for 11m 34s (still 285 terminal, 5 processing)
+[2026-02-08T15:29:38.123Z] Status: 285 terminal, 5 processing | elapsed 37m 15s | since last completion: 11m 42s
+[2026-02-08T15:29:38.124Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:29:38.124Z]   STUCK? No progress for 11m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:29:46.763Z] Status: 285 terminal, 5 processing | elapsed 37m 24s | since last completion: 11m 51s
+[2026-02-08T15:29:46.764Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:29:46.765Z]   STUCK? No progress for 11m 51s (still 285 terminal, 5 processing)
+[2026-02-08T15:29:55.625Z] Status: 285 terminal, 5 processing | elapsed 37m 33s | since last completion: 11m 60s
+[2026-02-08T15:29:55.626Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:29:55.626Z]   STUCK? No progress for 11m 60s (still 285 terminal, 5 processing)
+[2026-02-08T15:30:04.343Z] Status: 285 terminal, 5 processing | elapsed 37m 42s | since last completion: 12m 9s
+[2026-02-08T15:30:04.345Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:30:04.345Z]   STUCK? No progress for 12m 9s (still 285 terminal, 5 processing)
+[2026-02-08T15:30:13.023Z] Status: 285 terminal, 5 processing | elapsed 37m 50s | since last completion: 12m 17s
+[2026-02-08T15:30:13.024Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:30:13.024Z]   STUCK? No progress for 12m 17s (still 285 terminal, 5 processing)
+[2026-02-08T15:30:21.766Z] Status: 285 terminal, 5 processing | elapsed 37m 59s | since last completion: 12m 26s
+[2026-02-08T15:30:21.767Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:30:21.768Z]   STUCK? No progress for 12m 26s (still 285 terminal, 5 processing)
+[2026-02-08T15:30:30.435Z] Status: 285 terminal, 5 processing | elapsed 38m 8s | since last completion: 12m 35s
+[2026-02-08T15:30:30.436Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:30:30.437Z]   STUCK? No progress for 12m 35s (still 285 terminal, 5 processing)
+[2026-02-08T15:30:39.078Z] Status: 285 terminal, 5 processing | elapsed 38m 16s | since last completion: 12m 43s
+[2026-02-08T15:30:39.079Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:30:39.079Z]   STUCK? No progress for 12m 43s (still 285 terminal, 5 processing)
+[2026-02-08T15:30:47.701Z] Status: 285 terminal, 5 processing | elapsed 38m 25s | since last completion: 12m 52s
+[2026-02-08T15:30:47.702Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:30:47.703Z]   STUCK? No progress for 12m 52s (still 285 terminal, 5 processing)
+[2026-02-08T15:30:56.256Z] Status: 285 terminal, 5 processing | elapsed 38m 34s | since last completion: 13m 1s
+[2026-02-08T15:30:56.257Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:30:56.258Z]   STUCK? No progress for 13m 1s (still 285 terminal, 5 processing)
+[2026-02-08T15:31:04.887Z] Status: 285 terminal, 5 processing | elapsed 38m 42s | since last completion: 13m 9s
+[2026-02-08T15:31:04.888Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:31:04.889Z]   STUCK? No progress for 13m 9s (still 285 terminal, 5 processing)
+[2026-02-08T15:31:13.864Z] Status: 285 terminal, 5 processing | elapsed 38m 51s | since last completion: 13m 18s
+[2026-02-08T15:31:13.865Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:31:13.865Z]   STUCK? No progress for 13m 18s (still 285 terminal, 5 processing)
+[2026-02-08T15:31:22.496Z] Status: 285 terminal, 5 processing | elapsed 38m 60s | since last completion: 13m 27s
+[2026-02-08T15:31:22.497Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:31:22.497Z]   STUCK? No progress for 13m 27s (still 285 terminal, 5 processing)
+[2026-02-08T15:31:31.151Z] Status: 285 terminal, 5 processing | elapsed 39m 9s | since last completion: 13m 35s
+[2026-02-08T15:31:31.152Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:31:31.152Z]   STUCK? No progress for 13m 35s (still 285 terminal, 5 processing)
+[2026-02-08T15:31:39.741Z] Status: 285 terminal, 5 processing | elapsed 39m 17s | since last completion: 13m 44s
+[2026-02-08T15:31:39.742Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:31:39.742Z]   STUCK? No progress for 13m 44s (still 285 terminal, 5 processing)
+[2026-02-08T15:31:48.352Z] Status: 285 terminal, 5 processing | elapsed 39m 26s | since last completion: 13m 53s
+[2026-02-08T15:31:48.352Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:31:48.353Z]   STUCK? No progress for 13m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:31:56.948Z] Status: 285 terminal, 5 processing | elapsed 39m 34s | since last completion: 14m 1s
+[2026-02-08T15:31:56.949Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:31:56.949Z]   STUCK? No progress for 14m 1s (still 285 terminal, 5 processing)
+[2026-02-08T15:32:05.560Z] Status: 285 terminal, 5 processing | elapsed 39m 43s | since last completion: 14m 10s
+[2026-02-08T15:32:05.562Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:32:05.562Z]   STUCK? No progress for 14m 10s (still 285 terminal, 5 processing)
+[2026-02-08T15:32:14.052Z] Status: 285 terminal, 5 processing | elapsed 39m 51s | since last completion: 14m 18s
+[2026-02-08T15:32:14.053Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:32:14.054Z]   STUCK? No progress for 14m 18s (still 285 terminal, 5 processing)
+[2026-02-08T15:32:22.788Z] Status: 285 terminal, 5 processing | elapsed 40m | since last completion: 14m 27s
+[2026-02-08T15:32:22.789Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:32:22.790Z]   STUCK? No progress for 14m 27s (still 285 terminal, 5 processing)
+[2026-02-08T15:32:31.866Z] Status: 285 terminal, 5 processing | elapsed 40m 9s | since last completion: 14m 36s
+[2026-02-08T15:32:31.867Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:32:31.867Z]   STUCK? No progress for 14m 36s (still 285 terminal, 5 processing)
+[2026-02-08T15:32:40.614Z] Status: 285 terminal, 5 processing | elapsed 40m 18s | since last completion: 14m 45s
+[2026-02-08T15:32:40.614Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:32:40.615Z]   STUCK? No progress for 14m 45s (still 285 terminal, 5 processing)
+[2026-02-08T15:32:49.260Z] Status: 285 terminal, 5 processing | elapsed 40m 27s | since last completion: 14m 54s
+[2026-02-08T15:32:49.261Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:32:49.261Z]   STUCK? No progress for 14m 54s (still 285 terminal, 5 processing)
+[2026-02-08T15:32:57.897Z] Status: 285 terminal, 5 processing | elapsed 40m 35s | since last completion: 15m 2s
+[2026-02-08T15:32:57.898Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:32:57.899Z]   STUCK? No progress for 15m 2s (still 285 terminal, 5 processing)
+[2026-02-08T15:33:06.523Z] Status: 285 terminal, 5 processing | elapsed 40m 44s | since last completion: 15m 11s
+[2026-02-08T15:33:06.524Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:33:06.525Z]   STUCK? No progress for 15m 11s (still 285 terminal, 5 processing)
+[2026-02-08T15:33:15.136Z] Status: 285 terminal, 5 processing | elapsed 40m 52s | since last completion: 15m 19s
+[2026-02-08T15:33:15.138Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:33:15.140Z]   STUCK? No progress for 15m 19s (still 285 terminal, 5 processing)
+[2026-02-08T15:33:23.868Z] Status: 285 terminal, 5 processing | elapsed 41m 1s | since last completion: 15m 28s
+[2026-02-08T15:33:23.870Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:33:23.870Z]   STUCK? No progress for 15m 28s (still 285 terminal, 5 processing)
+[2026-02-08T15:33:32.388Z] Status: 285 terminal, 5 processing | elapsed 41m 10s | since last completion: 15m 37s
+[2026-02-08T15:33:32.388Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:33:32.389Z]   STUCK? No progress for 15m 37s (still 285 terminal, 5 processing)
+[2026-02-08T15:33:41.071Z] Status: 285 terminal, 5 processing | elapsed 41m 18s | since last completion: 15m 45s
+[2026-02-08T15:33:41.071Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:33:41.072Z]   STUCK? No progress for 15m 45s (still 285 terminal, 5 processing)
+[2026-02-08T15:33:49.994Z] Status: 285 terminal, 5 processing | elapsed 41m 27s | since last completion: 15m 54s
+[2026-02-08T15:33:49.995Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:33:49.996Z]   STUCK? No progress for 15m 54s (still 285 terminal, 5 processing)
+[2026-02-08T15:33:58.728Z] Status: 285 terminal, 5 processing | elapsed 41m 36s | since last completion: 16m 3s
+[2026-02-08T15:33:58.730Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:33:58.730Z]   STUCK? No progress for 16m 3s (still 285 terminal, 5 processing)
+[2026-02-08T15:34:07.639Z] Status: 285 terminal, 5 processing | elapsed 41m 45s | since last completion: 16m 12s
+[2026-02-08T15:34:07.640Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:34:07.640Z]   STUCK? No progress for 16m 12s (still 285 terminal, 5 processing)
+[2026-02-08T15:34:16.238Z] Status: 285 terminal, 5 processing | elapsed 41m 54s | since last completion: 16m 21s
+[2026-02-08T15:34:16.239Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:34:16.240Z]   STUCK? No progress for 16m 21s (still 285 terminal, 5 processing)
+[2026-02-08T15:34:24.855Z] Status: 285 terminal, 5 processing | elapsed 42m 2s | since last completion: 16m 29s
+[2026-02-08T15:34:24.856Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:34:24.856Z]   STUCK? No progress for 16m 29s (still 285 terminal, 5 processing)
+[2026-02-08T15:34:33.475Z] Status: 285 terminal, 5 processing | elapsed 42m 11s | since last completion: 16m 38s
+[2026-02-08T15:34:33.477Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:34:33.477Z]   STUCK? No progress for 16m 38s (still 285 terminal, 5 processing)
+[2026-02-08T15:34:42.118Z] Status: 285 terminal, 5 processing | elapsed 42m 19s | since last completion: 16m 46s
+[2026-02-08T15:34:42.119Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:34:42.119Z]   STUCK? No progress for 16m 46s (still 285 terminal, 5 processing)
+[2026-02-08T15:34:50.635Z] Status: 285 terminal, 5 processing | elapsed 42m 28s | since last completion: 16m 55s
+[2026-02-08T15:34:50.636Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:34:50.637Z]   STUCK? No progress for 16m 55s (still 285 terminal, 5 processing)
+[2026-02-08T15:34:59.253Z] Status: 285 terminal, 5 processing | elapsed 42m 37s | since last completion: 17m 4s
+[2026-02-08T15:34:59.254Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:34:59.254Z]   STUCK? No progress for 17m 4s (still 285 terminal, 5 processing)
+[2026-02-08T15:35:07.896Z] Status: 285 terminal, 5 processing | elapsed 42m 45s | since last completion: 17m 12s
+[2026-02-08T15:35:07.898Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:35:07.898Z]   STUCK? No progress for 17m 12s (still 285 terminal, 5 processing)
+[2026-02-08T15:35:16.544Z] Status: 285 terminal, 5 processing | elapsed 42m 54s | since last completion: 17m 21s
+[2026-02-08T15:35:16.545Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:35:16.545Z]   STUCK? No progress for 17m 21s (still 285 terminal, 5 processing)
+[2026-02-08T15:35:25.182Z] Status: 285 terminal, 5 processing | elapsed 43m 3s | since last completion: 17m 30s
+[2026-02-08T15:35:25.183Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:35:25.184Z]   STUCK? No progress for 17m 30s (still 285 terminal, 5 processing)
+[2026-02-08T15:35:33.824Z] Status: 285 terminal, 5 processing | elapsed 43m 11s | since last completion: 17m 38s
+[2026-02-08T15:35:33.825Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:35:33.826Z]   STUCK? No progress for 17m 38s (still 285 terminal, 5 processing)
+[2026-02-08T15:35:42.514Z] Status: 285 terminal, 5 processing | elapsed 43m 20s | since last completion: 17m 47s
+[2026-02-08T15:35:42.515Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:35:42.516Z]   STUCK? No progress for 17m 47s (still 285 terminal, 5 processing)
+[2026-02-08T15:35:51.173Z] Status: 285 terminal, 5 processing | elapsed 43m 29s | since last completion: 17m 56s
+[2026-02-08T15:35:51.173Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:35:51.174Z]   STUCK? No progress for 17m 56s (still 285 terminal, 5 processing)
+[2026-02-08T15:35:59.819Z] Status: 285 terminal, 5 processing | elapsed 43m 37s | since last completion: 18m 4s
+[2026-02-08T15:35:59.819Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:35:59.820Z]   STUCK? No progress for 18m 4s (still 285 terminal, 5 processing)
+[2026-02-08T15:36:08.431Z] Status: 285 terminal, 5 processing | elapsed 43m 46s | since last completion: 18m 13s
+[2026-02-08T15:36:08.431Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:36:08.432Z]   STUCK? No progress for 18m 13s (still 285 terminal, 5 processing)
+[2026-02-08T15:36:17.112Z] Status: 285 terminal, 5 processing | elapsed 43m 54s | since last completion: 18m 21s
+[2026-02-08T15:36:17.114Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:36:17.115Z]   STUCK? No progress for 18m 21s (still 285 terminal, 5 processing)
+[2026-02-08T15:36:26.104Z] Status: 285 terminal, 5 processing | elapsed 44m 3s | since last completion: 18m 30s
+[2026-02-08T15:36:26.105Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:36:26.105Z]   STUCK? No progress for 18m 30s (still 285 terminal, 5 processing)
+[2026-02-08T15:36:34.718Z] Status: 285 terminal, 5 processing | elapsed 44m 12s | since last completion: 18m 39s
+[2026-02-08T15:36:34.719Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:36:34.720Z]   STUCK? No progress for 18m 39s (still 285 terminal, 5 processing)
+[2026-02-08T15:36:43.673Z] Status: 285 terminal, 5 processing | elapsed 44m 21s | since last completion: 18m 48s
+[2026-02-08T15:36:43.674Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:36:43.674Z]   STUCK? No progress for 18m 48s (still 285 terminal, 5 processing)
+[2026-02-08T15:36:52.277Z] Status: 285 terminal, 5 processing | elapsed 44m 30s | since last completion: 18m 57s
+[2026-02-08T15:36:52.278Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:36:52.279Z]   STUCK? No progress for 18m 57s (still 285 terminal, 5 processing)
+[2026-02-08T15:37:00.962Z] Status: 285 terminal, 5 processing | elapsed 44m 38s | since last completion: 19m 5s
+[2026-02-08T15:37:00.963Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:37:00.964Z]   STUCK? No progress for 19m 5s (still 285 terminal, 5 processing)
+[2026-02-08T15:37:09.543Z] Status: 285 terminal, 5 processing | elapsed 44m 47s | since last completion: 19m 14s
+[2026-02-08T15:37:09.543Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:37:09.544Z]   STUCK? No progress for 19m 14s (still 285 terminal, 5 processing)
+[2026-02-08T15:37:18.258Z] Status: 285 terminal, 5 processing | elapsed 44m 56s | since last completion: 19m 23s
+[2026-02-08T15:37:18.262Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:37:18.262Z]   STUCK? No progress for 19m 23s (still 285 terminal, 5 processing)
+[2026-02-08T15:37:26.841Z] Status: 285 terminal, 5 processing | elapsed 45m 4s | since last completion: 19m 31s
+[2026-02-08T15:37:26.842Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:37:26.842Z]   STUCK? No progress for 19m 31s (still 285 terminal, 5 processing)
+[2026-02-08T15:37:35.473Z] Status: 285 terminal, 5 processing | elapsed 45m 13s | since last completion: 19m 40s
+[2026-02-08T15:37:35.474Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:37:35.475Z]   STUCK? No progress for 19m 40s (still 285 terminal, 5 processing)
+[2026-02-08T15:37:43.973Z] Status: 285 terminal, 5 processing | elapsed 45m 21s | since last completion: 19m 48s
+[2026-02-08T15:37:43.974Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:37:43.975Z]   STUCK? No progress for 19m 48s (still 285 terminal, 5 processing)
+[2026-02-08T15:37:52.591Z] Status: 285 terminal, 5 processing | elapsed 45m 30s | since last completion: 19m 57s
+[2026-02-08T15:37:52.592Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:37:52.593Z]   STUCK? No progress for 19m 57s (still 285 terminal, 5 processing)
+[2026-02-08T15:38:01.225Z] Status: 285 terminal, 5 processing | elapsed 45m 39s | since last completion: 20m 6s
+[2026-02-08T15:38:01.226Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:38:01.226Z]   STUCK? No progress for 20m 6s (still 285 terminal, 5 processing)
+[2026-02-08T15:38:09.854Z] Status: 285 terminal, 5 processing | elapsed 45m 47s | since last completion: 20m 14s
+[2026-02-08T15:38:09.855Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:38:09.855Z]   STUCK? No progress for 20m 14s (still 285 terminal, 5 processing)
+[2026-02-08T15:38:18.488Z] Status: 285 terminal, 5 processing | elapsed 45m 56s | since last completion: 20m 23s
+[2026-02-08T15:38:18.489Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:38:18.489Z]   STUCK? No progress for 20m 23s (still 285 terminal, 5 processing)
+[2026-02-08T15:38:27.111Z] Status: 285 terminal, 5 processing | elapsed 46m 4s | since last completion: 20m 31s
+[2026-02-08T15:38:27.112Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:38:27.113Z]   STUCK? No progress for 20m 31s (still 285 terminal, 5 processing)
+[2026-02-08T15:38:35.726Z] Status: 285 terminal, 5 processing | elapsed 46m 13s | since last completion: 20m 40s
+[2026-02-08T15:38:35.727Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:38:35.728Z]   STUCK? No progress for 20m 40s (still 285 terminal, 5 processing)
+[2026-02-08T15:38:44.273Z] Status: 285 terminal, 5 processing | elapsed 46m 22s | since last completion: 20m 49s
+[2026-02-08T15:38:44.275Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:38:44.275Z]   STUCK? No progress for 20m 49s (still 285 terminal, 5 processing)
+[2026-02-08T15:38:52.881Z] Status: 285 terminal, 5 processing | elapsed 46m 30s | since last completion: 20m 57s
+[2026-02-08T15:38:52.881Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:38:52.882Z]   STUCK? No progress for 20m 57s (still 285 terminal, 5 processing)
+[2026-02-08T15:39:01.723Z] Status: 285 terminal, 5 processing | elapsed 46m 39s | since last completion: 21m 6s
+[2026-02-08T15:39:01.724Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:39:01.724Z]   STUCK? No progress for 21m 6s (still 285 terminal, 5 processing)
+[2026-02-08T15:39:10.386Z] Status: 285 terminal, 5 processing | elapsed 46m 48s | since last completion: 21m 15s
+[2026-02-08T15:39:10.387Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:39:10.387Z]   STUCK? No progress for 21m 15s (still 285 terminal, 5 processing)
+[2026-02-08T15:39:19.018Z] Status: 285 terminal, 5 processing | elapsed 46m 56s | since last completion: 21m 23s
+[2026-02-08T15:39:19.019Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:39:19.019Z]   STUCK? No progress for 21m 23s (still 285 terminal, 5 processing)
+[2026-02-08T15:39:27.718Z] Status: 285 terminal, 5 processing | elapsed 47m 5s | since last completion: 21m 32s
+[2026-02-08T15:39:27.719Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:39:27.720Z]   STUCK? No progress for 21m 32s (still 285 terminal, 5 processing)
+[2026-02-08T15:39:36.621Z] Status: 285 terminal, 5 processing | elapsed 47m 14s | since last completion: 21m 41s
+[2026-02-08T15:39:36.628Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:39:36.635Z]   STUCK? No progress for 21m 41s (still 285 terminal, 5 processing)
+[2026-02-08T15:39:45.381Z] Status: 285 terminal, 5 processing | elapsed 47m 23s | since last completion: 21m 50s
+[2026-02-08T15:39:45.382Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:39:45.383Z]   STUCK? No progress for 21m 50s (still 285 terminal, 5 processing)
+[2026-02-08T15:39:54.006Z] Status: 285 terminal, 5 processing | elapsed 47m 31s | since last completion: 21m 58s
+[2026-02-08T15:39:54.007Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:39:54.008Z]   STUCK? No progress for 21m 58s (still 285 terminal, 5 processing)
+[2026-02-08T15:40:02.587Z] Status: 285 terminal, 5 processing | elapsed 47m 40s | since last completion: 22m 7s
+[2026-02-08T15:40:02.587Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:40:02.588Z]   STUCK? No progress for 22m 7s (still 285 terminal, 5 processing)
+[2026-02-08T15:40:11.297Z] Status: 285 terminal, 5 processing | elapsed 47m 49s | since last completion: 22m 16s
+[2026-02-08T15:40:11.298Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:40:11.299Z]   STUCK? No progress for 22m 16s (still 285 terminal, 5 processing)
+[2026-02-08T15:40:19.867Z] Status: 285 terminal, 5 processing | elapsed 47m 57s | since last completion: 22m 24s
+[2026-02-08T15:40:19.868Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:40:19.868Z]   STUCK? No progress for 22m 24s (still 285 terminal, 5 processing)
+[2026-02-08T15:40:28.593Z] Status: 285 terminal, 5 processing | elapsed 48m 6s | since last completion: 22m 33s
+[2026-02-08T15:40:28.594Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:40:28.594Z]   STUCK? No progress for 22m 33s (still 285 terminal, 5 processing)
+[2026-02-08T15:40:37.199Z] Status: 285 terminal, 5 processing | elapsed 48m 15s | since last completion: 22m 42s
+[2026-02-08T15:40:37.200Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:40:37.200Z]   STUCK? No progress for 22m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:40:45.877Z] Status: 285 terminal, 5 processing | elapsed 48m 23s | since last completion: 22m 50s
+[2026-02-08T15:40:45.877Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:40:45.878Z]   STUCK? No progress for 22m 50s (still 285 terminal, 5 processing)
+[2026-02-08T15:40:54.513Z] Status: 285 terminal, 5 processing | elapsed 48m 32s | since last completion: 22m 59s
+[2026-02-08T15:40:54.515Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:40:54.516Z]   STUCK? No progress for 22m 59s (still 285 terminal, 5 processing)
+[2026-02-08T15:41:03.086Z] Status: 285 terminal, 5 processing | elapsed 48m 40s | since last completion: 23m 7s
+[2026-02-08T15:41:03.087Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:41:03.088Z]   STUCK? No progress for 23m 7s (still 285 terminal, 5 processing)
+[2026-02-08T15:41:11.684Z] Status: 285 terminal, 5 processing | elapsed 48m 49s | since last completion: 23m 16s
+[2026-02-08T15:41:11.685Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:41:11.685Z]   STUCK? No progress for 23m 16s (still 285 terminal, 5 processing)
+[2026-02-08T15:41:20.184Z] Status: 285 terminal, 5 processing | elapsed 48m 58s | since last completion: 23m 25s
+[2026-02-08T15:41:20.185Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:41:20.186Z]   STUCK? No progress for 23m 25s (still 285 terminal, 5 processing)
+[2026-02-08T15:41:28.821Z] Status: 285 terminal, 5 processing | elapsed 49m 6s | since last completion: 23m 33s
+[2026-02-08T15:41:28.822Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:41:28.822Z]   STUCK? No progress for 23m 33s (still 285 terminal, 5 processing)
+[2026-02-08T15:41:37.767Z] Status: 285 terminal, 5 processing | elapsed 49m 15s | since last completion: 23m 42s
+[2026-02-08T15:41:37.768Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:41:37.769Z]   STUCK? No progress for 23m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:41:46.391Z] Status: 285 terminal, 5 processing | elapsed 49m 24s | since last completion: 23m 51s
+[2026-02-08T15:41:46.392Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:41:46.392Z]   STUCK? No progress for 23m 51s (still 285 terminal, 5 processing)
+[2026-02-08T15:41:55.019Z] Status: 285 terminal, 5 processing | elapsed 49m 32s | since last completion: 23m 59s
+[2026-02-08T15:41:55.020Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:41:55.021Z]   STUCK? No progress for 23m 59s (still 285 terminal, 5 processing)
+[2026-02-08T15:42:03.637Z] Status: 285 terminal, 5 processing | elapsed 49m 41s | since last completion: 24m 8s
+[2026-02-08T15:42:03.638Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:42:03.639Z]   STUCK? No progress for 24m 8s (still 285 terminal, 5 processing)
+[2026-02-08T15:42:12.253Z] Status: 285 terminal, 5 processing | elapsed 49m 50s | since last completion: 24m 17s
+[2026-02-08T15:42:12.257Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:42:12.257Z]   STUCK? No progress for 24m 17s (still 285 terminal, 5 processing)
+[2026-02-08T15:42:20.821Z] Status: 285 terminal, 5 processing | elapsed 49m 58s | since last completion: 24m 25s
+[2026-02-08T15:42:20.822Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:42:20.822Z]   STUCK? No progress for 24m 25s (still 285 terminal, 5 processing)
+[2026-02-08T15:42:29.444Z] Status: 285 terminal, 5 processing | elapsed 50m 7s | since last completion: 24m 34s
+[2026-02-08T15:42:29.445Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:42:29.445Z]   STUCK? No progress for 24m 34s (still 285 terminal, 5 processing)
+[2026-02-08T15:42:38.035Z] Status: 285 terminal, 5 processing | elapsed 50m 15s | since last completion: 24m 42s
+[2026-02-08T15:42:38.036Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:42:38.037Z]   STUCK? No progress for 24m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:42:46.619Z] Status: 285 terminal, 5 processing | elapsed 50m 24s | since last completion: 24m 51s
+[2026-02-08T15:42:46.620Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:42:46.621Z]   STUCK? No progress for 24m 51s (still 285 terminal, 5 processing)
+[2026-02-08T15:42:55.228Z] Status: 285 terminal, 5 processing | elapsed 50m 33s | since last completion: 24m 60s
+[2026-02-08T15:42:55.229Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:42:55.230Z]   STUCK? No progress for 24m 60s (still 285 terminal, 5 processing)
+[2026-02-08T15:43:03.877Z] Status: 285 terminal, 5 processing | elapsed 50m 41s | since last completion: 25m 8s
+[2026-02-08T15:43:03.878Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:43:03.879Z]   STUCK? No progress for 25m 8s (still 285 terminal, 5 processing)
+[2026-02-08T15:43:12.474Z] Status: 285 terminal, 5 processing | elapsed 50m 50s | since last completion: 25m 17s
+[2026-02-08T15:43:12.475Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:43:12.476Z]   STUCK? No progress for 25m 17s (still 285 terminal, 5 processing)
+[2026-02-08T15:43:21.056Z] Status: 285 terminal, 5 processing | elapsed 50m 58s | since last completion: 25m 25s
+[2026-02-08T15:43:21.057Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:43:21.058Z]   STUCK? No progress for 25m 25s (still 285 terminal, 5 processing)
+[2026-02-08T15:43:29.758Z] Status: 285 terminal, 5 processing | elapsed 51m 7s | since last completion: 25m 34s
+[2026-02-08T15:43:29.758Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:43:29.759Z]   STUCK? No progress for 25m 34s (still 285 terminal, 5 processing)
+[2026-02-08T15:43:38.292Z] Status: 285 terminal, 5 processing | elapsed 51m 16s | since last completion: 25m 43s
+[2026-02-08T15:43:38.293Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:43:38.294Z]   STUCK? No progress for 25m 43s (still 285 terminal, 5 processing)
+[2026-02-08T15:43:47.105Z] Status: 285 terminal, 5 processing | elapsed 51m 24s | since last completion: 25m 51s
+[2026-02-08T15:43:47.106Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:43:47.106Z]   STUCK? No progress for 25m 51s (still 285 terminal, 5 processing)
+[2026-02-08T15:43:55.983Z] Status: 285 terminal, 5 processing | elapsed 51m 33s | since last completion: 26m
+[2026-02-08T15:43:55.984Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:43:55.985Z]   STUCK? No progress for 26m (still 285 terminal, 5 processing)
+[2026-02-08T15:44:04.680Z] Status: 285 terminal, 5 processing | elapsed 51m 42s | since last completion: 26m 9s
+[2026-02-08T15:44:04.680Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:44:04.681Z]   STUCK? No progress for 26m 9s (still 285 terminal, 5 processing)
+[2026-02-08T15:44:13.304Z] Status: 285 terminal, 5 processing | elapsed 51m 51s | since last completion: 26m 18s
+[2026-02-08T15:44:13.306Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:44:13.306Z]   STUCK? No progress for 26m 18s (still 285 terminal, 5 processing)
+[2026-02-08T15:44:21.901Z] Status: 285 terminal, 5 processing | elapsed 51m 59s | since last completion: 26m 26s
+[2026-02-08T15:44:21.902Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:44:21.902Z]   STUCK? No progress for 26m 26s (still 285 terminal, 5 processing)
+[2026-02-08T15:44:30.536Z] Status: 285 terminal, 5 processing | elapsed 52m 8s | since last completion: 26m 35s
+[2026-02-08T15:44:30.537Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:44:30.537Z]   STUCK? No progress for 26m 35s (still 285 terminal, 5 processing)
+[2026-02-08T15:44:39.106Z] Status: 285 terminal, 5 processing | elapsed 52m 16s | since last completion: 26m 43s
+[2026-02-08T15:44:39.107Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:44:39.108Z]   STUCK? No progress for 26m 43s (still 285 terminal, 5 processing)
+[2026-02-08T15:44:47.724Z] Status: 285 terminal, 5 processing | elapsed 52m 25s | since last completion: 26m 52s
+[2026-02-08T15:44:47.725Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:44:47.726Z]   STUCK? No progress for 26m 52s (still 285 terminal, 5 processing)
+[2026-02-08T15:44:56.238Z] Status: 285 terminal, 5 processing | elapsed 52m 34s | since last completion: 27m 1s
+[2026-02-08T15:44:56.239Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:44:56.240Z]   STUCK? No progress for 27m 1s (still 285 terminal, 5 processing)
+[2026-02-08T15:45:04.855Z] Status: 285 terminal, 5 processing | elapsed 52m 42s | since last completion: 27m 9s
+[2026-02-08T15:45:04.856Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:45:04.857Z]   STUCK? No progress for 27m 9s (still 285 terminal, 5 processing)
+[2026-02-08T15:45:13.735Z] Status: 285 terminal, 5 processing | elapsed 52m 51s | since last completion: 27m 18s
+[2026-02-08T15:45:13.736Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:45:13.737Z]   STUCK? No progress for 27m 18s (still 285 terminal, 5 processing)
+[2026-02-08T15:45:22.360Z] Status: 285 terminal, 5 processing | elapsed 52m 60s | since last completion: 27m 27s
+[2026-02-08T15:45:22.361Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:45:22.362Z]   STUCK? No progress for 27m 27s (still 285 terminal, 5 processing)
+[2026-02-08T15:45:30.953Z] Status: 285 terminal, 5 processing | elapsed 53m 8s | since last completion: 27m 35s
+[2026-02-08T15:45:30.955Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:45:30.955Z]   STUCK? No progress for 27m 35s (still 285 terminal, 5 processing)
+[2026-02-08T15:45:39.574Z] Status: 285 terminal, 5 processing | elapsed 53m 17s | since last completion: 27m 44s
+[2026-02-08T15:45:39.575Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:45:39.575Z]   STUCK? No progress for 27m 44s (still 285 terminal, 5 processing)
+[2026-02-08T15:45:48.210Z] Status: 285 terminal, 5 processing | elapsed 53m 26s | since last completion: 27m 53s
+[2026-02-08T15:45:48.211Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:45:48.211Z]   STUCK? No progress for 27m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:45:56.811Z] Status: 285 terminal, 5 processing | elapsed 53m 34s | since last completion: 28m 1s
+[2026-02-08T15:45:56.811Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:45:56.812Z]   STUCK? No progress for 28m 1s (still 285 terminal, 5 processing)
+[2026-02-08T15:46:05.435Z] Status: 285 terminal, 5 processing | elapsed 53m 43s | since last completion: 28m 10s
+[2026-02-08T15:46:05.436Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:46:05.437Z]   STUCK? No progress for 28m 10s (still 285 terminal, 5 processing)
+[2026-02-08T15:46:14.023Z] Status: 285 terminal, 5 processing | elapsed 53m 51s | since last completion: 28m 18s
+[2026-02-08T15:46:14.024Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:46:14.025Z]   STUCK? No progress for 28m 18s (still 285 terminal, 5 processing)
+[2026-02-08T15:46:22.659Z] Status: 285 terminal, 5 processing | elapsed 54m | since last completion: 28m 27s
+[2026-02-08T15:46:22.660Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:46:22.660Z]   STUCK? No progress for 28m 27s (still 285 terminal, 5 processing)
+[2026-02-08T15:46:31.277Z] Status: 285 terminal, 5 processing | elapsed 54m 9s | since last completion: 28m 36s
+[2026-02-08T15:46:31.277Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:46:31.278Z]   STUCK? No progress for 28m 36s (still 285 terminal, 5 processing)
+[2026-02-08T15:46:39.871Z] Status: 285 terminal, 5 processing | elapsed 54m 17s | since last completion: 28m 44s
+[2026-02-08T15:46:39.872Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:46:39.873Z]   STUCK? No progress for 28m 44s (still 285 terminal, 5 processing)
+[2026-02-08T15:46:48.575Z] Status: 285 terminal, 5 processing | elapsed 54m 26s | since last completion: 28m 53s
+[2026-02-08T15:46:48.576Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:46:48.577Z]   STUCK? No progress for 28m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:46:57.209Z] Status: 285 terminal, 5 processing | elapsed 54m 35s | since last completion: 29m 2s
+[2026-02-08T15:46:57.210Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:46:57.210Z]   STUCK? No progress for 29m 2s (still 285 terminal, 5 processing)
+[2026-02-08T15:47:05.922Z] Status: 285 terminal, 5 processing | elapsed 54m 43s | since last completion: 29m 10s
+[2026-02-08T15:47:05.923Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:47:05.924Z]   STUCK? No progress for 29m 10s (still 285 terminal, 5 processing)
+[2026-02-08T15:47:14.473Z] Status: 285 terminal, 5 processing | elapsed 54m 52s | since last completion: 29m 19s
+[2026-02-08T15:47:14.474Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:47:14.475Z]   STUCK? No progress for 29m 19s (still 285 terminal, 5 processing)
+[2026-02-08T15:47:23.189Z] Status: 285 terminal, 5 processing | elapsed 55m 1s | since last completion: 29m 28s
+[2026-02-08T15:47:23.190Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:47:23.191Z]   STUCK? No progress for 29m 28s (still 285 terminal, 5 processing)
+[2026-02-08T15:47:31.857Z] Status: 285 terminal, 5 processing | elapsed 55m 9s | since last completion: 29m 36s
+[2026-02-08T15:47:31.858Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:47:31.859Z]   STUCK? No progress for 29m 36s (still 285 terminal, 5 processing)
+[2026-02-08T15:47:40.457Z] Status: 285 terminal, 5 processing | elapsed 55m 18s | since last completion: 29m 45s
+[2026-02-08T15:47:40.458Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:47:40.459Z]   STUCK? No progress for 29m 45s (still 285 terminal, 5 processing)
+[2026-02-08T15:47:49.070Z] Status: 285 terminal, 5 processing | elapsed 55m 26s | since last completion: 29m 53s
+[2026-02-08T15:47:49.071Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:47:49.072Z]   STUCK? No progress for 29m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:47:57.812Z] Status: 285 terminal, 5 processing | elapsed 55m 35s | since last completion: 30m 2s
+[2026-02-08T15:47:57.813Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:47:57.814Z]   STUCK? No progress for 30m 2s (still 285 terminal, 5 processing)
+[2026-02-08T15:48:06.464Z] Status: 285 terminal, 5 processing | elapsed 55m 44s | since last completion: 30m 11s
+[2026-02-08T15:48:06.465Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:48:06.466Z]   STUCK? No progress for 30m 11s (still 285 terminal, 5 processing)
+[2026-02-08T15:48:15.026Z] Status: 285 terminal, 5 processing | elapsed 55m 52s | since last completion: 30m 19s
+[2026-02-08T15:48:15.027Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:48:15.028Z]   STUCK? No progress for 30m 19s (still 285 terminal, 5 processing)
+[2026-02-08T15:48:23.780Z] Status: 285 terminal, 5 processing | elapsed 56m 1s | since last completion: 30m 28s
+[2026-02-08T15:48:23.780Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:48:23.781Z]   STUCK? No progress for 30m 28s (still 285 terminal, 5 processing)
+[2026-02-08T15:48:32.298Z] Status: 285 terminal, 5 processing | elapsed 56m 10s | since last completion: 30m 37s
+[2026-02-08T15:48:32.299Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:48:32.300Z]   STUCK? No progress for 30m 37s (still 285 terminal, 5 processing)
+[2026-02-08T15:48:41.028Z] Status: 285 terminal, 5 processing | elapsed 56m 18s | since last completion: 30m 45s
+[2026-02-08T15:48:41.029Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:48:41.030Z]   STUCK? No progress for 30m 45s (still 285 terminal, 5 processing)
+[2026-02-08T15:48:50.063Z] Status: 285 terminal, 5 processing | elapsed 56m 27s | since last completion: 30m 54s
+[2026-02-08T15:48:50.064Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:48:50.064Z]   STUCK? No progress for 30m 54s (still 285 terminal, 5 processing)
+[2026-02-08T15:48:58.660Z] Status: 285 terminal, 5 processing | elapsed 56m 36s | since last completion: 31m 3s
+[2026-02-08T15:48:58.661Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:48:58.662Z]   STUCK? No progress for 31m 3s (still 285 terminal, 5 processing)
+[2026-02-08T15:49:07.293Z] Status: 285 terminal, 5 processing | elapsed 56m 45s | since last completion: 31m 12s
+[2026-02-08T15:49:07.294Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:49:07.295Z]   STUCK? No progress for 31m 12s (still 285 terminal, 5 processing)
+[2026-02-08T15:49:16.157Z] Status: 285 terminal, 5 processing | elapsed 56m 54s | since last completion: 31m 20s
+[2026-02-08T15:49:16.158Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:49:16.159Z]   STUCK? No progress for 31m 20s (still 285 terminal, 5 processing)
+[2026-02-08T15:49:24.796Z] Status: 285 terminal, 5 processing | elapsed 57m 2s | since last completion: 31m 29s
+[2026-02-08T15:49:24.797Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:49:24.798Z]   STUCK? No progress for 31m 29s (still 285 terminal, 5 processing)
+[2026-02-08T15:49:33.519Z] Status: 285 terminal, 5 processing | elapsed 57m 11s | since last completion: 31m 38s
+[2026-02-08T15:49:33.520Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:49:33.520Z]   STUCK? No progress for 31m 38s (still 285 terminal, 5 processing)
+[2026-02-08T15:49:42.168Z] Status: 285 terminal, 5 processing | elapsed 57m 20s | since last completion: 31m 47s
+[2026-02-08T15:49:42.169Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:49:42.170Z]   STUCK? No progress for 31m 47s (still 285 terminal, 5 processing)
+[2026-02-08T15:49:50.781Z] Status: 285 terminal, 5 processing | elapsed 57m 28s | since last completion: 31m 55s
+[2026-02-08T15:49:50.782Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:49:50.783Z]   STUCK? No progress for 31m 55s (still 285 terminal, 5 processing)
+[2026-02-08T15:49:59.406Z] Status: 285 terminal, 5 processing | elapsed 57m 37s | since last completion: 32m 4s
+[2026-02-08T15:49:59.407Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:49:59.407Z]   STUCK? No progress for 32m 4s (still 285 terminal, 5 processing)
+[2026-02-08T15:50:08.035Z] Status: 285 terminal, 5 processing | elapsed 57m 45s | since last completion: 32m 12s
+[2026-02-08T15:50:08.036Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:50:08.036Z]   STUCK? No progress for 32m 12s (still 285 terminal, 5 processing)
+[2026-02-08T15:50:16.622Z] Status: 285 terminal, 5 processing | elapsed 57m 54s | since last completion: 32m 21s
+[2026-02-08T15:50:16.623Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:50:16.623Z]   STUCK? No progress for 32m 21s (still 285 terminal, 5 processing)
+[2026-02-08T15:50:25.311Z] Status: 285 terminal, 5 processing | elapsed 58m 3s | since last completion: 32m 30s
+[2026-02-08T15:50:25.312Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:50:25.313Z]   STUCK? No progress for 32m 30s (still 285 terminal, 5 processing)
+[2026-02-08T15:50:33.920Z] Status: 285 terminal, 5 processing | elapsed 58m 11s | since last completion: 32m 38s
+[2026-02-08T15:50:33.921Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:50:33.921Z]   STUCK? No progress for 32m 38s (still 285 terminal, 5 processing)
+[2026-02-08T15:50:42.635Z] Status: 285 terminal, 5 processing | elapsed 58m 20s | since last completion: 32m 47s
+[2026-02-08T15:50:42.636Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:50:42.636Z]   STUCK? No progress for 32m 47s (still 285 terminal, 5 processing)
+[2026-02-08T15:50:51.280Z] Status: 285 terminal, 5 processing | elapsed 58m 29s | since last completion: 32m 56s
+[2026-02-08T15:50:51.281Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:50:51.282Z]   STUCK? No progress for 32m 56s (still 285 terminal, 5 processing)
+[2026-02-08T15:50:59.935Z] Status: 285 terminal, 5 processing | elapsed 58m 37s | since last completion: 33m 4s
+[2026-02-08T15:50:59.936Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:50:59.937Z]   STUCK? No progress for 33m 4s (still 285 terminal, 5 processing)
+[2026-02-08T15:51:08.472Z] Status: 285 terminal, 5 processing | elapsed 58m 46s | since last completion: 33m 13s
+[2026-02-08T15:51:08.473Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:51:08.474Z]   STUCK? No progress for 33m 13s (still 285 terminal, 5 processing)
+[2026-02-08T15:51:17.073Z] Status: 285 terminal, 5 processing | elapsed 58m 54s | since last completion: 33m 21s
+[2026-02-08T15:51:17.074Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:51:17.075Z]   STUCK? No progress for 33m 21s (still 285 terminal, 5 processing)
+[2026-02-08T15:51:25.861Z] Status: 285 terminal, 5 processing | elapsed 59m 3s | since last completion: 33m 30s
+[2026-02-08T15:51:25.861Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:51:25.862Z]   STUCK? No progress for 33m 30s (still 285 terminal, 5 processing)
+[2026-02-08T15:51:34.470Z] Status: 285 terminal, 5 processing | elapsed 59m 12s | since last completion: 33m 39s
+[2026-02-08T15:51:34.471Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:51:34.471Z]   STUCK? No progress for 33m 39s (still 285 terminal, 5 processing)
+[2026-02-08T15:51:43.077Z] Status: 285 terminal, 5 processing | elapsed 59m 20s | since last completion: 33m 47s
+[2026-02-08T15:51:43.078Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:51:43.078Z]   STUCK? No progress for 33m 47s (still 285 terminal, 5 processing)
+[2026-02-08T15:51:51.736Z] Status: 285 terminal, 5 processing | elapsed 59m 29s | since last completion: 33m 56s
+[2026-02-08T15:51:51.737Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:51:51.738Z]   STUCK? No progress for 33m 56s (still 285 terminal, 5 processing)
+[2026-02-08T15:52:00.344Z] Status: 285 terminal, 5 processing | elapsed 59m 38s | since last completion: 34m 5s
+[2026-02-08T15:52:00.345Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:52:00.346Z]   STUCK? No progress for 34m 5s (still 285 terminal, 5 processing)
+[2026-02-08T15:52:09.017Z] Status: 285 terminal, 5 processing | elapsed 59m 46s | since last completion: 34m 13s
+[2026-02-08T15:52:09.018Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:52:09.019Z]   STUCK? No progress for 34m 13s (still 285 terminal, 5 processing)
+[2026-02-08T15:52:17.647Z] Status: 285 terminal, 5 processing | elapsed 59m 55s | since last completion: 34m 22s
+[2026-02-08T15:52:17.648Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:52:17.649Z]   STUCK? No progress for 34m 22s (still 285 terminal, 5 processing)
+[2026-02-08T15:52:26.184Z] Status: 285 terminal, 5 processing | elapsed 60m 4s | since last completion: 34m 31s
+[2026-02-08T15:52:26.186Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:52:26.187Z]   STUCK? No progress for 34m 31s (still 285 terminal, 5 processing)
+[2026-02-08T15:52:35.001Z] Status: 285 terminal, 5 processing | elapsed 60m 12s | since last completion: 34m 39s
+[2026-02-08T15:52:35.002Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:52:35.003Z]   STUCK? No progress for 34m 39s (still 285 terminal, 5 processing)
+[2026-02-08T15:52:43.965Z] Status: 285 terminal, 5 processing | elapsed 60m 21s | since last completion: 34m 48s
+[2026-02-08T15:52:43.965Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:52:43.966Z]   STUCK? No progress for 34m 48s (still 285 terminal, 5 processing)
+[2026-02-08T15:52:52.672Z] Status: 285 terminal, 5 processing | elapsed 60m 30s | since last completion: 34m 57s
+[2026-02-08T15:52:52.673Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:52:52.674Z]   STUCK? No progress for 34m 57s (still 285 terminal, 5 processing)
+[2026-02-08T15:53:01.281Z] Status: 285 terminal, 5 processing | elapsed 60m 39s | since last completion: 35m 6s
+[2026-02-08T15:53:01.282Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:53:01.283Z]   STUCK? No progress for 35m 6s (still 285 terminal, 5 processing)
+[2026-02-08T15:53:09.990Z] Status: 285 terminal, 5 processing | elapsed 60m 47s | since last completion: 35m 14s
+[2026-02-08T15:53:09.991Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:53:09.992Z]   STUCK? No progress for 35m 14s (still 285 terminal, 5 processing)
+[2026-02-08T15:53:18.604Z] Status: 285 terminal, 5 processing | elapsed 60m 56s | since last completion: 35m 23s
+[2026-02-08T15:53:18.604Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:53:18.605Z]   STUCK? No progress for 35m 23s (still 285 terminal, 5 processing)
+[2026-02-08T15:53:27.240Z] Status: 285 terminal, 5 processing | elapsed 61m 5s | since last completion: 35m 32s
+[2026-02-08T15:53:27.242Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:53:27.242Z]   STUCK? No progress for 35m 32s (still 285 terminal, 5 processing)
+[2026-02-08T15:53:35.838Z] Status: 285 terminal, 5 processing | elapsed 61m 13s | since last completion: 35m 40s
+[2026-02-08T15:53:35.839Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:53:35.839Z]   STUCK? No progress for 35m 40s (still 285 terminal, 5 processing)
+[2026-02-08T15:53:44.398Z] Status: 285 terminal, 5 processing | elapsed 61m 22s | since last completion: 35m 49s
+[2026-02-08T15:53:44.399Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:53:44.399Z]   STUCK? No progress for 35m 49s (still 285 terminal, 5 processing)
+[2026-02-08T15:53:53.043Z] Status: 285 terminal, 5 processing | elapsed 61m 30s | since last completion: 35m 57s
+[2026-02-08T15:53:53.044Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:53:53.044Z]   STUCK? No progress for 35m 57s (still 285 terminal, 5 processing)
+[2026-02-08T15:54:02.017Z] Status: 285 terminal, 5 processing | elapsed 61m 39s | since last completion: 36m 6s
+[2026-02-08T15:54:02.018Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:54:02.019Z]   STUCK? No progress for 36m 6s (still 285 terminal, 5 processing)
+[2026-02-08T15:54:10.749Z] Status: 285 terminal, 5 processing | elapsed 61m 48s | since last completion: 36m 15s
+[2026-02-08T15:54:10.750Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:54:10.751Z]   STUCK? No progress for 36m 15s (still 285 terminal, 5 processing)
+[2026-02-08T15:54:19.604Z] Status: 285 terminal, 5 processing | elapsed 61m 57s | since last completion: 36m 24s
+[2026-02-08T15:54:19.605Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:54:19.606Z]   STUCK? No progress for 36m 24s (still 285 terminal, 5 processing)
+[2026-02-08T15:54:28.243Z] Status: 285 terminal, 5 processing | elapsed 62m 6s | since last completion: 36m 33s
+[2026-02-08T15:54:28.244Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:54:28.244Z]   STUCK? No progress for 36m 33s (still 285 terminal, 5 processing)
+[2026-02-08T15:54:36.876Z] Status: 285 terminal, 5 processing | elapsed 62m 14s | since last completion: 36m 41s
+[2026-02-08T15:54:36.877Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:54:36.877Z]   STUCK? No progress for 36m 41s (still 285 terminal, 5 processing)
+[2026-02-08T15:54:45.476Z] Status: 285 terminal, 5 processing | elapsed 62m 23s | since last completion: 36m 50s
+[2026-02-08T15:54:45.478Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:54:45.478Z]   STUCK? No progress for 36m 50s (still 285 terminal, 5 processing)
+[2026-02-08T15:54:54.043Z] Status: 285 terminal, 5 processing | elapsed 62m 31s | since last completion: 36m 58s
+[2026-02-08T15:54:54.044Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:54:54.045Z]   STUCK? No progress for 36m 58s (still 285 terminal, 5 processing)
+[2026-02-08T15:55:02.595Z] Status: 285 terminal, 5 processing | elapsed 62m 40s | since last completion: 37m 7s
+[2026-02-08T15:55:02.596Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:55:02.597Z]   STUCK? No progress for 37m 7s (still 285 terminal, 5 processing)
+[2026-02-08T15:55:11.205Z] Status: 285 terminal, 5 processing | elapsed 62m 49s | since last completion: 37m 16s
+[2026-02-08T15:55:11.205Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:55:11.206Z]   STUCK? No progress for 37m 16s (still 285 terminal, 5 processing)
+[2026-02-08T15:55:20.020Z] Status: 285 terminal, 5 processing | elapsed 62m 57s | since last completion: 37m 24s
+[2026-02-08T15:55:20.021Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:55:20.022Z]   STUCK? No progress for 37m 24s (still 285 terminal, 5 processing)
+[2026-02-08T15:55:28.628Z] Status: 285 terminal, 5 processing | elapsed 63m 6s | since last completion: 37m 33s
+[2026-02-08T15:55:28.629Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:55:28.629Z]   STUCK? No progress for 37m 33s (still 285 terminal, 5 processing)
+[2026-02-08T15:55:37.257Z] Status: 285 terminal, 5 processing | elapsed 63m 15s | since last completion: 37m 42s
+[2026-02-08T15:55:37.258Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:55:37.258Z]   STUCK? No progress for 37m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:55:45.848Z] Status: 285 terminal, 5 processing | elapsed 63m 23s | since last completion: 37m 50s
+[2026-02-08T15:55:45.849Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:55:45.849Z]   STUCK? No progress for 37m 50s (still 285 terminal, 5 processing)
+[2026-02-08T15:55:54.579Z] Status: 285 terminal, 5 processing | elapsed 63m 32s | since last completion: 37m 59s
+[2026-02-08T15:55:54.580Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:55:54.581Z]   STUCK? No progress for 37m 59s (still 285 terminal, 5 processing)
+[2026-02-08T15:56:03.137Z] Status: 285 terminal, 5 processing | elapsed 63m 40s | since last completion: 38m 7s
+[2026-02-08T15:56:03.138Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:56:03.139Z]   STUCK? No progress for 38m 7s (still 285 terminal, 5 processing)
+[2026-02-08T15:56:11.821Z] Status: 285 terminal, 5 processing | elapsed 63m 49s | since last completion: 38m 16s
+[2026-02-08T15:56:11.822Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:56:11.823Z]   STUCK? No progress for 38m 16s (still 285 terminal, 5 processing)
+[2026-02-08T15:56:20.346Z] Status: 285 terminal, 5 processing | elapsed 63m 58s | since last completion: 38m 25s
+[2026-02-08T15:56:20.347Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:56:20.348Z]   STUCK? No progress for 38m 25s (still 285 terminal, 5 processing)
+[2026-02-08T15:56:29.085Z] Status: 285 terminal, 5 processing | elapsed 64m 6s | since last completion: 38m 33s
+[2026-02-08T15:56:29.086Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:56:29.087Z]   STUCK? No progress for 38m 33s (still 285 terminal, 5 processing)
+[2026-02-08T15:56:37.867Z] Status: 285 terminal, 5 processing | elapsed 64m 15s | since last completion: 38m 42s
+[2026-02-08T15:56:37.868Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:56:37.869Z]   STUCK? No progress for 38m 42s (still 285 terminal, 5 processing)
+[2026-02-08T15:56:46.496Z] Status: 285 terminal, 5 processing | elapsed 64m 24s | since last completion: 38m 51s
+[2026-02-08T15:56:46.497Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:56:46.497Z]   STUCK? No progress for 38m 51s (still 285 terminal, 5 processing)
+[2026-02-08T15:56:55.217Z] Status: 285 terminal, 5 processing | elapsed 64m 33s | since last completion: 38m 60s
+[2026-02-08T15:56:55.226Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:56:55.231Z]   STUCK? No progress for 38m 60s (still 285 terminal, 5 processing)
+[2026-02-08T15:57:03.911Z] Status: 285 terminal, 5 processing | elapsed 64m 41s | since last completion: 39m 8s
+[2026-02-08T15:57:03.912Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:57:03.912Z]   STUCK? No progress for 39m 8s (still 285 terminal, 5 processing)
+[2026-02-08T15:57:12.501Z] Status: 285 terminal, 5 processing | elapsed 64m 50s | since last completion: 39m 17s
+[2026-02-08T15:57:12.502Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:57:12.503Z]   STUCK? No progress for 39m 17s (still 285 terminal, 5 processing)
+[2026-02-08T15:57:21.102Z] Status: 285 terminal, 5 processing | elapsed 64m 58s | since last completion: 39m 25s
+[2026-02-08T15:57:21.103Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:57:21.103Z]   STUCK? No progress for 39m 25s (still 285 terminal, 5 processing)
+[2026-02-08T15:57:29.723Z] Status: 285 terminal, 5 processing | elapsed 65m 7s | since last completion: 39m 34s
+[2026-02-08T15:57:29.725Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:57:29.726Z]   STUCK? No progress for 39m 34s (still 285 terminal, 5 processing)
+[2026-02-08T15:57:38.375Z] Status: 285 terminal, 5 processing | elapsed 65m 16s | since last completion: 39m 43s
+[2026-02-08T15:57:38.376Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:57:38.377Z]   STUCK? No progress for 39m 43s (still 285 terminal, 5 processing)
+[2026-02-08T15:57:46.982Z] Status: 285 terminal, 5 processing | elapsed 65m 24s | since last completion: 39m 51s
+[2026-02-08T15:57:46.983Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:57:46.983Z]   STUCK? No progress for 39m 51s (still 285 terminal, 5 processing)
+[2026-02-08T15:57:55.853Z] Status: 285 terminal, 5 processing | elapsed 65m 33s | since last completion: 40m
+[2026-02-08T15:57:55.854Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:57:55.855Z]   STUCK? No progress for 40m (still 285 terminal, 5 processing)
+[2026-02-08T15:58:04.479Z] Status: 285 terminal, 5 processing | elapsed 65m 42s | since last completion: 40m 9s
+[2026-02-08T15:58:04.480Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:58:04.481Z]   STUCK? No progress for 40m 9s (still 285 terminal, 5 processing)
+[2026-02-08T15:58:13.104Z] Status: 285 terminal, 5 processing | elapsed 65m 50s | since last completion: 40m 17s
+[2026-02-08T15:58:13.105Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:58:13.106Z]   STUCK? No progress for 40m 17s (still 285 terminal, 5 processing)
+[2026-02-08T15:58:21.782Z] Status: 285 terminal, 5 processing | elapsed 65m 59s | since last completion: 40m 26s
+[2026-02-08T15:58:21.783Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:58:21.783Z]   STUCK? No progress for 40m 26s (still 285 terminal, 5 processing)
+[2026-02-08T15:58:30.377Z] Status: 285 terminal, 5 processing | elapsed 66m 8s | since last completion: 40m 35s
+[2026-02-08T15:58:30.378Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:58:30.379Z]   STUCK? No progress for 40m 35s (still 285 terminal, 5 processing)
+[2026-02-08T15:58:39.008Z] Status: 285 terminal, 5 processing | elapsed 66m 16s | since last completion: 40m 43s
+[2026-02-08T15:58:39.009Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:58:39.010Z]   STUCK? No progress for 40m 43s (still 285 terminal, 5 processing)
+[2026-02-08T15:58:47.622Z] Status: 285 terminal, 5 processing | elapsed 66m 25s | since last completion: 40m 52s
+[2026-02-08T15:58:47.623Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:58:47.624Z]   STUCK? No progress for 40m 52s (still 285 terminal, 5 processing)
+[2026-02-08T15:58:56.221Z] Status: 285 terminal, 5 processing | elapsed 66m 34s | since last completion: 41m 1s
+[2026-02-08T15:58:56.222Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:58:56.222Z]   STUCK? No progress for 41m 1s (still 285 terminal, 5 processing)
+[2026-02-08T15:59:04.821Z] Status: 285 terminal, 5 processing | elapsed 66m 42s | since last completion: 41m 9s
+[2026-02-08T15:59:04.822Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:59:04.822Z]   STUCK? No progress for 41m 9s (still 285 terminal, 5 processing)
+[2026-02-08T15:59:13.770Z] Status: 285 terminal, 5 processing | elapsed 66m 51s | since last completion: 41m 18s
+[2026-02-08T15:59:13.771Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:59:13.773Z]   STUCK? No progress for 41m 18s (still 285 terminal, 5 processing)
+[2026-02-08T15:59:22.393Z] Status: 285 terminal, 5 processing | elapsed 66m 60s | since last completion: 41m 27s
+[2026-02-08T15:59:22.394Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:59:22.395Z]   STUCK? No progress for 41m 27s (still 285 terminal, 5 processing)
+[2026-02-08T15:59:31.073Z] Status: 285 terminal, 5 processing | elapsed 67m 8s | since last completion: 41m 35s
+[2026-02-08T15:59:31.074Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:59:31.075Z]   STUCK? No progress for 41m 35s (still 285 terminal, 5 processing)
+[2026-02-08T15:59:39.658Z] Status: 285 terminal, 5 processing | elapsed 67m 17s | since last completion: 41m 44s
+[2026-02-08T15:59:39.659Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:59:39.660Z]   STUCK? No progress for 41m 44s (still 285 terminal, 5 processing)
+[2026-02-08T15:59:48.349Z] Status: 285 terminal, 5 processing | elapsed 67m 26s | since last completion: 41m 53s
+[2026-02-08T15:59:48.350Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:59:48.350Z]   STUCK? No progress for 41m 53s (still 285 terminal, 5 processing)
+[2026-02-08T15:59:56.926Z] Status: 285 terminal, 5 processing | elapsed 67m 34s | since last completion: 42m 1s
+[2026-02-08T15:59:56.928Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T15:59:56.928Z]   STUCK? No progress for 42m 1s (still 285 terminal, 5 processing)
+[2026-02-08T16:00:05.571Z] Status: 285 terminal, 5 processing | elapsed 67m 43s | since last completion: 42m 10s
+[2026-02-08T16:00:05.572Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:00:05.572Z]   STUCK? No progress for 42m 10s (still 285 terminal, 5 processing)
+[2026-02-08T16:00:14.128Z] Status: 285 terminal, 5 processing | elapsed 67m 51s | since last completion: 42m 18s
+[2026-02-08T16:00:14.129Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:00:14.130Z]   STUCK? No progress for 42m 18s (still 285 terminal, 5 processing)
+[2026-02-08T16:00:22.777Z] Status: 285 terminal, 5 processing | elapsed 68m | since last completion: 42m 27s
+[2026-02-08T16:00:22.778Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:00:22.779Z]   STUCK? No progress for 42m 27s (still 285 terminal, 5 processing)
+[2026-02-08T16:00:31.631Z] Status: 285 terminal, 5 processing | elapsed 68m 9s | since last completion: 42m 36s
+[2026-02-08T16:00:31.632Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:00:31.633Z]   STUCK? No progress for 42m 36s (still 285 terminal, 5 processing)
+[2026-02-08T16:00:40.220Z] Status: 285 terminal, 5 processing | elapsed 68m 18s | since last completion: 42m 45s
+[2026-02-08T16:00:40.221Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:00:40.222Z]   STUCK? No progress for 42m 45s (still 285 terminal, 5 processing)
+[2026-02-08T16:00:48.843Z] Status: 285 terminal, 5 processing | elapsed 68m 26s | since last completion: 42m 53s
+[2026-02-08T16:00:48.844Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:00:48.845Z]   STUCK? No progress for 42m 53s (still 285 terminal, 5 processing)
+[2026-02-08T16:00:57.482Z] Status: 285 terminal, 5 processing | elapsed 68m 35s | since last completion: 43m 2s
+[2026-02-08T16:00:57.483Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:00:57.484Z]   STUCK? No progress for 43m 2s (still 285 terminal, 5 processing)
+[2026-02-08T16:01:06.100Z] Status: 285 terminal, 5 processing | elapsed 68m 43s | since last completion: 43m 10s
+[2026-02-08T16:01:06.101Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:01:06.102Z]   STUCK? No progress for 43m 10s (still 285 terminal, 5 processing)
+[2026-02-08T16:01:14.659Z] Status: 285 terminal, 5 processing | elapsed 68m 52s | since last completion: 43m 19s
+[2026-02-08T16:01:14.660Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:01:14.660Z]   STUCK? No progress for 43m 19s (still 285 terminal, 5 processing)
+[2026-02-08T16:01:23.297Z] Status: 285 terminal, 5 processing | elapsed 69m 1s | since last completion: 43m 28s
+[2026-02-08T16:01:23.298Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:01:23.298Z]   STUCK? No progress for 43m 28s (still 285 terminal, 5 processing)
+[2026-02-08T16:01:31.983Z] Status: 285 terminal, 5 processing | elapsed 69m 9s | since last completion: 43m 36s
+[2026-02-08T16:01:31.983Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:01:31.984Z]   STUCK? No progress for 43m 36s (still 285 terminal, 5 processing)
+[2026-02-08T16:01:40.780Z] Status: 285 terminal, 5 processing | elapsed 69m 18s | since last completion: 43m 45s
+[2026-02-08T16:01:40.781Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:01:40.782Z]   STUCK? No progress for 43m 45s (still 285 terminal, 5 processing)
+[2026-02-08T16:01:49.639Z] Status: 285 terminal, 5 processing | elapsed 69m 27s | since last completion: 43m 54s
+[2026-02-08T16:01:49.640Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:01:49.640Z]   STUCK? No progress for 43m 54s (still 285 terminal, 5 processing)
+[2026-02-08T16:01:58.349Z] Status: 285 terminal, 5 processing | elapsed 69m 36s | since last completion: 44m 3s
+[2026-02-08T16:01:58.350Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:01:58.350Z]   STUCK? No progress for 44m 3s (still 285 terminal, 5 processing)
+[2026-02-08T16:02:06.970Z] Status: 285 terminal, 5 processing | elapsed 69m 44s | since last completion: 44m 11s
+[2026-02-08T16:02:06.970Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:02:06.971Z]   STUCK? No progress for 44m 11s (still 285 terminal, 5 processing)
+[2026-02-08T16:02:15.814Z] Status: 285 terminal, 5 processing | elapsed 69m 53s | since last completion: 44m 20s
+[2026-02-08T16:02:15.815Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:02:15.816Z]   STUCK? No progress for 44m 20s (still 285 terminal, 5 processing)
+[2026-02-08T16:02:24.417Z] Status: 285 terminal, 5 processing | elapsed 70m 2s | since last completion: 44m 29s
+[2026-02-08T16:02:24.418Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:02:24.419Z]   STUCK? No progress for 44m 29s (still 285 terminal, 5 processing)
+[2026-02-08T16:02:32.941Z] Status: 285 terminal, 5 processing | elapsed 70m 10s | since last completion: 44m 37s
+[2026-02-08T16:02:32.942Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:02:32.943Z]   STUCK? No progress for 44m 37s (still 285 terminal, 5 processing)
+[2026-02-08T16:02:41.647Z] Status: 285 terminal, 5 processing | elapsed 70m 19s | since last completion: 44m 46s
+[2026-02-08T16:02:41.648Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:02:41.648Z]   STUCK? No progress for 44m 46s (still 285 terminal, 5 processing)
+[2026-02-08T16:02:50.188Z] Status: 285 terminal, 5 processing | elapsed 70m 28s | since last completion: 44m 55s
+[2026-02-08T16:02:50.189Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:02:50.190Z]   STUCK? No progress for 44m 55s (still 285 terminal, 5 processing)
+[2026-02-08T16:02:58.807Z] Status: 285 terminal, 5 processing | elapsed 70m 36s | since last completion: 45m 3s
+[2026-02-08T16:02:58.808Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:02:58.809Z]   STUCK? No progress for 45m 3s (still 285 terminal, 5 processing)
+[2026-02-08T16:03:07.802Z] Status: 285 terminal, 5 processing | elapsed 70m 45s | since last completion: 45m 12s
+[2026-02-08T16:03:07.802Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:03:07.803Z]   STUCK? No progress for 45m 12s (still 285 terminal, 5 processing)
+[2026-02-08T16:03:16.429Z] Status: 285 terminal, 5 processing | elapsed 70m 54s | since last completion: 45m 21s
+[2026-02-08T16:03:16.430Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:03:16.430Z]   STUCK? No progress for 45m 21s (still 285 terminal, 5 processing)
+[2026-02-08T16:03:25.086Z] Status: 285 terminal, 5 processing | elapsed 71m 2s | since last completion: 45m 29s
+[2026-02-08T16:03:25.087Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:03:25.088Z]   STUCK? No progress for 45m 29s (still 285 terminal, 5 processing)
+[2026-02-08T16:03:33.689Z] Status: 285 terminal, 5 processing | elapsed 71m 11s | since last completion: 45m 38s
+[2026-02-08T16:03:33.690Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:03:33.691Z]   STUCK? No progress for 45m 38s (still 285 terminal, 5 processing)
+[2026-02-08T16:03:42.307Z] Status: 285 terminal, 5 processing | elapsed 71m 20s | since last completion: 45m 47s
+[2026-02-08T16:03:42.308Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:03:42.309Z]   STUCK? No progress for 45m 47s (still 285 terminal, 5 processing)
+[2026-02-08T16:03:50.840Z] Status: 285 terminal, 5 processing | elapsed 71m 28s | since last completion: 45m 55s
+[2026-02-08T16:03:50.841Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:03:50.841Z]   STUCK? No progress for 45m 55s (still 285 terminal, 5 processing)
+[2026-02-08T16:03:59.485Z] Status: 285 terminal, 5 processing | elapsed 71m 37s | since last completion: 46m 4s
+[2026-02-08T16:03:59.486Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:03:59.487Z]   STUCK? No progress for 46m 4s (still 285 terminal, 5 processing)
+[2026-02-08T16:04:08.315Z] Status: 285 terminal, 5 processing | elapsed 71m 46s | since last completion: 46m 13s
+[2026-02-08T16:04:08.316Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:04:08.317Z]   STUCK? No progress for 46m 13s (still 285 terminal, 5 processing)
+[2026-02-08T16:04:16.970Z] Status: 285 terminal, 5 processing | elapsed 71m 54s | since last completion: 46m 21s
+[2026-02-08T16:04:16.971Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:04:16.971Z]   STUCK? No progress for 46m 21s (still 285 terminal, 5 processing)
+[2026-02-08T16:04:25.930Z] Status: 285 terminal, 5 processing | elapsed 72m 3s | since last completion: 46m 30s
+[2026-02-08T16:04:25.930Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:04:25.931Z]   STUCK? No progress for 46m 30s (still 285 terminal, 5 processing)
+[2026-02-08T16:04:34.542Z] Status: 285 terminal, 5 processing | elapsed 72m 12s | since last completion: 46m 39s
+[2026-02-08T16:04:34.543Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:04:34.544Z]   STUCK? No progress for 46m 39s (still 285 terminal, 5 processing)
+[2026-02-08T16:04:43.245Z] Status: 285 terminal, 5 processing | elapsed 72m 21s | since last completion: 46m 48s
+[2026-02-08T16:04:43.246Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:04:43.246Z]   STUCK? No progress for 46m 48s (still 285 terminal, 5 processing)
+[2026-02-08T16:04:51.880Z] Status: 285 terminal, 5 processing | elapsed 72m 29s | since last completion: 46m 56s
+[2026-02-08T16:04:51.881Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:04:51.881Z]   STUCK? No progress for 46m 56s (still 285 terminal, 5 processing)
+[2026-02-08T16:05:00.590Z] Status: 285 terminal, 5 processing | elapsed 72m 38s | since last completion: 47m 5s
+[2026-02-08T16:05:00.591Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:05:00.591Z]   STUCK? No progress for 47m 5s (still 285 terminal, 5 processing)
+[2026-02-08T16:05:09.240Z] Status: 285 terminal, 5 processing | elapsed 72m 47s | since last completion: 47m 14s
+[2026-02-08T16:05:09.241Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:05:09.242Z]   STUCK? No progress for 47m 14s (still 285 terminal, 5 processing)
+[2026-02-08T16:05:18.046Z] Status: 285 terminal, 5 processing | elapsed 72m 55s | since last completion: 47m 22s
+[2026-02-08T16:05:18.046Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:05:18.047Z]   STUCK? No progress for 47m 22s (still 285 terminal, 5 processing)
+[2026-02-08T16:05:26.616Z] Status: 285 terminal, 5 processing | elapsed 73m 4s | since last completion: 47m 31s
+[2026-02-08T16:05:26.616Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:05:26.617Z]   STUCK? No progress for 47m 31s (still 285 terminal, 5 processing)
+[2026-02-08T16:05:35.247Z] Status: 285 terminal, 5 processing | elapsed 73m 13s | since last completion: 47m 40s
+[2026-02-08T16:05:35.248Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:05:35.249Z]   STUCK? No progress for 47m 40s (still 285 terminal, 5 processing)
+[2026-02-08T16:05:43.832Z] Status: 285 terminal, 5 processing | elapsed 73m 21s | since last completion: 47m 48s
+[2026-02-08T16:05:43.833Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:05:43.833Z]   STUCK? No progress for 47m 48s (still 285 terminal, 5 processing)
+[2026-02-08T16:05:52.527Z] Status: 285 terminal, 5 processing | elapsed 73m 30s | since last completion: 47m 57s
+[2026-02-08T16:05:52.528Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:05:52.528Z]   STUCK? No progress for 47m 57s (still 285 terminal, 5 processing)
+[2026-02-08T16:06:01.166Z] Status: 285 terminal, 5 processing | elapsed 73m 39s | since last completion: 48m 6s
+[2026-02-08T16:06:01.167Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:06:01.169Z]   STUCK? No progress for 48m 6s (still 285 terminal, 5 processing)
+[2026-02-08T16:06:09.789Z] Status: 285 terminal, 5 processing | elapsed 73m 47s | since last completion: 48m 14s
+[2026-02-08T16:06:09.790Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:06:09.790Z]   STUCK? No progress for 48m 14s (still 285 terminal, 5 processing)
+[2026-02-08T16:06:18.410Z] Status: 285 terminal, 5 processing | elapsed 73m 56s | since last completion: 48m 23s
+[2026-02-08T16:06:18.411Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:06:18.411Z]   STUCK? No progress for 48m 23s (still 285 terminal, 5 processing)
+[2026-02-08T16:06:26.977Z] Status: 285 terminal, 5 processing | elapsed 74m 4s | since last completion: 48m 31s
+[2026-02-08T16:06:26.978Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:06:26.979Z]   STUCK? No progress for 48m 31s (still 285 terminal, 5 processing)
+[2026-02-08T16:06:35.602Z] Status: 285 terminal, 5 processing | elapsed 74m 13s | since last completion: 48m 40s
+[2026-02-08T16:06:35.603Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:06:35.604Z]   STUCK? No progress for 48m 40s (still 285 terminal, 5 processing)
+[2026-02-08T16:06:44.159Z] Status: 285 terminal, 5 processing | elapsed 74m 22s | since last completion: 48m 48s
+[2026-02-08T16:06:44.160Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:06:44.161Z]   STUCK? No progress for 48m 48s (still 285 terminal, 5 processing)
+[2026-02-08T16:06:52.911Z] Status: 285 terminal, 5 processing | elapsed 74m 30s | since last completion: 48m 57s
+[2026-02-08T16:06:52.912Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:06:52.912Z]   STUCK? No progress for 48m 57s (still 285 terminal, 5 processing)
+[2026-02-08T16:07:01.884Z] Status: 285 terminal, 5 processing | elapsed 74m 39s | since last completion: 49m 6s
+[2026-02-08T16:07:01.885Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:07:01.885Z]   STUCK? No progress for 49m 6s (still 285 terminal, 5 processing)
+[2026-02-08T16:07:10.612Z] Status: 285 terminal, 5 processing | elapsed 74m 48s | since last completion: 49m 15s
+[2026-02-08T16:07:10.613Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:07:10.614Z]   STUCK? No progress for 49m 15s (still 285 terminal, 5 processing)
+[2026-02-08T16:07:19.238Z] Status: 285 terminal, 5 processing | elapsed 74m 57s | since last completion: 49m 24s
+[2026-02-08T16:07:19.239Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:07:19.240Z]   STUCK? No progress for 49m 24s (still 285 terminal, 5 processing)
+[2026-02-08T16:07:27.998Z] Status: 285 terminal, 5 processing | elapsed 75m 5s | since last completion: 49m 32s
+[2026-02-08T16:07:27.998Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:07:27.999Z]   STUCK? No progress for 49m 32s (still 285 terminal, 5 processing)
+[2026-02-08T16:07:36.634Z] Status: 285 terminal, 5 processing | elapsed 75m 14s | since last completion: 49m 41s
+[2026-02-08T16:07:36.635Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:07:36.636Z]   STUCK? No progress for 49m 41s (still 285 terminal, 5 processing)
+[2026-02-08T16:07:45.324Z] Status: 285 terminal, 5 processing | elapsed 75m 23s | since last completion: 49m 50s
+[2026-02-08T16:07:45.324Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:07:45.325Z]   STUCK? No progress for 49m 50s (still 285 terminal, 5 processing)
+[2026-02-08T16:07:53.938Z] Status: 285 terminal, 5 processing | elapsed 75m 31s | since last completion: 49m 58s
+[2026-02-08T16:07:53.939Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:07:53.940Z]   STUCK? No progress for 49m 58s (still 285 terminal, 5 processing)
+[2026-02-08T16:08:02.591Z] Status: 285 terminal, 5 processing | elapsed 75m 40s | since last completion: 50m 7s
+[2026-02-08T16:08:02.592Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:08:02.593Z]   STUCK? No progress for 50m 7s (still 285 terminal, 5 processing)
+[2026-02-08T16:08:11.202Z] Status: 285 terminal, 5 processing | elapsed 75m 49s | since last completion: 50m 16s
+[2026-02-08T16:08:11.203Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:08:11.204Z]   STUCK? No progress for 50m 16s (still 285 terminal, 5 processing)
+[2026-02-08T16:08:20.062Z] Status: 285 terminal, 5 processing | elapsed 75m 57s | since last completion: 50m 24s
+[2026-02-08T16:08:20.063Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:08:20.064Z]   STUCK? No progress for 50m 24s (still 285 terminal, 5 processing)
+[2026-02-08T16:08:28.691Z] Status: 285 terminal, 5 processing | elapsed 76m 6s | since last completion: 50m 33s
+[2026-02-08T16:08:28.692Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:08:28.693Z]   STUCK? No progress for 50m 33s (still 285 terminal, 5 processing)
+[2026-02-08T16:08:37.620Z] Status: 285 terminal, 5 processing | elapsed 76m 15s | since last completion: 50m 42s
+[2026-02-08T16:08:37.621Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:08:37.621Z]   STUCK? No progress for 50m 42s (still 285 terminal, 5 processing)
+[2026-02-08T16:08:46.230Z] Status: 285 terminal, 5 processing | elapsed 76m 24s | since last completion: 50m 51s
+[2026-02-08T16:08:46.231Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:08:46.232Z]   STUCK? No progress for 50m 51s (still 285 terminal, 5 processing)
+[2026-02-08T16:08:54.829Z] Status: 285 terminal, 5 processing | elapsed 76m 32s | since last completion: 50m 59s
+[2026-02-08T16:08:54.830Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:08:54.831Z]   STUCK? No progress for 50m 59s (still 285 terminal, 5 processing)
+[2026-02-08T16:09:03.409Z] Status: 285 terminal, 5 processing | elapsed 76m 41s | since last completion: 51m 8s
+[2026-02-08T16:09:03.410Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:09:03.411Z]   STUCK? No progress for 51m 8s (still 285 terminal, 5 processing)
+[2026-02-08T16:09:12.031Z] Status: 285 terminal, 5 processing | elapsed 76m 49s | since last completion: 51m 16s
+[2026-02-08T16:09:12.032Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:09:12.032Z]   STUCK? No progress for 51m 16s (still 285 terminal, 5 processing)
+[2026-02-08T16:09:20.539Z] Status: 285 terminal, 5 processing | elapsed 76m 58s | since last completion: 51m 25s
+[2026-02-08T16:09:20.540Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:09:20.541Z]   STUCK? No progress for 51m 25s (still 285 terminal, 5 processing)
+[2026-02-08T16:09:29.204Z] Status: 285 terminal, 5 processing | elapsed 77m 7s | since last completion: 51m 34s
+[2026-02-08T16:09:29.205Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:09:29.206Z]   STUCK? No progress for 51m 34s (still 285 terminal, 5 processing)
+[2026-02-08T16:09:37.875Z] Status: 285 terminal, 5 processing | elapsed 77m 15s | since last completion: 51m 42s
+[2026-02-08T16:09:37.876Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:09:37.877Z]   STUCK? No progress for 51m 42s (still 285 terminal, 5 processing)
+[2026-02-08T16:09:46.471Z] Status: 285 terminal, 5 processing | elapsed 77m 24s | since last completion: 51m 51s
+[2026-02-08T16:09:46.472Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:09:46.473Z]   STUCK? No progress for 51m 51s (still 285 terminal, 5 processing)
+[2026-02-08T16:09:55.061Z] Status: 285 terminal, 5 processing | elapsed 77m 32s | since last completion: 51m 59s
+[2026-02-08T16:09:55.062Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:09:55.063Z]   STUCK? No progress for 51m 59s (still 285 terminal, 5 processing)
+[2026-02-08T16:10:03.702Z] Status: 285 terminal, 5 processing | elapsed 77m 41s | since last completion: 52m 8s
+[2026-02-08T16:10:03.703Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:10:03.704Z]   STUCK? No progress for 52m 8s (still 285 terminal, 5 processing)
+[2026-02-08T16:10:12.323Z] Status: 285 terminal, 5 processing | elapsed 77m 50s | since last completion: 52m 17s
+[2026-02-08T16:10:12.324Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:10:12.325Z]   STUCK? No progress for 52m 17s (still 285 terminal, 5 processing)
+[2026-02-08T16:10:20.909Z] Status: 285 terminal, 5 processing | elapsed 77m 58s | since last completion: 52m 25s
+[2026-02-08T16:10:20.912Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:10:20.912Z]   STUCK? No progress for 52m 25s (still 285 terminal, 5 processing)
+[2026-02-08T16:10:29.539Z] Status: 285 terminal, 5 processing | elapsed 78m 7s | since last completion: 52m 34s
+[2026-02-08T16:10:29.540Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:10:29.541Z]   STUCK? No progress for 52m 34s (still 285 terminal, 5 processing)
+[2026-02-08T16:10:38.169Z] Status: 285 terminal, 5 processing | elapsed 78m 16s | since last completion: 52m 43s
+[2026-02-08T16:10:38.170Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:10:38.170Z]   STUCK? No progress for 52m 43s (still 285 terminal, 5 processing)
+[2026-02-08T16:10:46.907Z] Status: 285 terminal, 5 processing | elapsed 78m 24s | since last completion: 52m 51s
+[2026-02-08T16:10:46.908Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:10:46.908Z]   STUCK? No progress for 52m 51s (still 285 terminal, 5 processing)
+[2026-02-08T16:10:55.803Z] Status: 285 terminal, 5 processing | elapsed 78m 33s | since last completion: 53m
+[2026-02-08T16:10:55.804Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:10:55.805Z]   STUCK? No progress for 53m (still 285 terminal, 5 processing)
+[2026-02-08T16:11:04.528Z] Status: 285 terminal, 5 processing | elapsed 78m 42s | since last completion: 53m 9s
+[2026-02-08T16:11:04.529Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:11:04.530Z]   STUCK? No progress for 53m 9s (still 285 terminal, 5 processing)
+[2026-02-08T16:11:13.202Z] Status: 285 terminal, 5 processing | elapsed 78m 51s | since last completion: 53m 18s
+[2026-02-08T16:11:13.203Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:11:13.203Z]   STUCK? No progress for 53m 18s (still 285 terminal, 5 processing)
+[2026-02-08T16:11:21.844Z] Status: 285 terminal, 5 processing | elapsed 78m 59s | since last completion: 53m 26s
+[2026-02-08T16:11:21.845Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:11:21.846Z]   STUCK? No progress for 53m 26s (still 285 terminal, 5 processing)
+[2026-02-08T16:11:30.512Z] Status: 285 terminal, 5 processing | elapsed 79m 8s | since last completion: 53m 35s
+[2026-02-08T16:11:30.513Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:11:30.513Z]   STUCK? No progress for 53m 35s (still 285 terminal, 5 processing)
+[2026-02-08T16:11:39.094Z] Status: 285 terminal, 5 processing | elapsed 79m 16s | since last completion: 53m 43s
+[2026-02-08T16:11:39.098Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:11:39.103Z]   STUCK? No progress for 53m 43s (still 285 terminal, 5 processing)
+[2026-02-08T16:11:47.732Z] Status: 285 terminal, 5 processing | elapsed 79m 25s | since last completion: 53m 52s
+[2026-02-08T16:11:47.734Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:11:47.735Z]   STUCK? No progress for 53m 52s (still 285 terminal, 5 processing)
+[2026-02-08T16:11:56.409Z] Status: 285 terminal, 5 processing | elapsed 79m 34s | since last completion: 54m 1s
+[2026-02-08T16:11:56.410Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:11:56.410Z]   STUCK? No progress for 54m 1s (still 285 terminal, 5 processing)
+[2026-02-08T16:12:05.050Z] Status: 285 terminal, 5 processing | elapsed 79m 42s | since last completion: 54m 9s
+[2026-02-08T16:12:05.051Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:12:05.051Z]   STUCK? No progress for 54m 9s (still 285 terminal, 5 processing)
+[2026-02-08T16:12:14.113Z] Status: 285 terminal, 5 processing | elapsed 79m 51s | since last completion: 54m 18s
+[2026-02-08T16:12:14.114Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:12:14.114Z]   STUCK? No progress for 54m 18s (still 285 terminal, 5 processing)
+[2026-02-08T16:12:22.724Z] Status: 285 terminal, 5 processing | elapsed 80m | since last completion: 54m 27s
+[2026-02-08T16:12:22.725Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:12:22.725Z]   STUCK? No progress for 54m 27s (still 285 terminal, 5 processing)
+[2026-02-08T16:12:31.357Z] Status: 285 terminal, 5 processing | elapsed 80m 9s | since last completion: 54m 36s
+[2026-02-08T16:12:31.358Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:12:31.358Z]   STUCK? No progress for 54m 36s (still 285 terminal, 5 processing)
+[2026-02-08T16:12:39.995Z] Status: 285 terminal, 5 processing | elapsed 80m 17s | since last completion: 54m 44s
+[2026-02-08T16:12:39.996Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:12:39.996Z]   STUCK? No progress for 54m 44s (still 285 terminal, 5 processing)
+[2026-02-08T16:12:48.614Z] Status: 285 terminal, 5 processing | elapsed 80m 26s | since last completion: 54m 53s
+[2026-02-08T16:12:48.615Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:12:48.616Z]   STUCK? No progress for 54m 53s (still 285 terminal, 5 processing)
+[2026-02-08T16:12:57.251Z] Status: 285 terminal, 5 processing | elapsed 80m 35s | since last completion: 55m 2s
+[2026-02-08T16:12:57.252Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:12:57.253Z]   STUCK? No progress for 55m 2s (still 285 terminal, 5 processing)
+[2026-02-08T16:13:05.890Z] Status: 285 terminal, 5 processing | elapsed 80m 43s | since last completion: 55m 10s
+[2026-02-08T16:13:05.891Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:13:05.892Z]   STUCK? No progress for 55m 10s (still 285 terminal, 5 processing)
+[2026-02-08T16:13:14.548Z] Status: 285 terminal, 5 processing | elapsed 80m 52s | since last completion: 55m 19s
+[2026-02-08T16:13:14.549Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:13:14.550Z]   STUCK? No progress for 55m 19s (still 285 terminal, 5 processing)
+[2026-02-08T16:13:23.189Z] Status: 285 terminal, 5 processing | elapsed 81m 1s | since last completion: 55m 28s
+[2026-02-08T16:13:23.189Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:13:23.190Z]   STUCK? No progress for 55m 28s (still 285 terminal, 5 processing)
+[2026-02-08T16:13:32.081Z] Status: 285 terminal, 5 processing | elapsed 81m 9s | since last completion: 55m 36s
+[2026-02-08T16:13:32.082Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:13:32.082Z]   STUCK? No progress for 55m 36s (still 285 terminal, 5 processing)
+[2026-02-08T16:13:40.809Z] Status: 285 terminal, 5 processing | elapsed 81m 18s | since last completion: 55m 45s
+[2026-02-08T16:13:40.810Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:13:40.811Z]   STUCK? No progress for 55m 45s (still 285 terminal, 5 processing)
+[2026-02-08T16:13:49.746Z] Status: 285 terminal, 5 processing | elapsed 81m 27s | since last completion: 55m 54s
+[2026-02-08T16:13:49.747Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:13:49.748Z]   STUCK? No progress for 55m 54s (still 285 terminal, 5 processing)
+[2026-02-08T16:13:58.378Z] Status: 285 terminal, 5 processing | elapsed 81m 36s | since last completion: 56m 3s
+[2026-02-08T16:13:58.379Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:13:58.379Z]   STUCK? No progress for 56m 3s (still 285 terminal, 5 processing)
+[2026-02-08T16:14:07.091Z] Status: 285 terminal, 5 processing | elapsed 81m 44s | since last completion: 56m 11s
+[2026-02-08T16:14:07.092Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:14:07.093Z]   STUCK? No progress for 56m 11s (still 285 terminal, 5 processing)
+[2026-02-08T16:14:15.693Z] Status: 285 terminal, 5 processing | elapsed 81m 53s | since last completion: 56m 20s
+[2026-02-08T16:14:15.694Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:14:15.694Z]   STUCK? No progress for 56m 20s (still 285 terminal, 5 processing)
+[2026-02-08T16:14:24.412Z] Status: 285 terminal, 5 processing | elapsed 82m 2s | since last completion: 56m 29s
+[2026-02-08T16:14:24.412Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:14:24.413Z]   STUCK? No progress for 56m 29s (still 285 terminal, 5 processing)
+[2026-02-08T16:14:32.951Z] Status: 285 terminal, 5 processing | elapsed 82m 10s | since last completion: 56m 37s
+[2026-02-08T16:14:32.952Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:14:32.953Z]   STUCK? No progress for 56m 37s (still 285 terminal, 5 processing)
+[2026-02-08T16:14:41.671Z] Status: 285 terminal, 5 processing | elapsed 82m 19s | since last completion: 56m 46s
+[2026-02-08T16:14:41.672Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:14:41.673Z]   STUCK? No progress for 56m 46s (still 285 terminal, 5 processing)
+[2026-02-08T16:14:50.238Z] Status: 285 terminal, 5 processing | elapsed 82m 28s | since last completion: 56m 55s
+[2026-02-08T16:14:50.239Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:14:50.239Z]   STUCK? No progress for 56m 55s (still 285 terminal, 5 processing)
+[2026-02-08T16:14:58.884Z] Status: 285 terminal, 5 processing | elapsed 82m 36s | since last completion: 57m 3s
+[2026-02-08T16:14:58.885Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:14:58.886Z]   STUCK? No progress for 57m 3s (still 285 terminal, 5 processing)
+[2026-02-08T16:15:07.766Z] Status: 285 terminal, 5 processing | elapsed 82m 45s | since last completion: 57m 12s
+[2026-02-08T16:15:07.767Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:15:07.767Z]   STUCK? No progress for 57m 12s (still 285 terminal, 5 processing)
+[2026-02-08T16:15:16.385Z] Status: 285 terminal, 5 processing | elapsed 82m 54s | since last completion: 57m 21s
+[2026-02-08T16:15:16.386Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:15:16.387Z]   STUCK? No progress for 57m 21s (still 285 terminal, 5 processing)
+[2026-02-08T16:15:25.022Z] Status: 285 terminal, 5 processing | elapsed 83m 2s | since last completion: 57m 29s
+[2026-02-08T16:15:25.023Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:15:25.024Z]   STUCK? No progress for 57m 29s (still 285 terminal, 5 processing)
+[2026-02-08T16:15:33.654Z] Status: 285 terminal, 5 processing | elapsed 83m 11s | since last completion: 57m 38s
+[2026-02-08T16:15:33.655Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:15:33.655Z]   STUCK? No progress for 57m 38s (still 285 terminal, 5 processing)
+[2026-02-08T16:15:42.303Z] Status: 285 terminal, 5 processing | elapsed 83m 20s | since last completion: 57m 47s
+[2026-02-08T16:15:42.304Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:15:42.305Z]   STUCK? No progress for 57m 47s (still 285 terminal, 5 processing)
+[2026-02-08T16:15:50.901Z] Status: 285 terminal, 5 processing | elapsed 83m 28s | since last completion: 57m 55s
+[2026-02-08T16:15:50.902Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:15:50.903Z]   STUCK? No progress for 57m 55s (still 285 terminal, 5 processing)
+[2026-02-08T16:15:59.514Z] Status: 285 terminal, 5 processing | elapsed 83m 37s | since last completion: 58m 4s
+[2026-02-08T16:15:59.514Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:15:59.515Z]   STUCK? No progress for 58m 4s (still 285 terminal, 5 processing)
+[2026-02-08T16:16:08.268Z] Status: 285 terminal, 5 processing | elapsed 83m 46s | since last completion: 58m 13s
+[2026-02-08T16:16:08.269Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:16:08.270Z]   STUCK? No progress for 58m 13s (still 285 terminal, 5 processing)
+[2026-02-08T16:16:16.961Z] Status: 285 terminal, 5 processing | elapsed 83m 54s | since last completion: 58m 21s
+[2026-02-08T16:16:16.963Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:16:16.966Z]   STUCK? No progress for 58m 21s (still 285 terminal, 5 processing)
+[2026-02-08T16:16:25.821Z] Status: 285 terminal, 5 processing | elapsed 84m 3s | since last completion: 58m 30s
+[2026-02-08T16:16:25.822Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:16:25.823Z]   STUCK? No progress for 58m 30s (still 285 terminal, 5 processing)
+[2026-02-08T16:16:34.499Z] Status: 285 terminal, 5 processing | elapsed 84m 12s | since last completion: 58m 39s
+[2026-02-08T16:16:34.499Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:16:34.500Z]   STUCK? No progress for 58m 39s (still 285 terminal, 5 processing)
+[2026-02-08T16:16:43.090Z] Status: 285 terminal, 5 processing | elapsed 84m 20s | since last completion: 58m 47s
+[2026-02-08T16:16:43.091Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:16:43.091Z]   STUCK? No progress for 58m 47s (still 285 terminal, 5 processing)
+[2026-02-08T16:16:51.874Z] Status: 285 terminal, 5 processing | elapsed 84m 29s | since last completion: 58m 56s
+[2026-02-08T16:16:51.875Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:16:51.876Z]   STUCK? No progress for 58m 56s (still 285 terminal, 5 processing)
+[2026-02-08T16:17:00.624Z] Status: 285 terminal, 5 processing | elapsed 84m 38s | since last completion: 59m 5s
+[2026-02-08T16:17:00.625Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:17:00.626Z]   STUCK? No progress for 59m 5s (still 285 terminal, 5 processing)
+[2026-02-08T16:17:09.231Z] Status: 285 terminal, 5 processing | elapsed 84m 47s | since last completion: 59m 14s
+[2026-02-08T16:17:09.232Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:17:09.233Z]   STUCK? No progress for 59m 14s (still 285 terminal, 5 processing)
+[2026-02-08T16:17:17.926Z] Status: 285 terminal, 5 processing | elapsed 84m 55s | since last completion: 59m 22s
+[2026-02-08T16:17:17.927Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:17:17.928Z]   STUCK? No progress for 59m 22s (still 285 terminal, 5 processing)
+[2026-02-08T16:17:26.444Z] Status: 285 terminal, 5 processing | elapsed 85m 4s | since last completion: 59m 31s
+[2026-02-08T16:17:26.444Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:17:26.445Z]   STUCK? No progress for 59m 31s (still 285 terminal, 5 processing)
+[2026-02-08T16:17:35.053Z] Status: 285 terminal, 5 processing | elapsed 85m 12s | since last completion: 59m 39s
+[2026-02-08T16:17:35.054Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:17:35.055Z]   STUCK? No progress for 59m 39s (still 285 terminal, 5 processing)
+[2026-02-08T16:17:43.932Z] Status: 285 terminal, 5 processing | elapsed 85m 21s | since last completion: 59m 48s
+[2026-02-08T16:17:43.933Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:17:43.933Z]   STUCK? No progress for 59m 48s (still 285 terminal, 5 processing)
+[2026-02-08T16:17:52.529Z] Status: 285 terminal, 5 processing | elapsed 85m 30s | since last completion: 59m 57s
+[2026-02-08T16:17:52.530Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:17:52.531Z]   STUCK? No progress for 59m 57s (still 285 terminal, 5 processing)
+[2026-02-08T16:18:01.218Z] Status: 285 terminal, 5 processing | elapsed 85m 39s | since last completion: 60m 6s
+[2026-02-08T16:18:01.219Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:18:01.219Z]   STUCK? No progress for 60m 6s (still 285 terminal, 5 processing)
+[2026-02-08T16:18:09.860Z] Status: 285 terminal, 5 processing | elapsed 85m 47s | since last completion: 60m 14s
+[2026-02-08T16:18:09.861Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:18:09.862Z]   STUCK? No progress for 60m 14s (still 285 terminal, 5 processing)
+[2026-02-08T16:18:18.478Z] Status: 285 terminal, 5 processing | elapsed 85m 56s | since last completion: 60m 23s
+[2026-02-08T16:18:18.479Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:18:18.479Z]   STUCK? No progress for 60m 23s (still 285 terminal, 5 processing)
+[2026-02-08T16:18:27.107Z] Status: 285 terminal, 5 processing | elapsed 86m 4s | since last completion: 60m 31s
+[2026-02-08T16:18:27.108Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:18:27.109Z]   STUCK? No progress for 60m 31s (still 285 terminal, 5 processing)
+[2026-02-08T16:18:35.738Z] Status: 285 terminal, 5 processing | elapsed 86m 13s | since last completion: 60m 40s
+[2026-02-08T16:18:35.739Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:18:35.740Z]   STUCK? No progress for 60m 40s (still 285 terminal, 5 processing)
+[2026-02-08T16:18:44.375Z] Status: 285 terminal, 5 processing | elapsed 86m 22s | since last completion: 60m 49s
+[2026-02-08T16:18:44.376Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:18:44.376Z]   STUCK? No progress for 60m 49s (still 285 terminal, 5 processing)
+[2026-02-08T16:18:52.974Z] Status: 285 terminal, 5 processing | elapsed 86m 30s | since last completion: 60m 57s
+[2026-02-08T16:18:52.975Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:18:52.975Z]   STUCK? No progress for 60m 57s (still 285 terminal, 5 processing)
+[2026-02-08T16:19:01.918Z] Status: 285 terminal, 5 processing | elapsed 86m 39s | since last completion: 61m 6s
+[2026-02-08T16:19:01.918Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:19:01.919Z]   STUCK? No progress for 61m 6s (still 285 terminal, 5 processing)
+[2026-02-08T16:19:10.603Z] Status: 285 terminal, 5 processing | elapsed 86m 48s | since last completion: 61m 15s
+[2026-02-08T16:19:10.604Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:19:10.604Z]   STUCK? No progress for 61m 15s (still 285 terminal, 5 processing)
+[2026-02-08T16:19:19.214Z] Status: 285 terminal, 5 processing | elapsed 86m 57s | since last completion: 61m 24s
+[2026-02-08T16:19:19.215Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:19:19.216Z]   STUCK? No progress for 61m 24s (still 285 terminal, 5 processing)
+[2026-02-08T16:19:27.821Z] Status: 285 terminal, 5 processing | elapsed 87m 5s | since last completion: 61m 32s
+[2026-02-08T16:19:27.822Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:19:27.822Z]   STUCK? No progress for 61m 32s (still 285 terminal, 5 processing)
+[2026-02-08T16:19:36.442Z] Status: 285 terminal, 5 processing | elapsed 87m 14s | since last completion: 61m 41s
+[2026-02-08T16:19:36.443Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:19:36.443Z]   STUCK? No progress for 61m 41s (still 285 terminal, 5 processing)
+[2026-02-08T16:19:45.014Z] Status: 285 terminal, 5 processing | elapsed 87m 22s | since last completion: 61m 49s
+[2026-02-08T16:19:45.015Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:19:45.015Z]   STUCK? No progress for 61m 49s (still 285 terminal, 5 processing)
+[2026-02-08T16:19:53.693Z] Status: 285 terminal, 5 processing | elapsed 87m 31s | since last completion: 61m 58s
+[2026-02-08T16:19:53.693Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:19:53.694Z]   STUCK? No progress for 61m 58s (still 285 terminal, 5 processing)
+[2026-02-08T16:20:02.244Z] Status: 285 terminal, 5 processing | elapsed 87m 40s | since last completion: 62m 7s
+[2026-02-08T16:20:02.245Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:20:02.245Z]   STUCK? No progress for 62m 7s (still 285 terminal, 5 processing)
+[2026-02-08T16:20:10.991Z] Status: 285 terminal, 5 processing | elapsed 87m 48s | since last completion: 62m 15s
+[2026-02-08T16:20:10.991Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:20:10.992Z]   STUCK? No progress for 62m 15s (still 285 terminal, 5 processing)
+[2026-02-08T16:20:19.981Z] Status: 285 terminal, 5 processing | elapsed 87m 57s | since last completion: 62m 24s
+[2026-02-08T16:20:19.982Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:20:19.982Z]   STUCK? No progress for 62m 24s (still 285 terminal, 5 processing)
+[2026-02-08T16:20:28.664Z] Status: 285 terminal, 5 processing | elapsed 88m 6s | since last completion: 62m 33s
+[2026-02-08T16:20:28.665Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:20:28.665Z]   STUCK? No progress for 62m 33s (still 285 terminal, 5 processing)
+[2026-02-08T16:20:37.236Z] Status: 285 terminal, 5 processing | elapsed 88m 15s | since last completion: 62m 42s
+[2026-02-08T16:20:37.237Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:20:37.237Z]   STUCK? No progress for 62m 42s (still 285 terminal, 5 processing)
+[2026-02-08T16:20:45.866Z] Status: 285 terminal, 5 processing | elapsed 88m 23s | since last completion: 62m 50s
+[2026-02-08T16:20:45.866Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:20:45.867Z]   STUCK? No progress for 62m 50s (still 285 terminal, 5 processing)
+[2026-02-08T16:20:54.500Z] Status: 285 terminal, 5 processing | elapsed 88m 32s | since last completion: 62m 59s
+[2026-02-08T16:20:54.501Z]   Current: DURO | https://duro-diamonds.com
+[2026-02-08T16:20:54.501Z]   STUCK? No progress for 62m 59s (still 285 terminal, 5 processing)

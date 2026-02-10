@@ -1,0 +1,8 @@
+Mimic test run started at 2026-02-09T18:10:12.608Z
+[2026-02-09T18:10:12.608Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-09T18-10-12.log
+[2026-02-09T18:10:12.613Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-09T18:10:13.131Z] Loading site and dismissing cookie modal...
+[2026-02-09T18:10:43.143Z] Error: page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to "https://www.trevnoctilla.com/auth/login", waiting until "load"[22m
+

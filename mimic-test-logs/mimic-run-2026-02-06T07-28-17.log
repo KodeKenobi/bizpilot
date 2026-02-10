@@ -1,0 +1,84 @@
+Mimic test run started at 2026-02-06T07:28:17.416Z
+[2026-02-06T07:28:17.419Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-06T07-28-17.log
+[2026-02-06T07:28:17.429Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-06T07:28:20.967Z] Loading site and dismissing cookie modal...
+[2026-02-06T07:28:31.768Z] Cookie modal dismissed (Accept All)
+[2026-02-06T07:28:32.602Z] Filling login...
+[2026-02-06T07:28:39.663Z] Login OK
+[2026-02-06T07:28:39.697Z] Waiting 10s for dashboard to refresh...
+[2026-02-06T07:28:49.718Z] Dashboard wait done.
+[2026-02-06T07:28:49.759Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-06T07:28:51.483Z] Usage: daily_limit=-1 daily_used=2 unlimited=true daily_remaining=N/A
+[2026-02-06T07:28:51.485Z] Navigating to campaign upload...
+[2026-02-06T07:28:55.603Z] Upload OK
+[2026-02-06T07:28:56.835Z] Navigate to create OK
+[2026-02-06T07:29:00.850Z] Campaign created: 145
+[2026-02-06T07:29:02.864Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/145
+[2026-02-06T07:29:03.020Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-06T07:29:04.046Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-06T07:29:05.063Z] [Stream] [2020 Innovation] [info] Navigation: Opening https://2020innovation.com...
+[2026-02-06T07:29:05.765Z] Started processing 2000 companies...
+[2026-02-06T07:29:07.779Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: button:has-text("Decline")
+[2026-02-06T07:29:08.432Z] [Stream] [2020 Innovation] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T07:29:09.109Z] [Stream] [2020 Innovation] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T07:29:14.453Z] Status: 0 terminal, 1 processing | elapsed 9s | since last completion: 9s
+[2026-02-06T07:29:14.454Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:29:23.005Z] Status: 0 terminal, 1 processing | elapsed 17s | since last completion: 17s
+[2026-02-06T07:29:23.006Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:29:31.952Z] Status: 0 terminal, 1 processing | elapsed 26s | since last completion: 26s
+[2026-02-06T07:29:31.962Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:29:40.228Z] [Stream] [2020 Innovation] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T07:29:40.530Z] Status: 0 terminal, 1 processing | elapsed 35s | since last completion: 35s
+[2026-02-06T07:29:40.534Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:29:41.051Z] [Stream] [2020 Innovation] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T07:29:41.920Z] [Stream] [2020 Innovation] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T07:29:41.925Z] [Stream] [2020 Innovation] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T07:29:42.060Z] [Stream] [2020 Innovation] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T07:29:42.260Z] [Stream] [2020 Innovation] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T07:29:42.270Z] [Stream] [2020 Innovation] [info] Testing Link: Link 1: contact (
+                  https://www.2020innovation.com/contact
+              )
+[2026-02-06T07:29:42.960Z] [Stream] [2020 Innovation] [info] Contact Page: Loading contact page…
+[2026-02-06T07:29:44.182Z] [Stream] [2020 Innovation] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T07:29:44.603Z] [Stream] [2020 Innovation] [success] Form in iframe: Found form in frame 2 on contact page
+[2026-02-06T07:29:44.644Z] [Stream] [2020 Innovation] [info] Form Filling: Starting iframe fill on contact_page_frame_2
+[2026-02-06T07:29:45.574Z] [Stream] [2020 Innovation] [info] Form Filling: Extracted 9 fields from this form; filling by mapping
+[2026-02-06T07:29:45.613Z] [Stream] [2020 Innovation] [info] Field Filled (mapped): First name -> firstname
+[2026-02-06T07:29:45.623Z] [Stream] [2020 Innovation] [info] Field Filled (mapped): Last name -> lastname
+[2026-02-06T07:29:45.637Z] [Stream] [2020 Innovation] [info] Field Filled (mapped): Email -> email
+[2026-02-06T07:29:45.651Z] [Stream] [2020 Innovation] [info] Field Filled (mapped): Phone -> phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9
+[2026-02-06T07:29:45.683Z] [Stream] [2020 Innovation] [info] Field Filled (mapped): Company -> company
+[2026-02-06T07:29:45.732Z] [Stream] [2020 Innovation] [info] Field Filled (mapped): Checkbox -> enquiry_type
+[2026-02-06T07:29:45.752Z] [Stream] [2020 Innovation] [info] Field Filled (mapped): Message -> message
+[2026-02-06T07:29:49.077Z] Status: 0 terminal, 1 processing | elapsed 43s | since last completion: 43s
+[2026-02-06T07:29:49.079Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:29:57.626Z] Status: 0 terminal, 1 processing | elapsed 52s | since last completion: 52s
+[2026-02-06T07:29:57.628Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:30:06.161Z] Status: 0 terminal, 1 processing | elapsed 1m | since last completion: 1m
+[2026-02-06T07:30:06.162Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:30:14.720Z] Status: 0 terminal, 1 processing | elapsed 1m 9s | since last completion: 1m 9s
+[2026-02-06T07:30:14.723Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:30:23.376Z] Status: 0 terminal, 1 processing | elapsed 1m 18s | since last completion: 1m 18s
+[2026-02-06T07:30:23.384Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:30:31.904Z] Status: 0 terminal, 1 processing | elapsed 1m 26s | since last completion: 1m 26s
+[2026-02-06T07:30:31.905Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:30:40.467Z] Status: 0 terminal, 1 processing | elapsed 1m 35s | since last completion: 1m 35s
+[2026-02-06T07:30:40.468Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:30:40.469Z]   STUCK? No progress for 1m 35s (still 0 terminal, 1 processing)
+[2026-02-06T07:30:49.026Z] Status: 0 terminal, 1 processing | elapsed 1m 43s | since last completion: 1m 43s
+[2026-02-06T07:30:49.027Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T07:30:49.028Z]   STUCK? No progress for 1m 43s (still 0 terminal, 1 processing)
+[2026-02-06T07:30:50.329Z] [Stream] Completed: company_id=72987 status=failed progress=?%
+[2026-02-06T07:30:50.595Z] [Stream] Completed: company_id=72987 status=failed progress=?%
+[2026-02-06T07:30:57.571Z] Progress: 1 terminal (one just finished; 1m 52s since previous) | elapsed 1m 52s
+[2026-02-06T07:30:57.572Z] Status: 1 terminal, 0 processing | elapsed 1m 52s | since last completion: 1m 52s
+[2026-02-06T07:30:57.573Z]   Failed (new): 2020 Innovation | https://2020innovation.com | Invalid switch into Event.wait(): ()
+[2026-02-06T07:31:06.125Z] Status: 1 terminal, 0 processing | elapsed 2m | since last completion: 9s
+[2026-02-06T07:31:14.767Z] Status: 1 terminal, 0 processing | elapsed 2m 9s | since last completion: 17s
+[2026-02-06T07:31:23.282Z] Status: 1 terminal, 0 processing | elapsed 2m 18s | since last completion: 26s
+[2026-02-06T07:31:31.724Z] Status: 1 terminal, 0 processing | elapsed 2m 26s | since last completion: 34s
+[2026-02-06T07:31:41.012Z] Status: 1 terminal, 0 processing | elapsed 2m 35s | since last completion: 43s
+[2026-02-06T07:31:50.043Z] Status: 1 terminal, 0 processing | elapsed 2m 44s | since last completion: 52s
+[2026-02-06T07:31:58.583Z] Status: 1 terminal, 0 processing | elapsed 2m 53s | since last completion: 1m 1s
+[2026-02-06T07:32:04.887Z] Error: page.waitForTimeout: Target page, context or browser has been closed
+Browser left open. Close the browser or press Ctrl+C to exit.

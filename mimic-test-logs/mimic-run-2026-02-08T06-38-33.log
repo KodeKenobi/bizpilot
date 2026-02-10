@@ -1,0 +1,16 @@
+Mimic test run started at 2026-02-08T06:38:33.413Z
+[2026-02-08T06:38:33.414Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T06-38-33.log
+[2026-02-08T06:38:33.416Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T06:38:35.582Z] Loading site and dismissing cookie modal...
+[2026-02-08T06:38:41.397Z] Cookie modal dismissed (Accept All)
+[2026-02-08T06:38:42.201Z] Filling login...
+[2026-02-08T06:38:49.293Z] Login OK
+[2026-02-08T06:38:49.294Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T06:38:59.310Z] Dashboard wait done.
+[2026-02-08T06:38:59.342Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T06:39:01.611Z] Usage: daily_limit=-1 daily_used=292 unlimited=true daily_remaining=N/A
+[2026-02-08T06:39:01.612Z] Navigating to campaign upload...
+[2026-02-08T06:39:04.657Z] Error: page.waitForSelector: Target page, context or browser has been closed
+Call log:
+[2m  - waiting for locator('text=Upload Complete') to be visible[22m
+

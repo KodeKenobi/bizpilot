@@ -1,0 +1,68 @@
+Mimic test run started at 2026-02-08T02:55:55.825Z
+[2026-02-08T02:55:55.827Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T02-55-55.log
+[2026-02-08T02:55:55.866Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T02:56:26.674Z] Loading site and dismissing cookie modal...
+[2026-02-08T02:56:57.640Z] Cookie modal dismissed (Accept All)
+[2026-02-08T02:56:58.450Z] Filling login...
+[2026-02-08T02:57:07.188Z] Login OK
+[2026-02-08T02:57:07.195Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T02:57:17.258Z] Dashboard wait done.
+[2026-02-08T02:57:17.351Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T02:57:47.565Z] Could not fetch usage: apiRequestContext.get: Timeout 30000ms exceeded.
+Call log:
+[2m  - → GET https://www.trevnoctilla.com/api/campaigns/usage[22m
+[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MDUxOTQyMywianRpIjoiYTBiNTEyYjktYmU4Yi00NzYyLTkyYjQtYmIzMTE4MmE4MGZhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0IiwibmJmIjoxNzcwNTE5NDIzLCJleHAiOjE3NzA2MDU4MjN9.SaHvxmcLoF7ELIDRJCYtlO7WwPhTcTY_kVdE3AbP7-E[22m
+[2m    - Content-Type: application/json[22m
+[2m    - cookie: __Host-next-auth.csrf-token=7bc00af1bfa48d90e46f25771ebf9e2df12d74fbd2c516e0d2bfbbcd6c6e91ae%7C9be1731ad0df8f269feb1a9fc8b277eded51a7571e8a1fed5202bbb4ddbf9e93; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.trevnoctilla.com%2Fauth%2Flogin; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..SfbInEcn6gPngJwr.OuR5_WrnxV0vB0qFQtl9G1SXGxd9-JjwsVlbmfxaarchtK6jBpc-hFy-YKY2YVj5p00YbiMMbEhjKD5BEiDG_1rZHgmagOBjohgdRWy51k24_JT1mli81bNr5ZSvPuKaogspSQYd25hUbXUADibuIXLybI7f3EemupS__675jAPwct0Wt3tHBCS12EB8o0RBQ5JMi7FVr-MUN_I77PKapJy0buH5X_U-lxFnSJi6r14J4zOyLF34bNZMfnCDNPXBELNUQyqF1w3cWwhq4HtIOk7O4AGLPkXlInLYx95A-nxA9B0zzHzgb1ES-kGB4GYrOnJP4vvEKZKG3_Tli9H6Wo2aQTgJNWq2_N-5glBo5Qk7_t6xfFRa4uDFRnPtPl-5ZCEbnQDQpkvmxHivfvkvqgmEtsPqcCEszHRSWT7K43Lg8NJPTQjIWR4MKp7swaEsbHl2ajjjDczD4veKkvv2pzMb2PnHM9A4mc3WswbJZFKk5I4Ld7aZdIOHJeQveTSWhV7DydYscbJHuHjuHkWD7zR_qYpA3-Eh80hkXRmoC4z1tjbEcqF8DTgISfM75jH1mQ5WpU_lfwkygi3f8VHyU7nR4i4Jmxwa0uRNQEFNWbe8E7XinyidKWgswOQMhd93iQuUSA298ClDck8SSvLaN4jMz_NgimXiXP0j2jW7-lltzBY6dvG6.YVvhbe-KzY1eofHMReyxSA[22m
+
+[2026-02-08T02:57:47.732Z] Navigating to campaign upload...
+[2026-02-08T02:58:11.599Z] Upload OK
+[2026-02-08T02:58:12.476Z] Navigate to create OK
+[2026-02-08T02:59:15.424Z] Create campaign FAILED or timed out. URL: https://www.trevnoctilla.com/campaigns/create
+[2026-02-08T02:59:15.425Z] Page snippet (first 500 chars): Trevnoctilla
+Home
+Tools
+Video Converter
+Audio Converter
+Image Converter
+PDF Tools
+QR Generator
+Campaigns
+API
+← Back
+Create Campaign
+
+1070 companies ready • Fill in your details and message
+
+Campaign Name
+Your Information
+Australia
+Brazil
+Canada
+China
+France
+Germany
+India
+Ireland
+Israel
+Italy
+Japan
+Mexico
+Netherlands
+New Zealand
+Saudi Arabia
+Singapore
+South Africa
+South Korea
+Spain
+United Arab Emirates
+United Kingdom
+United States
+Email options
+Email found contact when no contact form is found
+
+W
+[2026-02-08T02:59:15.427Z] Error: Create campaign did not redirect to campaign page: https://www.trevnoctilla.com/campaigns/create

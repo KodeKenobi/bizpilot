@@ -1,0 +1,40 @@
+Mimic test run started at 2026-02-09T17:33:10.153Z
+[2026-02-09T17:33:10.153Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-09T17-33-10.log
+[2026-02-09T17:33:10.154Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-09T17:33:11.000Z] Loading site and dismissing cookie modal...
+[2026-02-09T17:33:15.468Z] Cookie modal dismissed (Accept All)
+[2026-02-09T17:33:16.279Z] Filling login... (Target: https://www.trevnoctilla.com/auth/login)
+[2026-02-09T17:33:16.362Z] Clicking login button...
+[2026-02-09T17:33:16.400Z] Waiting for navigation away from login...
+[2026-02-09T17:33:29.649Z] Login OK (Navigated to: https://www.trevnoctilla.com/enterprise)
+[2026-02-09T17:33:29.649Z] Waiting 10s for dashboard to refresh...
+[2026-02-09T17:33:39.659Z] Dashboard wait done.
+[2026-02-09T17:33:39.670Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-09T17:33:40.781Z] Usage: daily_limit=-1 daily_used=989 unlimited=true daily_remaining=N/A
+[2026-02-09T17:33:40.782Z] Navigating to campaign upload...
+[2026-02-09T17:33:45.227Z] Upload OK
+[2026-02-09T17:33:45.778Z] Navigate to create OK
+[2026-02-09T17:33:50.007Z] Campaign created: vOyrSTSu
+[2026-02-09T17:33:52.011Z] Connecting to backend live stream (SSE): https://web-production-737b.up.railway.app/sse/campaign/vOyrSTSu
+[2026-02-09T17:33:52.055Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-09T17:33:52.189Z] --skip-submit: set flag and clicking Start (fill forms but do not submit).
+[2026-02-09T17:33:52.914Z] [Stream] Connected – receiving SSE updates.
+[2026-02-09T17:33:52.917Z] [Stream] Disconnected (end).
+[2026-02-09T17:33:54.311Z] Started processing 2000 companies...
+[2026-02-09T17:34:02.315Z] Stream disconnected; continuing to poll for progress.
+[2026-02-09T17:34:03.133Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-09T17:34:03.133Z] Status: 0 terminal, 0 processing | elapsed 9s | since last completion: 9s
+[2026-02-09T17:34:13.621Z] Status: 0 terminal, 0 processing | elapsed 19s | since last completion: 19s
+[2026-02-09T17:34:22.341Z] Status: 0 terminal, 0 processing | elapsed 28s | since last completion: 28s
+[2026-02-09T17:34:34.386Z] Status: 0 terminal, 0 processing | elapsed 40s | since last completion: 40s
+[2026-02-09T17:34:43.597Z] Status: 0 terminal, 0 processing | elapsed 49s | since last completion: 49s
+[2026-02-09T17:34:51.744Z] Poll #6 failed (will retry): apiRequestContext.get: Request context disposed.
+Call log:
+[2m  - → GET https://www.trevnoctilla.com/api/campaigns/vOyrSTSu/companies[22m
+[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - Content-Type: application/json[22m
+[2m    - Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MDY1ODQwNSwianRpIjoiODdlZjcwMWUtMmU5OS00OTNmLWFhODYtYWVhNzJlYzM5MjNhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0IiwibmJmIjoxNzcwNjU4NDA1LCJleHAiOjE3NzA3NDQ4MDV9.7T1nVYEZZOTmq9jUvMmsNgUr7HQdlZMkjk4fW0JbWjg[22m
+[2m    - cookie: __Host-next-auth.csrf-token=9037f890db72e9c1b3b1acc8728ccbdbb94046c649391cf2a57f6ca9a79cb0da%7Cad65e7b18ea4ffff108838e606179433c49dcbaa786e28e30e1a6f55527d84bf; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.trevnoctilla.com%2Fauth%2Flogin; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..9k3yjuQzLfIAZtCB.3JwlgSfC4R9pyo-0gqDYGCofX59vU0iIFNAAaBjYhh6ncem8Zpg4uhIkv6iPCpBqQA3qBgrqbc08P4rymSfICkcV40aVQPt6HJsmG41pDNov4SQgjkhmtyBsZjPeTXYNZwKTBuQZV83FJCcxDEs_FXI5VLM-c0FKdrX1HEUe3wp2nXleHu90hCelR_T_tWe0OWb9RBqK5R5TNMhubS_GYQxgAALF9sOD3AmOWhpRF5WPp6k-ue0aUxOZSSQCYOOfRZTLPRWUMF71tllrhoWgmQ5zww0Sv6nxgSYPd6FlDPIrUJa8lbEuSTJ471wkdOX4pL-V_JsQ0yV2u7dwk8fCkMZfgnGQbi5vS2zIzZ2ahyO-2SdToexzxwAs9r6-pPZdc8NGONVazfU3JcNOAirkUNGjswxY_1vv6snX3Gq0MrbgN2tpZVcrUqn1fo-Qk19_J9tm_Q6VX2CXBY48dk02YzsltQPDxdhNyQ6owK4_PP1Y81ns3HMSq6VJjSxJQJf8EYfDOPE2IVjHbnoWxd59SP9kal_ncYIT9sPCBGvyLcq35MHqNoo68knXnbLFk1eoWD_Mkv2tamFwgojC3TSoehsjA-FHkN1GRCNSjAje-3hihM4Vw7LnJDBwXxhrUCCrTV3_q3IM8uzDova_tTY1Wcd1iYX-AtnvWZe3RjAX9--R3w4l0XHk.bi6K7DYjsHINK9JQ3M-BQA[22m
+

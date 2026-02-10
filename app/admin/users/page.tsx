@@ -134,7 +134,7 @@ export default function UsersPage() {
         tierFilter.forEach((tier) => params.append("subscription_tier", tier));
       }
 
-      // Try admin API first
+          // Try admin API first
       try {
         // Use the JWT token from localStorage (auth_token)
         const authToken = localStorage.getItem("auth_token");
@@ -182,7 +182,7 @@ export default function UsersPage() {
                 : (user.monthly_call_limit || 5) - (user.monthly_used || 0),
             created_at: user.created_at,
             last_login: user.last_login || user.created_at,
-            api_keys_count: user.api_keys?.length || 0,
+            api_keys_count: user.api_keys_count || 0,
           }));
 
           setUsers(transformedUsers);
@@ -190,11 +190,15 @@ export default function UsersPage() {
           return;
         } else {
           const errorText = await response.text();
+          console.error(`❌ Admin API failed (${response.status}):`, errorText);
           try {
             const errorJson = JSON.parse(errorText);
+            console.error("Parsed error JSON:", errorJson);
           } catch (e) {}
         }
-      } catch (adminError) {}
+      } catch (adminError) {
+        console.error('❌ Admin API error:', adminError);
+      }
 
       // Fallback: Create user entry from current session
 
@@ -677,17 +681,18 @@ export default function UsersPage() {
           {/* Users Table */}
           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 shadow-lg rounded-xl overflow-hidden">
             <ul className="divide-y divide-gray-700">
-              {filteredUsers.map((user) => (
-                <li key={user.id}>
-                  <div className="px-4 py-4 flex items-center justify-between hover:bg-gray-700/30 transition-colors">
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0">
-                        <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
-                          <span className="text-sm font-medium text-white">
-                            {user.email.charAt(0).toUpperCase()}
-                          </span>
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user) => (
+                  <li key={user.id}>
+                    <div className="px-4 py-4 flex items-center justify-between hover:bg-gray-700/30 transition-colors">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0">
+                          <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
+                            <span className="text-sm font-medium text-white">
+                              {user.email.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
                         </div>
-                      </div>
                       <div className="ml-4">
                         <div className="flex items-center">
                           <p className="text-sm font-medium text-white">
@@ -793,9 +798,15 @@ export default function UsersPage() {
                     </div>
                   </div>
                 </li>
-              ))}
-            </ul>
-          </div>
+              ))
+            ) : (
+              <li className="px-4 py-8 text-center text-gray-400">
+                <Activity className="h-12 w-12 mx-auto mb-2 opacity-20" />
+                <p>No users found matching your filters</p>
+              </li>
+            ) }
+          </ul>
+        </div>
 
           {/* User Details Modal */}
           {showUserDetails && selectedUser && (

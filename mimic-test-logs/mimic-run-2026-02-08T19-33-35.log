@@ -1,0 +1,275 @@
+Mimic test run started at 2026-02-08T19:33:35.735Z
+[2026-02-08T19:33:35.736Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T19-33-35.log
+[2026-02-08T19:33:35.739Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T19:33:38.116Z] Loading site and dismissing cookie modal...
+[2026-02-08T19:33:44.672Z] Cookie modal dismissed (Accept All)
+[2026-02-08T19:33:45.495Z] Filling login...
+[2026-02-08T19:33:52.610Z] Login OK
+[2026-02-08T19:33:52.611Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T19:34:02.623Z] Dashboard wait done.
+[2026-02-08T19:34:02.644Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T19:34:03.865Z] Usage: daily_limit=-1 daily_used=1129 unlimited=true daily_remaining=N/A
+[2026-02-08T19:34:03.866Z] Navigating to campaign upload...
+[2026-02-08T19:34:08.996Z] Upload OK
+[2026-02-08T19:34:11.184Z] Navigate to create OK
+[2026-02-08T19:34:19.209Z] Campaign created: ZXZmoOMC
+[2026-02-08T19:34:21.223Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/ZXZmoOMC
+[2026-02-08T19:34:21.324Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-08T19:34:22.099Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-08T19:34:23.073Z] --skip-submit: set flag and clicking Start (fill forms but do not submit).
+[2026-02-08T19:34:27.003Z] Started processing 2000 companies...
+[2026-02-08T19:34:35.794Z] Status: 0 terminal, 5 processing | elapsed 9s | since last completion: 9s
+[2026-02-08T19:34:35.795Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T19:34:44.808Z] Progress: 1 terminal (one just finished; 18s since previous) | elapsed 18s
+[2026-02-08T19:34:44.809Z] Status: 1 terminal, 5 processing | elapsed 18s | since last completion: 18s
+[2026-02-08T19:34:44.809Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T19:34:53.520Z] Progress: 2 terminal (one just finished; 9s since previous) | elapsed 27s
+[2026-02-08T19:34:53.521Z] Status: 2 terminal, 5 processing | elapsed 27s | since last completion: 9s
+[2026-02-08T19:34:53.522Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-08T19:35:02.504Z] Progress: 6 terminal (one just finished; 9s since previous) | elapsed 36s
+[2026-02-08T19:35:02.514Z] Status: 6 terminal, 5 processing | elapsed 36s | since last completion: 9s
+[2026-02-08T19:35:02.515Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T19:35:11.111Z] Progress: 8 terminal (one just finished; 9s since previous) | elapsed 44s
+[2026-02-08T19:35:11.112Z] Status: 8 terminal, 5 processing | elapsed 44s | since last completion: 9s
+[2026-02-08T19:35:11.112Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T19:35:20.228Z] Status: 8 terminal, 5 processing | elapsed 53s | since last completion: 9s
+[2026-02-08T19:35:20.229Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-08T19:35:29.067Z] Progress: 11 terminal (one just finished; 18s since previous) | elapsed 1m 2s
+[2026-02-08T19:35:29.068Z] Status: 11 terminal, 5 processing | elapsed 1m 2s | since last completion: 18s
+[2026-02-08T19:35:29.068Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T19:35:38.131Z] Progress: 13 terminal (one just finished; 9s since previous) | elapsed 1m 11s
+[2026-02-08T19:35:38.134Z] Status: 13 terminal, 5 processing | elapsed 1m 11s | since last completion: 9s
+[2026-02-08T19:35:38.135Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T19:35:46.754Z] Progress: 15 terminal (one just finished; 9s since previous) | elapsed 1m 20s
+[2026-02-08T19:35:46.755Z] Status: 15 terminal, 5 processing | elapsed 1m 20s | since last completion: 9s
+[2026-02-08T19:35:46.755Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T19:35:55.492Z] Progress: 17 terminal (one just finished; 9s since previous) | elapsed 1m 28s
+[2026-02-08T19:35:55.493Z] Status: 17 terminal, 5 processing | elapsed 1m 28s | since last completion: 9s
+[2026-02-08T19:35:55.494Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T19:36:04.096Z] Status: 17 terminal, 5 processing | elapsed 1m 37s | since last completion: 9s
+[2026-02-08T19:36:04.097Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-08T19:36:12.897Z] Progress: 18 terminal (one just finished; 17s since previous) | elapsed 1m 46s
+[2026-02-08T19:36:12.898Z] Status: 18 terminal, 5 processing | elapsed 1m 46s | since last completion: 17s
+[2026-02-08T19:36:12.899Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-08T19:36:12.900Z]   Failed (new): übbs pouches | https://ubbspouches.com | [Errno 11] write could not complete without blocking
+[2026-02-08T19:36:21.630Z] Progress: 19 terminal (one just finished; 9s since previous) | elapsed 1m 55s
+[2026-02-08T19:36:21.632Z] Status: 19 terminal, 5 processing | elapsed 1m 55s | since last completion: 9s
+[2026-02-08T19:36:21.632Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-08T19:36:30.400Z] Progress: 20 terminal (one just finished; 9s since previous) | elapsed 2m 3s
+[2026-02-08T19:36:30.401Z] Status: 20 terminal, 5 processing | elapsed 2m 3s | since last completion: 9s
+[2026-02-08T19:36:30.402Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T19:36:39.015Z] Progress: 24 terminal (one just finished; 9s since previous) | elapsed 2m 12s
+[2026-02-08T19:36:39.016Z] Status: 24 terminal, 5 processing | elapsed 2m 12s | since last completion: 9s
+[2026-02-08T19:36:39.017Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T19:36:47.768Z] Progress: 26 terminal (one just finished; 9s since previous) | elapsed 2m 21s
+[2026-02-08T19:36:47.769Z] Status: 26 terminal, 5 processing | elapsed 2m 21s | since last completion: 9s
+[2026-02-08T19:36:47.770Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T19:36:56.420Z] Progress: 27 terminal (one just finished; 9s since previous) | elapsed 2m 29s
+[2026-02-08T19:36:56.421Z] Status: 27 terminal, 5 processing | elapsed 2m 29s | since last completion: 9s
+[2026-02-08T19:36:56.422Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T19:37:05.388Z] Status: 27 terminal, 5 processing | elapsed 2m 38s | since last completion: 9s
+[2026-02-08T19:37:05.389Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-08T19:37:14.460Z] Progress: 29 terminal (one just finished; 18s since previous) | elapsed 2m 47s
+[2026-02-08T19:37:14.461Z] Status: 29 terminal, 5 processing | elapsed 2m 47s | since last completion: 18s
+[2026-02-08T19:37:14.463Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:37:23.356Z] Status: 29 terminal, 5 processing | elapsed 2m 56s | since last completion: 9s
+[2026-02-08T19:37:23.357Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:37:32.550Z] Progress: 30 terminal (one just finished; 18s since previous) | elapsed 3m 6s
+[2026-02-08T19:37:32.551Z] Status: 30 terminal, 5 processing | elapsed 3m 6s | since last completion: 18s
+[2026-02-08T19:37:32.552Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:37:41.512Z] Status: 30 terminal, 5 processing | elapsed 3m 15s | since last completion: 9s
+[2026-02-08T19:37:41.513Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:37:50.210Z] Progress: 32 terminal (one just finished; 18s since previous) | elapsed 3m 23s
+[2026-02-08T19:37:50.211Z] Status: 32 terminal, 5 processing | elapsed 3m 23s | since last completion: 18s
+[2026-02-08T19:37:50.211Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:37:58.896Z] Progress: 35 terminal (one just finished; 9s since previous) | elapsed 3m 32s
+[2026-02-08T19:37:58.898Z] Status: 35 terminal, 5 processing | elapsed 3m 32s | since last completion: 9s
+[2026-02-08T19:37:58.899Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:38:07.521Z] Progress: 36 terminal (one just finished; 9s since previous) | elapsed 3m 41s
+[2026-02-08T19:38:07.522Z] Status: 36 terminal, 5 processing | elapsed 3m 41s | since last completion: 9s
+[2026-02-08T19:38:07.523Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:38:16.125Z] Status: 36 terminal, 5 processing | elapsed 3m 49s | since last completion: 9s
+[2026-02-08T19:38:16.126Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-08T19:38:24.708Z] Progress: 37 terminal (one just finished; 17s since previous) | elapsed 3m 58s
+[2026-02-08T19:38:24.709Z] Status: 37 terminal, 5 processing | elapsed 3m 58s | since last completion: 17s
+[2026-02-08T19:38:24.710Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-08T19:38:24.710Z]   Failed (new): Adapt Commercial Cleaning | https://adaptcommercialcleaning.com | Request timed out. Try again or skip.
+[2026-02-08T19:38:34.569Z] Status: 37 terminal, 5 processing | elapsed 4m 8s | since last completion: 10s
+[2026-02-08T19:38:34.569Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-08T19:38:43.466Z] Status: 37 terminal, 5 processing | elapsed 4m 16s | since last completion: 19s
+[2026-02-08T19:38:43.467Z]   Current: Affordable Golf | https://affordablegolf.co.uk
+[2026-02-08T19:38:52.263Z] Progress: 38 terminal (one just finished; 28s since previous) | elapsed 4m 25s
+[2026-02-08T19:38:52.264Z] Status: 38 terminal, 5 processing | elapsed 4m 25s | since last completion: 28s
+[2026-02-08T19:38:52.265Z]   Current: Air Power Products Ltd | https://airpowerproducts.co.uk
+[2026-02-08T19:39:01.496Z] Progress: 39 terminal (one just finished; 9s since previous) | elapsed 4m 34s
+[2026-02-08T19:39:01.497Z] Status: 39 terminal, 5 processing | elapsed 4m 34s | since last completion: 9s
+[2026-02-08T19:39:01.498Z]   Current: AJ Bell Investcentre | https://investcentre.co.uk
+[2026-02-08T19:39:10.323Z] Progress: 40 terminal (one just finished; 9s since previous) | elapsed 4m 43s
+[2026-02-08T19:39:10.324Z] Status: 40 terminal, 5 processing | elapsed 4m 43s | since last completion: 9s
+[2026-02-08T19:39:10.325Z]   Current: Akoni Technologies | https://akonitechnologies.co.uk
+[2026-02-08T19:39:19.171Z] Progress: 45 terminal (one just finished; 9s since previous) | elapsed 4m 52s
+[2026-02-08T19:39:19.172Z] Status: 45 terminal, 5 processing | elapsed 4m 52s | since last completion: 9s
+[2026-02-08T19:39:19.173Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T19:39:27.908Z] Progress: 48 terminal (one just finished; 9s since previous) | elapsed 5m 1s
+[2026-02-08T19:39:27.909Z] Status: 48 terminal, 5 processing | elapsed 5m 1s | since last completion: 9s
+[2026-02-08T19:39:27.910Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T19:39:37.362Z] Progress: 49 terminal (one just finished; 9s since previous) | elapsed 5m 10s
+[2026-02-08T19:39:37.363Z] Status: 49 terminal, 5 processing | elapsed 5m 10s | since last completion: 9s
+[2026-02-08T19:39:37.363Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T19:39:46.388Z] Progress: 50 terminal (one just finished; 9s since previous) | elapsed 5m 19s
+[2026-02-08T19:39:46.389Z] Status: 50 terminal, 5 processing | elapsed 5m 19s | since last completion: 9s
+[2026-02-08T19:39:46.390Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T19:39:54.992Z] Progress: 52 terminal (one just finished; 9s since previous) | elapsed 5m 28s
+[2026-02-08T19:39:54.993Z] Status: 52 terminal, 5 processing | elapsed 5m 28s | since last completion: 9s
+[2026-02-08T19:39:54.994Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-08T19:40:03.793Z] Status: 52 terminal, 5 processing | elapsed 5m 37s | since last completion: 9s
+[2026-02-08T19:40:03.794Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-08T19:40:12.414Z] Progress: 55 terminal (one just finished; 17s since previous) | elapsed 5m 45s
+[2026-02-08T19:40:12.415Z] Status: 55 terminal, 5 processing | elapsed 5m 45s | since last completion: 17s
+[2026-02-08T19:40:12.415Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-08T19:40:21.140Z] Progress: 56 terminal (one just finished; 9s since previous) | elapsed 5m 54s
+[2026-02-08T19:40:21.141Z] Status: 56 terminal, 5 processing | elapsed 5m 54s | since last completion: 9s
+[2026-02-08T19:40:21.141Z]   Current: ALMIS International | https://almisinternational.com
+[2026-02-08T19:40:29.803Z] Progress: 57 terminal (one just finished; 9s since previous) | elapsed 6m 3s
+[2026-02-08T19:40:29.804Z] Status: 57 terminal, 5 processing | elapsed 6m 3s | since last completion: 9s
+[2026-02-08T19:40:29.805Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-08T19:40:40.036Z] Progress: 58 terminal (one just finished; 10s since previous) | elapsed 6m 13s
+[2026-02-08T19:40:40.037Z] Status: 58 terminal, 5 processing | elapsed 6m 13s | since last completion: 10s
+[2026-02-08T19:40:40.037Z]   Current: Apex Computing Services Ltd | https://apexcomputing.co.uk
+[2026-02-08T19:40:48.667Z] Progress: 60 terminal (one just finished; 9s since previous) | elapsed 6m 22s
+[2026-02-08T19:40:48.668Z] Status: 60 terminal, 5 processing | elapsed 6m 22s | since last completion: 9s
+[2026-02-08T19:40:48.668Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T19:40:57.502Z] Progress: 62 terminal (one just finished; 9s since previous) | elapsed 6m 30s
+[2026-02-08T19:40:57.503Z] Status: 62 terminal, 5 processing | elapsed 6m 30s | since last completion: 9s
+[2026-02-08T19:40:57.504Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T19:41:06.113Z] Status: 62 terminal, 5 processing | elapsed 6m 39s | since last completion: 9s
+[2026-02-08T19:41:06.114Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T19:41:14.766Z] Progress: 63 terminal (one just finished; 17s since previous) | elapsed 6m 48s
+[2026-02-08T19:41:14.767Z] Status: 63 terminal, 5 processing | elapsed 6m 48s | since last completion: 17s
+[2026-02-08T19:41:14.767Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T19:41:23.362Z] Progress: 64 terminal (one just finished; 9s since previous) | elapsed 6m 56s
+[2026-02-08T19:41:23.363Z] Status: 64 terminal, 5 processing | elapsed 6m 56s | since last completion: 9s
+[2026-02-08T19:41:23.364Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T19:41:32.154Z] Status: 64 terminal, 5 processing | elapsed 7m 5s | since last completion: 9s
+[2026-02-08T19:41:32.155Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T19:41:42.242Z] Status: 64 terminal, 5 processing | elapsed 7m 15s | since last completion: 19s
+[2026-02-08T19:41:42.243Z]   Current: Appetite for Business | Microsoft 365 | BCorp | https://appetite.business
+[2026-02-08T19:41:50.835Z] Progress: 68 terminal (one just finished; 27s since previous) | elapsed 7m 24s
+[2026-02-08T19:41:50.836Z] Status: 68 terminal, 5 processing | elapsed 7m 24s | since last completion: 27s
+[2026-02-08T19:41:50.836Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T19:41:50.837Z]   Failed (new): Appetite for Business | Microsoft 365 | BCorp | https://appetite.business | Request timed out. Try again or skip.
+[2026-02-08T19:41:59.451Z] Status: 68 terminal, 5 processing | elapsed 7m 32s | since last completion: 9s
+[2026-02-08T19:41:59.452Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T19:42:08.514Z] Progress: 70 terminal (one just finished; 18s since previous) | elapsed 7m 42s
+[2026-02-08T19:42:08.515Z] Status: 70 terminal, 5 processing | elapsed 7m 42s | since last completion: 18s
+[2026-02-08T19:42:08.515Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T19:42:17.185Z] Progress: 72 terminal (one just finished; 9s since previous) | elapsed 7m 50s
+[2026-02-08T19:42:17.186Z] Status: 72 terminal, 5 processing | elapsed 7m 50s | since last completion: 9s
+[2026-02-08T19:42:17.187Z]   Current: Art Click | https://theartclick.com
+[2026-02-08T19:42:26.941Z] Progress: 74 terminal (one just finished; 10s since previous) | elapsed 7m 60s
+[2026-02-08T19:42:26.942Z] Status: 74 terminal, 4 processing | elapsed 7m 60s | since last completion: 10s
+[2026-02-08T19:42:26.943Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T19:42:26.944Z]   Failed (new): Art Click | https://theartclick.com | Request timed out. Try again or skip.
+[2026-02-08T19:42:35.613Z] Progress: 75 terminal (one just finished; 9s since previous) | elapsed 8m 9s
+[2026-02-08T19:42:35.614Z] Status: 75 terminal, 5 processing | elapsed 8m 9s | since last completion: 9s
+[2026-02-08T19:42:35.615Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T19:42:45.723Z] Progress: 77 terminal (one just finished; 10s since previous) | elapsed 8m 19s
+[2026-02-08T19:42:45.724Z] Status: 77 terminal, 5 processing | elapsed 8m 19s | since last completion: 10s
+[2026-02-08T19:42:45.724Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T19:42:54.454Z] Progress: 78 terminal (one just finished; 9s since previous) | elapsed 8m 27s
+[2026-02-08T19:42:54.456Z] Status: 78 terminal, 5 processing | elapsed 8m 27s | since last completion: 9s
+[2026-02-08T19:42:54.456Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T19:43:03.327Z] Progress: 79 terminal (one just finished; 9s since previous) | elapsed 8m 36s
+[2026-02-08T19:43:03.328Z] Status: 79 terminal, 5 processing | elapsed 8m 36s | since last completion: 9s
+[2026-02-08T19:43:03.329Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T19:43:12.029Z] Progress: 80 terminal (one just finished; 9s since previous) | elapsed 8m 45s
+[2026-02-08T19:43:12.030Z] Status: 80 terminal, 5 processing | elapsed 8m 45s | since last completion: 9s
+[2026-02-08T19:43:12.030Z]   Current: Atlas Diagnostics | https://atlasdiagnostics.co.uk
+[2026-02-08T19:43:20.716Z] Progress: 83 terminal (one just finished; 9s since previous) | elapsed 8m 54s
+[2026-02-08T19:43:20.717Z] Status: 83 terminal, 5 processing | elapsed 8m 54s | since last completion: 9s
+[2026-02-08T19:43:20.718Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-08T19:43:29.304Z] Progress: 85 terminal (one just finished; 9s since previous) | elapsed 9m 2s
+[2026-02-08T19:43:29.305Z] Status: 85 terminal, 5 processing | elapsed 9m 2s | since last completion: 9s
+[2026-02-08T19:43:29.306Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-08T19:43:38.209Z] Progress: 86 terminal (one just finished; 9s since previous) | elapsed 9m 11s
+[2026-02-08T19:43:38.209Z] Status: 86 terminal, 5 processing | elapsed 9m 11s | since last completion: 9s
+[2026-02-08T19:43:38.210Z]   Current: Au Dental | https://audental.co.uk
+[2026-02-08T19:44:09.347Z] [Stream] Error: Invalid WebSocket frame: FIN must be set
+[2026-02-08T19:44:09.359Z] [Stream] Disconnected.
+[2026-02-08T19:44:16.513Z] Companies API error: 500 (poll #63)
+[2026-02-08T19:44:24.513Z] Stream disconnected; continuing to poll for progress.
+[2026-02-08T19:44:54.786Z] Companies API error: 500 (poll #64)
+[2026-02-08T19:45:33.086Z] Companies API error: 500 (poll #65)
+[2026-02-08T19:46:11.346Z] Companies API error: 500 (poll #66)
+[2026-02-08T19:46:49.634Z] Companies API error: 500 (poll #67)
+[2026-02-08T19:47:27.267Z] Progress: 128 terminal (one just finished; 3m 49s since previous) | elapsed 13m
+[2026-02-08T19:47:27.269Z] Status: 128 terminal, 5 processing | elapsed 13m | since last completion: 3m 49s
+[2026-02-08T19:47:27.269Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:47:27.270Z]   STUCK? No progress for 3m 49s (still 128 terminal, 5 processing)
+[2026-02-08T19:47:27.271Z]   Failed (new): Axcess Merchant Services | https://axcessms.com | Request timed out. Try again or skip.
+[2026-02-08T19:47:27.271Z]   Failed (new): Birdie Fortescue | https://birdiefortescue.co.uk | Request timed out. Try again or skip.
+[2026-02-08T19:47:35.899Z] Status: 128 terminal, 5 processing | elapsed 13m 9s | since last completion: 9s
+[2026-02-08T19:47:35.900Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:47:44.522Z] Status: 128 terminal, 5 processing | elapsed 13m 18s | since last completion: 17s
+[2026-02-08T19:47:44.523Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:47:53.125Z] Status: 128 terminal, 5 processing | elapsed 13m 26s | since last completion: 26s
+[2026-02-08T19:47:53.126Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:48:02.059Z] Status: 128 terminal, 5 processing | elapsed 13m 35s | since last completion: 35s
+[2026-02-08T19:48:02.060Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:48:10.698Z] Status: 128 terminal, 5 processing | elapsed 13m 44s | since last completion: 43s
+[2026-02-08T19:48:10.699Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:48:19.501Z] Status: 128 terminal, 5 processing | elapsed 13m 52s | since last completion: 52s
+[2026-02-08T19:48:19.507Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:48:28.170Z] Status: 128 terminal, 5 processing | elapsed 14m 1s | since last completion: 1m 1s
+[2026-02-08T19:48:28.171Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:48:36.984Z] Status: 128 terminal, 5 processing | elapsed 14m 10s | since last completion: 1m 10s
+[2026-02-08T19:48:36.985Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:48:45.604Z] Status: 128 terminal, 5 processing | elapsed 14m 19s | since last completion: 1m 18s
+[2026-02-08T19:48:45.605Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:48:54.194Z] Status: 128 terminal, 5 processing | elapsed 14m 27s | since last completion: 1m 27s
+[2026-02-08T19:48:54.195Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:02.728Z] Status: 128 terminal, 5 processing | elapsed 14m 36s | since last completion: 1m 35s
+[2026-02-08T19:49:02.729Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:02.730Z]   STUCK? No progress for 1m 35s (still 128 terminal, 5 processing)
+[2026-02-08T19:49:11.329Z] Status: 128 terminal, 5 processing | elapsed 14m 44s | since last completion: 1m 44s
+[2026-02-08T19:49:11.330Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:11.330Z]   STUCK? No progress for 1m 44s (still 128 terminal, 5 processing)
+[2026-02-08T19:49:20.155Z] Status: 128 terminal, 5 processing | elapsed 14m 53s | since last completion: 1m 53s
+[2026-02-08T19:49:20.156Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:20.157Z]   STUCK? No progress for 1m 53s (still 128 terminal, 5 processing)
+[2026-02-08T19:49:28.767Z] Status: 128 terminal, 5 processing | elapsed 15m 2s | since last completion: 2m 2s
+[2026-02-08T19:49:28.768Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:28.769Z]   STUCK? No progress for 2m 2s (still 128 terminal, 5 processing)
+[2026-02-08T19:49:37.410Z] Status: 128 terminal, 5 processing | elapsed 15m 10s | since last completion: 2m 10s
+[2026-02-08T19:49:37.411Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:37.411Z]   STUCK? No progress for 2m 10s (still 128 terminal, 5 processing)
+[2026-02-08T19:49:46.024Z] Status: 128 terminal, 5 processing | elapsed 15m 19s | since last completion: 2m 19s
+[2026-02-08T19:49:46.025Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:46.025Z]   STUCK? No progress for 2m 19s (still 128 terminal, 5 processing)
+[2026-02-08T19:49:54.624Z] Status: 128 terminal, 5 processing | elapsed 15m 28s | since last completion: 2m 27s
+[2026-02-08T19:49:54.626Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:49:54.626Z]   STUCK? No progress for 2m 27s (still 128 terminal, 5 processing)
+[2026-02-08T19:50:03.182Z] Status: 128 terminal, 5 processing | elapsed 15m 36s | since last completion: 2m 36s
+[2026-02-08T19:50:03.183Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:50:03.184Z]   STUCK? No progress for 2m 36s (still 128 terminal, 5 processing)
+[2026-02-08T19:50:11.938Z] Status: 128 terminal, 5 processing | elapsed 15m 45s | since last completion: 2m 45s
+[2026-02-08T19:50:11.939Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:50:11.939Z]   STUCK? No progress for 2m 45s (still 128 terminal, 5 processing)
+[2026-02-08T19:50:20.485Z] Status: 128 terminal, 5 processing | elapsed 15m 53s | since last completion: 2m 53s
+[2026-02-08T19:50:20.486Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:50:20.487Z]   STUCK? No progress for 2m 53s (still 128 terminal, 5 processing)
+[2026-02-08T19:50:29.169Z] Status: 128 terminal, 5 processing | elapsed 16m 2s | since last completion: 3m 2s
+[2026-02-08T19:50:29.170Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:50:29.171Z]   STUCK? No progress for 3m 2s (still 128 terminal, 5 processing)
+[2026-02-08T19:50:38.021Z] Status: 128 terminal, 5 processing | elapsed 16m 11s | since last completion: 3m 11s
+[2026-02-08T19:50:38.022Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:50:38.023Z]   STUCK? No progress for 3m 11s (still 128 terminal, 5 processing)
+[2026-02-08T19:50:46.732Z] Status: 128 terminal, 5 processing | elapsed 16m 20s | since last completion: 3m 19s
+[2026-02-08T19:50:46.735Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:50:46.737Z]   STUCK? No progress for 3m 19s (still 128 terminal, 5 processing)
+[2026-02-08T19:50:55.326Z] Status: 128 terminal, 5 processing | elapsed 16m 28s | since last completion: 3m 28s
+[2026-02-08T19:50:55.327Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:50:55.327Z]   STUCK? No progress for 3m 28s (still 128 terminal, 5 processing)
+[2026-02-08T19:51:04.001Z] Status: 128 terminal, 5 processing | elapsed 16m 37s | since last completion: 3m 37s
+[2026-02-08T19:51:04.002Z]   Current: BOM (Birmingham Open Media) | https://bom.org.uk
+[2026-02-08T19:51:04.003Z]   STUCK? No progress for 3m 37s (still 128 terminal, 5 processing)

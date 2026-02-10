@@ -1,0 +1,417 @@
+Mimic test run started at 2026-02-06T08:50:33.999Z
+[2026-02-06T08:50:34.001Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-06T08-50-33.log
+[2026-02-06T08:50:34.004Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-06T08:50:37.893Z] Loading site and dismissing cookie modal...
+[2026-02-06T08:50:45.894Z] Cookie modal dismissed (Accept All)
+[2026-02-06T08:50:46.731Z] Filling login...
+[2026-02-06T08:50:54.272Z] Login OK
+[2026-02-06T08:50:54.274Z] Waiting 10s for dashboard to refresh...
+[2026-02-06T08:51:04.286Z] Dashboard wait done.
+[2026-02-06T08:51:04.320Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-06T08:51:05.920Z] Usage: daily_limit=-1 daily_used=31 unlimited=true daily_remaining=N/A
+[2026-02-06T08:51:05.921Z] Navigating to campaign upload...
+[2026-02-06T08:51:12.668Z] Upload OK
+[2026-02-06T08:51:13.494Z] Navigate to create OK
+[2026-02-06T08:51:19.714Z] Campaign created: 147
+[2026-02-06T08:51:21.733Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/147
+[2026-02-06T08:51:21.850Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-06T08:51:22.447Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-06T08:51:23.752Z] [Stream] Campaign started – total companies: 1070
+[2026-02-06T08:51:23.832Z] [Stream] Now processing: 2020 Innovation | 75127
+[2026-02-06T08:51:24.390Z] [Stream] [2020 Innovation] [info] Navigation: Opening https://2020innovation.com...
+[2026-02-06T08:51:24.446Z] Started processing 2000 companies...
+[2026-02-06T08:51:25.578Z] [Stream] [2020 Innovation] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:51:26.476Z] [Stream] [2020 Innovation] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T08:51:28.677Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: [aria-label*="Accept"]
+[2026-02-06T08:51:33.122Z] Status: 0 terminal, 1 processing | elapsed 9s | since last completion: 9s
+[2026-02-06T08:51:33.123Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:51:41.630Z] Status: 0 terminal, 1 processing | elapsed 17s | since last completion: 17s
+[2026-02-06T08:51:41.632Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:51:50.455Z] Status: 0 terminal, 1 processing | elapsed 26s | since last completion: 26s
+[2026-02-06T08:51:50.456Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:51:58.990Z] Status: 0 terminal, 1 processing | elapsed 35s | since last completion: 35s
+[2026-02-06T08:51:58.990Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:51:59.433Z] [Stream] [2020 Innovation] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T08:52:00.289Z] [Stream] [2020 Innovation] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T08:52:01.112Z] [Stream] [2020 Innovation] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T08:52:01.117Z] [Stream] [2020 Innovation] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T08:52:01.194Z] [Stream] [2020 Innovation] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T08:52:01.377Z] [Stream] [2020 Innovation] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T08:52:01.387Z] [Stream] [2020 Innovation] [info] Testing Link: Link 1: contact (
+                  https://www.2020innovation.com/contact
+              )
+[2026-02-06T08:52:02.157Z] [Stream] [2020 Innovation] [info] Contact Page: Loading contact page…
+[2026-02-06T08:52:03.431Z] [Stream] [2020 Innovation] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T08:52:03.854Z] [Stream] [2020 Innovation] [success] Form in iframe: Found form in frame 2 on contact page
+[2026-02-06T08:52:03.883Z] [Stream] [2020 Innovation] [info] Form Filling: Starting iframe fill on contact_page_frame_2
+[2026-02-06T08:52:04.791Z] [Stream] [2020 Innovation] [info] Form Filling: Extracted 9 fields from this form; filling by mapping
+[2026-02-06T08:52:04.809Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: first_name: name="firstname" label="First Name*"
+[2026-02-06T08:52:04.825Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: last_name: name="lastname" label="Last Name*"
+[2026-02-06T08:52:04.847Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: email: name="email" label="Email*"
+[2026-02-06T08:52:04.869Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: phone: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*"
+[2026-02-06T08:52:04.891Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: full_name: name="company" label="Company name*"
+[2026-02-06T08:52:04.907Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: message: name="enquiry_type" label="Member Support"
+[2026-02-06T08:52:04.909Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: message: name="enquiry_type" label="Sales"
+[2026-02-06T08:52:04.923Z] [Stream] [2020 Innovation] [info] Unsatisfied Filled: message: name="message" label="Message*"
+[2026-02-06T08:52:07.558Z] Status: 0 terminal, 1 processing | elapsed 43s | since last completion: 43s
+[2026-02-06T08:52:07.559Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:52:16.182Z] Status: 0 terminal, 1 processing | elapsed 52s | since last completion: 52s
+[2026-02-06T08:52:16.185Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:52:24.713Z] Status: 0 terminal, 1 processing | elapsed 1m | since last completion: 1m
+[2026-02-06T08:52:24.714Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:52:29.975Z] [Stream] [2020 Innovation] [info] Form Fields Extracted: [contact_page_frame_2] 9 field(s) — name, id, label, type, tag, required
+[2026-02-06T08:52:29.977Z] [Stream] [2020 Innovation] [info] Field: name="firstname" id="firstname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="First Name*" type=text tag=input required=True
+[2026-02-06T08:52:29.979Z] [Stream] [2020 Innovation] [info] Field: name="lastname" id="lastname-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Last Name*" type=text tag=input required=True
+[2026-02-06T08:52:29.980Z] [Stream] [2020 Innovation] [info] Field: name="email" id="email-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Email*" type=email tag=input required=True
+[2026-02-06T08:52:29.982Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" type=tel tag=input required=True
+[2026-02-06T08:52:29.984Z] [Stream] [2020 Innovation] [info] Field: name="company" id="company-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Company name*" type=text tag=input required=True
+[2026-02-06T08:52:29.987Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type0-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Member Support" type=checkbox tag=input required=False
+[2026-02-06T08:52:29.989Z] [Stream] [2020 Innovation] [info] Field: name="enquiry_type" id="enquiry_type1-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Sales" type=checkbox tag=input required=False
+[2026-02-06T08:52:29.991Z] [Stream] [2020 Innovation] [info] Field: name="message" id="message-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Message*" type=text tag=textarea required=True
+[2026-02-06T08:52:29.993Z] [Stream] [2020 Innovation] [info] Field: name="" id="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="" type=select tag=select required=True
+[2026-02-06T08:52:29.994Z] [Stream] [2020 Innovation] [info] Form Fields Filled: [contact_page_frame_2] 8 field(s) — name/id, label, role, value
+[2026-02-06T08:52:29.996Z] [Stream] [2020 Innovation] [info] Filled: name="firstname" label="First Name*" role=first_name value="Test"
+[2026-02-06T08:52:29.997Z] [Stream] [2020 Innovation] [info] Filled: name="lastname" label="Last Name*" role=last_name value="User"
+[2026-02-06T08:52:29.999Z] [Stream] [2020 Innovation] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-06T08:52:30.002Z] [Stream] [2020 Innovation] [info] Filled: name="phone-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label="Phone Number*" role=phone value="+27123456789"
+[2026-02-06T08:52:30.004Z] [Stream] [2020 Innovation] [info] Filled: name="company" label="Company name*" role=full_name value="Test User"
+[2026-02-06T08:52:30.005Z] [Stream] [2020 Innovation] [info] Filled: name="enquiry_type" label="Member Support" role=message value="Hello, this is a test."
+[2026-02-06T08:52:30.007Z] [Stream] [2020 Innovation] [info] Filled: name="enquiry_type" label="Sales" role=message value="Hello, this is a test."
+[2026-02-06T08:52:30.009Z] [Stream] [2020 Innovation] [info] Filled: name="message" label="Message*" role=message value="Hello, this is a test."
+[2026-02-06T08:52:30.010Z] [Stream] [2020 Innovation] [info] Form Fields Left Unsatisfied: [contact_page_frame_2] 1 field(s) — not filled
+[2026-02-06T08:52:30.012Z] [Stream] [2020 Innovation] [info] Unfilled: name="" id="phone_ext-710c0bbf-0d8d-4afa-91c7-da9ec4fff5a9" label=""
+[2026-02-06T08:52:30.013Z] [Stream] [2020 Innovation] [info] Submitting: Clicking submit button
+[2026-02-06T08:52:31.501Z] [Stream] [2020 Innovation] [success] Form Processed: Filled 8 fields (extract-then-fill) and submitted
+[2026-02-06T08:52:33.573Z] [Stream] Completed: company_id=75127 status=completed progress=?%
+[2026-02-06T08:52:33.689Z] Status: 0 terminal, 1 processing | elapsed 1m 9s | since last completion: 1m 9s
+[2026-02-06T08:52:33.690Z]   Current: 2020 Innovation | https://2020innovation.com
+[2026-02-06T08:52:33.900Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-06T08:52:34.697Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:52:35.330Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T08:52:42.424Z] Progress: 1 terminal (one just finished; 1m 18s since previous) | elapsed 1m 18s
+[2026-02-06T08:52:42.425Z] Status: 1 terminal, 1 processing | elapsed 1m 18s | since last completion: 1m 18s
+[2026-02-06T08:52:42.426Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:52:50.913Z] Status: 1 terminal, 1 processing | elapsed 1m 26s | since last completion: 8s
+[2026-02-06T08:52:50.914Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:52:59.436Z] Status: 1 terminal, 1 processing | elapsed 1m 35s | since last completion: 17s
+[2026-02-06T08:52:59.437Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:53:06.200Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T08:53:06.803Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T08:53:07.610Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T08:53:07.612Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T08:53:07.939Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T08:53:07.992Z] Status: 1 terminal, 1 processing | elapsed 1m 44s | since last completion: 26s
+[2026-02-06T08:53:07.993Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:53:08.381Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T08:53:08.386Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-06T08:53:08.818Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-06T08:53:16.611Z] Status: 1 terminal, 1 processing | elapsed 1m 52s | since last completion: 34s
+[2026-02-06T08:53:16.623Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:53:25.165Z] Status: 1 terminal, 1 processing | elapsed 2m 1s | since last completion: 43s
+[2026-02-06T08:53:25.171Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:53:33.832Z] Status: 1 terminal, 1 processing | elapsed 2m 9s | since last completion: 51s
+[2026-02-06T08:53:33.833Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:53:39.358Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-06T08:53:39.363Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T08:53:39.764Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-06T08:53:39.965Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T08:53:40.267Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T08:53:40.270Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T08:53:40.283Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-06T08:53:40.826Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-06T08:53:41.819Z] [Stream] Completed: company_id=75128 status=no_contact_found progress=?%
+[2026-02-06T08:53:42.329Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-06T08:53:42.395Z] Progress: 2 terminal (one just finished; 60s since previous) | elapsed 2m 18s
+[2026-02-06T08:53:42.396Z] Status: 2 terminal, 1 processing | elapsed 2m 18s | since last completion: 60s
+[2026-02-06T08:53:42.397Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:53:43.023Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:53:43.594Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T08:53:50.903Z] Status: 2 terminal, 1 processing | elapsed 2m 26s | since last completion: 9s
+[2026-02-06T08:53:50.905Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:53:59.432Z] Status: 2 terminal, 1 processing | elapsed 2m 35s | since last completion: 17s
+[2026-02-06T08:53:59.433Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:54:08.004Z] Status: 2 terminal, 1 processing | elapsed 2m 44s | since last completion: 26s
+[2026-02-06T08:54:08.005Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:54:14.637Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T08:54:15.207Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T08:54:16.014Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T08:54:16.018Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T08:54:16.144Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T08:54:16.479Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T08:54:16.481Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-06T08:54:16.533Z] Status: 2 terminal, 1 processing | elapsed 2m 52s | since last completion: 34s
+[2026-02-06T08:54:16.538Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:54:16.904Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-06T08:54:25.071Z] Status: 2 terminal, 1 processing | elapsed 3m 1s | since last completion: 43s
+[2026-02-06T08:54:25.072Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:54:33.591Z] Status: 2 terminal, 1 processing | elapsed 3m 9s | since last completion: 51s
+[2026-02-06T08:54:33.592Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:54:42.109Z] Status: 2 terminal, 1 processing | elapsed 3m 18s | since last completion: 60s
+[2026-02-06T08:54:42.110Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T08:54:47.449Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-06T08:54:47.451Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-06T08:54:47.851Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-06T08:54:48.108Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T08:54:48.406Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T08:54:48.411Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T08:54:48.414Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-06T08:54:48.987Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-06T08:54:49.825Z] [Stream] Completed: company_id=75129 status=no_contact_found progress=?%
+[2026-02-06T08:54:50.606Z] [Stream] [4D modelshop Ltd] [info] Navigation: Opening https://modelshop.co.uk...
+[2026-02-06T08:54:50.663Z] Progress: 3 terminal (one just finished; 1m 8s since previous) | elapsed 3m 26s
+[2026-02-06T08:54:50.664Z] Status: 3 terminal, 1 processing | elapsed 3m 26s | since last completion: 1m 8s
+[2026-02-06T08:54:50.665Z]   Current: 4D modelshop Ltd | https://modelshop.co.uk
+[2026-02-06T08:54:51.001Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:54:51.476Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-06T08:54:51.477Z] [Stream] [4D modelshop Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T08:54:52.284Z] [Stream] [4D modelshop Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T08:54:52.290Z] [Stream] [4D modelshop Ltd] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T08:54:52.339Z] [Stream] [4D modelshop Ltd] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T08:54:52.360Z] [Stream] [4D modelshop Ltd] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-06T08:54:52.362Z] [Stream] [4D modelshop Ltd] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T08:54:52.664Z] [Stream] [4D modelshop Ltd] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T08:54:52.673Z] [Stream] [4D modelshop Ltd] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T08:54:52.675Z] [Stream] [4D modelshop Ltd] [success] Email Found: Found 1 email(s)
+[2026-02-06T08:54:52.676Z] [Stream] [4D modelshop Ltd] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-06T08:54:53.664Z] [Stream] Completed: company_id=75130 status=contact_info_found progress=?%
+[2026-02-06T08:54:53.981Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Navigation: Opening https://7core.co.uk...
+[2026-02-06T08:54:55.292Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:54:55.886Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Found 3 contact link(s) in footer; trying contact page first
+[2026-02-06T08:54:58.116Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-06T08:54:59.196Z] Progress: 4 terminal (one just finished; 9s since previous) | elapsed 3m 35s
+[2026-02-06T08:54:59.197Z] Status: 4 terminal, 1 processing | elapsed 3m 35s | since last completion: 9s
+[2026-02-06T08:54:59.198Z]   Current: 7 Core Electrical Wholesale Ltd | https://7core.co.uk
+[2026-02-06T08:54:59.390Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T08:54:59.947Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T08:54:59.953Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T08:55:00.026Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Trying form 2…
+[2026-02-06T08:55:00.542Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Starting standard fill on homepage
+[2026-02-06T08:55:00.625Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Extracted 7 fields from this form; filling by mapping
+[2026-02-06T08:55:00.639Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: first_name: name="first-name" label="First name"
+[2026-02-06T08:55:00.654Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: last_name: name="last-name" label="Last Name"
+[2026-02-06T08:55:00.669Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: email: name="email" label="Email"
+[2026-02-06T08:55:00.682Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: phone: name="phone" label="Phone"
+[2026-02-06T08:55:00.698Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: message: name="textarea_comp-jzdzfcus" label="Your message"
+[2026-02-06T08:55:00.710Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: company: name="company" label="Company"
+[2026-02-06T08:55:00.727Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: other: name="collection_comp-l70fhx3t" label="Branch"
+[2026-02-06T08:55:00.730Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Extracted: [homepage] 7 field(s) — name, id, label, type, tag, required
+[2026-02-06T08:55:00.732Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="first-name" id="input_comp-jzdzfctw" label="First name" type=text tag=input required=False
+[2026-02-06T08:55:00.734Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="last-name" id="input_comp-jzdzfcu6" label="Last Name" type=text tag=input required=False
+[2026-02-06T08:55:00.736Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="email" id="input_comp-jzdzfcuc" label="Email" type=email tag=input required=True
+[2026-02-06T08:55:00.738Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="phone" id="input_comp-jzdzfcuk" label="Phone" type=tel tag=input required=False
+[2026-02-06T08:55:00.740Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="textarea_comp-jzdzfcus" label="Your message" type=text tag=textarea required=False
+[2026-02-06T08:55:00.741Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="company" id="input_comp-kettv73q" label="Company" type=text tag=input required=False
+[2026-02-06T08:55:00.743Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="collection_comp-l70fhx3t" label="Branch" type=select tag=select required=True
+[2026-02-06T08:55:00.746Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Filled: [homepage] 7 field(s) — name/id, label, role, value
+[2026-02-06T08:55:00.747Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="first-name" label="First name" role=first_name value="Test"
+[2026-02-06T08:55:00.749Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="last-name" label="Last Name" role=last_name value="User"
+[2026-02-06T08:55:00.751Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="email" label="Email" role=email value="test@example.com"
+[2026-02-06T08:55:00.752Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="phone" label="Phone" role=phone value="+27123456789"
+[2026-02-06T08:55:00.754Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="textarea_comp-jzdzfcus" label="Your message" role=message value="Hello, this is a test."
+[2026-02-06T08:55:00.756Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="company" label="Company" role=company value="Test Co"
+[2026-02-06T08:55:00.758Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="collection_comp-l70fhx3t" label="Branch" role=other value="Lincoln"
+[2026-02-06T08:55:00.759Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Left Unsatisfied: [homepage] 0 field(s) — not filled
+[2026-02-06T08:55:00.761Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Submitting: Clicking submit button
+[2026-02-06T08:55:02.741Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Processed: Filled 7 fields (extract-then-fill) and submitted
+[2026-02-06T08:55:02.742Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Detection: Filled form 2 on page (7 fields)
+[2026-02-06T08:55:04.767Z] [Stream] Completed: company_id=75131 status=completed progress=?%
+[2026-02-06T08:55:05.088Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Navigation: Opening https://80scasualclassics.co.uk...
+[2026-02-06T08:55:06.423Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:55:07.123Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T08:55:07.719Z] Progress: 5 terminal (one just finished; 9s since previous) | elapsed 3m 43s
+[2026-02-06T08:55:07.720Z] Status: 5 terminal, 1 processing | elapsed 3m 43s | since last completion: 9s
+[2026-02-06T08:55:07.721Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:55:09.852Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-06T08:55:09.856Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-06T08:55:09.858Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-06T08:55:10.010Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T08:55:10.920Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-06T08:55:10.969Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-06T08:55:10.971Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-06T08:55:10.972Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 3 (newsletter/signup)
+[2026-02-06T08:55:10.974Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: No form with 2+ fillable fields succeeded among 3 form(s)
+[2026-02-06T08:55:11.784Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-06T08:55:11.790Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Heuristics: Analyzing 8 orphan inputs...
+[2026-02-06T08:55:11.819Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-06T08:55:11.884Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Extracted 4 fields from this form; filling by mapping
+[2026-02-06T08:55:11.909Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-06T08:55:11.922Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-06T08:55:11.935Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics] 4 field(s) — name, id, label, type, tag, required
+[2026-02-06T08:55:11.937Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="Search" type=search tag=input required=False
+[2026-02-06T08:55:11.941Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-6985ac6e2fe9e1690" label="Stay in the loop | Newsletter Sign up" type=email tag=input required=False
+[2026-02-06T08:55:11.943Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-6985ac6e335542450" label="" type=text tag=input required=False
+[2026-02-06T08:55:11.944Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="" id="currency-switcher" label="Currency" type=select tag=select required=False
+[2026-02-06T08:55:11.946Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics] 2 field(s) — name/id, label, role, value
+[2026-02-06T08:55:11.948Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="Stay in the loop | Newsletter Sign up" role=email value="test@example.com"
+[2026-02-06T08:55:11.951Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="" role=email value="test@example.com"
+[2026-02-06T08:55:11.952Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics] 2 field(s) — not filled
+[2026-02-06T08:55:11.954Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="Search"
+[2026-02-06T08:55:11.956Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="" id="currency-switcher" label="Currency"
+[2026-02-06T08:55:11.958Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-06T08:55:11.959Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: search, Name: query, Label: search, Text: query enter search... query search
+[2026-02-06T08:55:11.961Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-06T08:55:11.968Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-06T08:55:11.983Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: email, Name: email_address, Label: stay in the loop | newsletter sign up, Text: email_address enter email address... mailing_box-6985ac6e2fe9e1690 stay in the l
+[2026-02-06T08:55:12.113Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Email field filled: test@example.com
+[2026-02-06T08:55:12.125Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: newsletter_subscription, Label: , Text: newsletter_subscription  newsletter_subscription
+[2026-02-06T08:55:12.136Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-06T08:55:12.147Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-06T08:55:12.156Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: text, Name: email_address, Label: , Text: email_address enter email address... mailing_box_pop-6985ac6e335542450
+[2026-02-06T08:55:16.447Z] Status: 5 terminal, 1 processing | elapsed 3m 52s | since last completion: 9s
+[2026-02-06T08:55:16.456Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:55:25.171Z] Status: 5 terminal, 1 processing | elapsed 4m 1s | since last completion: 17s
+[2026-02-06T08:55:25.176Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:55:33.716Z] Status: 5 terminal, 1 processing | elapsed 4m 9s | since last completion: 26s
+[2026-02-06T08:55:33.717Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:55:42.385Z] Status: 5 terminal, 1 processing | elapsed 4m 18s | since last completion: 35s
+[2026-02-06T08:55:42.388Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:55:51.079Z] Status: 5 terminal, 1 processing | elapsed 4m 27s | since last completion: 43s
+[2026-02-06T08:55:51.087Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:55:59.819Z] Status: 5 terminal, 1 processing | elapsed 4m 35s | since last completion: 52s
+[2026-02-06T08:55:59.821Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:56:08.862Z] Status: 5 terminal, 1 processing | elapsed 4m 44s | since last completion: 1m 1s
+[2026-02-06T08:56:08.864Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:56:18.271Z] Status: 5 terminal, 1 processing | elapsed 4m 54s | since last completion: 1m 11s
+[2026-02-06T08:56:18.302Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:56:26.775Z] Status: 5 terminal, 1 processing | elapsed 5m 2s | since last completion: 1m 19s
+[2026-02-06T08:56:26.776Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:56:32.346Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Select "currency-switcher" -> Kr.DKK
+[2026-02-06T08:56:32.376Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics_heuristic] 4 field(s) — name, id, label, type, tag, required
+[2026-02-06T08:56:32.381Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="search" type=search tag=input required=False
+[2026-02-06T08:56:32.383Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-6985ac6e2fe9e1690" label="stay in the loop | newsletter sign up" type=email tag=input required=False
+[2026-02-06T08:56:32.389Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-6985ac6e335542450" label="" type=text tag=input required=False
+[2026-02-06T08:56:32.391Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="currency-switcher" id="currency-switcher" label="currency" type=select tag=select required=False
+[2026-02-06T08:56:32.394Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics_heuristic] 2 field(s) — name/id, label, role, value
+[2026-02-06T08:56:32.396Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="stay in the loop | newsletter sign up" role=email value="test@example.com"
+[2026-02-06T08:56:32.398Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="currency-switcher" label="currency" role=branch value="Kr.DKK"
+[2026-02-06T08:56:32.399Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 1 field(s) — not filled
+[2026-02-06T08:56:32.402Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="search"
+[2026-02-06T08:56:33.426Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Submitting: Clicking submit button
+[2026-02-06T08:56:34.494Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-06T08:56:34.496Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-06T08:56:34.585Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-06T08:56:34.896Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-06T08:56:34.899Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Testing Link: Link 1: contact us (/contact-us-i3)
+[2026-02-06T08:56:35.344Z] Status: 5 terminal, 1 processing | elapsed 5m 11s | since last completion: 1m 28s
+[2026-02-06T08:56:35.345Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T08:56:35.868Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page: Loading contact page…
+[2026-02-06T08:56:36.916Z] [Stream] [80S CASUAL CLASSICS LTD] [success] Form Detection: Found 4 form(s) on contact page
+[2026-02-06T08:56:37.433Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-06T08:56:37.860Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-06T08:56:38.602Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-06T08:56:38.612Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 2: https://www.googletagmanager.com/static/service_wo...
+[2026-02-06T08:56:38.614Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-06T08:56:38.617Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-06T08:56:38.620Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Heuristics: Analyzing 18 orphan inputs...
+[2026-02-06T08:56:38.622Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-06T08:56:38.626Z] [Stream] [80S CASUAL CLASSICS LTD] [error] No Contact Found: All strategies exhausted for https://80scasualclassics.co.uk
+[2026-02-06T08:56:39.172Z] [Stream] [80S CASUAL CLASSICS LTD] [error] Discovery Failed: Title: Contact Us | Snippet: <!DOCTYPE html><html class="js no-touch flexbox" lang="en-GB" id="html-pages"><head><script async="" src="https://scripts.clarity.ms/0.8.53/clarity.js"></script><script type="text/javascript" async="" src="/media/js/reviews_co_uk_merchant,blank-21102025SF24.js" data-store="80s-casuals-classics-ltd" data-color="" data-position="right" data-hidewidget=""></script><script async="" src="https://www.clarity.ms/tag/bxcvtexs8o"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/plugins/ua/ec.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-K3VQDX7NNN&amp;cx=c&amp;gtm=4e6241"></script><script type="text/javascript" async="" src="https://analytics.tiktok.com/i18n/pixel/static/main.MWIwNzUxMTllOA.js" data-id="CD01D4RC77U85PT2TTTG"></script><script type="text/javascript" async="" src="https://analytics.tiktok.com/i18n/pixel/static/identify_31760074.js"></script><script type="text/javascript" async="" src="h
+[2026-02-06T08:56:39.894Z] [Stream] Completed: company_id=75132 status=no_contact_found progress=?%
+[2026-02-06T08:56:40.219Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Navigation: Opening https://lymn.co.uk...
+[2026-02-06T08:56:41.535Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:56:42.051Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Strategy 0: Found 3 contact link(s) in footer; trying contact page first
+[2026-02-06T08:56:43.873Z] Progress: 6 terminal (one just finished; 1m 36s since previous) | elapsed 5m 19s
+[2026-02-06T08:56:43.874Z] Status: 6 terminal, 1 processing | elapsed 5m 19s | since last completion: 1m 36s
+[2026-02-06T08:56:43.874Z]   Current: A.W. Lymn The Family Funeral Service | https://lymn.co.uk
+[2026-02-06T08:56:43.875Z]   STUCK? No progress for 1m 36s (still 6 terminal, 1 processing)
+[2026-02-06T08:56:44.560Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-06T08:56:44.595Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Filling: Extracted 5 fields from this form; filling by mapping
+[2026-02-06T08:56:44.612Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: full_name: name="NAME" label="Name*"
+[2026-02-06T08:56:44.628Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: email: name="EMAIL" label="Email *"
+[2026-02-06T08:56:44.644Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: phone: name="NUMBER" label="Phone*"
+[2026-02-06T08:56:44.657Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unsatisfied Filled: message: name="MESSAGE" label="Message*"
+[2026-02-06T08:56:44.693Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Extracted: [contact_page] 5 field(s) — name, id, label, type, tag, required
+[2026-02-06T08:56:44.746Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="_hf_h465" id="" label="" type=text tag=input required=False
+[2026-02-06T08:56:44.761Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="NAME" id="name" label="Name*" type=text tag=input required=True
+[2026-02-06T08:56:44.778Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="EMAIL" id="email" label="Email *" type=email tag=input required=True
+[2026-02-06T08:56:44.819Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="NUMBER" id="" label="Phone*" type=text tag=input required=True
+[2026-02-06T08:56:44.825Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Field: name="MESSAGE" id="message" label="Message*" type=text tag=textarea required=True
+[2026-02-06T08:56:44.835Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Filled: [contact_page] 4 field(s) — name/id, label, role, value
+[2026-02-06T08:56:44.840Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="NAME" label="Name*" role=full_name value="Test User"
+[2026-02-06T08:56:44.845Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="EMAIL" label="Email *" role=email value="test@example.com"
+[2026-02-06T08:56:44.855Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="NUMBER" label="Phone*" role=phone value="+27123456789"
+[2026-02-06T08:56:44.858Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Filled: name="MESSAGE" label="Message*" role=message value="Hello, this is a test."
+[2026-02-06T08:56:44.867Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Form Fields Left Unsatisfied: [contact_page] 1 field(s) — not filled
+[2026-02-06T08:56:44.869Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Unfilled: name="_hf_h465" id="" label=""
+[2026-02-06T08:56:44.871Z] [Stream] [A.W. Lymn The Family Funeral Service] [info] Submitting: Clicking submit button
+[2026-02-06T08:56:46.196Z] [Stream] [A.W. Lymn The Family Funeral Service] [success] Form Processed: Filled 4 fields (extract-then-fill) and submitted
+[2026-02-06T08:56:46.199Z] [Stream] [A.W. Lymn The Family Funeral Service] [success] Form Detection: Filled contact form from footer link
+[2026-02-06T08:56:47.369Z] [Stream] Completed: company_id=75133 status=completed progress=?%
+[2026-02-06T08:56:47.588Z] [Stream] [übbs pouches] [info] Navigation: Opening https://ubbspouches.com...
+[2026-02-06T08:56:52.446Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 5m 28s
+[2026-02-06T08:56:52.447Z] Status: 7 terminal, 1 processing | elapsed 5m 28s | since last completion: 9s
+[2026-02-06T08:56:52.449Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:57:01.022Z] Status: 7 terminal, 1 processing | elapsed 5m 37s | since last completion: 9s
+[2026-02-06T08:57:01.023Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:57:09.553Z] Status: 7 terminal, 1 processing | elapsed 5m 45s | since last completion: 17s
+[2026-02-06T08:57:09.554Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:57:18.666Z] Status: 7 terminal, 1 processing | elapsed 5m 54s | since last completion: 26s
+[2026-02-06T08:57:18.682Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:57:27.208Z] Status: 7 terminal, 1 processing | elapsed 6m 3s | since last completion: 35s
+[2026-02-06T08:57:27.209Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:57:35.742Z] Status: 7 terminal, 1 processing | elapsed 6m 11s | since last completion: 43s
+[2026-02-06T08:57:35.743Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:57:39.602Z] [Stream] [übbs pouches] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T08:57:40.487Z] [Stream] [übbs pouches] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-06T08:57:44.519Z] Status: 7 terminal, 1 processing | elapsed 6m 20s | since last completion: 52s
+[2026-02-06T08:57:44.548Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:57:53.130Z] Status: 7 terminal, 1 processing | elapsed 6m 29s | since last completion: 1m 1s
+[2026-02-06T08:57:53.131Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:58:01.697Z] Status: 7 terminal, 1 processing | elapsed 6m 37s | since last completion: 1m 9s
+[2026-02-06T08:58:01.698Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:58:10.246Z] Status: 7 terminal, 1 processing | elapsed 6m 46s | since last completion: 1m 18s
+[2026-02-06T08:58:10.247Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:58:19.308Z] Status: 7 terminal, 1 processing | elapsed 6m 55s | since last completion: 1m 27s
+[2026-02-06T08:58:19.312Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:58:27.965Z] Status: 7 terminal, 1 processing | elapsed 7m 4s | since last completion: 1m 36s
+[2026-02-06T08:58:27.966Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:58:27.967Z]   STUCK? No progress for 1m 36s (still 7 terminal, 1 processing)
+[2026-02-06T08:58:32.960Z] [Stream] [übbs pouches] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-06T08:58:36.482Z] Status: 7 terminal, 1 processing | elapsed 7m 12s | since last completion: 1m 44s
+[2026-02-06T08:58:36.483Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T08:58:36.483Z]   STUCK? No progress for 1m 44s (still 7 terminal, 1 processing)
+[2026-02-06T08:58:37.910Z] [Stream] Completed: company_id=75134 status=failed progress=?%
+[2026-02-06T08:58:38.185Z] [Stream] Completed: company_id=75134 status=failed progress=?%
+[2026-02-06T08:58:45.528Z] Progress: 8 terminal (one just finished; 1m 53s since previous) | elapsed 7m 21s
+[2026-02-06T08:58:45.530Z] Status: 8 terminal, 0 processing | elapsed 7m 21s | since last completion: 1m 53s
+[2026-02-06T08:58:45.531Z]   Failed (new): übbs pouches | https://ubbspouches.com | Invalid switch into Event.wait(): ()
+[2026-02-06T08:58:54.092Z] Status: 8 terminal, 0 processing | elapsed 7m 30s | since last completion: 9s
+[2026-02-06T08:59:02.748Z] Status: 8 terminal, 0 processing | elapsed 7m 38s | since last completion: 17s
+[2026-02-06T08:59:11.295Z] Status: 8 terminal, 0 processing | elapsed 7m 47s | since last completion: 26s
+[2026-02-06T08:59:19.854Z] Status: 8 terminal, 0 processing | elapsed 7m 55s | since last completion: 34s
+[2026-02-06T08:59:28.404Z] Status: 8 terminal, 0 processing | elapsed 8m 4s | since last completion: 43s
+[2026-02-06T08:59:36.961Z] Status: 8 terminal, 0 processing | elapsed 8m 13s | since last completion: 51s
+[2026-02-06T08:59:45.630Z] Status: 8 terminal, 0 processing | elapsed 8m 21s | since last completion: 1m
+[2026-02-06T08:59:54.169Z] Status: 8 terminal, 0 processing | elapsed 8m 30s | since last completion: 1m 9s
+[2026-02-06T09:00:02.843Z] Status: 8 terminal, 0 processing | elapsed 8m 38s | since last completion: 1m 17s
+[2026-02-06T09:00:11.360Z] Status: 8 terminal, 0 processing | elapsed 8m 47s | since last completion: 1m 26s
+[2026-02-06T09:00:20.013Z] Status: 8 terminal, 0 processing | elapsed 8m 56s | since last completion: 1m 34s
+[2026-02-06T09:00:28.551Z] Status: 8 terminal, 0 processing | elapsed 9m 4s | since last completion: 1m 43s
+[2026-02-06T09:00:37.085Z] Status: 8 terminal, 0 processing | elapsed 9m 13s | since last completion: 1m 52s
+[2026-02-06T09:00:45.814Z] Status: 8 terminal, 0 processing | elapsed 9m 21s | since last completion: 2m
+[2026-02-06T09:00:54.385Z] Status: 8 terminal, 0 processing | elapsed 9m 30s | since last completion: 2m 9s
+[2026-02-06T09:01:02.890Z] Status: 8 terminal, 0 processing | elapsed 9m 38s | since last completion: 2m 17s
+[2026-02-06T09:01:11.444Z] Status: 8 terminal, 0 processing | elapsed 9m 47s | since last completion: 2m 26s
+[2026-02-06T09:01:20.032Z] Status: 8 terminal, 0 processing | elapsed 9m 56s | since last completion: 2m 35s
+[2026-02-06T09:01:28.579Z] Status: 8 terminal, 0 processing | elapsed 10m 4s | since last completion: 2m 43s
+[2026-02-06T09:01:37.131Z] Status: 8 terminal, 0 processing | elapsed 10m 13s | since last completion: 2m 52s
+[2026-02-06T09:01:45.921Z] Status: 8 terminal, 0 processing | elapsed 10m 21s | since last completion: 3m
+[2026-02-06T09:01:54.472Z] Status: 8 terminal, 0 processing | elapsed 10m 30s | since last completion: 3m 9s
+[2026-02-06T09:02:02.990Z] Status: 8 terminal, 0 processing | elapsed 10m 39s | since last completion: 3m 17s
+[2026-02-06T09:02:11.507Z] Status: 8 terminal, 0 processing | elapsed 10m 47s | since last completion: 3m 26s
+[2026-02-06T09:02:20.350Z] Status: 8 terminal, 0 processing | elapsed 10m 56s | since last completion: 3m 35s
+[2026-02-06T09:02:28.895Z] Status: 8 terminal, 0 processing | elapsed 11m 4s | since last completion: 3m 43s
+[2026-02-06T09:02:37.467Z] Status: 8 terminal, 0 processing | elapsed 11m 13s | since last completion: 3m 52s
+[2026-02-06T09:02:46.003Z] Status: 8 terminal, 0 processing | elapsed 11m 22s | since last completion: 4m
+[2026-02-06T09:02:54.570Z] Status: 8 terminal, 0 processing | elapsed 11m 30s | since last completion: 4m 9s
+[2026-02-06T09:03:03.112Z] Status: 8 terminal, 0 processing | elapsed 11m 39s | since last completion: 4m 18s
+[2026-02-06T09:03:11.624Z] Status: 8 terminal, 0 processing | elapsed 11m 47s | since last completion: 4m 26s
+[2026-02-06T09:03:20.427Z] Status: 8 terminal, 0 processing | elapsed 11m 56s | since last completion: 4m 35s
+[2026-02-06T09:03:28.980Z] Status: 8 terminal, 0 processing | elapsed 12m 5s | since last completion: 4m 43s
+[2026-02-06T09:03:37.538Z] Status: 8 terminal, 0 processing | elapsed 12m 13s | since last completion: 4m 52s
+[2026-02-06T09:03:46.083Z] Status: 8 terminal, 0 processing | elapsed 12m 22s | since last completion: 5m 1s
+[2026-02-06T09:03:54.591Z] Status: 8 terminal, 0 processing | elapsed 12m 30s | since last completion: 5m 9s
+[2026-02-06T09:04:03.249Z] Status: 8 terminal, 0 processing | elapsed 12m 39s | since last completion: 5m 18s
+[2026-02-06T09:04:11.786Z] Status: 8 terminal, 0 processing | elapsed 12m 47s | since last completion: 5m 26s
+[2026-02-06T09:04:14.331Z] Error: page.waitForTimeout: Target page, context or browser has been closed
+Browser left open. Close the browser or press Ctrl+C to exit.

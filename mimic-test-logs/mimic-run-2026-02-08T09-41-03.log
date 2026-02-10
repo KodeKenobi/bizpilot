@@ -1,0 +1,65 @@
+Mimic test run started at 2026-02-08T09:41:03.249Z
+[2026-02-08T09:41:03.250Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T09-41-03.log
+[2026-02-08T09:41:03.253Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T09:41:05.710Z] Loading site and dismissing cookie modal...
+[2026-02-08T09:41:16.419Z] Cookie modal dismissed (Accept All)
+[2026-02-08T09:41:17.232Z] Filling login...
+[2026-02-08T09:41:24.771Z] Login OK
+[2026-02-08T09:41:24.773Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T09:41:34.780Z] Dashboard wait done.
+[2026-02-08T09:41:34.819Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T09:41:36.995Z] Usage: daily_limit=-1 daily_used=782 unlimited=true daily_remaining=N/A
+[2026-02-08T09:41:36.997Z] Navigating to campaign upload...
+[2026-02-08T09:41:41.126Z] Upload OK
+[2026-02-08T09:41:41.832Z] Navigate to create OK
+[2026-02-08T09:42:44.314Z] Create campaign FAILED or timed out. URL: https://www.trevnoctilla.com/campaigns/Bl3MSRvW
+[2026-02-08T09:42:44.315Z] Page snippet (first 500 chars): Trevnoctilla
+Home
+Tools
+Video Converter
+Audio Converter
+Image Converter
+PDF Tools
+QR Generator
+Campaigns
+API
+Back to campaigns
+Mimic Test 1770543701926
+
+Draft
+
+Today: 782 companies
+Rapid All (1070)
+Export Results
+Delete Campaign
+TOTAL
+1070
+PROCESSED
+0
+SUCCESS
+0
+CONTACT INFO
+0
+FAILED
+0
+CAPTCHA
+0
+PROGRESS
+0%
+Companies (1070)
+All Status
+Pending
+Processing
+Completed
+Success
+Contact Info Found
+Failed
+CAPTCHA
+All Methods
+Form Submitted
+Contact Page Only
+CAPTCHA Detected
+No Contact Found
+COMPANY
+STATUS
+[2026-02-08T09:42:44.316Z] Error: Create campaign did not redirect to campaign page: https://www.trevnoctilla.com/campaigns/Bl3MSRvW

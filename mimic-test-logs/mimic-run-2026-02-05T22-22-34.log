@@ -1,0 +1,1017 @@
+Mimic test run started at 2026-02-05T22:22:34.870Z
+[2026-02-05T22:22:34.871Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-05T22-22-34.log
+[2026-02-05T22:22:34.875Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-05T22:22:36.210Z] Loading site and dismissing cookie modal...
+[2026-02-05T22:22:41.222Z] Cookie modal dismissed (Accept All)
+[2026-02-05T22:22:42.026Z] Filling login...
+[2026-02-05T22:22:49.224Z] Login OK
+[2026-02-05T22:22:49.225Z] Waiting 10s for dashboard to refresh...
+[2026-02-05T22:22:59.242Z] Dashboard wait done.
+[2026-02-05T22:22:59.260Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-05T22:23:00.323Z] Usage: daily_limit=-1 daily_used=201 unlimited=true daily_remaining=N/A
+[2026-02-05T22:23:00.324Z] Navigating to campaign upload...
+[2026-02-05T22:23:04.813Z] Upload OK
+[2026-02-05T22:23:07.142Z] Navigate to create OK
+[2026-02-05T22:23:11.756Z] Campaign created: 135
+[2026-02-05T22:23:13.768Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/135
+[2026-02-05T22:23:14.649Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-05T22:23:19.734Z] Started processing 1000 companies...
+[2026-02-05T22:23:19.764Z] [Stream] Campaign started – total companies: 1000
+[2026-02-05T22:23:19.875Z] [Stream] Now processing: 3 Line Electrical Wholesale Ltd. | 62291
+[2026-02-05T22:23:21.064Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-05T22:23:22.242Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:23:23.447Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-05T22:23:28.557Z] Status: 0 terminal, 1 processing | elapsed 9s | since last completion: 9s
+[2026-02-05T22:23:28.557Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:23:37.074Z] Status: 0 terminal, 1 processing | elapsed 17s | since last completion: 17s
+[2026-02-05T22:23:37.074Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:23:45.667Z] Status: 0 terminal, 1 processing | elapsed 26s | since last completion: 26s
+[2026-02-05T22:23:45.667Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:23:54.280Z] Status: 0 terminal, 1 processing | elapsed 35s | since last completion: 35s
+[2026-02-05T22:23:54.281Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:23:54.447Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-05T22:23:55.588Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:23:56.417Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:23:56.423Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:23:56.581Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:23:57.162Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:23:57.163Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-05T22:23:57.676Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-05T22:24:02.871Z] Status: 0 terminal, 1 processing | elapsed 43s | since last completion: 43s
+[2026-02-05T22:24:02.872Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:24:11.595Z] Status: 0 terminal, 1 processing | elapsed 52s | since last completion: 52s
+[2026-02-05T22:24:11.596Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:24:20.118Z] Status: 0 terminal, 1 processing | elapsed 1m | since last completion: 1m
+[2026-02-05T22:24:20.118Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:24:28.293Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-05T22:24:28.306Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-05T22:24:28.814Z] Status: 0 terminal, 1 processing | elapsed 1m 9s | since last completion: 1m 9s
+[2026-02-05T22:24:28.814Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:24:28.817Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-05T22:24:29.363Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:24:29.666Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:24:29.678Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:24:29.692Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-05T22:24:30.630Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-05T22:24:31.689Z] [Stream] Completed: company_id=62291 status=no_contact_found progress=?%
+[2026-02-05T22:24:32.134Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Navigation: Opening https://3lineelectrical.co.uk...
+[2026-02-05T22:24:33.018Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:24:34.124Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-05T22:24:37.354Z] Progress: 1 terminal (one just finished; 1m 18s since previous) | elapsed 1m 18s
+[2026-02-05T22:24:37.355Z] Status: 1 terminal, 1 processing | elapsed 1m 18s | since last completion: 1m 18s
+[2026-02-05T22:24:37.356Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:24:45.950Z] Status: 1 terminal, 1 processing | elapsed 1m 26s | since last completion: 9s
+[2026-02-05T22:24:45.950Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:24:55.065Z] Status: 1 terminal, 1 processing | elapsed 1m 35s | since last completion: 18s
+[2026-02-05T22:24:55.065Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:25:03.658Z] Status: 1 terminal, 1 processing | elapsed 1m 44s | since last completion: 26s
+[2026-02-05T22:25:03.659Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:25:05.042Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-05T22:25:05.799Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:25:06.839Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:25:06.850Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:25:07.028Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:25:07.721Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:25:07.722Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Testing Link: Link 1: contact us (offices/category/offices)
+[2026-02-05T22:25:08.191Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: Loading contact page…
+[2026-02-05T22:25:12.270Z] Status: 1 terminal, 1 processing | elapsed 1m 53s | since last completion: 35s
+[2026-02-05T22:25:12.270Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:25:20.932Z] Status: 1 terminal, 1 processing | elapsed 2m 1s | since last completion: 44s
+[2026-02-05T22:25:20.933Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:25:29.518Z] Status: 1 terminal, 1 processing | elapsed 2m 10s | since last completion: 52s
+[2026-02-05T22:25:29.518Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:25:38.095Z] Status: 1 terminal, 1 processing | elapsed 2m 18s | since last completion: 1m 1s
+[2026-02-05T22:25:38.096Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-05T22:25:38.896Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-05T22:25:38.897Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No form in main page; checking iframes (e.g. HubSpot) before email fallback...
+[2026-02-05T22:25:39.246Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Contact Page Discovery: No direct form found, trying fallback extraction...
+[2026-02-05T22:25:39.736Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:25:40.038Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:25:40.050Z] [Stream] [3 Line Electrical Wholesale Ltd.] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:25:40.057Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] No Contact Found: All strategies exhausted for https://3lineelectrical.co.uk
+[2026-02-05T22:25:40.894Z] [Stream] [3 Line Electrical Wholesale Ltd.] [error] Discovery Failed: Title:  | Snippet: <!DOCTYPE html><html class="js svg csscalc flexbox flexboxlegacy fontface textshadow csstransforms csstransitions picture localstorage sessionstorage svgfilters inlinesvg" lang="en" style=""><!--<![endif]--><head>         <meta charset="utf-8">         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">         <meta name="viewport" content="width=device-width, initial-scale=1.0">         <base href="https://www.3lineelectrical.co.uk/">                  <title></title>                               <meta name="description" content="3Line Electrical">                  <link rel="shortcut icon" href="https://www.3lineelectrical.co.uk/favicon.ico" type="image/x-icon">         <link rel="apple-touch-icon" href="https://www.3lineelectrical.co.uk/apple-touch-icon.png">         <link rel="apple-touch-icon" sizes="57x57" href="https://www.3lineelectrical.co.uk/apple-touch-icon-57x57.png">         <link rel="apple-touch-icon" sizes="72x72" href="https://www.3lineelectrical.co.uk/appl
+[2026-02-05T22:25:41.936Z] [Stream] Completed: company_id=62292 status=no_contact_found progress=?%
+[2026-02-05T22:25:42.977Z] [Stream] [4D modelshop Ltd] [info] Navigation: Opening https://modelshop.co.uk...
+[2026-02-05T22:25:43.482Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:25:44.031Z] [Stream] [4D modelshop Ltd] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-05T22:25:44.032Z] [Stream] [4D modelshop Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:25:44.853Z] [Stream] [4D modelshop Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:25:44.867Z] [Stream] [4D modelshop Ltd] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:25:44.948Z] [Stream] [4D modelshop Ltd] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:25:45.027Z] [Stream] [4D modelshop Ltd] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:25:45.029Z] [Stream] [4D modelshop Ltd] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:25:45.331Z] [Stream] [4D modelshop Ltd] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:25:45.344Z] [Stream] [4D modelshop Ltd] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:25:45.348Z] [Stream] [4D modelshop Ltd] [success] Email Found: Found 1 email(s)
+[2026-02-05T22:25:45.349Z] [Stream] [4D modelshop Ltd] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-05T22:25:46.634Z] [Stream] Completed: company_id=62293 status=contact_info_found progress=?%
+[2026-02-05T22:25:47.195Z] Progress: 3 terminal (one just finished; 1m 10s since previous) | elapsed 2m 27s
+[2026-02-05T22:25:47.195Z] Status: 3 terminal, 0 processing | elapsed 2m 27s | since last completion: 1m 10s
+[2026-02-05T22:25:47.292Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Navigation: Opening https://7core.co.uk...
+[2026-02-05T22:25:49.000Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:25:50.186Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Found 3 contact link(s) in footer; trying contact page first
+[2026-02-05T22:25:51.848Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-05T22:25:52.656Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:25:52.680Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-05T22:25:52.762Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Strategy 1: Trying form 2…
+[2026-02-05T22:25:54.644Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-05T22:25:54.893Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Starting standard fill on homepage
+[2026-02-05T22:25:55.326Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Filling: Extracted 7 fields from this form; filling by mapping
+[2026-02-05T22:25:55.382Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: first_name: name="first-name" label="First name"
+[2026-02-05T22:25:55.430Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: last_name: name="last-name" label="Last Name"
+[2026-02-05T22:25:55.463Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: email: name="email" label="Email"
+[2026-02-05T22:25:55.522Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: phone: name="phone" label="Phone"
+[2026-02-05T22:25:55.800Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: message: name="textarea_comp-jzdzfcus" label="Your message"
+[2026-02-05T22:25:55.842Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: company: name="company" label="Company"
+[2026-02-05T22:25:55.904Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Unsatisfied Filled: other: name="collection_comp-l70fhx3t" label="Branch"
+[2026-02-05T22:25:55.905Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Extracted: [homepage] 7 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:25:55.905Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="first-name" id="input_comp-jzdzfctw" label="First name" type=text tag=input required=False
+[2026-02-05T22:25:55.905Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="last-name" id="input_comp-jzdzfcu6" label="Last Name" type=text tag=input required=False
+[2026-02-05T22:25:55.910Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="email" id="input_comp-jzdzfcuc" label="Email" type=email tag=input required=True
+[2026-02-05T22:25:55.911Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="phone" id="input_comp-jzdzfcuk" label="Phone" type=tel tag=input required=False
+[2026-02-05T22:25:55.912Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="textarea_comp-jzdzfcus" label="Your message" type=text tag=textarea required=False
+[2026-02-05T22:25:55.912Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="company" id="input_comp-kettv73q" label="Company" type=text tag=input required=False
+[2026-02-05T22:25:55.976Z] Status: 3 terminal, 1 processing | elapsed 2m 36s | since last completion: 9s
+[2026-02-05T22:25:55.976Z]   Current: 7 Core Electrical Wholesale Ltd | https://7core.co.uk
+[2026-02-05T22:25:56.110Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Field: name="" id="collection_comp-l70fhx3t" label="Branch" type=select tag=select required=True
+[2026-02-05T22:25:56.111Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Filled: [homepage] 7 field(s) — name/id, label, role, value
+[2026-02-05T22:25:56.111Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="first-name" label="First name" role=first_name value="Test"
+[2026-02-05T22:25:56.112Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="last-name" label="Last Name" role=last_name value="User"
+[2026-02-05T22:25:56.112Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="email" label="Email" role=email value="test@example.com"
+[2026-02-05T22:25:56.113Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="phone" label="Phone" role=phone value="+27123456789"
+[2026-02-05T22:25:56.113Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="textarea_comp-jzdzfcus" label="Your message" role=message value="Hello, this is a test."
+[2026-02-05T22:25:56.114Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="company" label="Company" role=company value="Test Co"
+[2026-02-05T22:25:56.114Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Filled: name="collection_comp-l70fhx3t" label="Branch" role=other value="Lincoln"
+[2026-02-05T22:25:56.115Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Form Fields Left Unsatisfied: [homepage] 0 field(s) — not filled
+[2026-02-05T22:25:56.115Z] [Stream] [7 Core Electrical Wholesale Ltd] [info] Submitting: Clicking submit button
+[2026-02-05T22:25:58.366Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Processed: Filled 7 fields (extract-then-fill) and submitted
+[2026-02-05T22:25:58.367Z] [Stream] [7 Core Electrical Wholesale Ltd] [success] Form Detection: Filled form 2 on page (7 fields)
+[2026-02-05T22:26:00.058Z] [Stream] Completed: company_id=62294 status=completed progress=?%
+[2026-02-05T22:26:00.469Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Navigation: Opening https://80scasualclassics.co.uk...
+[2026-02-05T22:26:02.562Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:26:04.611Z] Progress: 4 terminal (one just finished; 17s since previous) | elapsed 2m 45s
+[2026-02-05T22:26:04.612Z] Status: 4 terminal, 1 processing | elapsed 2m 45s | since last completion: 17s
+[2026-02-05T22:26:04.612Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:26:04.784Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-05T22:26:07.558Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-05T22:26:07.572Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-05T22:26:07.574Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-05T22:26:07.897Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-05T22:26:09.090Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:26:09.164Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-05T22:26:09.165Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-05T22:26:09.174Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: Skipping form 3 (newsletter/signup)
+[2026-02-05T22:26:09.175Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1: No form with 2+ fillable fields succeeded among 3 form(s)
+[2026-02-05T22:26:10.038Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:26:10.042Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Heuristics: Analyzing 8 orphan inputs...
+[2026-02-05T22:26:10.176Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:26:10.458Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Filling: Extracted 4 fields from this form; filling by mapping
+[2026-02-05T22:26:10.527Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-05T22:26:10.576Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled (mapped): Email -> email_address
+[2026-02-05T22:26:10.599Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics] 4 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:26:10.609Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="Search" type=search tag=input required=False
+[2026-02-05T22:26:10.618Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-698518ffaa7de4055" label="Stay in the loop | Newsletter Sign up" type=email tag=input required=False
+[2026-02-05T22:26:10.622Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-698518ffaea6d2197" label="" type=text tag=input required=False
+[2026-02-05T22:26:10.637Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="" id="currency-switcher" label="Currency" type=select tag=select required=False
+[2026-02-05T22:26:10.676Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics] 2 field(s) — name/id, label, role, value
+[2026-02-05T22:26:10.712Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="Stay in the loop | Newsletter Sign up" role=email value="test@example.com"
+[2026-02-05T22:26:10.732Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="" role=email value="test@example.com"
+[2026-02-05T22:26:10.760Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics] 2 field(s) — not filled
+[2026-02-05T22:26:10.764Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="Search"
+[2026-02-05T22:26:10.773Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="" id="currency-switcher" label="Currency"
+[2026-02-05T22:26:10.774Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-05T22:26:10.778Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: search, Name: query, Label: search, Text: query enter search... query search
+[2026-02-05T22:26:10.780Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-05T22:26:10.782Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-05T22:26:10.798Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: email, Name: email_address, Label: stay in the loop | newsletter sign up, Text: email_address enter email address... mailing_box-698518ffaa7de4055 stay in the l
+[2026-02-05T22:26:10.961Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Email field filled: test@example.com
+[2026-02-05T22:26:11.010Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: newsletter_subscription, Label: , Text: newsletter_subscription  newsletter_subscription
+[2026-02-05T22:26:11.046Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: domain_control, Label: , Text: domain_control
+[2026-02-05T22:26:11.089Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: hidden, Name: vsrefereruri, Label: , Text: vsrefereruri
+[2026-02-05T22:26:11.133Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Field: Type: text, Name: email_address, Label: , Text: email_address enter email address... mailing_box_pop-698518ffaea6d2197
+[2026-02-05T22:26:13.366Z] Status: 4 terminal, 1 processing | elapsed 2m 54s | since last completion: 9s
+[2026-02-05T22:26:13.367Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:26:21.945Z] Status: 4 terminal, 1 processing | elapsed 3m 2s | since last completion: 17s
+[2026-02-05T22:26:21.945Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:26:30.603Z] Status: 4 terminal, 1 processing | elapsed 3m 11s | since last completion: 26s
+[2026-02-05T22:26:30.603Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:26:39.226Z] Status: 4 terminal, 1 processing | elapsed 3m 19s | since last completion: 35s
+[2026-02-05T22:26:39.227Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:26:47.813Z] Status: 4 terminal, 1 processing | elapsed 3m 28s | since last completion: 43s
+[2026-02-05T22:26:47.814Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:26:56.425Z] Status: 4 terminal, 1 processing | elapsed 3m 37s | since last completion: 52s
+[2026-02-05T22:26:56.426Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:27:05.315Z] Status: 4 terminal, 1 processing | elapsed 3m 46s | since last completion: 1m 1s
+[2026-02-05T22:27:05.315Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:27:13.906Z] Status: 4 terminal, 1 processing | elapsed 3m 54s | since last completion: 1m 9s
+[2026-02-05T22:27:13.906Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:27:22.525Z] Status: 4 terminal, 1 processing | elapsed 4m 3s | since last completion: 1m 18s
+[2026-02-05T22:27:22.525Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:27:31.137Z] Status: 4 terminal, 1 processing | elapsed 4m 11s | since last completion: 1m 27s
+[2026-02-05T22:27:31.137Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:27:31.441Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field Filled: Select "currency-switcher" -> Kr.DKK
+[2026-02-05T22:27:31.566Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Extracted: [page_heuristics_heuristic] 4 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:27:31.567Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="query" id="query" label="search" type=search tag=input required=False
+[2026-02-05T22:27:31.567Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box-698518ffaa7de4055" label="stay in the loop | newsletter sign up" type=email tag=input required=False
+[2026-02-05T22:27:31.568Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="email_address" id="mailing_box_pop-698518ffaea6d2197" label="" type=text tag=input required=False
+[2026-02-05T22:27:31.569Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Field: name="currency-switcher" id="currency-switcher" label="currency" type=select tag=select required=False
+[2026-02-05T22:27:31.570Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Filled: [page_heuristics_heuristic] 2 field(s) — name/id, label, role, value
+[2026-02-05T22:27:31.570Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="email_address" label="stay in the loop | newsletter sign up" role=email value="test@example.com"
+[2026-02-05T22:27:31.571Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Filled: name="currency-switcher" label="currency" role=branch value="Kr.DKK"
+[2026-02-05T22:27:31.571Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 1 field(s) — not filled
+[2026-02-05T22:27:31.572Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Unfilled: name="query" id="query" label="search"
+[2026-02-05T22:27:32.965Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Submitting: Clicking submit button
+[2026-02-05T22:27:34.116Z] [Stream] [80S CASUAL CLASSICS LTD] [warning] Form Rejected: Newsletter/signup only (no message/name/phone); not counting as contact success
+[2026-02-05T22:27:34.124Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:27:34.237Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:27:35.631Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:27:35.635Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Testing Link: Link 1: contact us (/contact-us-i3)
+[2026-02-05T22:27:36.788Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page: Loading contact page…
+[2026-02-05T22:27:38.100Z] [Stream] [80S CASUAL CLASSICS LTD] [success] Form Detection: Found 4 form(s) on contact page
+[2026-02-05T22:27:38.908Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-05T22:27:39.386Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:27:39.747Z] Status: 4 terminal, 1 processing | elapsed 4m 20s | since last completion: 1m 35s
+[2026-02-05T22:27:39.747Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-05T22:27:39.747Z]   STUCK? No progress for 1m 35s (still 4 terminal, 1 processing)
+[2026-02-05T22:27:39.752Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-05T22:27:39.761Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 2: https://www.googletagmanager.com/static/service_wo...
+[2026-02-05T22:27:39.776Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-05T22:27:39.786Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:27:39.808Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Heuristics: Analyzing 18 orphan inputs...
+[2026-02-05T22:27:39.809Z] [Stream] [80S CASUAL CLASSICS LTD] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:27:39.832Z] [Stream] [80S CASUAL CLASSICS LTD] [error] No Contact Found: All strategies exhausted for https://80scasualclassics.co.uk
+[2026-02-05T22:27:40.670Z] [Stream] [80S CASUAL CLASSICS LTD] [error] Discovery Failed: Title: Contact Us | Snippet: <!DOCTYPE html><html class="js no-touch flexbox" lang="en-GB" id="html-pages"><head><script async="" src="https://scripts.clarity.ms/0.8.53/clarity.js"></script><script async="" src="https://www.clarity.ms/tag/bxcvtexs8o"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/plugins/ua/ec.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-K3VQDX7NNN&amp;cx=c&amp;gtm=4e6240"></script><script type="text/javascript" async="" src="/media/js/reviews_co_uk_merchant,blank-21102025SF24.js" data-store="80s-casuals-classics-ltd" data-color="" data-position="right" data-hidewidget=""></script><script type="text/javascript" async="" src="https://analytics.tiktok.com/i18n/pixel/static/main.MWFhZTllNTFjMA.js" data-id="CD2GP9JC77U5RH87FBAG"></script><script type="text/javascript" async="" src="https://analytics.tiktok.com/i18n/pixel/static/identify_31760074.js"></script><script type="text/javascript" async="" src="h
+[2026-02-05T22:27:41.678Z] [Stream] Completed: company_id=62295 status=no_contact_found progress=?%
+[2026-02-05T22:27:42.083Z] [Stream] [übbs pouches] [info] Navigation: Opening https://ubbspouches.com...
+[2026-02-05T22:27:48.595Z] Progress: 5 terminal (one just finished; 1m 44s since previous) | elapsed 4m 29s
+[2026-02-05T22:27:48.595Z] Status: 5 terminal, 1 processing | elapsed 4m 29s | since last completion: 1m 44s
+[2026-02-05T22:27:48.595Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:27:48.596Z]   STUCK? No progress for 1m 44s (still 5 terminal, 1 processing)
+[2026-02-05T22:27:57.303Z] Status: 5 terminal, 1 processing | elapsed 4m 38s | since last completion: 9s
+[2026-02-05T22:27:57.303Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:28:05.910Z] Status: 5 terminal, 1 processing | elapsed 4m 46s | since last completion: 17s
+[2026-02-05T22:28:05.910Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:28:14.505Z] Status: 5 terminal, 1 processing | elapsed 4m 55s | since last completion: 26s
+[2026-02-05T22:28:14.506Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:28:23.213Z] Status: 5 terminal, 1 processing | elapsed 5m 3s | since last completion: 35s
+[2026-02-05T22:28:23.214Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:28:31.824Z] Status: 5 terminal, 1 processing | elapsed 5m 12s | since last completion: 43s
+[2026-02-05T22:28:31.825Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:28:34.587Z] [Stream] [übbs pouches] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:28:37.592Z] [Stream] [übbs pouches] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-05T22:28:40.422Z] Status: 5 terminal, 1 processing | elapsed 5m 21s | since last completion: 52s
+[2026-02-05T22:28:40.422Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:28:48.951Z] Status: 5 terminal, 1 processing | elapsed 5m 29s | since last completion: 1m
+[2026-02-05T22:28:48.951Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:28:57.562Z] Status: 5 terminal, 1 processing | elapsed 5m 38s | since last completion: 1m 9s
+[2026-02-05T22:28:57.563Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:06.377Z] Status: 5 terminal, 1 processing | elapsed 5m 47s | since last completion: 1m 18s
+[2026-02-05T22:29:06.377Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:15.103Z] Status: 5 terminal, 1 processing | elapsed 5m 55s | since last completion: 1m 27s
+[2026-02-05T22:29:15.103Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:23.708Z] Status: 5 terminal, 1 processing | elapsed 6m 4s | since last completion: 1m 35s
+[2026-02-05T22:29:23.708Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:23.708Z]   STUCK? No progress for 1m 35s (still 5 terminal, 1 processing)
+[2026-02-05T22:29:32.360Z] Status: 5 terminal, 1 processing | elapsed 6m 13s | since last completion: 1m 44s
+[2026-02-05T22:29:32.360Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:32.360Z]   STUCK? No progress for 1m 44s (still 5 terminal, 1 processing)
+[2026-02-05T22:29:40.938Z] Status: 5 terminal, 1 processing | elapsed 6m 21s | since last completion: 1m 52s
+[2026-02-05T22:29:40.940Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:40.941Z]   STUCK? No progress for 1m 52s (still 5 terminal, 1 processing)
+[2026-02-05T22:29:49.524Z] Status: 5 terminal, 1 processing | elapsed 6m 30s | since last completion: 2m 1s
+[2026-02-05T22:29:49.525Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:49.525Z]   STUCK? No progress for 2m 1s (still 5 terminal, 1 processing)
+[2026-02-05T22:29:58.109Z] Status: 5 terminal, 1 processing | elapsed 6m 38s | since last completion: 2m 10s
+[2026-02-05T22:29:58.109Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:29:58.109Z]   STUCK? No progress for 2m 10s (still 5 terminal, 1 processing)
+[2026-02-05T22:29:59.668Z] [Stream] [übbs pouches] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-05T22:30:06.598Z] Status: 5 terminal, 1 processing | elapsed 6m 47s | since last completion: 2m 18s
+[2026-02-05T22:30:06.599Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:30:06.599Z]   STUCK? No progress for 2m 18s (still 5 terminal, 1 processing)
+[2026-02-05T22:30:15.204Z] Status: 5 terminal, 1 processing | elapsed 6m 55s | since last completion: 2m 27s
+[2026-02-05T22:30:15.204Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:30:15.205Z]   STUCK? No progress for 2m 27s (still 5 terminal, 1 processing)
+[2026-02-05T22:30:24.477Z] Status: 5 terminal, 1 processing | elapsed 7m 5s | since last completion: 2m 36s
+[2026-02-05T22:30:24.478Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:30:24.478Z]   STUCK? No progress for 2m 36s (still 5 terminal, 1 processing)
+[2026-02-05T22:30:33.360Z] Status: 5 terminal, 1 processing | elapsed 7m 14s | since last completion: 2m 45s
+[2026-02-05T22:30:33.361Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:30:33.361Z]   STUCK? No progress for 2m 45s (still 5 terminal, 1 processing)
+[2026-02-05T22:30:41.960Z] Status: 5 terminal, 1 processing | elapsed 7m 22s | since last completion: 2m 53s
+[2026-02-05T22:30:41.961Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:30:41.961Z]   STUCK? No progress for 2m 53s (still 5 terminal, 1 processing)
+[2026-02-05T22:30:50.811Z] Status: 5 terminal, 1 processing | elapsed 7m 31s | since last completion: 3m 2s
+[2026-02-05T22:30:50.811Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-05T22:30:50.812Z]   STUCK? No progress for 3m 2s (still 5 terminal, 1 processing)
+[2026-02-05T22:30:51.596Z] [Stream] Completed: company_id=62296 status=failed progress=?%
+[2026-02-05T22:30:52.136Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Navigation: Opening https://a2zcreatorz.com...
+[2026-02-05T22:30:59.427Z] Progress: 6 terminal (one just finished; 3m 11s since previous) | elapsed 7m 40s
+[2026-02-05T22:30:59.428Z] Status: 6 terminal, 1 processing | elapsed 7m 40s | since last completion: 3m 11s
+[2026-02-05T22:30:59.428Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:30:59.428Z]   STUCK? No progress for 3m 11s (still 6 terminal, 1 processing)
+[2026-02-05T22:30:59.429Z]   Failed (new): übbs pouches | https://ubbspouches.com | Request timed out. Try again or skip.
+[2026-02-05T22:31:02.027Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [warning] Initial Navigation: Failed or timed out: Page.goto: Timeout 10000ms exceeded.
+Call log:
+  - navigating to "https://a2zcreatorz.com/", waiting until "domcontentloaded"
+[2026-02-05T22:31:02.028Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:31:07.560Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-05T22:31:07.968Z] Status: 6 terminal, 1 processing | elapsed 7m 48s | since last completion: 9s
+[2026-02-05T22:31:07.968Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:31:11.488Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-05T22:31:16.604Z] Status: 6 terminal, 1 processing | elapsed 7m 57s | since last completion: 17s
+[2026-02-05T22:31:16.605Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:31:18.846Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:31:18.875Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-05T22:31:18.877Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-05T22:31:18.878Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1: No form with 2+ fillable fields succeeded among 2 form(s)
+[2026-02-05T22:31:19.707Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:31:19.725Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Heuristics: Analyzing 12 orphan inputs...
+[2026-02-05T22:31:19.887Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:31:20.350Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Filling: Extracted 6 fields from this form; filling by mapping
+[2026-02-05T22:31:20.377Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): First name -> your-name
+[2026-02-05T22:31:20.422Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Email -> your-email
+[2026-02-05T22:31:20.459Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Phone -> your-phone
+[2026-02-05T22:31:20.509Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field Filled (mapped): Message -> your-message
+[2026-02-05T22:31:23.589Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Required Select: Filled required select: your-service
+[2026-02-05T22:31:23.594Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Extracted: [page_heuristics] 6 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:31:23.597Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-name" id="" label="Name*" type=text tag=input required=True
+[2026-02-05T22:31:23.598Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-email" id="" label="Email*" type=email tag=input required=True
+[2026-02-05T22:31:23.599Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-phone" id="" label="Phone*" type=tel tag=input required=True
+[2026-02-05T22:31:23.600Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-message" id="" label="Message*" type=text tag=textarea required=True
+[2026-02-05T22:31:23.601Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="s" id="mfs-input" label="Type your search" type=search tag=input required=False
+[2026-02-05T22:31:23.601Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Field: name="your-service" id="" label="" type=select tag=select required=True
+[2026-02-05T22:31:23.602Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Filled: [page_heuristics] 5 field(s) — name/id, label, role, value
+[2026-02-05T22:31:23.602Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-name" label="Name*" role=first_name value="Test"
+[2026-02-05T22:31:23.607Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-email" label="Email*" role=email value="test@example.com"
+[2026-02-05T22:31:23.607Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-phone" label="Phone*" role=phone value="+27123456789"
+[2026-02-05T22:31:23.608Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-message" label="Message*" role=message value="Hello, this is a test."
+[2026-02-05T22:31:23.608Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Filled: name="your-service" label="" role=subject value="Web Design & Development"
+[2026-02-05T22:31:23.609Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Form Fields Left Unsatisfied: [page_heuristics] 1 field(s) — not filled
+[2026-02-05T22:31:23.609Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Unfilled: name="s" id="mfs-input" label="Type your search"
+[2026-02-05T22:31:23.610Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Clicking submit button
+[2026-02-05T22:31:25.108Z] Status: 6 terminal, 1 processing | elapsed 8m 5s | since last completion: 26s
+[2026-02-05T22:31:25.109Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:31:33.715Z] Status: 6 terminal, 1 processing | elapsed 8m 14s | since last completion: 34s
+[2026-02-05T22:31:33.715Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:31:42.568Z] Status: 6 terminal, 1 processing | elapsed 8m 23s | since last completion: 43s
+[2026-02-05T22:31:42.569Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:31:48.650Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Clicking submit button
+[2026-02-05T22:31:51.181Z] Status: 6 terminal, 1 processing | elapsed 8m 31s | since last completion: 52s
+[2026-02-05T22:31:51.181Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:31:59.801Z] Status: 6 terminal, 1 processing | elapsed 8m 40s | since last completion: 1m
+[2026-02-05T22:31:59.801Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:32:08.423Z] Status: 6 terminal, 1 processing | elapsed 8m 49s | since last completion: 1m 9s
+[2026-02-05T22:32:08.423Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:32:17.025Z] Status: 6 terminal, 1 processing | elapsed 8m 57s | since last completion: 1m 18s
+[2026-02-05T22:32:17.027Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:32:25.601Z] Status: 6 terminal, 1 processing | elapsed 9m 6s | since last completion: 1m 26s
+[2026-02-05T22:32:25.601Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:32:34.198Z] Status: 6 terminal, 1 processing | elapsed 9m 14s | since last completion: 1m 35s
+[2026-02-05T22:32:34.198Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-05T22:32:34.199Z]   STUCK? No progress for 1m 35s (still 6 terminal, 1 processing)
+[2026-02-05T22:32:38.742Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [info] Submitting: Form submitted via submit()
+[2026-02-05T22:32:40.817Z] [Stream] [A2Z Creatorz (Trusted Digital Partner)] [success] Form Processed: Filled 5 fields (extract-then-fill) and submitted
+[2026-02-05T22:32:42.281Z] [Stream] Completed: company_id=62297 status=completed progress=?%
+[2026-02-05T22:32:43.207Z] Progress: 7 terminal (one just finished; 1m 44s since previous) | elapsed 9m 23s
+[2026-02-05T22:32:43.207Z] Status: 7 terminal, 0 processing | elapsed 9m 23s | since last completion: 1m 44s
+[2026-02-05T22:32:43.314Z] [Stream] [Aabyss] [info] Navigation: Opening https://aabyss.uk...
+[2026-02-05T22:32:45.907Z] [Stream] [Aabyss] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:32:46.853Z] [Stream] [Aabyss] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-05T22:32:46.855Z] [Stream] [Aabyss] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:32:46.871Z] [Stream] [Aabyss] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-05T22:32:46.872Z] [Stream] [Aabyss] [info] Strategy 1: No form with 2+ fillable fields succeeded among 1 form(s)
+[2026-02-05T22:32:47.703Z] [Stream] [Aabyss] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:32:47.720Z] [Stream] [Aabyss] [info] Heuristics: Analyzing 5 orphan inputs...
+[2026-02-05T22:32:47.855Z] [Stream] [Aabyss] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:32:48.009Z] [Stream] [Aabyss] [info] Form Filling: Extracted 3 fields from this form; filling by mapping
+[2026-02-05T22:32:48.061Z] [Stream] [Aabyss] [info] Field Filled (mapped): First name -> firstname
+[2026-02-05T22:32:48.442Z] [Stream] [Aabyss] [info] Field Filled (mapped): Last name -> lastname
+[2026-02-05T22:32:48.503Z] [Stream] [Aabyss] [info] Field Filled (mapped): Email -> email
+[2026-02-05T22:32:48.508Z] [Stream] [Aabyss] [info] Form Fields Extracted: [page_heuristics] 3 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:32:48.510Z] [Stream] [Aabyss] [info] Field: name="firstname" id="firstname-871f4001-b16a-4cf7-a85e-ca545f2075f0_4668" label="First name*" type=text tag=input required=True
+[2026-02-05T22:32:48.510Z] [Stream] [Aabyss] [info] Field: name="lastname" id="lastname-871f4001-b16a-4cf7-a85e-ca545f2075f0_4668" label="Last name*" type=text tag=input required=True
+[2026-02-05T22:32:48.511Z] [Stream] [Aabyss] [info] Field: name="email" id="email-871f4001-b16a-4cf7-a85e-ca545f2075f0_4668" label="Email*" type=email tag=input required=True
+[2026-02-05T22:32:48.512Z] [Stream] [Aabyss] [info] Form Fields Filled: [page_heuristics] 3 field(s) — name/id, label, role, value
+[2026-02-05T22:32:48.512Z] [Stream] [Aabyss] [info] Filled: name="firstname" label="First name*" role=first_name value="Test"
+[2026-02-05T22:32:48.513Z] [Stream] [Aabyss] [info] Filled: name="lastname" label="Last name*" role=last_name value="User"
+[2026-02-05T22:32:48.513Z] [Stream] [Aabyss] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-05T22:32:48.514Z] [Stream] [Aabyss] [info] Form Fields Left Unsatisfied: [page_heuristics] 0 field(s) — not filled
+[2026-02-05T22:32:48.519Z] [Stream] [Aabyss] [info] Submitting: Clicking submit button
+[2026-02-05T22:32:51.317Z] [Stream] [Aabyss] [success] Form Processed: Filled 3 fields (extract-then-fill) and submitted
+[2026-02-05T22:32:51.836Z] Status: 7 terminal, 1 processing | elapsed 9m 32s | since last completion: 9s
+[2026-02-05T22:32:51.836Z]   Current: Aabyss | https://aabyss.uk
+[2026-02-05T22:32:52.903Z] [Stream] Completed: company_id=62298 status=completed progress=?%
+[2026-02-05T22:32:53.304Z] [Stream] [Abbey DLD Group of Colleges] [info] Navigation: Opening https://abbeycolleges.co.uk...
+[2026-02-05T22:32:54.638Z] [Stream] [Abbey DLD Group of Colleges] [info] Cookie Modal: Dismissed using: div[role="alertdialog"] button:has-text("Accept")
+[2026-02-05T22:32:55.103Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:32:57.399Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 0: Found 2 contact link(s) in footer; trying contact page first
+[2026-02-05T22:32:59.168Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-05T22:32:59.832Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:32:59.862Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-05T22:32:59.863Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1: No form with 2+ fillable fields succeeded among 1 form(s)
+[2026-02-05T22:33:00.607Z] Progress: 8 terminal (one just finished; 17s since previous) | elapsed 9m 41s
+[2026-02-05T22:33:00.608Z] Status: 8 terminal, 1 processing | elapsed 9m 41s | since last completion: 17s
+[2026-02-05T22:33:00.608Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:33:01.140Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:33:01.151Z] [Stream] [Abbey DLD Group of Colleges] [info] Heuristics: Analyzing 1 orphan inputs...
+[2026-02-05T22:33:01.248Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:33:01.352Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Extracted 1 fields from this form; filling by mapping
+[2026-02-05T22:33:01.443Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-05T22:33:01.448Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics] 1 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:33:01.450Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-05T22:33:01.450Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics] 1 field(s) — name/id, label, role, value
+[2026-02-05T22:33:01.451Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-05T22:33:01.451Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics] 0 field(s) — not filled
+[2026-02-05T22:33:01.452Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled from extract; falling back to discovery
+[2026-02-05T22:33:01.700Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Field: Type: text, Name: s, Label: , Text: s
+[2026-02-05T22:33:02.064Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-05T22:33:02.065Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics_heuristic] 1 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:33:02.066Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-05T22:33:02.066Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics_heuristic] 1 field(s) — name/id, label, role, value
+[2026-02-05T22:33:02.067Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-05T22:33:02.067Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 0 field(s) — not filled
+[2026-02-05T22:33:03.617Z] [Stream] [Abbey DLD Group of Colleges] [info] Submitting: Clicking submit button
+[2026-02-05T22:33:05.238Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled — likely newsletter/search, not contact form
+[2026-02-05T22:33:05.239Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:33:05.349Z] [Stream] [Abbey DLD Group of Colleges] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:33:06.865Z] [Stream] [Abbey DLD Group of Colleges] [info] Discovery: Found 2 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:33:06.865Z] [Stream] [Abbey DLD Group of Colleges] [info] Testing Link: Link 1: more info (https://www.abbeycolleges.co.uk/contact-us/)
+[2026-02-05T22:33:07.399Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page: Loading contact page…
+[2026-02-05T22:33:08.713Z] [Stream] [Abbey DLD Group of Colleges] [success] Form Detection: Found 1 form(s) on contact page
+[2026-02-05T22:33:08.731Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-05T22:33:09.229Z] Status: 8 terminal, 1 processing | elapsed 9m 49s | since last completion: 9s
+[2026-02-05T22:33:09.229Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:33:09.249Z] [Stream] [Abbey DLD Group of Colleges] [success] Form in iframe: Found form in frame 1 on contact page
+[2026-02-05T22:33:09.347Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting iframe fill on contact_page_frame_1
+[2026-02-05T22:33:09.365Z] [Stream] [Abbey DLD Group of Colleges] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-05T22:33:09.366Z] [Stream] [Abbey DLD Group of Colleges] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-05T22:33:09.519Z] [Stream] [Abbey DLD Group of Colleges] [info] Testing Link: Link 2: enquire (https://www.abbeycolleges.co.uk/contact-us/#form128)
+[2026-02-05T22:33:09.823Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page: Loading contact page…
+[2026-02-05T22:33:10.990Z] [Stream] [Abbey DLD Group of Colleges] [success] Form Detection: Found 1 form(s) on contact page
+[2026-02-05T22:33:11.019Z] [Stream] [Abbey DLD Group of Colleges] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-05T22:33:11.413Z] [Stream] [Abbey DLD Group of Colleges] [success] Form in iframe: Found form in frame 1 on contact page
+[2026-02-05T22:33:11.515Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting iframe fill on contact_page_frame_1
+[2026-02-05T22:33:11.533Z] [Stream] [Abbey DLD Group of Colleges] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-05T22:33:11.534Z] [Stream] [Abbey DLD Group of Colleges] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-05T22:33:11.579Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:33:11.884Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 1: https://discover.abbeycolleges.co.uk/l/1060322/202...
+[2026-02-05T22:33:11.895Z] [Stream] [Abbey DLD Group of Colleges] [success] Frame Form Found: Found form in frame: https://discover.abbeycolleges.co.uk/l/1060322/202...
+[2026-02-05T22:33:12.009Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting iframe fill on frame_1
+[2026-02-05T22:33:12.027Z] [Stream] [Abbey DLD Group of Colleges] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-05T22:33:12.028Z] [Stream] [Abbey DLD Group of Colleges] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-05T22:33:12.029Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 2: https://www.google.com/recaptcha/enterprise/anchor...
+[2026-02-05T22:33:12.030Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-05T22:33:12.038Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 4: https://www.googletagmanager.com/static/service_wo...
+[2026-02-05T22:33:12.044Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 5: about:blank...
+[2026-02-05T22:33:12.050Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 6: about:blank...
+[2026-02-05T22:33:12.061Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Frame: Checking frame 7: https://www.google.com/recaptcha/enterprise/bframe...
+[2026-02-05T22:33:12.070Z] [Stream] [Abbey DLD Group of Colleges] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:33:12.074Z] [Stream] [Abbey DLD Group of Colleges] [info] Heuristics: Analyzing 1 orphan inputs...
+[2026-02-05T22:33:12.537Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:33:12.621Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Filling: Extracted 1 fields from this form; filling by mapping
+[2026-02-05T22:33:12.806Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-05T22:33:12.806Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics] 1 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:33:12.807Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-05T22:33:12.808Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics] 1 field(s) — name/id, label, role, value
+[2026-02-05T22:33:12.809Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-05T22:33:12.810Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics] 0 field(s) — not filled
+[2026-02-05T22:33:12.811Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled from extract; falling back to discovery
+[2026-02-05T22:33:13.202Z] [Stream] [Abbey DLD Group of Colleges] [info] Checking Field: Type: text, Name: s, Label: , Text: s
+[2026-02-05T22:33:13.268Z] [Stream] [Abbey DLD Group of Colleges] [info] Unsatisfied Filled: other: name="s" label=""
+[2026-02-05T22:33:13.269Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Extracted: [page_heuristics_heuristic] 1 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:33:13.271Z] [Stream] [Abbey DLD Group of Colleges] [info] Field: name="s" id="" label="" type=text tag=input required=False
+[2026-02-05T22:33:13.272Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Filled: [page_heuristics_heuristic] 1 field(s) — name/id, label, role, value
+[2026-02-05T22:33:13.273Z] [Stream] [Abbey DLD Group of Colleges] [info] Filled: name="s" label="" role=other value="N/A"
+[2026-02-05T22:33:13.274Z] [Stream] [Abbey DLD Group of Colleges] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 0 field(s) — not filled
+[2026-02-05T22:33:14.488Z] [Stream] [Abbey DLD Group of Colleges] [info] Submitting: Clicking submit button
+[2026-02-05T22:33:16.126Z] [Stream] [Abbey DLD Group of Colleges] [warning] Validation: Form reported validation errors after submit; attempting to fix required/empty fields
+[2026-02-05T22:33:18.691Z] Status: 8 terminal, 1 processing | elapsed 9m 59s | since last completion: 18s
+[2026-02-05T22:33:18.692Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:33:27.372Z] Status: 8 terminal, 1 processing | elapsed 10m 8s | since last completion: 27s
+[2026-02-05T22:33:27.373Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:33:35.965Z] Status: 8 terminal, 1 processing | elapsed 10m 16s | since last completion: 35s
+[2026-02-05T22:33:35.965Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:33:44.760Z] Status: 8 terminal, 1 processing | elapsed 10m 25s | since last completion: 44s
+[2026-02-05T22:33:44.761Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:33:53.378Z] Status: 8 terminal, 1 processing | elapsed 10m 34s | since last completion: 53s
+[2026-02-05T22:33:53.379Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:01.951Z] Status: 8 terminal, 1 processing | elapsed 10m 42s | since last completion: 1m 1s
+[2026-02-05T22:34:01.951Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:10.833Z] Status: 8 terminal, 1 processing | elapsed 10m 51s | since last completion: 1m 10s
+[2026-02-05T22:34:10.833Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:19.369Z] Status: 8 terminal, 1 processing | elapsed 10m 60s | since last completion: 1m 19s
+[2026-02-05T22:34:19.369Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:27.979Z] Status: 8 terminal, 1 processing | elapsed 11m 8s | since last completion: 1m 27s
+[2026-02-05T22:34:27.980Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:36.614Z] Status: 8 terminal, 1 processing | elapsed 11m 17s | since last completion: 1m 36s
+[2026-02-05T22:34:36.616Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:36.616Z]   STUCK? No progress for 1m 36s (still 8 terminal, 1 processing)
+[2026-02-05T22:34:45.225Z] Status: 8 terminal, 1 processing | elapsed 11m 25s | since last completion: 1m 45s
+[2026-02-05T22:34:45.225Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:45.226Z]   STUCK? No progress for 1m 45s (still 8 terminal, 1 processing)
+[2026-02-05T22:34:53.822Z] Status: 8 terminal, 1 processing | elapsed 11m 34s | since last completion: 1m 53s
+[2026-02-05T22:34:53.822Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:34:53.823Z]   STUCK? No progress for 1m 53s (still 8 terminal, 1 processing)
+[2026-02-05T22:35:02.443Z] Status: 8 terminal, 1 processing | elapsed 11m 43s | since last completion: 2m 2s
+[2026-02-05T22:35:02.444Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:35:02.444Z]   STUCK? No progress for 2m 2s (still 8 terminal, 1 processing)
+[2026-02-05T22:35:11.130Z] Status: 8 terminal, 1 processing | elapsed 11m 51s | since last completion: 2m 11s
+[2026-02-05T22:35:11.131Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:35:11.131Z]   STUCK? No progress for 2m 11s (still 8 terminal, 1 processing)
+[2026-02-05T22:35:19.911Z] Status: 8 terminal, 1 processing | elapsed 12m | since last completion: 2m 19s
+[2026-02-05T22:35:19.911Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-05T22:35:19.912Z]   STUCK? No progress for 2m 19s (still 8 terminal, 1 processing)
+[2026-02-05T22:35:21.656Z] [Stream] [Abbey DLD Group of Colleges] [info] Submitting: Clicking submit button
+[2026-02-05T22:35:22.853Z] [Stream] [Abbey DLD Group of Colleges] [warning] Form Partial: Only one field filled — likely newsletter/search, not contact form
+[2026-02-05T22:35:22.859Z] [Stream] [Abbey DLD Group of Colleges] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:35:22.864Z] [Stream] [Abbey DLD Group of Colleges] [success] Email Found: Found 3 email(s)
+[2026-02-05T22:35:22.865Z] [Stream] [Abbey DLD Group of Colleges] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-05T22:35:26.959Z] [Stream] Completed: company_id=62299 status=contact_info_found progress=?%
+[2026-02-05T22:35:27.548Z] [Stream] [Abbey Multi Academy Trust] [info] Navigation: Opening https://abbeymat.co.uk...
+[2026-02-05T22:35:27.617Z] [Stream] [Abbey Multi Academy Trust] [warning] Initial Navigation: Failed or timed out: Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://abbeymat.co.uk/
+Call log:
+  - navigating to "https://abbeymat.co.uk/", waiting until "domcontentloaded"
+[2026-02-05T22:35:27.619Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:35:28.100Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-05T22:35:28.108Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:35:28.549Z] Progress: 9 terminal (one just finished; 2m 28s since previous) | elapsed 12m 9s
+[2026-02-05T22:35:28.549Z] Status: 9 terminal, 1 processing | elapsed 12m 9s | since last completion: 2m 28s
+[2026-02-05T22:35:28.549Z]   Current: Abbey Multi Academy Trust | https://abbeymat.co.uk
+[2026-02-05T22:35:28.550Z]   STUCK? No progress for 2m 28s (still 9 terminal, 1 processing)
+[2026-02-05T22:35:28.968Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:35:28.968Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:35:29.015Z] [Stream] [Abbey Multi Academy Trust] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:35:29.027Z] [Stream] [Abbey Multi Academy Trust] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:35:29.027Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:35:29.331Z] [Stream] [Abbey Multi Academy Trust] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:35:29.346Z] [Stream] [Abbey Multi Academy Trust] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:35:29.349Z] [Stream] [Abbey Multi Academy Trust] [error] No Contact Found: All strategies exhausted for https://abbeymat.co.uk
+[2026-02-05T22:35:29.877Z] [Stream] [Abbey Multi Academy Trust] [error] Discovery Failed: Title:  | Snippet: <html><head></head><body></body></html>
+[2026-02-05T22:35:30.515Z] [Stream] Completed: company_id=62300 status=no_contact_found progress=1%
+[2026-02-05T22:35:32.807Z] [Stream] [Able Training Support Ltd.] [info] Navigation: Opening https://able-training.co.uk...
+[2026-02-05T22:35:34.059Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Close")
+[2026-02-05T22:35:34.507Z] [Stream] [Able Training Support Ltd.] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:35:36.623Z] [Stream] [Able Training Support Ltd.] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-05T22:35:37.133Z] Progress: 10 terminal (one just finished; 9s since previous) | elapsed 12m 17s
+[2026-02-05T22:35:37.134Z] Status: 10 terminal, 1 processing | elapsed 12m 17s | since last completion: 9s
+[2026-02-05T22:35:37.134Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-05T22:35:37.462Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Close")
+[2026-02-05T22:35:39.632Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-05T22:35:39.777Z] [Stream] [Able Training Support Ltd.] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-05T22:35:40.465Z] [Stream] [Able Training Support Ltd.] [info] Form Filling: Extracted 11 fields from this form; filling by mapping
+[2026-02-05T22:35:40.526Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: first_name: name="input_8" label="First name*"
+[2026-02-05T22:35:40.580Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: last_name: name="input_9" label="Last name*"
+[2026-02-05T22:35:40.633Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: email: name="input_4" label="Email*"
+[2026-02-05T22:35:40.646Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: phone: name="input_3" label="Phone number*"
+[2026-02-05T22:35:40.678Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: company: name="input_23" label="Company Name"
+[2026-02-05T22:35:40.720Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: message: name="input_22" label="Comments"
+[2026-02-05T22:35:40.735Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: message: name="input_26.1" label="You consent to Able Training processing "
+[2026-02-05T22:35:40.745Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: email: name="input_20.1" label="You consent to receiving marketing commu"
+[2026-02-05T22:35:40.802Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: other: name="input_24" label="I'm interest in"
+[2026-02-05T22:35:40.856Z] [Stream] [Able Training Support Ltd.] [info] Unsatisfied Filled: other: name="input_25" label="How did you hear about us?"
+[2026-02-05T22:35:40.863Z] [Stream] [Able Training Support Ltd.] [info] Form Fields Extracted: [contact_page] 11 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:35:40.869Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_27" id="input_7_27" label="Comments" type=text tag=input required=False
+[2026-02-05T22:35:40.872Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_8" id="input_7_8" label="First name*" type=text tag=input required=True
+[2026-02-05T22:35:40.880Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_9" id="input_7_9" label="Last name*" type=text tag=input required=True
+[2026-02-05T22:35:40.969Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_4" id="input_7_4" label="Email*" type=email tag=input required=True
+[2026-02-05T22:35:40.979Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_3" id="input_7_3" label="Phone number*" type=tel tag=input required=True
+[2026-02-05T22:35:40.985Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_23" id="input_7_23" label="Company Name" type=text tag=input required=False
+[2026-02-05T22:35:40.989Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_22" id="input_7_22" label="Comments" type=text tag=textarea required=False
+[2026-02-05T22:35:40.993Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_26.1" id="choice_7_26_1" label="You consent to Able Training processing your personal information so your enquir" type=checkbox tag=input required=False
+[2026-02-05T22:35:41.001Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_20.1" id="choice_7_20_1" label="You consent to receiving marketing communications from the Able Training by emai" type=checkbox tag=input required=False
+[2026-02-05T22:35:41.004Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_24" id="input_7_24" label="I'm interest in" type=select tag=select required=False
+[2026-02-05T22:35:41.006Z] [Stream] [Able Training Support Ltd.] [info] Field: name="input_25" id="input_7_25" label="How did you hear about us?" type=select tag=select required=False
+[2026-02-05T22:35:41.010Z] [Stream] [Able Training Support Ltd.] [info] Form Fields Filled: [contact_page] 10 field(s) — name/id, label, role, value
+[2026-02-05T22:35:41.012Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_8" label="First name*" role=first_name value="Test"
+[2026-02-05T22:35:41.013Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_9" label="Last name*" role=last_name value="User"
+[2026-02-05T22:35:41.015Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_4" label="Email*" role=email value="test@example.com"
+[2026-02-05T22:35:41.018Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_3" label="Phone number*" role=phone value="+27123456789"
+[2026-02-05T22:35:41.019Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_23" label="Company Name" role=company value="Test Co"
+[2026-02-05T22:35:41.020Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_22" label="Comments" role=message value="Hello, this is a test."
+[2026-02-05T22:35:41.022Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_26.1" label="You consent to Able Training processing your personal information so your enquir" role=message value="Hello, this is a test."
+[2026-02-05T22:35:41.023Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_20.1" label="You consent to receiving marketing communications from the Able Training by emai" role=email value="test@example.com"
+[2026-02-05T22:35:41.025Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_24" label="I'm interest in" role=other value="Talking about a course"
+[2026-02-05T22:35:41.028Z] [Stream] [Able Training Support Ltd.] [info] Filled: name="input_25" label="How did you hear about us?" role=other value="Search Engine"
+[2026-02-05T22:35:41.030Z] [Stream] [Able Training Support Ltd.] [info] Form Fields Left Unsatisfied: [contact_page] 1 field(s) — not filled
+[2026-02-05T22:35:41.031Z] [Stream] [Able Training Support Ltd.] [info] Unfilled: name="input_27" id="input_7_27" label="Comments"
+[2026-02-05T22:35:41.031Z] [Stream] [Able Training Support Ltd.] [info] Submitting: Clicking submit button
+[2026-02-05T22:35:45.736Z] Status: 10 terminal, 1 processing | elapsed 12m 26s | since last completion: 9s
+[2026-02-05T22:35:45.737Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-05T22:35:54.563Z] Status: 10 terminal, 1 processing | elapsed 12m 35s | since last completion: 17s
+[2026-02-05T22:35:54.563Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-05T22:36:03.642Z] Status: 10 terminal, 1 processing | elapsed 12m 44s | since last completion: 27s
+[2026-02-05T22:36:03.642Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-05T22:36:05.897Z] [Stream] [Able Training Support Ltd.] [info] Submitting: Clicking submit button
+[2026-02-05T22:36:12.479Z] Status: 10 terminal, 1 processing | elapsed 12m 53s | since last completion: 35s
+[2026-02-05T22:36:12.480Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-05T22:36:21.077Z] Status: 10 terminal, 1 processing | elapsed 13m 1s | since last completion: 44s
+[2026-02-05T22:36:21.078Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-05T22:36:29.711Z] Status: 10 terminal, 1 processing | elapsed 13m 10s | since last completion: 53s
+[2026-02-05T22:36:29.711Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-05T22:36:30.919Z] [Stream] [Able Training Support Ltd.] [info] Submitting: Form submitted via submit()
+[2026-02-05T22:36:32.478Z] [Stream] [Able Training Support Ltd.] [info] Cookie Modal: Dismissed using: button:has-text("Close")
+[2026-02-05T22:36:33.621Z] [Stream] [Able Training Support Ltd.] [success] Form Processed: Filled 10 fields (extract-then-fill) and submitted
+[2026-02-05T22:36:33.628Z] [Stream] [Able Training Support Ltd.] [success] Form Detection: Filled contact form from footer link
+[2026-02-05T22:36:35.544Z] [Stream] Completed: company_id=62301 status=completed progress=1%
+[2026-02-05T22:36:35.959Z] [Stream] [Abodus Student Living] [info] Navigation: Opening https://abodusstudents.com...
+[2026-02-05T22:36:37.201Z] [Stream] [Abodus Student Living] [info] Cookie Modal: Dismissed using: [aria-label*="Close"]
+[2026-02-05T22:36:37.664Z] [Stream] [Abodus Student Living] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:36:38.314Z] Progress: 11 terminal (one just finished; 1m 1s since previous) | elapsed 13m 19s
+[2026-02-05T22:36:38.314Z] Status: 11 terminal, 1 processing | elapsed 13m 19s | since last completion: 1m 1s
+[2026-02-05T22:36:38.315Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:36:38.679Z] [Stream] [Abodus Student Living] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-05T22:36:38.680Z] [Stream] [Abodus Student Living] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:36:38.705Z] [Stream] [Abodus Student Living] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-05T22:36:38.706Z] [Stream] [Abodus Student Living] [info] Strategy 1: No form with 2+ fillable fields succeeded among 1 form(s)
+[2026-02-05T22:36:39.541Z] [Stream] [Abodus Student Living] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:36:39.553Z] [Stream] [Abodus Student Living] [info] Heuristics: Analyzing 6 orphan inputs...
+[2026-02-05T22:36:39.681Z] [Stream] [Abodus Student Living] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:36:39.931Z] [Stream] [Abodus Student Living] [info] Form Filling: Extracted 5 fields from this form; filling by mapping
+[2026-02-05T22:36:40.043Z] [Stream] [Abodus Student Living] [info] Form Fields Extracted: [page_heuristics] 5 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:36:40.045Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-functional-optin" label="Functional" type=checkbox tag=input required=False
+[2026-02-05T22:36:40.045Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-preferences-optin" label="Preferences" type=checkbox tag=input required=False
+[2026-02-05T22:36:40.046Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-statistics-optin" label="Statistics" type=checkbox tag=input required=False
+[2026-02-05T22:36:40.046Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-marketing-optin" label="Marketing" type=checkbox tag=input required=False
+[2026-02-05T22:36:40.051Z] [Stream] [Abodus Student Living] [info] Field: name="s" id="search-input-iwpaxg" label="Search ..." type=search tag=input required=False
+[2026-02-05T22:36:40.051Z] [Stream] [Abodus Student Living] [info] Form Fields Filled: [page_heuristics] 0 field(s) — name/id, label, role, value
+[2026-02-05T22:36:40.052Z] [Stream] [Abodus Student Living] [info] Form Fields Left Unsatisfied: [page_heuristics] 5 field(s) — not filled
+[2026-02-05T22:36:40.053Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-functional-optin" label="Functional"
+[2026-02-05T22:36:40.054Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-preferences-optin" label="Preferences"
+[2026-02-05T22:36:40.058Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-statistics-optin" label="Statistics"
+[2026-02-05T22:36:40.059Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-marketing-optin" label="Marketing"
+[2026-02-05T22:36:40.060Z] [Stream] [Abodus Student Living] [info] Unfilled: name="s" id="search-input-iwpaxg" label="Search ..."
+[2026-02-05T22:36:40.101Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: functional, Text:   cmplz-functional-optin functional
+[2026-02-05T22:36:40.150Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: preferences, Text:   cmplz-preferences-optin preferences
+[2026-02-05T22:36:40.204Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: statistics, Text:   cmplz-statistics-optin statistics
+[2026-02-05T22:36:40.243Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: checkbox, Name: , Label: marketing, Text:   cmplz-marketing-optin marketing
+[2026-02-05T22:36:40.282Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: search, Name: s, Label: search ..., Text: s find student accommodation search-input-iwpaxg search ...
+[2026-02-05T22:36:40.321Z] [Stream] [Abodus Student Living] [info] Checking Field: Type: hidden, Name: jet_ajax_search_settings, Label: search ..., Text: jet_ajax_search_settings   search ...
+[2026-02-05T22:36:46.910Z] Status: 11 terminal, 1 processing | elapsed 13m 27s | since last completion: 9s
+[2026-02-05T22:36:46.910Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:36:55.463Z] Status: 11 terminal, 1 processing | elapsed 13m 36s | since last completion: 17s
+[2026-02-05T22:36:55.463Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:37:04.266Z] Status: 11 terminal, 1 processing | elapsed 13m 45s | since last completion: 26s
+[2026-02-05T22:37:04.267Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:37:05.552Z] [Stream] [Abodus Student Living] [info] Form Fields Extracted: [page_heuristics_heuristic] 4 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:37:05.553Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-functional-optin" label="functional" type=checkbox tag=input required=False
+[2026-02-05T22:37:05.558Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-preferences-optin" label="preferences" type=checkbox tag=input required=False
+[2026-02-05T22:37:05.561Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-statistics-optin" label="statistics" type=checkbox tag=input required=False
+[2026-02-05T22:37:05.564Z] [Stream] [Abodus Student Living] [info] Field: name="" id="cmplz-marketing-optin" label="marketing" type=checkbox tag=input required=False
+[2026-02-05T22:37:05.565Z] [Stream] [Abodus Student Living] [info] Form Fields Filled: [page_heuristics_heuristic] 0 field(s) — name/id, label, role, value
+[2026-02-05T22:37:05.566Z] [Stream] [Abodus Student Living] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 4 field(s) — not filled
+[2026-02-05T22:37:05.567Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-functional-optin" label="functional"
+[2026-02-05T22:37:05.567Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-preferences-optin" label="preferences"
+[2026-02-05T22:37:05.568Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-statistics-optin" label="statistics"
+[2026-02-05T22:37:05.569Z] [Stream] [Abodus Student Living] [info] Unfilled: name="" id="cmplz-marketing-optin" label="marketing"
+[2026-02-05T22:37:07.098Z] [Stream] [Abodus Student Living] [warning] Form Empty: No fields were filled
+[2026-02-05T22:37:07.099Z] [Stream] [Abodus Student Living] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:37:07.176Z] [Stream] [Abodus Student Living] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:37:07.511Z] [Stream] [Abodus Student Living] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:37:07.516Z] [Stream] [Abodus Student Living] [info] Testing Link: Link 1: contact
+contact (https://abodusstudents.com/contact-us/)
+[2026-02-05T22:37:08.822Z] [Stream] [Abodus Student Living] [info] Contact Page: Loading contact page…
+[2026-02-05T22:37:12.870Z] Status: 11 terminal, 1 processing | elapsed 13m 53s | since last completion: 35s
+[2026-02-05T22:37:12.870Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:37:21.588Z] Status: 11 terminal, 1 processing | elapsed 14m 2s | since last completion: 43s
+[2026-02-05T22:37:21.588Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:37:30.442Z] Status: 11 terminal, 1 processing | elapsed 14m 11s | since last completion: 52s
+[2026-02-05T22:37:30.442Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:37:39.089Z] Status: 11 terminal, 1 processing | elapsed 14m 19s | since last completion: 1m 1s
+[2026-02-05T22:37:39.089Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-05T22:37:39.545Z] [Stream] [Abodus Student Living] [info] Contact Page: No form elements/iframes appeared within 30s, checking immediately
+[2026-02-05T22:37:39.558Z] [Stream] [Abodus Student Living] [success] Form Detection: Found 2 form(s) on contact page
+[2026-02-05T22:37:40.258Z] [Stream] [Abodus Student Living] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-05T22:37:40.269Z] [Stream] [Abodus Student Living] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-05T22:37:40.270Z] [Stream] [Abodus Student Living] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-05T22:37:40.536Z] [Stream] [Abodus Student Living] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-05T22:37:41.111Z] [Stream] [Abodus Student Living] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:37:41.415Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-05T22:37:41.426Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 2: https://abodusstudents.com/wp-content/plugins/abod...
+[2026-02-05T22:37:41.446Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-05T22:37:41.446Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 4: https://www.googletagmanager.com/static/service_wo...
+[2026-02-05T22:37:41.452Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 5: https://www.google.com/recaptcha/api2/anchor?ar=1&...
+[2026-02-05T22:37:41.456Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 6: about:blank...
+[2026-02-05T22:37:41.462Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 7: about:blank...
+[2026-02-05T22:37:41.481Z] [Stream] [Abodus Student Living] [info] Checking Frame: Checking frame 8: https://www.google.com/recaptcha/api2/bframe?hl=en...
+[2026-02-05T22:37:41.483Z] [Stream] [Abodus Student Living] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:37:41.506Z] [Stream] [Abodus Student Living] [info] Heuristics: Analyzing 40 orphan inputs...
+[2026-02-05T22:37:41.636Z] [Stream] [Abodus Student Living] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:37:41.643Z] [Stream] [Abodus Student Living] [info] Captcha: Detected visible captcha: [class*="captcha" i]
+[2026-02-05T22:37:41.644Z] [Stream] [Abodus Student Living] [warning] CAPTCHA Detected: Form has CAPTCHA - cannot auto-submit
+[2026-02-05T22:37:41.644Z] [Stream] [Abodus Student Living] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:37:41.664Z] [Stream] [Abodus Student Living] [error] No Contact Found: All strategies exhausted for https://abodusstudents.com
+[2026-02-05T22:37:42.846Z] [Stream] [Abodus Student Living] [error] Discovery Failed: Title: Contact Us - Abodus Student Living | Snippet: <!DOCTYPE html><html lang="en-US" prefix="og: https://ogp.me/ns#" style="--bricks-vh: 7.2px;"><head><meta http-equiv="origin-trial" content="A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="> <meta charset="UTF-8"> <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/destination?id=G-0PDEFNQ7NZ&amp;cx=c&amp;gtm=4e6241"></script><script type="text/javascript" async="" src="https://static.hotjar.com/c/hotjar-5094894.js?sv=7"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=AW-755917083&amp;cx=c&amp;gtm=4e6241"></script><script type="text/javascript" async="" charset="utf-8" src="https://www.gstatic.com/recaptcha/releases/gYdqkxiddE5aXrugNbBbKgtN/recaptcha__en_gb.js" cros
+[2026-02-05T22:37:43.804Z] [Stream] Completed: company_id=62302 status=no_contact_found progress=1%
+[2026-02-05T22:37:44.209Z] [Stream] [Abundance Investment] [info] Navigation: Opening https://abundanceinvestment.com...
+[2026-02-05T22:37:45.369Z] [Stream] [Abundance Investment] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-05T22:37:45.824Z] [Stream] [Abundance Investment] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:37:47.109Z] [Stream] [Abundance Investment] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-05T22:37:47.110Z] [Stream] [Abundance Investment] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:37:47.889Z] Progress: 12 terminal (one just finished; 1m 10s since previous) | elapsed 14m 28s
+[2026-02-05T22:37:47.890Z] Status: 12 terminal, 1 processing | elapsed 14m 28s | since last completion: 1m 10s
+[2026-02-05T22:37:47.894Z]   Current: Abundance Investment | https://abundanceinvestment.com
+[2026-02-05T22:37:48.381Z] [Stream] [Abundance Investment] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:37:48.393Z] [Stream] [Abundance Investment] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:37:48.444Z] [Stream] [Abundance Investment] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:37:49.276Z] [Stream] [Abundance Investment] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:37:49.277Z] [Stream] [Abundance Investment] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:37:49.577Z] [Stream] [Abundance Investment] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-05T22:37:49.607Z] [Stream] [Abundance Investment] [info] Checking Frame: Checking frame 2: https://www.googletagmanager.com/static/service_wo...
+[2026-02-05T22:37:49.633Z] [Stream] [Abundance Investment] [info] Checking Frame: Checking frame 3: about:blank...
+[2026-02-05T22:37:49.653Z] [Stream] [Abundance Investment] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:37:49.659Z] [Stream] [Abundance Investment] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:37:49.670Z] [Stream] [Abundance Investment] [success] Email Found: Found 1 email(s)
+[2026-02-05T22:37:49.671Z] [Stream] [Abundance Investment] [info] Email option off: Skipping email send (user disabled "email found when no form")
+[2026-02-05T22:37:49.926Z] [Stream] [Abundance Investment] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-05T22:37:51.630Z] [Stream] Completed: company_id=62303 status=contact_info_found progress=1%
+[2026-02-05T22:37:52.044Z] [Stream] [ACAI Outdoorwear] [info] Navigation: Opening https://acaioutdoorwear.com...
+[2026-02-05T22:37:56.502Z] Progress: 13 terminal (one just finished; 9s since previous) | elapsed 14m 37s
+[2026-02-05T22:37:56.503Z] Status: 13 terminal, 1 processing | elapsed 14m 37s | since last completion: 9s
+[2026-02-05T22:37:56.503Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:37:58.182Z] [Stream] [ACAI Outdoorwear] [info] Cookie Modal: Dismissed using: button:has-text("Close")
+[2026-02-05T22:37:58.652Z] [Stream] [ACAI Outdoorwear] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:38:04.011Z] [Stream] [ACAI Outdoorwear] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-05T22:38:05.100Z] Status: 13 terminal, 1 processing | elapsed 14m 45s | since last completion: 9s
+[2026-02-05T22:38:05.100Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:38:13.675Z] Status: 13 terminal, 1 processing | elapsed 14m 54s | since last completion: 17s
+[2026-02-05T22:38:13.675Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:38:22.265Z] Status: 13 terminal, 1 processing | elapsed 15m 3s | since last completion: 26s
+[2026-02-05T22:38:22.265Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:38:30.903Z] Status: 13 terminal, 1 processing | elapsed 15m 11s | since last completion: 34s
+[2026-02-05T22:38:30.903Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:38:39.510Z] Status: 13 terminal, 1 processing | elapsed 15m 20s | since last completion: 43s
+[2026-02-05T22:38:39.511Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:38:48.329Z] Status: 13 terminal, 1 processing | elapsed 15m 29s | since last completion: 52s
+[2026-02-05T22:38:48.330Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:38:56.951Z] Status: 13 terminal, 1 processing | elapsed 15m 37s | since last completion: 1m
+[2026-02-05T22:38:56.951Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:39:05.605Z] Status: 13 terminal, 1 processing | elapsed 15m 46s | since last completion: 1m 9s
+[2026-02-05T22:39:05.606Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:39:14.182Z] Status: 13 terminal, 1 processing | elapsed 15m 54s | since last completion: 1m 18s
+[2026-02-05T22:39:14.183Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:39:22.878Z] Status: 13 terminal, 1 processing | elapsed 16m 3s | since last completion: 1m 26s
+[2026-02-05T22:39:22.878Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-05T22:39:27.193Z] [Stream] [ACAI Outdoorwear] [info] Form Filling: Starting standard fill on contact_page
+[2026-02-05T22:39:27.374Z] [Stream] [ACAI Outdoorwear] [info] Form Filling: Extracted 3 fields from this form; filling by mapping
+[2026-02-05T22:39:27.717Z] [Stream] [ACAI Outdoorwear] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-05T22:39:29.707Z] [Stream] Completed: company_id=62304 status=failed progress=1%
+[2026-02-05T22:39:30.144Z] [Stream] [Acasta Europe Ltd] [info] Navigation: Opening https://acastaeurope.co.uk...
+[2026-02-05T22:39:31.437Z] Progress: 14 terminal (one just finished; 1m 35s since previous) | elapsed 16m 12s
+[2026-02-05T22:39:31.437Z] Status: 14 terminal, 1 processing | elapsed 16m 12s | since last completion: 1m 35s
+[2026-02-05T22:39:31.438Z]   Current: Acasta Europe Ltd | https://acastaeurope.co.uk
+[2026-02-05T22:39:31.438Z]   STUCK? No progress for 1m 35s (still 14 terminal, 1 processing)
+[2026-02-05T22:39:31.438Z]   Failed (new): ACAI Outdoorwear | https://acaioutdoorwear.com | Request timed out. Try again or skip.
+[2026-02-05T22:39:31.640Z] [Stream] [Acasta Europe Ltd] [info] Cookie Modal: Dismissed using: button:has-text("Accept")
+[2026-02-05T22:39:32.100Z] [Stream] [Acasta Europe Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:39:34.258Z] [Stream] [Acasta Europe Ltd] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-05T22:39:37.472Z] [Stream] [Acasta Europe Ltd] [info] Strategy 0: Contact page form(s) did not succeed; falling back to homepage
+[2026-02-05T22:39:38.703Z] [Stream] [Acasta Europe Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:39:39.540Z] [Stream] [Acasta Europe Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:39:39.541Z] [Stream] [Acasta Europe Ltd] [info] Heuristics: Analyzing 3 orphan inputs...
+[2026-02-05T22:39:39.640Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:39:39.767Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Extracted 3 fields from this form; filling by mapping
+[2026-02-05T22:39:40.072Z] Status: 14 terminal, 1 processing | elapsed 16m 20s | since last completion: 9s
+[2026-02-05T22:39:40.073Z]   Current: Acasta Europe Ltd | https://acastaeurope.co.uk
+[2026-02-05T22:39:40.099Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Extracted: [page_heuristics] 3 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:39:40.100Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                " type=checkbox tag=input required=False
+[2026-02-05T22:39:40.104Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  " type=checkbox tag=input required=False
+[2026-02-05T22:39:40.106Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       " type=checkbox tag=input required=False
+[2026-02-05T22:39:40.107Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Filled: [page_heuristics] 0 field(s) — name/id, label, role, value
+[2026-02-05T22:39:40.108Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics] 3 field(s) — not filled
+[2026-02-05T22:39:40.111Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                "
+[2026-02-05T22:39:40.113Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  "
+[2026-02-05T22:39:40.113Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       "
+[2026-02-05T22:39:40.148Z] [Stream] [Acasta Europe Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_strict_cookies, Label: enable or disable cookies        
+              
+ , Text: moove_gdpr_strict_cookies  moove_gdpr_strict_cookies enable or disable cookies
+[2026-02-05T22:39:40.195Z] [Stream] [Acasta Europe Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_performance_cookies, Label: enable or disable cookies     
+              
+    , Text: moove_gdpr_performance_cookies  moove_gdpr_performance_cookies enable or disable
+[2026-02-05T22:39:40.254Z] [Stream] [Acasta Europe Ltd] [info] Checking Field: Type: checkbox, Name: moove_gdpr_advanced_cookies, Label: enable or disable cookies
+              
+         , Text: moove_gdpr_advanced_cookies  moove_gdpr_advanced_cookies enable or disable cooki
+[2026-02-05T22:39:40.366Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Extracted: [page_heuristics_heuristic] 3 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:39:40.367Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="enable or disable cookies        
+              
+              
+                " type=checkbox tag=input required=False
+[2026-02-05T22:39:40.368Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="enable or disable cookies     
+              
+              
+                
+  " type=checkbox tag=input required=False
+[2026-02-05T22:39:40.369Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="enable or disable cookies
+              
+              
+                
+       " type=checkbox tag=input required=False
+[2026-02-05T22:39:40.369Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Filled: [page_heuristics_heuristic] 0 field(s) — name/id, label, role, value
+[2026-02-05T22:39:40.369Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics_heuristic] 3 field(s) — not filled
+[2026-02-05T22:39:40.370Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="enable or disable cookies        
+              
+              
+                "
+[2026-02-05T22:39:40.371Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="enable or disable cookies     
+              
+              
+                
+  "
+[2026-02-05T22:39:40.371Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="enable or disable cookies
+              
+              
+                
+       "
+[2026-02-05T22:39:41.256Z] [Stream] [Acasta Europe Ltd] [warning] Form Empty: No fields were filled
+[2026-02-05T22:39:41.257Z] [Stream] [Acasta Europe Ltd] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:39:41.367Z] [Stream] [Acasta Europe Ltd] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:39:43.467Z] [Stream] [Acasta Europe Ltd] [info] Discovery: Found 1 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:39:43.468Z] [Stream] [Acasta Europe Ltd] [info] Testing Link: Link 1: contact (https://www.acastaeurope.co.uk/contact/)
+[2026-02-05T22:39:44.013Z] [Stream] [Acasta Europe Ltd] [info] Contact Page: Loading contact page…
+[2026-02-05T22:39:45.294Z] [Stream] [Acasta Europe Ltd] [success] Form Detection: Found 1 form(s) on contact page
+[2026-02-05T22:39:45.418Z] [Stream] [Acasta Europe Ltd] [info] Contact Page Discovery: No main-page form succeeded; checking iframes (e.g. HubSpot)...
+[2026-02-05T22:39:45.850Z] [Stream] [Acasta Europe Ltd] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:39:46.191Z] [Stream] [Acasta Europe Ltd] [info] Checking Frame: Checking frame 1: about:blank...
+[2026-02-05T22:39:46.203Z] [Stream] [Acasta Europe Ltd] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:39:46.212Z] [Stream] [Acasta Europe Ltd] [info] Heuristics: Analyzing 19 orphan inputs...
+[2026-02-05T22:39:46.329Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:39:47.214Z] [Stream] [Acasta Europe Ltd] [info] Form Filling: Extracted 10 fields from this form; filling by mapping
+[2026-02-05T22:39:47.257Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Full name -> item_meta[6]
+[2026-02-05T22:39:47.312Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Email -> item_meta[8]
+[2026-02-05T22:39:47.350Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Company -> item_meta[53]
+[2026-02-05T22:39:47.401Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Subject -> item_meta[9]
+[2026-02-05T22:39:47.455Z] [Stream] [Acasta Europe Ltd] [info] Field Filled (mapped): Message -> item_meta[10]
+[2026-02-05T22:39:47.772Z] [Stream] [Acasta Europe Ltd] [info] Unsatisfied Filled: last_name: name="item_meta[7]" label="Last
+        *"
+[2026-02-05T22:39:47.804Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Extracted: [page_heuristics] 10 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:39:47.812Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[6]" id="field_qh4icy2" label="Name
+        *" type=text tag=input required=True
+[2026-02-05T22:39:47.814Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[7]" id="field_ocfup12" label="Last
+        *" type=text tag=input required=True
+[2026-02-05T22:39:47.814Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[8]" id="field_29yf4d2" label="Email
+        *" type=email tag=input required=True
+[2026-02-05T22:39:47.815Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[53]" id="field_1pib3" label="Company (if applicable)" type=text tag=input required=False
+[2026-02-05T22:39:47.816Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[9]" id="field_e6lis62" label="Subject
+        *" type=text tag=input required=True
+[2026-02-05T22:39:47.816Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[10]" id="field_9jv0r12" label="Message
+        *" type=text tag=textarea required=True
+[2026-02-05T22:39:47.817Z] [Stream] [Acasta Europe Ltd] [info] Field: name="item_meta[101]" id="field_kiwdg" label="If you are human, leave this field blank." type=text tag=input required=False
+[2026-02-05T22:39:47.817Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                " type=checkbox tag=input required=False
+[2026-02-05T22:39:47.818Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  " type=checkbox tag=input required=False
+[2026-02-05T22:39:47.819Z] [Stream] [Acasta Europe Ltd] [info] Field: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       " type=checkbox tag=input required=False
+[2026-02-05T22:39:47.823Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Filled: [page_heuristics] 6 field(s) — name/id, label, role, value
+[2026-02-05T22:39:47.824Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[6]" label="Name
+        *" role=full_name value="Test User"
+[2026-02-05T22:39:47.825Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[8]" label="Email
+        *" role=email value="test@example.com"
+[2026-02-05T22:39:47.826Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[53]" label="Company (if applicable)" role=company value="Test Co"
+[2026-02-05T22:39:47.826Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[9]" label="Subject
+        *" role=subject value="Partnership"
+[2026-02-05T22:39:47.827Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[10]" label="Message
+        *" role=message value="Hello, this is a test."
+[2026-02-05T22:39:47.828Z] [Stream] [Acasta Europe Ltd] [info] Filled: name="item_meta[7]" label="Last
+        *" role=last_name value="User"
+[2026-02-05T22:39:47.828Z] [Stream] [Acasta Europe Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics] 4 field(s) — not filled
+[2026-02-05T22:39:47.829Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="item_meta[101]" id="field_kiwdg" label="If you are human, leave this field blank."
+[2026-02-05T22:39:47.830Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_strict_cookies" id="moove_gdpr_strict_cookies" label="Enable or Disable Cookies        
+              
+              
+                "
+[2026-02-05T22:39:47.831Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_performance_cookies" id="moove_gdpr_performance_cookies" label="Enable or Disable Cookies     
+              
+              
+                
+  "
+[2026-02-05T22:39:47.831Z] [Stream] [Acasta Europe Ltd] [info] Unfilled: name="moove_gdpr_advanced_cookies" id="moove_gdpr_advanced_cookies" label="Enable or Disable Cookies
+              
+              
+                
+       "
+[2026-02-05T22:39:47.832Z] [Stream] [Acasta Europe Ltd] [info] Submitting: Clicking submit button
+[2026-02-05T22:39:48.807Z] Status: 14 terminal, 1 processing | elapsed 16m 29s | since last completion: 17s
+[2026-02-05T22:39:48.807Z]   Current: Acasta Europe Ltd | https://acastaeurope.co.uk
+[2026-02-05T22:39:52.340Z] [Stream] [Acasta Europe Ltd] [success] Form Processed: Filled 6 fields (extract-then-fill) and submitted
+[2026-02-05T22:39:54.957Z] [Stream] Completed: company_id=62305 status=completed progress=1%
+[2026-02-05T22:39:55.588Z] [Stream] [Accelerate ME] [info] Navigation: Opening https://accelerateme.co...
+[2026-02-05T22:39:56.648Z] [Stream] [Accelerate ME] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:39:57.378Z] [Stream] [Accelerate ME] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-05T22:39:57.379Z] [Stream] [Accelerate ME] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:39:57.392Z] Progress: 15 terminal (one just finished; 26s since previous) | elapsed 16m 38s
+[2026-02-05T22:39:57.393Z] Status: 15 terminal, 1 processing | elapsed 16m 38s | since last completion: 26s
+[2026-02-05T22:39:57.393Z]   Current: Accelerate ME | https://accelerateme.co
+[2026-02-05T22:39:58.205Z] [Stream] [Accelerate ME] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:39:58.216Z] [Stream] [Accelerate ME] [info] Strategy 2: No form on homepage, searching for contact link (footer first)...
+[2026-02-05T22:39:58.267Z] [Stream] [Accelerate ME] [info] Discovery: Strategy 2: Searching for contact links
+[2026-02-05T22:39:58.305Z] [Stream] [Accelerate ME] [info] Discovery: Found 0 potential contact links (contact/enquiry first, support last)
+[2026-02-05T22:39:58.309Z] [Stream] [Accelerate ME] [info] Strategy 3: Checking all frames for embedded forms...
+[2026-02-05T22:39:58.614Z] [Stream] [Accelerate ME] [info] Checking Frame: Checking frame 1: https://luma.com/embed/calendar/cal-byBzqS19Ac2igy...
+[2026-02-05T22:39:58.636Z] [Stream] [Accelerate ME] [info] Checking Frame: Checking frame 2: https://form.typeform.com/to/jhEx7yfm?typeform-emb...
+[2026-02-05T22:39:58.658Z] [Stream] [Accelerate ME] [info] Checking Frame: Checking frame 3: https://framer.com/edit?framerSiteId=ed47a3c3900a6...
+[2026-02-05T22:39:58.686Z] [Stream] [Accelerate ME] [info] Strategy 4: Searching for inputs by label heuristics...
+[2026-02-05T22:39:58.692Z] [Stream] [Accelerate ME] [info] Email-only: No form found; checking current page for contact emails...
+[2026-02-05T22:39:58.700Z] [Stream] [Accelerate ME] [error] No Contact Found: All strategies exhausted for https://accelerateme.co
+[2026-02-05T22:40:00.865Z] [Stream] [Accelerate ME] [error] Discovery Failed: Title: Accelerate ME | Snippet: <!DOCTYPE html><html lang="en"><head>     <meta charset="utf-8">               <script>try{if(localStorage.get("__framer_force_showing_editorbar_since")){const n=document.createElement("link");n.rel = "modulepreload";n.href="https://framer.com/edit/init.mjs";document.head.appendChild(n)}}catch(e){}</script>     <!-- Start of headStart -->          <!-- End of headStart -->     <meta name="viewport" content="width=device-width">     <meta name="generator" content="Framer 569b461">     <title>Accelerate ME</title>     <meta name="description" content="The UK's leading student-led startup accelerator.">     <meta name="framer-search-index" content="https://framerusercontent.com/sites/1tfmp3k2rnKQtwhIsAAjGF/searchIndex-zVa4jrTjsHsI.json">     <meta name="framer-search-index-fallback" content="https://framerusercontent.com/sites/1tfmp3k2rnKQtwhIsAAjGF/searchIndex-6aJY0t22PXOG.json">     <link href="https://framerusercontent.com/images/e8T94pSOJgXfWOEDlBkO0TXrFc.png" rel="icon" media="(prefe
+[2026-02-05T22:40:01.661Z] [Stream] Completed: company_id=62306 status=no_contact_found progress=1%
+[2026-02-05T22:40:02.311Z] [Stream] [AccelerComm Ltd] [info] Navigation: Opening https://accelercomm.com...
+[2026-02-05T22:40:03.327Z] [Stream] [AccelerComm Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:40:04.229Z] [Stream] [AccelerComm Ltd] [info] Strategy 0: No contact link in footer; will try homepage forms
+[2026-02-05T22:40:04.229Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: Checking homepage for a contact form (skipping newsletter/signup)…
+[2026-02-05T22:40:04.270Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: Skipping form 1 (newsletter/signup)
+[2026-02-05T22:40:04.270Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: Skipping form 2 (newsletter/signup)
+[2026-02-05T22:40:04.271Z] [Stream] [AccelerComm Ltd] [info] Strategy 1: No form with 2+ fillable fields succeeded among 2 form(s)
+[2026-02-05T22:40:05.275Z] [Stream] [AccelerComm Ltd] [info] Strategy 1b: Checking for inputs/textareas on page (no form tag)...
+[2026-02-05T22:40:05.286Z] [Stream] [AccelerComm Ltd] [info] Heuristics: Analyzing 10 orphan inputs...
+[2026-02-05T22:40:05.397Z] [Stream] [AccelerComm Ltd] [info] Form Filling: Starting heuristic fill on page_heuristics
+[2026-02-05T22:40:06.428Z] Progress: 16 terminal (one just finished; 9s since previous) | elapsed 16m 47s
+[2026-02-05T22:40:06.428Z] Status: 16 terminal, 1 processing | elapsed 16m 47s | since last completion: 9s
+[2026-02-05T22:40:06.429Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-05T22:40:06.484Z] [Stream] [AccelerComm Ltd] [info] Form Filling: Extracted 4 fields from this form; filling by mapping
+[2026-02-05T22:40:06.654Z] [Stream] [AccelerComm Ltd] [info] Field Filled (mapped): First name -> firstname
+[2026-02-05T22:40:06.700Z] [Stream] [AccelerComm Ltd] [info] Field Filled (mapped): Last name -> lastname
+[2026-02-05T22:40:06.757Z] [Stream] [AccelerComm Ltd] [info] Field Filled (mapped): Email -> email
+[2026-02-05T22:40:06.774Z] [Stream] [AccelerComm Ltd] [info] Form Fields Extracted: [page_heuristics] 4 field(s) — name, id, label, type, tag, required
+[2026-02-05T22:40:06.774Z] [Stream] [AccelerComm Ltd] [info] Field: name="term" id="term" label="Search" type=text tag=input required=False
+[2026-02-05T22:40:06.778Z] [Stream] [AccelerComm Ltd] [info] Field: name="firstname" id="firstname-c3b40224-6760-4449-adfe-4f2698148635_461" label="First name" type=text tag=input required=False
+[2026-02-05T22:40:06.780Z] [Stream] [AccelerComm Ltd] [info] Field: name="lastname" id="lastname-c3b40224-6760-4449-adfe-4f2698148635_461" label="Last name" type=text tag=input required=False
+[2026-02-05T22:40:06.781Z] [Stream] [AccelerComm Ltd] [info] Field: name="email" id="email-c3b40224-6760-4449-adfe-4f2698148635_461" label="Email*" type=email tag=input required=True
+[2026-02-05T22:40:06.782Z] [Stream] [AccelerComm Ltd] [info] Form Fields Filled: [page_heuristics] 3 field(s) — name/id, label, role, value
+[2026-02-05T22:40:06.784Z] [Stream] [AccelerComm Ltd] [info] Filled: name="firstname" label="First name" role=first_name value="Test"
+[2026-02-05T22:40:06.785Z] [Stream] [AccelerComm Ltd] [info] Filled: name="lastname" label="Last name" role=last_name value="User"
+[2026-02-05T22:40:06.787Z] [Stream] [AccelerComm Ltd] [info] Filled: name="email" label="Email*" role=email value="test@example.com"
+[2026-02-05T22:40:06.788Z] [Stream] [AccelerComm Ltd] [info] Form Fields Left Unsatisfied: [page_heuristics] 1 field(s) — not filled
+[2026-02-05T22:40:06.789Z] [Stream] [AccelerComm Ltd] [info] Unfilled: name="term" id="term" label="Search"
+[2026-02-05T22:40:06.800Z] [Stream] [AccelerComm Ltd] [info] Submitting: Clicking submit button
+[2026-02-05T22:40:15.283Z] Status: 16 terminal, 1 processing | elapsed 16m 56s | since last completion: 9s
+[2026-02-05T22:40:15.284Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-05T22:40:23.872Z] Status: 16 terminal, 1 processing | elapsed 17m 4s | since last completion: 17s
+[2026-02-05T22:40:23.872Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-05T22:40:31.829Z] [Stream] [AccelerComm Ltd] [info] Submitting: Clicking submit button
+[2026-02-05T22:40:32.475Z] Status: 16 terminal, 1 processing | elapsed 17m 13s | since last completion: 26s
+[2026-02-05T22:40:32.475Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-05T22:40:41.100Z] Status: 16 terminal, 1 processing | elapsed 17m 21s | since last completion: 35s
+[2026-02-05T22:40:41.100Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-05T22:40:56.878Z] [Stream] [AccelerComm Ltd] [info] Submitting: Form submitted via submit()
+[2026-02-05T22:40:59.069Z] [Stream] [AccelerComm Ltd] [success] Form Processed: Filled 3 fields (extract-then-fill) and submitted
+[2026-02-05T22:41:00.323Z] [Stream] Completed: company_id=62307 status=completed progress=1%
+[2026-02-05T22:41:00.732Z] [Stream] [Accident Credit Group Ltd] [info] Navigation: Opening https://acg.co.uk...
+[2026-02-05T22:41:05.432Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-05T22:41:06.786Z] [Stream] [Accident Credit Group Ltd] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-05T22:41:14.387Z] [Stream] Error: Invalid WebSocket frame: FIN must be set
+[2026-02-05T22:41:14.394Z] [Stream] Disconnected.
+[2026-02-05T22:41:19.125Z] Error: apiRequestContext.get: Timeout 30000ms exceeded.
+Call log:
+[2m  - → GET https://www.trevnoctilla.com/api/campaigns/135/companies[22m
+[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - Content-Type: application/json[22m
+[2m    - Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MDMzMDE2NCwianRpIjoiMTY5MThhMWItYWYxNC00ZTU3LTkxMDUtMjExMGMyNTUyNjEzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0IiwibmJmIjoxNzcwMzMwMTY0LCJleHAiOjE3NzA0MTY1NjR9.C4nBuTUxC3aPkz1a_krqm4NIkJQpSg-DGwCAnOyiRU4[22m
+[2m    - cookie: __Host-next-auth.csrf-token=6ec0b36dbde264e83f44d3ae5df4b04148964eb4c369a42425a652f74641737a%7Cbb3bec6811b0cad5407467055a19b83f4e8ad1accbdafada583a6f8fd2fbf92c; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.trevnoctilla.com%2Fauth%2Flogin; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..Ak786KQSIFo8Exhi.Cq_ZCHSJzBfE4F0e2tX2VTXWciy0mGkpHzpXaL1fU9tyC10FTmd6FagMkr7tpmGN7nJutI9L-JJRwLPaS5J6qhbg-Dl9-qfkZecPsDXnGxZG9IuVkmq35j2tFu_bqkt3-5g0qrOrHDKmvKdLhUB8_dzIM1FVXRt18ySQOJ9a2vaftnJ0hWr33DM5neFCkrfs77vWkFDCyeE0lWDoV65pKvAgfMobc8mphDuMGre7lRYmoSImCW4vt8ik84kBBsP4bkN111x6N0aem80O1l9pvJ_FGhtYSTAUnFYfwQCP_3ZBJjlk2Q9oyf_OrH6GQ0YPkho0b4XGbG3xcCAb-PEh92QXlc0c1biyI58a2vLWHZcYyGSdK8xbdTC5YrmCJHSeaeVGkSC3uckkssAQ78Ok8G_yLDU4mwgteym2ip921EAt7kWVAdkqU0Kgzz1BC_6uzXwxgDdt95u-feicw_rtv9WDMleL5mqbA2ppFoAfxUV0fixpyENO2zDtlXjlTDAKTbYBdWHFg9GZPWnKE0i4pPKseaOA5ifEciiofkNfeW5uhJayxIVRHR6zDqbXham0cZ3braUpSmw6CoCxOmXRMzQQbobMO0U-j31giYDOgM8RLMcGnH9Aj4oHHaTxIRu1DWSXzDndMwwmdYH3uwtAmMObh1sJq0v18oVh6367AR5JuwhghDBN.ddjkn9a1lhPjqAJPVVKagw[22m
+[2m  - ← 200 OK[22m
+[2m    - access-control-allow-credentials: true[22m
+[2m    - access-control-allow-origin: http://localhost:3000[22m
+[2m    - access-control-expose-headers: Content-Length, Content-Type[22m
+[2m    - content-encoding: gzip[22m
+[2m    - content-type: application/json[22m
+[2m    - date: Thu, 05 Feb 2026 22:41:17 GMT[22m
+[2m    - link: <https://www.trevnoctilla.com>; rel="canonical"[22m
+[2m    - server: railway-edge[22m
+[2m    - vary: Origin, Accept-Encoding[22m
+[2m    - x-powered-by: Trevnoctilla[22m
+[2m    - x-railway-edge: railway/europe-west4-drams3a, railway/europe-west4-drams3a[22m
+[2m    - x-railway-request-id: UfO75VRZSrqaeC1Mss7a6g, gwn5lLAMSYmNLRtrYqdHTg[22m
+[2m    - x-service-url: https://www.trevnoctilla.com[22m
+[2m    - transfer-encoding: chunked[22m
+

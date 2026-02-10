@@ -1,0 +1,171 @@
+Mimic test run started at 2026-02-08T07:56:34.284Z
+[2026-02-08T07:56:34.285Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T07-56-34.log
+[2026-02-08T07:56:34.289Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T07:56:36.496Z] Loading site and dismissing cookie modal...
+[2026-02-08T07:56:44.264Z] Cookie modal dismissed (Accept All)
+[2026-02-08T07:56:45.072Z] Filling login...
+[2026-02-08T07:56:52.393Z] Login OK
+[2026-02-08T07:56:52.394Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T07:57:02.400Z] Dashboard wait done.
+[2026-02-08T07:57:02.425Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T07:57:04.493Z] Usage: daily_limit=-1 daily_used=733 unlimited=true daily_remaining=N/A
+[2026-02-08T07:57:04.494Z] Navigating to campaign upload...
+[2026-02-08T07:57:08.628Z] Upload OK
+[2026-02-08T07:57:09.313Z] Navigate to create OK
+[2026-02-08T07:57:13.736Z] Campaign created: 191
+[2026-02-08T07:57:15.756Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/191
+[2026-02-08T07:57:15.860Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-08T07:57:18.363Z] Started processing 2000 companies...
+[2026-02-08T07:57:20.259Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-08T07:57:20.601Z] [Stream] Completed: company_id=112575 status=failed progress=0.3%
+[2026-02-08T07:57:22.307Z] [Stream] Now processing: 80S CASUAL CLASSICS LTD | 112578
+[2026-02-08T07:57:22.464Z] [Stream] Completed: company_id=112578 status=failed progress=0.4%
+[2026-02-08T07:57:22.467Z] [Stream] Now processing: 4D modelshop Ltd | 112576
+[2026-02-08T07:57:22.469Z] [Stream] Completed: company_id=112576 status=failed progress=0.5%
+[2026-02-08T07:57:22.471Z] [Stream] Now processing: 7 Core Electrical Wholesale Ltd | 112577
+[2026-02-08T07:57:22.473Z] [Stream] Completed: company_id=112577 status=failed progress=0.6%
+[2026-02-08T07:57:24.764Z] [Stream] Now processing: A.W. Lymn The Family Funeral Service | 112579
+[2026-02-08T07:57:24.767Z] [Stream] Completed: company_id=112579 status=failed progress=0.7%
+[2026-02-08T07:57:24.771Z] [Stream] Now processing: übbs pouches | 112580
+[2026-02-08T07:57:24.773Z] [Stream] Completed: company_id=112580 status=failed progress=0.7%
+[2026-02-08T07:57:25.065Z] [Stream] Now processing: A2Z Creatorz (Trusted Digital Partner) | 112581
+[2026-02-08T07:57:25.067Z] [Stream] Completed: company_id=112581 status=failed progress=0.8%
+[2026-02-08T07:57:25.202Z] [Stream] Now processing: Aabyss | 112582
+[2026-02-08T07:57:25.203Z] [Stream] Completed: company_id=112582 status=failed progress=0.9%
+[2026-02-08T07:57:29.933Z] [Stream] Now processing: Abbey DLD Group of Colleges | 112583
+[2026-02-08T07:57:30.105Z] [Stream] Completed: company_id=112583 status=failed progress=1%
+[2026-02-08T07:57:30.107Z] [Stream] Now processing: Abbey Multi Academy Trust | 112584
+[2026-02-08T07:57:30.109Z] [Stream] Completed: company_id=112584 status=failed progress=1.1%
+[2026-02-08T07:57:30.111Z] [Stream] Now processing: Able Training Support Ltd. | 112585
+[2026-02-08T07:57:30.113Z] [Stream] Completed: company_id=112585 status=failed progress=1.2%
+[2026-02-08T07:57:30.232Z] [Stream] Now processing: Abodus Student Living | 112586
+[2026-02-08T07:57:30.233Z] [Stream] Completed: company_id=112586 status=failed progress=1.3%
+[2026-02-08T07:57:30.235Z] [Stream] Now processing: Abundance Investment | 112587
+[2026-02-08T07:57:30.238Z] [Stream] Completed: company_id=112587 status=failed progress=1.4%
+[2026-02-08T07:57:30.368Z] [Stream] Now processing: ACAI Outdoorwear | 112588
+[2026-02-08T07:57:30.372Z] [Stream] Completed: company_id=112588 status=failed progress=1.5%
+[2026-02-08T07:57:30.416Z] [Stream] Now processing: Acasta Europe Ltd | 112589
+[2026-02-08T07:57:30.418Z] [Stream] Completed: company_id=112589 status=failed progress=1.6%
+[2026-02-08T07:57:34.875Z] [Stream] Now processing: Accelerate ME | 112590
+[2026-02-08T07:57:35.034Z] Progress: 15 terminal (one just finished; 17s since previous) | elapsed 17s
+[2026-02-08T07:57:35.035Z] Status: 15 terminal, 6 processing | elapsed 17s | since last completion: 17s
+[2026-02-08T07:57:35.035Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-08T07:57:35.037Z]   Failed (new): 2020 Innovation | https://2020innovation.com | Instance <Company at 0x7f1cad7a5890> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.037Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | Instance <Company at 0x7f1cada44c90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.038Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | Instance <Company at 0x7f1cada58590> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.039Z]   Failed (new): 4D modelshop Ltd | https://modelshop.co.uk | Instance <Company at 0x7f1cada58f90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.039Z]   Failed (new): 7 Core Electrical Wholesale Ltd | https://7core.co.uk | Instance <Company at 0x7f1cada07990> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.040Z]   Failed (new): 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk | Instance <Company at 0x7f1cacf7c6d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.041Z]   Failed (new): A.W. Lymn The Family Funeral Service | https://lymn.co.uk | Instance <Company at 0x7f1cacf7ee10> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.041Z]   Failed (new): übbs pouches | https://ubbspouches.com | Instance <Company at 0x7f1cacf88b90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.042Z]   Failed (new): A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com | Instance <Company at 0x7f1cad7aa950> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.043Z]   Failed (new): Aabyss | https://aabyss.uk | Instance <Company at 0x7f1cacf890d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.043Z]   Failed (new): Abbey DLD Group of Colleges | https://abbeycolleges.co.uk | Instance <Company at 0x7f1cacf98210> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.044Z]   Failed (new): Abbey Multi Academy Trust | https://abbeymat.co.uk | Instance <Company at 0x7f1cacf88410> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.044Z]   Failed (new): Able Training Support Ltd. | https://able-training.co.uk | Instance <Company at 0x7f1cacf7da10> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.045Z]   Failed (new): Abodus Student Living | https://abodusstudents.com | Instance <Company at 0x7f1cacf894d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.046Z]   Failed (new): Abundance Investment | https://abundanceinvestment.com | Instance <Company at 0x7f1cacf99790> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:35.051Z] [Stream] Completed: company_id=112590 status=failed progress=1.7%
+[2026-02-08T07:57:35.053Z] [Stream] Now processing: AccelerComm Ltd | 112591
+[2026-02-08T07:57:35.055Z] [Stream] Completed: company_id=112591 status=failed progress=1.8%
+[2026-02-08T07:57:35.396Z] [Stream] Now processing: Accident Credit Group Ltd | 112592
+[2026-02-08T07:57:35.398Z] [Stream] Completed: company_id=112592 status=failed progress=1.9%
+[2026-02-08T07:57:35.400Z] [Stream] Now processing: Accommodation for Students | 112593
+[2026-02-08T07:57:35.402Z] [Stream] Completed: company_id=112593 status=failed progress=2%
+[2026-02-08T07:57:35.403Z] [Stream] Now processing: Accountants Plus | 112594
+[2026-02-08T07:57:35.405Z] [Stream] Completed: company_id=112594 status=failed progress=2.1%
+[2026-02-08T07:57:35.407Z] [Stream] Now processing: ACE Training - Construction Centre | 112595
+[2026-02-08T07:57:35.408Z] [Stream] Completed: company_id=112595 status=failed progress=2.1%
+[2026-02-08T07:57:35.410Z] [Stream] Now processing: ActionFunder | 112596
+[2026-02-08T07:57:35.412Z] [Stream] Completed: company_id=112596 status=failed progress=2.2%
+[2026-02-08T07:57:35.414Z] [Stream] Now processing: Activate Learning Education Trust | 112597
+[2026-02-08T07:57:35.416Z] [Stream] Completed: company_id=112597 status=failed progress=2.3%
+[2026-02-08T07:57:40.362Z] [Stream] Now processing: Acute Training Solutions | 112598
+[2026-02-08T07:57:40.527Z] [Stream] Completed: company_id=112598 status=failed progress=2.4%
+[2026-02-08T07:57:40.529Z] [Stream] Now processing: Adapt (UK) Training Services Limited | 112599
+[2026-02-08T07:57:40.531Z] [Stream] Completed: company_id=112599 status=failed progress=2.5%
+[2026-02-08T07:57:40.532Z] [Stream] Now processing: Adapt Commercial Cleaning | 112600
+[2026-02-08T07:57:40.534Z] [Stream] Completed: company_id=112600 status=failed progress=2.6%
+[2026-02-08T07:57:40.536Z] [Stream] Now processing: Addcom-IT | 112601
+[2026-02-08T07:57:40.538Z] [Stream] Completed: company_id=112601 status=failed progress=2.7%
+[2026-02-08T07:57:40.540Z] [Stream] Now processing: Additional Lengths | 112602
+[2026-02-08T07:57:40.542Z] [Stream] Completed: company_id=112602 status=failed progress=2.8%
+[2026-02-08T07:57:40.544Z] [Stream] Now processing: Adepteq | 112603
+[2026-02-08T07:57:40.648Z] [Stream] Completed: company_id=112603 status=failed progress=2.9%
+[2026-02-08T07:57:40.783Z] [Stream] Now processing: Advanced CCA | 112604
+[2026-02-08T07:57:40.785Z] [Stream] Completed: company_id=112604 status=failed progress=3%
+[2026-02-08T07:57:40.787Z] [Stream] Now processing: Aeromark | 112605
+[2026-02-08T07:57:40.789Z] [Stream] Completed: company_id=112605 status=failed progress=3.1%
+[2026-02-08T07:57:45.576Z] [Stream] Now processing: Affordable Golf | 112606
+[2026-02-08T07:57:45.728Z] [Stream] Completed: company_id=112606 status=failed progress=3.2%
+[2026-02-08T07:57:45.741Z] [Stream] Now processing: agentOS | 112607
+[2026-02-08T07:57:45.860Z] [Stream] Completed: company_id=112607 status=failed progress=3.3%
+[2026-02-08T07:57:46.763Z] [Stream] Now processing: Ailsa | 112608
+[2026-02-08T07:57:46.766Z] [Stream] Completed: company_id=112608 status=failed progress=3.4%
+[2026-02-08T07:57:46.768Z] [Stream] Now processing: AIM Smarter UK | 112609
+[2026-02-08T07:57:46.773Z] [Stream] Completed: company_id=112609 status=failed progress=3.5%
+[2026-02-08T07:57:46.776Z] [Stream] Now processing: Air Power Products Ltd | 112610
+[2026-02-08T07:57:46.778Z] [Stream] Completed: company_id=112610 status=failed progress=3.6%
+[2026-02-08T07:57:46.780Z] [Stream] Now processing: Airsys United Kingdom | 112611
+[2026-02-08T07:57:46.782Z] [Stream] Completed: company_id=112611 status=failed progress=3.6%
+[2026-02-08T07:57:46.784Z] [Stream] Now processing: AJ Bell Investcentre | 112612
+[2026-02-08T07:57:46.791Z] [Stream] Completed: company_id=112612 status=failed progress=3.7%
+[2026-02-08T07:57:46.801Z] [Stream] Now processing: Akoni Technologies | 112613
+[2026-02-08T07:57:46.803Z] [Stream] Completed: company_id=112613 status=failed progress=3.8%
+[2026-02-08T07:57:51.299Z] [Stream] Now processing: Albin & Co Solicitors | 112614
+[2026-02-08T07:57:51.308Z] [Stream] Completed: company_id=112614 status=failed progress=3.9%
+[2026-02-08T07:57:51.311Z] [Stream] Now processing: Alces Flight | 112615
+[2026-02-08T07:57:51.421Z] [Stream] Completed: company_id=112615 status=failed progress=4%
+[2026-02-08T07:57:51.423Z] [Stream] Now processing: Alectrofag.co.uk | 112616
+[2026-02-08T07:57:51.550Z] [Stream] Completed: company_id=112616 status=failed progress=4.1%
+[2026-02-08T07:57:51.870Z] [Stream] Now processing: Alison Law Solicitors Llp | 112617
+[2026-02-08T07:57:51.997Z] [Stream] Completed: company_id=112617 status=failed progress=4.2%
+[2026-02-08T07:57:52.007Z] [Stream] Now processing: Alison Law Solicitors Llp | 112618
+[2026-02-08T07:57:52.012Z] [Stream] Completed: company_id=112618 status=failed progress=4.3%
+[2026-02-08T07:57:52.019Z] [Stream] Now processing: Allcott Associates LLP | 112619
+[2026-02-08T07:57:52.123Z] [Stream] Completed: company_id=112619 status=failed progress=4.4%
+[2026-02-08T07:57:52.125Z] [Stream] Now processing: ALMIS International | 112620
+[2026-02-08T07:57:52.258Z] [Stream] Completed: company_id=112620 status=failed progress=4.5%
+[2026-02-08T07:57:52.260Z] [Stream] Now processing: Aluminium Fire Systems | 112621
+[2026-02-08T07:57:52.382Z] [Stream] Completed: company_id=112621 status=failed progress=4.6%
+[2026-02-08T07:57:55.013Z] Progress: 41 terminal (one just finished; 20s since previous) | elapsed 37s
+[2026-02-08T07:57:55.014Z] Status: 41 terminal, 8 processing | elapsed 37s | since last completion: 20s
+[2026-02-08T07:57:55.015Z]   Current: Albin & Co Solicitors | https://albinandco.co.uk
+[2026-02-08T07:57:55.016Z]   Failed (new): ACAI Outdoorwear | https://acaioutdoorwear.com | Instance <Company at 0x7f1cacf99b50> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.016Z]   Failed (new): Acasta Europe Ltd | https://acastaeurope.co.uk | Instance <Company at 0x7f1cacf9ab90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.017Z]   Failed (new): Accelerate ME | https://accelerateme.co | Instance <Company at 0x7f1cacf9b890> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.017Z]   Failed (new): AccelerComm Ltd | https://accelercomm.com | Instance <Company at 0x7f1cacfa5210> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.018Z]   Failed (new): Accident Credit Group Ltd | https://acg.co.uk | Instance <Company at 0x7f1cacfa56d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.019Z]   Failed (new): Accommodation for Students | https://accommodationforstudents.com | Instance <Company at 0x7f1cacfa5fd0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.020Z]   Failed (new): Accountants Plus | https://accountantsplus.net | Instance <Company at 0x7f1cacffd490> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.020Z]   Failed (new): ACE Training - Construction Centre | https://acetraining.co.uk | Instance <Company at 0x7f1cacfff950> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.021Z]   Failed (new): ActionFunder | https://actionfunder.org | Instance <Company at 0x7f1cacffcdd0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.022Z]   Failed (new): Activate Learning Education Trust | https://alet.org.uk | Instance <Company at 0x7f1cacfecad0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.022Z]   Failed (new): Acute Training Solutions | https://acutetrainingsolutions.co.uk | Instance <Company at 0x7f1cacfd2a10> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.023Z]   Failed (new): Adapt (UK) Training Services Limited | https://adapt-training.co.uk | Instance <Company at 0x7f1cacfd23d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.024Z]   Failed (new): Adapt Commercial Cleaning | https://adaptcommercialcleaning.com | Instance <Company at 0x7f1cacfe3910> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.024Z]   Failed (new): Addcom-IT | https://addcom-it.co.uk | Instance <Company at 0x7f1cacfe23d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.025Z]   Failed (new): Additional Lengths | https://additionallengths.co.uk | Instance <Company at 0x7f1cacfe1290> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.025Z]   Failed (new): Adepteq | https://adepteq.com | Instance <Company at 0x7f1cad004e90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.026Z]   Failed (new): Advanced CCA | https://advancedcca.co.uk | Instance <Company at 0x7f1cad004110> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.027Z]   Failed (new): Aeromark | https://aeromark.co.uk | Instance <Company at 0x7f1cacfe3f50> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.027Z]   Failed (new): Affordable Golf | https://affordablegolf.co.uk | Instance <Company at 0x7f1cad1362d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.028Z]   Failed (new): agentOS | https://agentos.com | Instance <Company at 0x7f1cad137e90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.028Z]   Failed (new): Ailsa | https://ailsa.io | Instance <Company at 0x7f1cad017490> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.029Z]   Failed (new): AIM Smarter UK | https://aimsmarter.co.uk | Instance <Company at 0x7f1cad016910> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.030Z]   Failed (new): Air Power Products Ltd | https://airpowerproducts.co.uk | Instance <Company at 0x7f1cad015650> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.030Z]   Failed (new): Airsys United Kingdom | https://air-sys.uk | Instance <Company at 0x7f1cad0c0410> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.031Z]   Failed (new): AJ Bell Investcentre | https://investcentre.co.uk | Instance <Company at 0x7f1cad0c1c90> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:57:55.031Z]   Failed (new): Akoni Technologies | https://akonitechnologies.co.uk | Instance <Company at 0x7f1cad0c0910> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.412Z] Progress: 49 terminal (one just finished; 12s since previous) | elapsed 49s
+[2026-02-08T07:58:07.414Z] Status: 49 terminal, 0 processing | elapsed 49s | since last completion: 12s
+[2026-02-08T07:58:07.415Z]   Failed (new): Albin & Co Solicitors | https://albinandco.co.uk | Instance <Company at 0x7f1cad0d5090> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.416Z]   Failed (new): Alces Flight | https://alces-flight.com | Instance <Company at 0x7f1cad0d4250> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.417Z]   Failed (new): Alectrofag.co.uk | https://alectrofag.co.uk | Instance <Company at 0x7f1cad14f290> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.417Z]   Failed (new): Alison Law Solicitors Llp | https://alison-law.co.uk | Instance <Company at 0x7f1cad13a210> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.418Z]   Failed (new): Alison Law Solicitors Llp | https://alison-law.co.uk | Instance <Company at 0x7f1cad0d4810> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.419Z]   Failed (new): Allcott Associates LLP | https://allcottassociates.co.uk | Instance <Company at 0x7f1cad0ec510> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.419Z]   Failed (new): ALMIS International | https://almisinternational.com | Instance <Company at 0x7f1cad0eead0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:07.420Z]   Failed (new): Aluminium Fire Systems | https://aluminiumfiresystems.com | Instance <Company at 0x7f1cad0ef6d0> is not bound to a Session; attribute refresh operation cannot proceed (Background on this error at: [url]
+[2026-02-08T07:58:23.635Z] Status: 49 terminal, 0 processing | elapsed 1m 5s | since last completion: 16s
+[2026-02-08T07:58:43.106Z] Status: 49 terminal, 0 processing | elapsed 1m 25s | since last completion: 36s

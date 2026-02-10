@@ -1,0 +1,636 @@
+Mimic test run started at 2026-02-06T07:42:17.924Z
+[2026-02-06T07:42:17.926Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-06T07-42-17.log
+[2026-02-06T07:42:17.931Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-06T07:42:20.463Z] Loading site and dismissing cookie modal...
+[2026-02-06T07:42:27.606Z] Cookie modal dismissed (Accept All)
+[2026-02-06T07:42:28.424Z] Filling login...
+[2026-02-06T07:42:35.643Z] Login OK
+[2026-02-06T07:42:35.678Z] Waiting 10s for dashboard to refresh...
+[2026-02-06T07:42:45.763Z] Dashboard wait done.
+[2026-02-06T07:42:45.792Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-06T07:42:47.437Z] Usage: daily_limit=-1 daily_used=3 unlimited=true daily_remaining=N/A
+[2026-02-06T07:42:47.438Z] Navigating to campaign upload...
+[2026-02-06T07:42:51.183Z] Upload OK
+[2026-02-06T07:42:52.132Z] Navigate to create OK
+[2026-02-06T07:42:56.123Z] Campaign created: 146
+[2026-02-06T07:42:58.139Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/146
+[2026-02-06T07:42:58.273Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-06T07:42:59.235Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-06T07:43:00.301Z] [Stream] [2020 Innovation] [info] Navigation: Opening https://2020innovation.com...
+[2026-02-06T07:43:01.026Z] Started processing 2000 companies...
+[2026-02-06T07:43:01.542Z] [Stream] [2020 Innovation] [info] Strategy 0: Checking footer first for contact link…
+[2026-02-06T07:43:03.007Z] [Stream] [2020 Innovation] [info] Strategy 0: Found 1 contact link(s) in footer; trying contact page first
+[2026-02-06T07:43:05.300Z] [Stream] [2020 Innovation] [info] Cookie Modal: Dismissed using: [aria-label*="Accept"]
+[2026-02-06T07:43:26.819Z] Poll #1 failed (will retry): apiRequestContext.get: read ECONNRESET
+Call log:
+[2m  - → GET https://www.trevnoctilla.com/api/campaigns/146/companies[22m
+[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - Content-Type: application/json[22m
+[2m    - Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MDM2Mzc1MCwianRpIjoiNThiODBiOWEtOTJhZS00MzYwLTk0OTMtZjAxYTQ3NmQxOTI2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0IiwibmJmIjoxNzcwMzYzNzUwLCJleHAiOjE3NzA0NTAxNTB9.-9CwOMYui9hDK2oUwtvJzTeqDls9Q3w3K0rQowO6iJ8[22m
+[2m    - cookie: __Host-next-auth.csrf-token=eec845e8c2a1d32c8400e8c1685f353f46a5518730eb8656942b40005027bed5%7Cba8e10160af4ff8f0ebbfbdf3f88cd87bfee6943d840abff40bf64d66eb257cf; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.trevnoctilla.com%2Fauth%2Flogin; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..c3POVhw361mozDxV.0g-aTzJMWFDYXtaTJgLt4rynRez4Yo-8fXzi6WUOk9NRyeiuJUOeJau9fAVW6mQ7YVV7IHrOXTOSITS_bPj7M95N9BWFEzEir9JrhSbwaXJZPH1SLFVvT1UUqHhX9FNLPFaFw35Cxji8oO_hTwd3ALGNq8BNxFJtGOiz_r-cV4nc8l157aaeKYQEcbqDdrP0w2j7gKdozRM_J6ubfif-ELl9f8YGG5K2IodgR67NTvaeCmGMKoP8j2e3i4BxUjI2QAwFlRzA_dVNPzxLzo8n3vr4XUsOj_pYABLrax6rfq8SVhQblfIC-EeCz0tNBoxQu2aMB-W4gUDxD62z4JZHH_uKsw3frb0gNyajP85MseOY2Sp3Fu6yLuOqLc-uXZ7ZCBU2E2GhmdIJzkxtgakg5swX0k3KajeJojGy7ZlBcNLteiHFyVz5az7hG5kakeY2L2NKYoL-8e3Bdrwx2d0cbwqExhW4Wk9bFf0RrTO0SRaj-VuURcFk2jHytlUwCJgKVLzyKzYl-MXltNqK3V2YwBJhyB_jXr9CgH0aubuZ3Jqb009kp0d7-QOW3UiMXxVsp6-Y-ET2OxJqI5U8ppGsEbnSexa063IjEWUPOo5Mq6osCv2LgjTVLFF9yUD9exPIBpHHquQmDWn14vdEAawGr3ETmc9WaSajXSZT01r9JKG2VMyM_dVF.813xnNxYyHNyODOxx4sJaQ[22m
+
+[2026-02-06T07:43:36.116Z] [Stream] [2020 Innovation] [info] Strategy 0: No form on contact page; falling back to homepage
+[2026-02-06T07:43:36.389Z] [Stream] Disconnected.
+[2026-02-06T07:43:57.559Z] Poll #2 failed (will retry): apiRequestContext.get: read ECONNRESET
+Call log:
+[2m  - → GET https://www.trevnoctilla.com/api/campaigns/146/companies[22m
+[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - Content-Type: application/json[22m
+[2m    - Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MDM2Mzc1MCwianRpIjoiNThiODBiOWEtOTJhZS00MzYwLTk0OTMtZjAxYTQ3NmQxOTI2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0IiwibmJmIjoxNzcwMzYzNzUwLCJleHAiOjE3NzA0NTAxNTB9.-9CwOMYui9hDK2oUwtvJzTeqDls9Q3w3K0rQowO6iJ8[22m
+[2m    - cookie: __Host-next-auth.csrf-token=eec845e8c2a1d32c8400e8c1685f353f46a5518730eb8656942b40005027bed5%7Cba8e10160af4ff8f0ebbfbdf3f88cd87bfee6943d840abff40bf64d66eb257cf; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.trevnoctilla.com%2Fauth%2Flogin; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..c3POVhw361mozDxV.0g-aTzJMWFDYXtaTJgLt4rynRez4Yo-8fXzi6WUOk9NRyeiuJUOeJau9fAVW6mQ7YVV7IHrOXTOSITS_bPj7M95N9BWFEzEir9JrhSbwaXJZPH1SLFVvT1UUqHhX9FNLPFaFw35Cxji8oO_hTwd3ALGNq8BNxFJtGOiz_r-cV4nc8l157aaeKYQEcbqDdrP0w2j7gKdozRM_J6ubfif-ELl9f8YGG5K2IodgR67NTvaeCmGMKoP8j2e3i4BxUjI2QAwFlRzA_dVNPzxLzo8n3vr4XUsOj_pYABLrax6rfq8SVhQblfIC-EeCz0tNBoxQu2aMB-W4gUDxD62z4JZHH_uKsw3frb0gNyajP85MseOY2Sp3Fu6yLuOqLc-uXZ7ZCBU2E2GhmdIJzkxtgakg5swX0k3KajeJojGy7ZlBcNLteiHFyVz5az7hG5kakeY2L2NKYoL-8e3Bdrwx2d0cbwqExhW4Wk9bFf0RrTO0SRaj-VuURcFk2jHytlUwCJgKVLzyKzYl-MXltNqK3V2YwBJhyB_jXr9CgH0aubuZ3Jqb009kp0d7-QOW3UiMXxVsp6-Y-ET2OxJqI5U8ppGsEbnSexa063IjEWUPOo5Mq6osCv2LgjTVLFF9yUD9exPIBpHHquQmDWn14vdEAawGr3ETmc9WaSajXSZT01r9JKG2VMyM_dVF.813xnNxYyHNyODOxx4sJaQ[22m
+
+[2026-02-06T07:44:12.131Z] Poll #3 failed (will retry): apiRequestContext.get: read ECONNRESET
+Call log:
+[2m  - → GET https://www.trevnoctilla.com/api/campaigns/146/companies[22m
+[2m    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36[22m
+[2m    - accept: */*[22m
+[2m    - accept-encoding: gzip,deflate,br[22m
+[2m    - Content-Type: application/json[22m
+[2m    - Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc3MDM2Mzc1MCwianRpIjoiNThiODBiOWEtOTJhZS00MzYwLTk0OTMtZjAxYTQ3NmQxOTI2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6Ijk0IiwibmJmIjoxNzcwMzYzNzUwLCJleHAiOjE3NzA0NTAxNTB9.-9CwOMYui9hDK2oUwtvJzTeqDls9Q3w3K0rQowO6iJ8[22m
+[2m    - cookie: __Host-next-auth.csrf-token=eec845e8c2a1d32c8400e8c1685f353f46a5518730eb8656942b40005027bed5%7Cba8e10160af4ff8f0ebbfbdf3f88cd87bfee6943d840abff40bf64d66eb257cf; __Secure-next-auth.callback-url=https%3A%2F%2Fwww.trevnoctilla.com%2Fauth%2Flogin; __Secure-next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..c3POVhw361mozDxV.0g-aTzJMWFDYXtaTJgLt4rynRez4Yo-8fXzi6WUOk9NRyeiuJUOeJau9fAVW6mQ7YVV7IHrOXTOSITS_bPj7M95N9BWFEzEir9JrhSbwaXJZPH1SLFVvT1UUqHhX9FNLPFaFw35Cxji8oO_hTwd3ALGNq8BNxFJtGOiz_r-cV4nc8l157aaeKYQEcbqDdrP0w2j7gKdozRM_J6ubfif-ELl9f8YGG5K2IodgR67NTvaeCmGMKoP8j2e3i4BxUjI2QAwFlRzA_dVNPzxLzo8n3vr4XUsOj_pYABLrax6rfq8SVhQblfIC-EeCz0tNBoxQu2aMB-W4gUDxD62z4JZHH_uKsw3frb0gNyajP85MseOY2Sp3Fu6yLuOqLc-uXZ7ZCBU2E2GhmdIJzkxtgakg5swX0k3KajeJojGy7ZlBcNLteiHFyVz5az7hG5kakeY2L2NKYoL-8e3Bdrwx2d0cbwqExhW4Wk9bFf0RrTO0SRaj-VuURcFk2jHytlUwCJgKVLzyKzYl-MXltNqK3V2YwBJhyB_jXr9CgH0aubuZ3Jqb009kp0d7-QOW3UiMXxVsp6-Y-ET2OxJqI5U8ppGsEbnSexa063IjEWUPOo5Mq6osCv2LgjTVLFF9yUD9exPIBpHHquQmDWn14vdEAawGr3ETmc9WaSajXSZT01r9JKG2VMyM_dVF.813xnNxYyHNyODOxx4sJaQ[22m
+[2m  - ← 200 OK[22m
+[2m    - access-control-allow-credentials: true[22m
+[2m    - access-control-allow-origin: http://localhost:3000[22m
+[2m    - access-control-expose-headers: Content-Length, Content-Type[22m
+[2m    - content-encoding: gzip[22m
+[2m    - content-type: application/json[22m
+[2m    - date: Fri, 06 Feb 2026 07:44:11 GMT[22m
+[2m    - link: <https://www.trevnoctilla.com>; rel="canonical"[22m
+[2m    - server: railway-edge[22m
+[2m    - vary: Origin, Accept-Encoding[22m
+[2m    - x-powered-by: Trevnoctilla[22m
+[2m    - x-railway-edge: railway/europe-west4-drams3a, railway/europe-west4-drams3a[22m
+[2m    - x-railway-request-id: -fkVYzLZSyaoXdDnm3z_FQ, FPR5mmapTa2ATQabw9P4nw[22m
+[2m    - x-service-url: https://www.trevnoctilla.com[22m
+[2m    - transfer-encoding: chunked[22m
+
+[2026-02-06T07:44:21.418Z] Progress: 1 terminal (one just finished; 1m 20s since previous) | elapsed 1m 20s
+[2026-02-06T07:44:21.419Z] Status: 1 terminal, 1 processing | elapsed 1m 20s | since last completion: 1m 20s
+[2026-02-06T07:44:21.420Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:44:30.274Z] Status: 1 terminal, 1 processing | elapsed 1m 29s | since last completion: 9s
+[2026-02-06T07:44:30.275Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:44:39.734Z] Status: 1 terminal, 1 processing | elapsed 1m 39s | since last completion: 18s
+[2026-02-06T07:44:39.736Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:44:49.044Z] Status: 1 terminal, 1 processing | elapsed 1m 48s | since last completion: 28s
+[2026-02-06T07:44:49.045Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:44:57.554Z] Status: 1 terminal, 1 processing | elapsed 1m 57s | since last completion: 36s
+[2026-02-06T07:44:57.555Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:45:06.095Z] Status: 1 terminal, 1 processing | elapsed 2m 5s | since last completion: 45s
+[2026-02-06T07:45:06.096Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:45:14.984Z] Status: 1 terminal, 1 processing | elapsed 2m 14s | since last completion: 54s
+[2026-02-06T07:45:14.985Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:45:23.533Z] Progress: 2 terminal (one just finished; 1m 2s since previous) | elapsed 2m 23s
+[2026-02-06T07:45:23.534Z] Status: 2 terminal, 1 processing | elapsed 2m 23s | since last completion: 1m 2s
+[2026-02-06T07:45:23.535Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:45:32.094Z] Status: 2 terminal, 1 processing | elapsed 2m 31s | since last completion: 9s
+[2026-02-06T07:45:32.097Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:45:40.718Z] Status: 2 terminal, 1 processing | elapsed 2m 40s | since last completion: 17s
+[2026-02-06T07:45:40.723Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:45:49.349Z] Status: 2 terminal, 1 processing | elapsed 2m 48s | since last completion: 26s
+[2026-02-06T07:45:49.355Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:45:58.010Z] Status: 2 terminal, 1 processing | elapsed 2m 57s | since last completion: 34s
+[2026-02-06T07:45:58.012Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:46:06.599Z] Status: 2 terminal, 1 processing | elapsed 3m 6s | since last completion: 43s
+[2026-02-06T07:46:06.600Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:46:15.107Z] Status: 2 terminal, 1 processing | elapsed 3m 14s | since last completion: 52s
+[2026-02-06T07:46:15.109Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:46:23.653Z] Status: 2 terminal, 1 processing | elapsed 3m 23s | since last completion: 1m
+[2026-02-06T07:46:23.654Z]   Current: 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk
+[2026-02-06T07:46:32.345Z] Progress: 4 terminal (one just finished; 1m 9s since previous) | elapsed 3m 31s
+[2026-02-06T07:46:32.355Z] Status: 4 terminal, 1 processing | elapsed 3m 31s | since last completion: 1m 9s
+[2026-02-06T07:46:32.360Z]   Current: 7 Core Electrical Wholesale Ltd | https://7core.co.uk
+[2026-02-06T07:46:41.551Z] Progress: 5 terminal (one just finished; 9s since previous) | elapsed 3m 41s
+[2026-02-06T07:46:41.561Z] Status: 5 terminal, 0 processing | elapsed 3m 41s | since last completion: 9s
+[2026-02-06T07:46:50.268Z] Status: 5 terminal, 1 processing | elapsed 3m 49s | since last completion: 9s
+[2026-02-06T07:46:50.269Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:46:58.808Z] Status: 5 terminal, 1 processing | elapsed 3m 58s | since last completion: 17s
+[2026-02-06T07:46:58.810Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:47:07.379Z] Status: 5 terminal, 1 processing | elapsed 4m 6s | since last completion: 26s
+[2026-02-06T07:47:07.380Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:47:16.006Z] Status: 5 terminal, 1 processing | elapsed 4m 15s | since last completion: 34s
+[2026-02-06T07:47:16.008Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:47:24.564Z] Status: 5 terminal, 1 processing | elapsed 4m 24s | since last completion: 43s
+[2026-02-06T07:47:24.565Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:47:33.050Z] Status: 5 terminal, 1 processing | elapsed 4m 32s | since last completion: 51s
+[2026-02-06T07:47:33.051Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:47:42.386Z] Status: 5 terminal, 1 processing | elapsed 4m 41s | since last completion: 1m 1s
+[2026-02-06T07:47:42.407Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:47:51.069Z] Status: 5 terminal, 1 processing | elapsed 4m 50s | since last completion: 1m 10s
+[2026-02-06T07:47:51.072Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:47:59.606Z] Status: 5 terminal, 1 processing | elapsed 4m 59s | since last completion: 1m 18s
+[2026-02-06T07:47:59.608Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:48:08.122Z] Status: 5 terminal, 1 processing | elapsed 5m 7s | since last completion: 1m 27s
+[2026-02-06T07:48:08.123Z]   Current: 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk
+[2026-02-06T07:48:16.735Z] Progress: 6 terminal (one just finished; 1m 35s since previous) | elapsed 5m 16s
+[2026-02-06T07:48:16.736Z] Status: 6 terminal, 1 processing | elapsed 5m 16s | since last completion: 1m 35s
+[2026-02-06T07:48:16.736Z]   Current: A.W. Lymn The Family Funeral Service | https://lymn.co.uk
+[2026-02-06T07:48:16.737Z]   STUCK? No progress for 1m 35s (still 6 terminal, 1 processing)
+[2026-02-06T07:48:25.280Z] Progress: 7 terminal (one just finished; 9s since previous) | elapsed 5m 24s
+[2026-02-06T07:48:25.282Z] Status: 7 terminal, 1 processing | elapsed 5m 24s | since last completion: 9s
+[2026-02-06T07:48:25.283Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:48:33.828Z] Status: 7 terminal, 1 processing | elapsed 5m 33s | since last completion: 9s
+[2026-02-06T07:48:33.832Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:48:42.556Z] Status: 7 terminal, 1 processing | elapsed 5m 42s | since last completion: 17s
+[2026-02-06T07:48:42.562Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:48:51.047Z] Status: 7 terminal, 1 processing | elapsed 5m 50s | since last completion: 26s
+[2026-02-06T07:48:51.049Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:48:59.605Z] Status: 7 terminal, 1 processing | elapsed 5m 59s | since last completion: 34s
+[2026-02-06T07:48:59.607Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:08.209Z] Status: 7 terminal, 1 processing | elapsed 6m 7s | since last completion: 43s
+[2026-02-06T07:49:08.210Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:16.774Z] Status: 7 terminal, 1 processing | elapsed 6m 16s | since last completion: 51s
+[2026-02-06T07:49:16.775Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:25.319Z] Status: 7 terminal, 1 processing | elapsed 6m 24s | since last completion: 1m
+[2026-02-06T07:49:25.320Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:33.992Z] Status: 7 terminal, 1 processing | elapsed 6m 33s | since last completion: 1m 9s
+[2026-02-06T07:49:33.994Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:42.563Z] Status: 7 terminal, 1 processing | elapsed 6m 42s | since last completion: 1m 17s
+[2026-02-06T07:49:42.564Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:51.049Z] Status: 7 terminal, 1 processing | elapsed 6m 50s | since last completion: 1m 26s
+[2026-02-06T07:49:51.051Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:59.598Z] Status: 7 terminal, 1 processing | elapsed 6m 59s | since last completion: 1m 34s
+[2026-02-06T07:49:59.599Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:49:59.600Z]   STUCK? No progress for 1m 34s (still 7 terminal, 1 processing)
+[2026-02-06T07:50:08.134Z] Status: 7 terminal, 1 processing | elapsed 7m 7s | since last completion: 1m 43s
+[2026-02-06T07:50:08.135Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:50:08.136Z]   STUCK? No progress for 1m 43s (still 7 terminal, 1 processing)
+[2026-02-06T07:50:16.667Z] Status: 7 terminal, 1 processing | elapsed 7m 16s | since last completion: 1m 51s
+[2026-02-06T07:50:16.668Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:50:16.669Z]   STUCK? No progress for 1m 51s (still 7 terminal, 1 processing)
+[2026-02-06T07:50:25.235Z] Status: 7 terminal, 1 processing | elapsed 7m 24s | since last completion: 1m 60s
+[2026-02-06T07:50:25.235Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:50:25.236Z]   STUCK? No progress for 1m 60s (still 7 terminal, 1 processing)
+[2026-02-06T07:50:33.726Z] Status: 7 terminal, 1 processing | elapsed 7m 33s | since last completion: 2m 8s
+[2026-02-06T07:50:33.727Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:50:33.728Z]   STUCK? No progress for 2m 8s (still 7 terminal, 1 processing)
+[2026-02-06T07:50:42.339Z] Status: 7 terminal, 1 processing | elapsed 7m 41s | since last completion: 2m 17s
+[2026-02-06T07:50:42.341Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:50:42.342Z]   STUCK? No progress for 2m 17s (still 7 terminal, 1 processing)
+[2026-02-06T07:50:50.866Z] Status: 7 terminal, 1 processing | elapsed 7m 50s | since last completion: 2m 26s
+[2026-02-06T07:50:50.867Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:50:50.868Z]   STUCK? No progress for 2m 26s (still 7 terminal, 1 processing)
+[2026-02-06T07:50:59.524Z] Status: 7 terminal, 1 processing | elapsed 7m 58s | since last completion: 2m 34s
+[2026-02-06T07:50:59.525Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:50:59.526Z]   STUCK? No progress for 2m 34s (still 7 terminal, 1 processing)
+[2026-02-06T07:51:08.057Z] Status: 7 terminal, 1 processing | elapsed 8m 7s | since last completion: 2m 43s
+[2026-02-06T07:51:08.059Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:51:08.061Z]   STUCK? No progress for 2m 43s (still 7 terminal, 1 processing)
+[2026-02-06T07:51:16.607Z] Status: 7 terminal, 1 processing | elapsed 8m 16s | since last completion: 2m 51s
+[2026-02-06T07:51:16.608Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:51:16.609Z]   STUCK? No progress for 2m 51s (still 7 terminal, 1 processing)
+[2026-02-06T07:51:25.147Z] Status: 7 terminal, 1 processing | elapsed 8m 24s | since last completion: 2m 60s
+[2026-02-06T07:51:25.148Z]   Current: übbs pouches | https://ubbspouches.com
+[2026-02-06T07:51:25.149Z]   STUCK? No progress for 2m 60s (still 7 terminal, 1 processing)
+[2026-02-06T07:51:33.654Z] Progress: 8 terminal (one just finished; 3m 8s since previous) | elapsed 8m 33s
+[2026-02-06T07:51:33.655Z] Status: 8 terminal, 1 processing | elapsed 8m 33s | since last completion: 3m 8s
+[2026-02-06T07:51:33.655Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:51:33.656Z]   STUCK? No progress for 3m 8s (still 8 terminal, 1 processing)
+[2026-02-06T07:51:33.657Z]   Failed (new): übbs pouches | https://ubbspouches.com | Request timed out. Try again or skip.
+[2026-02-06T07:51:42.214Z] Status: 8 terminal, 1 processing | elapsed 8m 41s | since last completion: 9s
+[2026-02-06T07:51:42.221Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:51:50.964Z] Status: 8 terminal, 1 processing | elapsed 8m 50s | since last completion: 17s
+[2026-02-06T07:51:50.965Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:51:59.511Z] Status: 8 terminal, 1 processing | elapsed 8m 58s | since last completion: 26s
+[2026-02-06T07:51:59.512Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:52:08.042Z] Status: 8 terminal, 1 processing | elapsed 9m 7s | since last completion: 34s
+[2026-02-06T07:52:08.043Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:52:16.717Z] Status: 8 terminal, 1 processing | elapsed 9m 16s | since last completion: 43s
+[2026-02-06T07:52:16.718Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:52:25.291Z] Status: 8 terminal, 1 processing | elapsed 9m 24s | since last completion: 52s
+[2026-02-06T07:52:25.292Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:52:33.830Z] Status: 8 terminal, 1 processing | elapsed 9m 33s | since last completion: 1m
+[2026-02-06T07:52:33.831Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:52:42.436Z] Status: 8 terminal, 1 processing | elapsed 9m 41s | since last completion: 1m 9s
+[2026-02-06T07:52:42.438Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:52:50.892Z] Status: 8 terminal, 1 processing | elapsed 9m 50s | since last completion: 1m 17s
+[2026-02-06T07:52:50.893Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:52:59.438Z] Status: 8 terminal, 1 processing | elapsed 9m 58s | since last completion: 1m 26s
+[2026-02-06T07:52:59.439Z]   Current: A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com
+[2026-02-06T07:53:08.141Z] Progress: 9 terminal (one just finished; 1m 34s since previous) | elapsed 10m 7s
+[2026-02-06T07:53:08.142Z] Status: 9 terminal, 1 processing | elapsed 10m 7s | since last completion: 1m 34s
+[2026-02-06T07:53:08.143Z]   Current: Aabyss | https://aabyss.uk
+[2026-02-06T07:53:08.144Z]   STUCK? No progress for 1m 34s (still 9 terminal, 1 processing)
+[2026-02-06T07:53:16.669Z] Progress: 10 terminal (one just finished; 9s since previous) | elapsed 10m 16s
+[2026-02-06T07:53:16.670Z] Status: 10 terminal, 1 processing | elapsed 10m 16s | since last completion: 9s
+[2026-02-06T07:53:16.671Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T07:53:25.212Z] Status: 10 terminal, 1 processing | elapsed 10m 24s | since last completion: 9s
+[2026-02-06T07:53:25.213Z]   Current: Abbey DLD Group of Colleges | https://abbeycolleges.co.uk
+[2026-02-06T07:53:33.727Z] Progress: 12 terminal (one just finished; 17s since previous) | elapsed 10m 33s
+[2026-02-06T07:53:33.729Z] Status: 12 terminal, 1 processing | elapsed 10m 33s | since last completion: 17s
+[2026-02-06T07:53:33.729Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T07:53:42.311Z] Status: 12 terminal, 1 processing | elapsed 10m 41s | since last completion: 9s
+[2026-02-06T07:53:42.312Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T07:53:50.811Z] Status: 12 terminal, 1 processing | elapsed 10m 50s | since last completion: 17s
+[2026-02-06T07:53:50.812Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T07:53:59.351Z] Status: 12 terminal, 1 processing | elapsed 10m 58s | since last completion: 26s
+[2026-02-06T07:53:59.352Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T07:54:07.910Z] Status: 12 terminal, 1 processing | elapsed 11m 7s | since last completion: 34s
+[2026-02-06T07:54:07.912Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T07:54:16.484Z] Status: 12 terminal, 1 processing | elapsed 11m 15s | since last completion: 43s
+[2026-02-06T07:54:16.485Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T07:54:25.034Z] Status: 12 terminal, 1 processing | elapsed 11m 24s | since last completion: 51s
+[2026-02-06T07:54:25.035Z]   Current: Able Training Support Ltd. | https://able-training.co.uk
+[2026-02-06T07:54:33.507Z] Progress: 13 terminal (one just finished; 60s since previous) | elapsed 11m 32s
+[2026-02-06T07:54:33.508Z] Status: 13 terminal, 1 processing | elapsed 11m 32s | since last completion: 60s
+[2026-02-06T07:54:33.509Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T07:54:42.048Z] Status: 13 terminal, 1 processing | elapsed 11m 41s | since last completion: 9s
+[2026-02-06T07:54:42.053Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T07:54:50.930Z] Status: 13 terminal, 1 processing | elapsed 11m 50s | since last completion: 17s
+[2026-02-06T07:54:50.931Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T07:54:59.488Z] Status: 13 terminal, 1 processing | elapsed 11m 58s | since last completion: 26s
+[2026-02-06T07:54:59.489Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T07:55:07.991Z] Status: 13 terminal, 1 processing | elapsed 12m 7s | since last completion: 34s
+[2026-02-06T07:55:07.991Z]   Current: Abodus Student Living | https://abodusstudents.com
+[2026-02-06T07:55:16.652Z] Progress: 14 terminal (one just finished; 43s since previous) | elapsed 12m 16s
+[2026-02-06T07:55:16.653Z] Status: 14 terminal, 1 processing | elapsed 12m 16s | since last completion: 43s
+[2026-02-06T07:55:16.654Z]   Current: Abundance Investment | https://abundanceinvestment.com
+[2026-02-06T07:55:25.189Z] Progress: 15 terminal (one just finished; 9s since previous) | elapsed 12m 24s
+[2026-02-06T07:55:25.190Z] Status: 15 terminal, 1 processing | elapsed 12m 24s | since last completion: 9s
+[2026-02-06T07:55:25.191Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:55:33.712Z] Status: 15 terminal, 1 processing | elapsed 12m 33s | since last completion: 9s
+[2026-02-06T07:55:33.713Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:55:42.260Z] Status: 15 terminal, 1 processing | elapsed 12m 41s | since last completion: 17s
+[2026-02-06T07:55:42.261Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:55:50.858Z] Status: 15 terminal, 1 processing | elapsed 12m 50s | since last completion: 26s
+[2026-02-06T07:55:50.859Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:55:59.393Z] Status: 15 terminal, 1 processing | elapsed 12m 58s | since last completion: 34s
+[2026-02-06T07:55:59.394Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:08.035Z] Status: 15 terminal, 1 processing | elapsed 13m 7s | since last completion: 43s
+[2026-02-06T07:56:08.036Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:16.592Z] Status: 15 terminal, 1 processing | elapsed 13m 16s | since last completion: 51s
+[2026-02-06T07:56:16.593Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:25.148Z] Status: 15 terminal, 1 processing | elapsed 13m 24s | since last completion: 60s
+[2026-02-06T07:56:25.151Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:33.784Z] Status: 15 terminal, 1 processing | elapsed 13m 33s | since last completion: 1m 9s
+[2026-02-06T07:56:33.785Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:42.312Z] Status: 15 terminal, 1 processing | elapsed 13m 41s | since last completion: 1m 17s
+[2026-02-06T07:56:42.314Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:50.922Z] Status: 15 terminal, 1 processing | elapsed 13m 50s | since last completion: 1m 26s
+[2026-02-06T07:56:50.923Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:59.586Z] Status: 15 terminal, 1 processing | elapsed 13m 59s | since last completion: 1m 34s
+[2026-02-06T07:56:59.588Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:56:59.588Z]   STUCK? No progress for 1m 34s (still 15 terminal, 1 processing)
+[2026-02-06T07:57:08.103Z] Status: 15 terminal, 1 processing | elapsed 14m 7s | since last completion: 1m 43s
+[2026-02-06T07:57:08.104Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:57:08.105Z]   STUCK? No progress for 1m 43s (still 15 terminal, 1 processing)
+[2026-02-06T07:57:16.623Z] Status: 15 terminal, 1 processing | elapsed 14m 16s | since last completion: 1m 51s
+[2026-02-06T07:57:16.624Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:57:16.625Z]   STUCK? No progress for 1m 51s (still 15 terminal, 1 processing)
+[2026-02-06T07:57:25.290Z] Status: 15 terminal, 1 processing | elapsed 14m 24s | since last completion: 2m
+[2026-02-06T07:57:25.291Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-06T07:57:25.292Z]   STUCK? No progress for 2m (still 15 terminal, 1 processing)
+[2026-02-06T07:57:34.040Z] Progress: 16 terminal (one just finished; 2m 9s since previous) | elapsed 14m 33s
+[2026-02-06T07:57:34.041Z] Status: 16 terminal, 0 processing | elapsed 14m 33s | since last completion: 2m 9s
+[2026-02-06T07:57:34.043Z]   Failed (new): ACAI Outdoorwear | https://acaioutdoorwear.com | Request timed out. Try again or skip.
+[2026-02-06T07:57:42.543Z] Status: 16 terminal, 1 processing | elapsed 14m 42s | since last completion: 9s
+[2026-02-06T07:57:42.544Z]   Current: Acasta Europe Ltd | https://acastaeurope.co.uk
+[2026-02-06T07:57:50.986Z] Status: 16 terminal, 1 processing | elapsed 14m 50s | since last completion: 17s
+[2026-02-06T07:57:50.987Z]   Current: Acasta Europe Ltd | https://acastaeurope.co.uk
+[2026-02-06T07:57:59.529Z] Progress: 18 terminal (one just finished; 25s since previous) | elapsed 14m 59s
+[2026-02-06T07:57:59.530Z] Status: 18 terminal, 1 processing | elapsed 14m 59s | since last completion: 25s
+[2026-02-06T07:57:59.530Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T07:58:08.222Z] Status: 18 terminal, 1 processing | elapsed 15m 7s | since last completion: 9s
+[2026-02-06T07:58:08.223Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T07:58:16.766Z] Status: 18 terminal, 1 processing | elapsed 15m 16s | since last completion: 17s
+[2026-02-06T07:58:16.766Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T07:58:25.311Z] Status: 18 terminal, 1 processing | elapsed 15m 24s | since last completion: 26s
+[2026-02-06T07:58:25.312Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T07:58:38.512Z] Companies API error: 502 (poll #103)
+[2026-02-06T07:58:47.029Z] Status: 18 terminal, 1 processing | elapsed 15m 46s | since last completion: 48s
+[2026-02-06T07:58:47.030Z]   Current: AccelerComm Ltd | https://accelercomm.com
+[2026-02-06T07:58:55.550Z] Progress: 19 terminal (one just finished; 56s since previous) | elapsed 15m 55s
+[2026-02-06T07:58:55.551Z] Status: 19 terminal, 1 processing | elapsed 15m 55s | since last completion: 56s
+[2026-02-06T07:58:55.552Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T07:59:04.189Z] Status: 19 terminal, 1 processing | elapsed 16m 3s | since last completion: 9s
+[2026-02-06T07:59:04.190Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T07:59:12.727Z] Status: 19 terminal, 1 processing | elapsed 16m 12s | since last completion: 17s
+[2026-02-06T07:59:12.728Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T07:59:21.236Z] Status: 19 terminal, 1 processing | elapsed 16m 20s | since last completion: 26s
+[2026-02-06T07:59:21.237Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T07:59:29.765Z] Status: 19 terminal, 1 processing | elapsed 16m 29s | since last completion: 34s
+[2026-02-06T07:59:29.766Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T07:59:38.315Z] Status: 19 terminal, 1 processing | elapsed 16m 37s | since last completion: 43s
+[2026-02-06T07:59:38.322Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T07:59:46.843Z] Status: 19 terminal, 1 processing | elapsed 16m 46s | since last completion: 51s
+[2026-02-06T07:59:46.844Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T07:59:55.483Z] Status: 19 terminal, 1 processing | elapsed 16m 54s | since last completion: 60s
+[2026-02-06T07:59:55.484Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T08:00:04.041Z] Status: 19 terminal, 1 processing | elapsed 17m 3s | since last completion: 1m 8s
+[2026-02-06T08:00:04.042Z]   Current: Accident Credit Group Ltd | https://acg.co.uk
+[2026-02-06T08:00:12.608Z] Progress: 20 terminal (one just finished; 1m 17s since previous) | elapsed 17m 12s
+[2026-02-06T08:00:12.609Z] Status: 20 terminal, 1 processing | elapsed 17m 12s | since last completion: 1m 17s
+[2026-02-06T08:00:12.609Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:00:21.118Z] Status: 20 terminal, 1 processing | elapsed 17m 20s | since last completion: 9s
+[2026-02-06T08:00:21.119Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:00:29.686Z] Status: 20 terminal, 1 processing | elapsed 17m 29s | since last completion: 17s
+[2026-02-06T08:00:29.687Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:00:38.259Z] Status: 20 terminal, 1 processing | elapsed 17m 37s | since last completion: 26s
+[2026-02-06T08:00:38.260Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:00:46.825Z] Status: 20 terminal, 1 processing | elapsed 17m 46s | since last completion: 34s
+[2026-02-06T08:00:46.827Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:00:55.396Z] Status: 20 terminal, 1 processing | elapsed 17m 54s | since last completion: 43s
+[2026-02-06T08:00:55.397Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:04.179Z] Status: 20 terminal, 1 processing | elapsed 18m 3s | since last completion: 52s
+[2026-02-06T08:01:04.181Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:12.766Z] Status: 20 terminal, 1 processing | elapsed 18m 12s | since last completion: 1m
+[2026-02-06T08:01:12.773Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:21.317Z] Status: 20 terminal, 1 processing | elapsed 18m 20s | since last completion: 1m 9s
+[2026-02-06T08:01:21.325Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:29.924Z] Status: 20 terminal, 1 processing | elapsed 18m 29s | since last completion: 1m 17s
+[2026-02-06T08:01:29.925Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:38.657Z] Status: 20 terminal, 1 processing | elapsed 18m 38s | since last completion: 1m 26s
+[2026-02-06T08:01:38.659Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:47.182Z] Status: 20 terminal, 1 processing | elapsed 18m 46s | since last completion: 1m 35s
+[2026-02-06T08:01:47.183Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:47.183Z]   STUCK? No progress for 1m 35s (still 20 terminal, 1 processing)
+[2026-02-06T08:01:55.714Z] Status: 20 terminal, 1 processing | elapsed 18m 55s | since last completion: 1m 43s
+[2026-02-06T08:01:55.715Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:01:55.716Z]   STUCK? No progress for 1m 43s (still 20 terminal, 1 processing)
+[2026-02-06T08:02:04.233Z] Status: 20 terminal, 1 processing | elapsed 19m 3s | since last completion: 1m 52s
+[2026-02-06T08:02:04.233Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:02:04.234Z]   STUCK? No progress for 1m 52s (still 20 terminal, 1 processing)
+[2026-02-06T08:02:12.786Z] Status: 20 terminal, 1 processing | elapsed 19m 12s | since last completion: 2m
+[2026-02-06T08:02:12.787Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:02:12.788Z]   STUCK? No progress for 2m (still 20 terminal, 1 processing)
+[2026-02-06T08:02:21.415Z] Status: 20 terminal, 1 processing | elapsed 19m 20s | since last completion: 2m 9s
+[2026-02-06T08:02:21.417Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:02:21.418Z]   STUCK? No progress for 2m 9s (still 20 terminal, 1 processing)
+[2026-02-06T08:02:29.947Z] Status: 20 terminal, 1 processing | elapsed 19m 29s | since last completion: 2m 17s
+[2026-02-06T08:02:29.948Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:02:29.949Z]   STUCK? No progress for 2m 17s (still 20 terminal, 1 processing)
+[2026-02-06T08:02:38.679Z] Status: 20 terminal, 1 processing | elapsed 19m 38s | since last completion: 2m 26s
+[2026-02-06T08:02:38.680Z]   Current: Accommodation for Students | https://accommodationforstudents.com
+[2026-02-06T08:02:38.680Z]   STUCK? No progress for 2m 26s (still 20 terminal, 1 processing)
+[2026-02-06T08:02:47.196Z] Progress: 21 terminal (one just finished; 2m 35s since previous) | elapsed 19m 46s
+[2026-02-06T08:02:47.197Z] Status: 21 terminal, 1 processing | elapsed 19m 46s | since last completion: 2m 35s
+[2026-02-06T08:02:47.197Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:02:47.198Z]   STUCK? No progress for 2m 35s (still 21 terminal, 1 processing)
+[2026-02-06T08:02:55.723Z] Status: 21 terminal, 1 processing | elapsed 19m 55s | since last completion: 9s
+[2026-02-06T08:02:55.724Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:03:04.240Z] Status: 21 terminal, 1 processing | elapsed 20m 3s | since last completion: 17s
+[2026-02-06T08:03:04.240Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:03:12.815Z] Status: 21 terminal, 1 processing | elapsed 20m 12s | since last completion: 26s
+[2026-02-06T08:03:12.816Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:03:21.307Z] Status: 21 terminal, 1 processing | elapsed 20m 20s | since last completion: 34s
+[2026-02-06T08:03:21.308Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:03:29.829Z] Status: 21 terminal, 1 processing | elapsed 20m 29s | since last completion: 43s
+[2026-02-06T08:03:29.830Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:03:38.357Z] Status: 21 terminal, 1 processing | elapsed 20m 37s | since last completion: 51s
+[2026-02-06T08:03:38.358Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:03:46.920Z] Status: 21 terminal, 1 processing | elapsed 20m 46s | since last completion: 60s
+[2026-02-06T08:03:46.921Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:03:55.448Z] Status: 21 terminal, 1 processing | elapsed 20m 54s | since last completion: 1m 8s
+[2026-02-06T08:03:55.449Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:04:03.927Z] Status: 21 terminal, 1 processing | elapsed 21m 3s | since last completion: 1m 17s
+[2026-02-06T08:04:03.928Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:04:12.535Z] Status: 21 terminal, 1 processing | elapsed 21m 12s | since last completion: 1m 25s
+[2026-02-06T08:04:12.536Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:04:21.011Z] Status: 21 terminal, 1 processing | elapsed 21m 20s | since last completion: 1m 34s
+[2026-02-06T08:04:21.012Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:04:21.013Z]   STUCK? No progress for 1m 34s (still 21 terminal, 1 processing)
+[2026-02-06T08:04:29.567Z] Status: 21 terminal, 1 processing | elapsed 21m 29s | since last completion: 1m 42s
+[2026-02-06T08:04:29.569Z]   Current: Accountants Plus | https://accountantsplus.net
+[2026-02-06T08:04:29.569Z]   STUCK? No progress for 1m 42s (still 21 terminal, 1 processing)
+[2026-02-06T08:04:38.131Z] Progress: 22 terminal (one just finished; 1m 51s since previous) | elapsed 21m 37s
+[2026-02-06T08:04:38.132Z] Status: 22 terminal, 1 processing | elapsed 21m 37s | since last completion: 1m 51s
+[2026-02-06T08:04:38.133Z]   Current: ACE Training - Construction Centre | https://acetraining.co.uk
+[2026-02-06T08:04:38.134Z]   STUCK? No progress for 1m 51s (still 22 terminal, 1 processing)
+[2026-02-06T08:04:46.671Z] Status: 22 terminal, 1 processing | elapsed 21m 46s | since last completion: 9s
+[2026-02-06T08:04:46.672Z]   Current: ACE Training - Construction Centre | https://acetraining.co.uk
+[2026-02-06T08:04:55.338Z] Status: 22 terminal, 1 processing | elapsed 21m 54s | since last completion: 17s
+[2026-02-06T08:04:55.339Z]   Current: ACE Training - Construction Centre | https://acetraining.co.uk
+[2026-02-06T08:05:03.874Z] Status: 22 terminal, 1 processing | elapsed 22m 3s | since last completion: 26s
+[2026-02-06T08:05:03.875Z]   Current: ACE Training - Construction Centre | https://acetraining.co.uk
+[2026-02-06T08:05:12.449Z] Status: 22 terminal, 1 processing | elapsed 22m 11s | since last completion: 34s
+[2026-02-06T08:05:12.456Z]   Current: ACE Training - Construction Centre | https://acetraining.co.uk
+[2026-02-06T08:05:20.997Z] Progress: 23 terminal (one just finished; 43s since previous) | elapsed 22m 20s
+[2026-02-06T08:05:20.998Z] Status: 23 terminal, 1 processing | elapsed 22m 20s | since last completion: 43s
+[2026-02-06T08:05:21.000Z]   Current: ActionFunder | https://actionfunder.org
+[2026-02-06T08:05:29.559Z] Progress: 24 terminal (one just finished; 9s since previous) | elapsed 22m 29s
+[2026-02-06T08:05:29.560Z] Status: 24 terminal, 1 processing | elapsed 22m 29s | since last completion: 9s
+[2026-02-06T08:05:29.561Z]   Current: Activate Learning Education Trust | https://alet.org.uk
+[2026-02-06T08:05:38.239Z] Status: 24 terminal, 1 processing | elapsed 22m 37s | since last completion: 9s
+[2026-02-06T08:05:38.241Z]   Current: Activate Learning Education Trust | https://alet.org.uk
+[2026-02-06T08:05:46.809Z] Progress: 26 terminal (one just finished; 17s since previous) | elapsed 22m 46s
+[2026-02-06T08:05:46.810Z] Status: 26 terminal, 1 processing | elapsed 22m 46s | since last completion: 17s
+[2026-02-06T08:05:46.811Z]   Current: Adapt (UK) Training Services Limited | https://adapt-training.co.uk
+[2026-02-06T08:05:55.349Z] Status: 26 terminal, 1 processing | elapsed 22m 54s | since last completion: 9s
+[2026-02-06T08:05:55.350Z]   Current: Adapt (UK) Training Services Limited | https://adapt-training.co.uk
+[2026-02-06T08:06:03.881Z] Status: 26 terminal, 1 processing | elapsed 23m 3s | since last completion: 17s
+[2026-02-06T08:06:03.882Z]   Current: Adapt (UK) Training Services Limited | https://adapt-training.co.uk
+[2026-02-06T08:06:12.556Z] Status: 26 terminal, 1 processing | elapsed 23m 12s | since last completion: 26s
+[2026-02-06T08:06:12.557Z]   Current: Adapt (UK) Training Services Limited | https://adapt-training.co.uk
+[2026-02-06T08:06:21.058Z] Status: 26 terminal, 1 processing | elapsed 23m 20s | since last completion: 34s
+[2026-02-06T08:06:21.059Z]   Current: Adapt (UK) Training Services Limited | https://adapt-training.co.uk
+[2026-02-06T08:06:29.720Z] Status: 26 terminal, 1 processing | elapsed 23m 29s | since last completion: 43s
+[2026-02-06T08:06:29.721Z]   Current: Adapt (UK) Training Services Limited | https://adapt-training.co.uk
+[2026-02-06T08:06:38.241Z] Progress: 27 terminal (one just finished; 51s since previous) | elapsed 23m 37s
+[2026-02-06T08:06:38.243Z] Status: 27 terminal, 1 processing | elapsed 23m 37s | since last completion: 51s
+[2026-02-06T08:06:38.243Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:06:46.784Z] Status: 27 terminal, 1 processing | elapsed 23m 46s | since last completion: 9s
+[2026-02-06T08:06:46.785Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:06:55.512Z] Status: 27 terminal, 1 processing | elapsed 23m 54s | since last completion: 17s
+[2026-02-06T08:06:55.513Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:07:04.410Z] Status: 27 terminal, 1 processing | elapsed 24m 3s | since last completion: 26s
+[2026-02-06T08:07:04.411Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:07:12.983Z] Status: 27 terminal, 1 processing | elapsed 24m 12s | since last completion: 35s
+[2026-02-06T08:07:12.987Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:07:21.660Z] Status: 27 terminal, 1 processing | elapsed 24m 21s | since last completion: 43s
+[2026-02-06T08:07:21.661Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:07:30.240Z] Status: 27 terminal, 1 processing | elapsed 24m 29s | since last completion: 52s
+[2026-02-06T08:07:30.241Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:07:38.851Z] Status: 27 terminal, 1 processing | elapsed 24m 38s | since last completion: 1m 1s
+[2026-02-06T08:07:38.859Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:07:47.492Z] Status: 27 terminal, 1 processing | elapsed 24m 46s | since last completion: 1m 9s
+[2026-02-06T08:07:47.494Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:07:56.025Z] Status: 27 terminal, 1 processing | elapsed 24m 55s | since last completion: 1m 18s
+[2026-02-06T08:07:56.026Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:04.548Z] Status: 27 terminal, 1 processing | elapsed 25m 4s | since last completion: 1m 26s
+[2026-02-06T08:08:04.549Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:13.182Z] Status: 27 terminal, 1 processing | elapsed 25m 12s | since last completion: 1m 35s
+[2026-02-06T08:08:13.185Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:13.187Z]   STUCK? No progress for 1m 35s (still 27 terminal, 1 processing)
+[2026-02-06T08:08:21.717Z] Status: 27 terminal, 1 processing | elapsed 25m 21s | since last completion: 1m 43s
+[2026-02-06T08:08:21.718Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:21.719Z]   STUCK? No progress for 1m 43s (still 27 terminal, 1 processing)
+[2026-02-06T08:08:30.227Z] Status: 27 terminal, 1 processing | elapsed 25m 29s | since last completion: 1m 52s
+[2026-02-06T08:08:30.228Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:30.229Z]   STUCK? No progress for 1m 52s (still 27 terminal, 1 processing)
+[2026-02-06T08:08:38.973Z] Status: 27 terminal, 1 processing | elapsed 25m 38s | since last completion: 2m 1s
+[2026-02-06T08:08:38.975Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:38.976Z]   STUCK? No progress for 2m 1s (still 27 terminal, 1 processing)
+[2026-02-06T08:08:47.527Z] Status: 27 terminal, 1 processing | elapsed 25m 47s | since last completion: 2m 9s
+[2026-02-06T08:08:47.528Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:47.529Z]   STUCK? No progress for 2m 9s (still 27 terminal, 1 processing)
+[2026-02-06T08:08:56.171Z] Status: 27 terminal, 1 processing | elapsed 25m 55s | since last completion: 2m 18s
+[2026-02-06T08:08:56.172Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:08:56.172Z]   STUCK? No progress for 2m 18s (still 27 terminal, 1 processing)
+[2026-02-06T08:09:04.698Z] Status: 27 terminal, 1 processing | elapsed 26m 4s | since last completion: 2m 26s
+[2026-02-06T08:09:04.699Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:09:04.700Z]   STUCK? No progress for 2m 26s (still 27 terminal, 1 processing)
+[2026-02-06T08:09:13.230Z] Status: 27 terminal, 1 processing | elapsed 26m 12s | since last completion: 2m 35s
+[2026-02-06T08:09:13.230Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:09:13.231Z]   STUCK? No progress for 2m 35s (still 27 terminal, 1 processing)
+[2026-02-06T08:09:21.713Z] Status: 27 terminal, 1 processing | elapsed 26m 21s | since last completion: 2m 43s
+[2026-02-06T08:09:21.714Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:09:21.715Z]   STUCK? No progress for 2m 43s (still 27 terminal, 1 processing)
+[2026-02-06T08:09:30.261Z] Status: 27 terminal, 1 processing | elapsed 26m 29s | since last completion: 2m 52s
+[2026-02-06T08:09:30.262Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:09:30.262Z]   STUCK? No progress for 2m 52s (still 27 terminal, 1 processing)
+[2026-02-06T08:09:39.060Z] Status: 27 terminal, 1 processing | elapsed 26m 38s | since last completion: 3m 1s
+[2026-02-06T08:09:39.068Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:09:39.071Z]   STUCK? No progress for 3m 1s (still 27 terminal, 1 processing)
+[2026-02-06T08:09:47.636Z] Status: 27 terminal, 1 processing | elapsed 26m 47s | since last completion: 3m 9s
+[2026-02-06T08:09:47.637Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:09:47.637Z]   STUCK? No progress for 3m 9s (still 27 terminal, 1 processing)
+[2026-02-06T08:09:56.186Z] Status: 27 terminal, 1 processing | elapsed 26m 55s | since last completion: 3m 18s
+[2026-02-06T08:09:56.187Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:09:56.188Z]   STUCK? No progress for 3m 18s (still 27 terminal, 1 processing)
+[2026-02-06T08:10:04.856Z] Status: 27 terminal, 1 processing | elapsed 27m 4s | since last completion: 3m 27s
+[2026-02-06T08:10:04.857Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:10:04.858Z]   STUCK? No progress for 3m 27s (still 27 terminal, 1 processing)
+[2026-02-06T08:10:13.398Z] Status: 27 terminal, 1 processing | elapsed 27m 12s | since last completion: 3m 35s
+[2026-02-06T08:10:13.400Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:10:13.401Z]   STUCK? No progress for 3m 35s (still 27 terminal, 1 processing)
+[2026-02-06T08:10:21.947Z] Status: 27 terminal, 1 processing | elapsed 27m 21s | since last completion: 3m 44s
+[2026-02-06T08:10:21.949Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:10:21.950Z]   STUCK? No progress for 3m 44s (still 27 terminal, 1 processing)
+[2026-02-06T08:10:30.480Z] Status: 27 terminal, 1 processing | elapsed 27m 29s | since last completion: 3m 52s
+[2026-02-06T08:10:30.481Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:10:30.481Z]   STUCK? No progress for 3m 52s (still 27 terminal, 1 processing)
+[2026-02-06T08:10:39.033Z] Status: 27 terminal, 1 processing | elapsed 27m 38s | since last completion: 4m 1s
+[2026-02-06T08:10:39.035Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:10:39.042Z]   STUCK? No progress for 4m 1s (still 27 terminal, 1 processing)
+[2026-02-06T08:10:47.581Z] Status: 27 terminal, 1 processing | elapsed 27m 47s | since last completion: 4m 9s
+[2026-02-06T08:10:47.582Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:10:47.583Z]   STUCK? No progress for 4m 9s (still 27 terminal, 1 processing)
+[2026-02-06T08:10:56.104Z] Status: 27 terminal, 1 processing | elapsed 27m 55s | since last completion: 4m 18s
+[2026-02-06T08:10:56.105Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:10:56.106Z]   STUCK? No progress for 4m 18s (still 27 terminal, 1 processing)
+[2026-02-06T08:11:04.617Z] Status: 27 terminal, 1 processing | elapsed 28m 4s | since last completion: 4m 26s
+[2026-02-06T08:11:04.618Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:11:04.618Z]   STUCK? No progress for 4m 26s (still 27 terminal, 1 processing)
+[2026-02-06T08:11:13.259Z] Status: 27 terminal, 1 processing | elapsed 28m 12s | since last completion: 4m 35s
+[2026-02-06T08:11:13.273Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:11:13.277Z]   STUCK? No progress for 4m 35s (still 27 terminal, 1 processing)
+[2026-02-06T08:11:21.824Z] Status: 27 terminal, 1 processing | elapsed 28m 21s | since last completion: 4m 44s
+[2026-02-06T08:11:21.825Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:11:21.837Z]   STUCK? No progress for 4m 44s (still 27 terminal, 1 processing)
+[2026-02-06T08:11:30.401Z] Status: 27 terminal, 1 processing | elapsed 28m 29s | since last completion: 4m 52s
+[2026-02-06T08:11:30.402Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:11:30.403Z]   STUCK? No progress for 4m 52s (still 27 terminal, 1 processing)
+[2026-02-06T08:11:40.497Z] Status: 27 terminal, 1 processing | elapsed 28m 39s | since last completion: 5m 2s
+[2026-02-06T08:11:40.498Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:11:40.499Z]   STUCK? No progress for 5m 2s (still 27 terminal, 1 processing)
+[2026-02-06T08:11:49.039Z] Status: 27 terminal, 1 processing | elapsed 28m 48s | since last completion: 5m 11s
+[2026-02-06T08:11:49.040Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:11:49.041Z]   STUCK? No progress for 5m 11s (still 27 terminal, 1 processing)
+[2026-02-06T08:11:57.603Z] Status: 27 terminal, 1 processing | elapsed 28m 57s | since last completion: 5m 19s
+[2026-02-06T08:11:57.604Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:11:57.605Z]   STUCK? No progress for 5m 19s (still 27 terminal, 1 processing)
+[2026-02-06T08:12:06.157Z] Status: 27 terminal, 1 processing | elapsed 29m 5s | since last completion: 5m 28s
+[2026-02-06T08:12:06.158Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:12:06.159Z]   STUCK? No progress for 5m 28s (still 27 terminal, 1 processing)
+[2026-02-06T08:12:14.968Z] Status: 27 terminal, 1 processing | elapsed 29m 14s | since last completion: 5m 37s
+[2026-02-06T08:12:14.970Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:12:14.970Z]   STUCK? No progress for 5m 37s (still 27 terminal, 1 processing)
+[2026-02-06T08:12:23.514Z] Status: 27 terminal, 1 processing | elapsed 29m 22s | since last completion: 5m 45s
+[2026-02-06T08:12:23.515Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:12:23.516Z]   STUCK? No progress for 5m 45s (still 27 terminal, 1 processing)
+[2026-02-06T08:12:32.089Z] Status: 27 terminal, 1 processing | elapsed 29m 31s | since last completion: 5m 54s
+[2026-02-06T08:12:32.096Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:12:32.097Z]   STUCK? No progress for 5m 54s (still 27 terminal, 1 processing)
+[2026-02-06T08:12:40.646Z] Status: 27 terminal, 1 processing | elapsed 29m 40s | since last completion: 6m 2s
+[2026-02-06T08:12:40.647Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:12:40.648Z]   STUCK? No progress for 6m 2s (still 27 terminal, 1 processing)
+[2026-02-06T08:12:49.187Z] Status: 27 terminal, 1 processing | elapsed 29m 48s | since last completion: 6m 11s
+[2026-02-06T08:12:49.188Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:12:49.188Z]   STUCK? No progress for 6m 11s (still 27 terminal, 1 processing)
+[2026-02-06T08:12:57.679Z] Status: 27 terminal, 1 processing | elapsed 29m 57s | since last completion: 6m 19s
+[2026-02-06T08:12:57.679Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:12:57.680Z]   STUCK? No progress for 6m 19s (still 27 terminal, 1 processing)
+[2026-02-06T08:13:06.198Z] Status: 27 terminal, 1 processing | elapsed 30m 5s | since last completion: 6m 28s
+[2026-02-06T08:13:06.199Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:13:06.200Z]   STUCK? No progress for 6m 28s (still 27 terminal, 1 processing)
+[2026-02-06T08:13:14.855Z] Status: 27 terminal, 1 processing | elapsed 30m 14s | since last completion: 6m 37s
+[2026-02-06T08:13:14.856Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:13:14.857Z]   STUCK? No progress for 6m 37s (still 27 terminal, 1 processing)
+[2026-02-06T08:13:23.385Z] Status: 27 terminal, 1 processing | elapsed 30m 22s | since last completion: 6m 45s
+[2026-02-06T08:13:23.386Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:13:23.387Z]   STUCK? No progress for 6m 45s (still 27 terminal, 1 processing)
+[2026-02-06T08:13:32.010Z] Status: 27 terminal, 1 processing | elapsed 30m 31s | since last completion: 6m 54s
+[2026-02-06T08:13:32.011Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:13:32.011Z]   STUCK? No progress for 6m 54s (still 27 terminal, 1 processing)
+[2026-02-06T08:13:40.540Z] Status: 27 terminal, 1 processing | elapsed 30m 40s | since last completion: 7m 2s
+[2026-02-06T08:13:40.541Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:13:40.543Z]   STUCK? No progress for 7m 2s (still 27 terminal, 1 processing)
+[2026-02-06T08:13:49.120Z] Status: 27 terminal, 1 processing | elapsed 30m 48s | since last completion: 7m 11s
+[2026-02-06T08:13:49.122Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:13:49.131Z]   STUCK? No progress for 7m 11s (still 27 terminal, 1 processing)
+[2026-02-06T08:13:57.614Z] Status: 27 terminal, 1 processing | elapsed 30m 57s | since last completion: 7m 19s
+[2026-02-06T08:13:57.615Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:13:57.616Z]   STUCK? No progress for 7m 19s (still 27 terminal, 1 processing)
+[2026-02-06T08:14:06.216Z] Status: 27 terminal, 1 processing | elapsed 31m 5s | since last completion: 7m 28s
+[2026-02-06T08:14:06.217Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:14:06.217Z]   STUCK? No progress for 7m 28s (still 27 terminal, 1 processing)
+[2026-02-06T08:14:15.051Z] Status: 27 terminal, 1 processing | elapsed 31m 14s | since last completion: 7m 37s
+[2026-02-06T08:14:15.053Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:14:15.054Z]   STUCK? No progress for 7m 37s (still 27 terminal, 1 processing)
+[2026-02-06T08:14:23.580Z] Status: 27 terminal, 1 processing | elapsed 31m 23s | since last completion: 7m 45s
+[2026-02-06T08:14:23.581Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:14:23.582Z]   STUCK? No progress for 7m 45s (still 27 terminal, 1 processing)
+[2026-02-06T08:14:32.105Z] Status: 27 terminal, 1 processing | elapsed 31m 31s | since last completion: 7m 54s
+[2026-02-06T08:14:32.106Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:14:32.106Z]   STUCK? No progress for 7m 54s (still 27 terminal, 1 processing)
+[2026-02-06T08:14:40.640Z] Status: 27 terminal, 1 processing | elapsed 31m 40s | since last completion: 8m 2s
+[2026-02-06T08:14:40.652Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:14:40.652Z]   STUCK? No progress for 8m 2s (still 27 terminal, 1 processing)
+[2026-02-06T08:14:49.176Z] Status: 27 terminal, 1 processing | elapsed 31m 48s | since last completion: 8m 11s
+[2026-02-06T08:14:49.177Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:14:49.178Z]   STUCK? No progress for 8m 11s (still 27 terminal, 1 processing)
+[2026-02-06T08:14:57.699Z] Status: 27 terminal, 1 processing | elapsed 31m 57s | since last completion: 8m 19s
+[2026-02-06T08:14:57.700Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:14:57.701Z]   STUCK? No progress for 8m 19s (still 27 terminal, 1 processing)
+[2026-02-06T08:15:06.306Z] Status: 27 terminal, 1 processing | elapsed 32m 5s | since last completion: 8m 28s
+[2026-02-06T08:15:06.307Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:15:06.308Z]   STUCK? No progress for 8m 28s (still 27 terminal, 1 processing)
+[2026-02-06T08:15:15.021Z] Status: 27 terminal, 1 processing | elapsed 32m 14s | since last completion: 8m 37s
+[2026-02-06T08:15:15.025Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:15:15.026Z]   STUCK? No progress for 8m 37s (still 27 terminal, 1 processing)
+[2026-02-06T08:15:23.653Z] Status: 27 terminal, 1 processing | elapsed 32m 23s | since last completion: 8m 45s
+[2026-02-06T08:15:23.654Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:15:23.654Z]   STUCK? No progress for 8m 45s (still 27 terminal, 1 processing)
+[2026-02-06T08:15:32.200Z] Status: 27 terminal, 1 processing | elapsed 32m 31s | since last completion: 8m 54s
+[2026-02-06T08:15:32.201Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:15:32.201Z]   STUCK? No progress for 8m 54s (still 27 terminal, 1 processing)
+[2026-02-06T08:15:40.749Z] Status: 27 terminal, 1 processing | elapsed 32m 40s | since last completion: 9m 3s
+[2026-02-06T08:15:40.750Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:15:40.751Z]   STUCK? No progress for 9m 3s (still 27 terminal, 1 processing)
+[2026-02-06T08:15:49.360Z] Status: 27 terminal, 1 processing | elapsed 32m 48s | since last completion: 9m 11s
+[2026-02-06T08:15:49.361Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:15:49.361Z]   STUCK? No progress for 9m 11s (still 27 terminal, 1 processing)
+[2026-02-06T08:15:57.902Z] Status: 27 terminal, 1 processing | elapsed 32m 57s | since last completion: 9m 20s
+[2026-02-06T08:15:57.903Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:15:57.904Z]   STUCK? No progress for 9m 20s (still 27 terminal, 1 processing)
+[2026-02-06T08:16:06.424Z] Status: 27 terminal, 1 processing | elapsed 33m 5s | since last completion: 9m 28s
+[2026-02-06T08:16:06.425Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:16:06.425Z]   STUCK? No progress for 9m 28s (still 27 terminal, 1 processing)
+[2026-02-06T08:16:14.875Z] Status: 27 terminal, 1 processing | elapsed 33m 14s | since last completion: 9m 37s
+[2026-02-06T08:16:14.877Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:16:14.877Z]   STUCK? No progress for 9m 37s (still 27 terminal, 1 processing)
+[2026-02-06T08:16:23.412Z] Status: 27 terminal, 1 processing | elapsed 33m 22s | since last completion: 9m 45s
+[2026-02-06T08:16:23.413Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:16:23.414Z]   STUCK? No progress for 9m 45s (still 27 terminal, 1 processing)
+[2026-02-06T08:16:31.952Z] Status: 27 terminal, 1 processing | elapsed 33m 31s | since last completion: 9m 54s
+[2026-02-06T08:16:31.953Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:16:31.954Z]   STUCK? No progress for 9m 54s (still 27 terminal, 1 processing)
+[2026-02-06T08:16:40.540Z] Status: 27 terminal, 1 processing | elapsed 33m 40s | since last completion: 10m 2s
+[2026-02-06T08:16:40.541Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:16:40.542Z]   STUCK? No progress for 10m 2s (still 27 terminal, 1 processing)
+[2026-02-06T08:16:49.072Z] Status: 27 terminal, 1 processing | elapsed 33m 48s | since last completion: 10m 11s
+[2026-02-06T08:16:49.073Z]   Current: Adapt Commercial Cleaning | https://adaptcommercialcleaning.com
+[2026-02-06T08:16:49.073Z]   STUCK? No progress for 10m 11s (still 27 terminal, 1 processing)

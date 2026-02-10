@@ -1,0 +1,33 @@
+Mimic test run started at 2026-02-09T16:57:58.981Z
+[2026-02-09T16:57:58.981Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-09T16-57-58.log
+[2026-02-09T16:57:58.982Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-09T16:57:59.614Z] Loading site and dismissing cookie modal...
+[2026-02-09T16:58:05.748Z] Cookie modal dismissed (Accept All)
+[2026-02-09T16:58:06.550Z] Filling login...
+[2026-02-09T16:58:13.888Z] Login OK
+[2026-02-09T16:58:13.888Z] Waiting 10s for dashboard to refresh...
+[2026-02-09T16:58:23.892Z] Dashboard wait done.
+[2026-02-09T16:58:23.904Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-09T16:58:25.413Z] Usage: daily_limit=-1 daily_used=994 unlimited=true daily_remaining=N/A
+[2026-02-09T16:58:25.413Z] Navigating to campaign upload...
+[2026-02-09T16:58:30.841Z] Upload OK
+[2026-02-09T16:58:31.453Z] Navigate to create OK
+[2026-02-09T16:58:36.972Z] Campaign created: NQPfQ1Df
+[2026-02-09T16:58:38.976Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/NQPfQ1Df
+[2026-02-09T16:58:39.024Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-09T16:58:39.160Z] --skip-submit: set flag and clicking Start (fill forms but do not submit).
+[2026-02-09T16:58:41.344Z] Started processing 2000 companies...
+[2026-02-09T16:58:42.248Z] [Stream] Error: Unexpected server response: 404
+[2026-02-09T16:58:42.249Z] [Stream] Disconnected.
+[2026-02-09T16:58:49.356Z] Stream disconnected; continuing to poll for progress.
+[2026-02-09T16:58:50.404Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-09T16:58:50.404Z] Status: 0 terminal, 0 processing | elapsed 9s | since last completion: 9s
+[2026-02-09T16:58:59.000Z] Status: 0 terminal, 0 processing | elapsed 18s | since last completion: 18s
+[2026-02-09T16:59:09.727Z] Status: 0 terminal, 0 processing | elapsed 28s | since last completion: 28s
+[2026-02-09T16:59:21.522Z] Status: 0 terminal, 0 processing | elapsed 40s | since last completion: 40s
+[2026-02-09T16:59:33.789Z] Status: 0 terminal, 0 processing | elapsed 52s | since last completion: 52s
+[2026-02-09T16:59:42.455Z]   [API] companies returned: 1070 | by status: {"pending":1070}
+[2026-02-09T16:59:42.456Z] Status: 0 terminal, 0 processing | elapsed 1m 1s | since last completion: 1m 1s
+[2026-02-09T16:59:51.215Z] Status: 0 terminal, 0 processing | elapsed 1m 10s | since last completion: 1m 10s
+[2026-02-09T17:00:00.029Z] Status: 0 terminal, 0 processing | elapsed 1m 19s | since last completion: 1m 19s
+[2026-02-09T17:00:10.899Z] Status: 0 terminal, 0 processing | elapsed 1m 30s | since last completion: 1m 30s

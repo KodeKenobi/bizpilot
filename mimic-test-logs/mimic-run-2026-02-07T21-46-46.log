@@ -1,0 +1,236 @@
+Mimic test run started at 2026-02-07T21:46:46.592Z
+[2026-02-07T21:46:46.594Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-07T21-46-46.log
+[2026-02-07T21:46:46.604Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-07T21:46:49.988Z] Loading site and dismissing cookie modal...
+[2026-02-07T21:46:59.151Z] Cookie modal dismissed (Accept All)
+[2026-02-07T21:46:59.956Z] Filling login...
+[2026-02-07T21:47:09.390Z] Login OK
+[2026-02-07T21:47:09.391Z] Waiting 10s for dashboard to refresh...
+[2026-02-07T21:47:19.405Z] Dashboard wait done.
+[2026-02-07T21:47:19.443Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-07T21:47:21.829Z] Usage: daily_limit=-1 daily_used=640 unlimited=true daily_remaining=N/A
+[2026-02-07T21:47:21.831Z] Navigating to campaign upload...
+[2026-02-07T21:47:26.672Z] Upload OK
+[2026-02-07T21:47:29.058Z] Navigate to create OK
+[2026-02-07T21:47:34.597Z] Campaign created: 166
+[2026-02-07T21:47:36.617Z] Connecting to backend live stream: wss://web-production-737b.up.railway.app/ws/campaign/166
+[2026-02-07T21:47:36.758Z] Companies loaded (Rapid All shows pending count). Opening modal.
+[2026-02-07T21:47:37.358Z] [Stream] Connected – you will see each company’s processing steps in real time.
+[2026-02-07T21:47:41.477Z] [Stream] Campaign started – total companies: 1070
+[2026-02-07T21:47:41.607Z] [Stream] Now processing: 2020 Innovation | 95457
+[2026-02-07T21:47:42.076Z] [Stream] Completed: company_id=95457 status=failed progress=?%
+[2026-02-07T21:47:42.254Z] [Stream] Now processing: 3 Line Electrical Wholesale Ltd. | 95458
+[2026-02-07T21:47:42.557Z] Started processing 2000 companies...
+[2026-02-07T21:47:43.138Z] [Stream] Completed: company_id=95458 status=failed progress=?%
+[2026-02-07T21:47:43.313Z] [Stream] Now processing: 3 Line Electrical Wholesale Ltd. | 95459
+[2026-02-07T21:47:43.720Z] [Stream] Completed: company_id=95459 status=failed progress=?%
+[2026-02-07T21:47:43.894Z] [Stream] Now processing: 4D modelshop Ltd | 95460
+[2026-02-07T21:47:44.299Z] [Stream] Completed: company_id=95460 status=failed progress=?%
+[2026-02-07T21:47:44.467Z] [Stream] Now processing: 7 Core Electrical Wholesale Ltd | 95461
+[2026-02-07T21:47:44.865Z] [Stream] Completed: company_id=95461 status=failed progress=?%
+[2026-02-07T21:47:45.045Z] [Stream] Now processing: 80S CASUAL CLASSICS LTD | 95462
+[2026-02-07T21:47:45.449Z] [Stream] Completed: company_id=95462 status=failed progress=?%
+[2026-02-07T21:47:45.639Z] [Stream] Now processing: A.W. Lymn The Family Funeral Service | 95463
+[2026-02-07T21:47:46.057Z] [Stream] Completed: company_id=95463 status=failed progress=?%
+[2026-02-07T21:47:46.271Z] [Stream] Now processing: übbs pouches | 95464
+[2026-02-07T21:47:46.724Z] [Stream] Completed: company_id=95464 status=failed progress=?%
+[2026-02-07T21:47:46.903Z] [Stream] Now processing: A2Z Creatorz (Trusted Digital Partner) | 95465
+[2026-02-07T21:47:47.462Z] [Stream] Completed: company_id=95465 status=failed progress=?%
+[2026-02-07T21:47:47.642Z] [Stream] Now processing: Aabyss | 95466
+[2026-02-07T21:47:48.110Z] [Stream] Completed: company_id=95466 status=failed progress=?%
+[2026-02-07T21:47:48.275Z] [Stream] Now processing: Abbey DLD Group of Colleges | 95467
+[2026-02-07T21:47:48.760Z] [Stream] Completed: company_id=95467 status=failed progress=1%
+[2026-02-07T21:47:48.955Z] [Stream] Now processing: Abbey Multi Academy Trust | 95468
+[2026-02-07T21:47:49.357Z] [Stream] Completed: company_id=95468 status=failed progress=1%
+[2026-02-07T21:47:49.546Z] [Stream] Now processing: Able Training Support Ltd. | 95469
+[2026-02-07T21:47:49.925Z] [Stream] Completed: company_id=95469 status=failed progress=1%
+[2026-02-07T21:47:50.100Z] [Stream] Now processing: Abodus Student Living | 95470
+[2026-02-07T21:47:50.488Z] [Stream] Completed: company_id=95470 status=failed progress=1%
+[2026-02-07T21:47:50.671Z] [Stream] Now processing: Abundance Investment | 95471
+[2026-02-07T21:47:51.063Z] [Stream] Completed: company_id=95471 status=failed progress=1%
+[2026-02-07T21:47:51.274Z] [Stream] Now processing: ACAI Outdoorwear | 95472
+[2026-02-07T21:47:51.816Z] [Stream] Completed: company_id=95472 status=failed progress=1%
+[2026-02-07T21:47:51.988Z] [Stream] Now processing: Acasta Europe Ltd | 95473
+[2026-02-07T21:47:52.373Z] [Stream] Completed: company_id=95473 status=failed progress=1%
+[2026-02-07T21:47:52.553Z] [Stream] Now processing: Accelerate ME | 95474
+[2026-02-07T21:47:52.940Z] [Stream] Completed: company_id=95474 status=failed progress=1%
+[2026-02-07T21:47:53.049Z] Progress: 15 terminal (one just finished; 10s since previous) | elapsed 10s
+[2026-02-07T21:47:53.050Z] Status: 15 terminal, 1 processing | elapsed 10s | since last completion: 10s
+[2026-02-07T21:47:53.051Z]   Current: ACAI Outdoorwear | https://acaioutdoorwear.com
+[2026-02-07T21:47:53.053Z]   Failed (new): 2020 Innovation | https://2020innovation.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.054Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.055Z]   Failed (new): 3 Line Electrical Wholesale Ltd. | https://3lineelectrical.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.056Z]   Failed (new): 4D modelshop Ltd | https://modelshop.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.056Z]   Failed (new): 7 Core Electrical Wholesale Ltd | https://7core.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.057Z]   Failed (new): 80S CASUAL CLASSICS LTD | https://80scasualclassics.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.058Z]   Failed (new): A.W. Lymn The Family Funeral Service | https://lymn.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.058Z]   Failed (new): übbs pouches | https://ubbspouches.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.059Z]   Failed (new): A2Z Creatorz (Trusted Digital Partner) | https://a2zcreatorz.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.060Z]   Failed (new): Aabyss | https://aabyss.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.060Z]   Failed (new): Abbey DLD Group of Colleges | https://abbeycolleges.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.061Z]   Failed (new): Abbey Multi Academy Trust | https://abbeymat.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.061Z]   Failed (new): Able Training Support Ltd. | https://able-training.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.062Z]   Failed (new): Abodus Student Living | https://abodusstudents.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.063Z]   Failed (new): Abundance Investment | https://abundanceinvestment.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:47:53.124Z] [Stream] Now processing: AccelerComm Ltd | 95475
+[2026-02-07T21:47:53.814Z] [Stream] Completed: company_id=95475 status=failed progress=1%
+[2026-02-07T21:47:53.990Z] [Stream] Now processing: Accident Credit Group Ltd | 95476
+[2026-02-07T21:47:54.391Z] [Stream] Completed: company_id=95476 status=failed progress=1%
+[2026-02-07T21:47:54.552Z] [Stream] Now processing: Accommodation for Students | 95477
+[2026-02-07T21:47:54.934Z] [Stream] Completed: company_id=95477 status=failed progress=1%
+[2026-02-07T21:47:55.113Z] [Stream] Now processing: Accountants Plus | 95478
+[2026-02-07T21:47:55.499Z] [Stream] Completed: company_id=95478 status=failed progress=2%
+[2026-02-07T21:47:55.680Z] [Stream] Now processing: ACE Training - Construction Centre | 95479
+[2026-02-07T21:47:56.076Z] [Stream] Completed: company_id=95479 status=failed progress=2%
+[2026-02-07T21:47:56.251Z] [Stream] Now processing: ActionFunder | 95480
+[2026-02-07T21:47:56.721Z] [Stream] Completed: company_id=95480 status=failed progress=2%
+[2026-02-07T21:47:56.890Z] [Stream] Now processing: Activate Learning Education Trust | 95481
+[2026-02-07T21:47:57.277Z] [Stream] Completed: company_id=95481 status=failed progress=2%
+[2026-02-07T21:47:57.460Z] [Stream] Now processing: Acute Training Solutions | 95482
+[2026-02-07T21:47:57.871Z] [Stream] Completed: company_id=95482 status=failed progress=2%
+[2026-02-07T21:47:58.059Z] [Stream] Now processing: Adapt (UK) Training Services Limited | 95483
+[2026-02-07T21:47:58.446Z] [Stream] Completed: company_id=95483 status=failed progress=2%
+[2026-02-07T21:47:58.616Z] [Stream] Now processing: Adapt Commercial Cleaning | 95484
+[2026-02-07T21:47:59.009Z] [Stream] Completed: company_id=95484 status=failed progress=2%
+[2026-02-07T21:47:59.185Z] [Stream] Now processing: Addcom-IT | 95485
+[2026-02-07T21:47:59.801Z] [Stream] Completed: company_id=95485 status=failed progress=2%
+[2026-02-07T21:47:59.971Z] [Stream] Now processing: Additional Lengths | 95486
+[2026-02-07T21:48:00.475Z] [Stream] Completed: company_id=95486 status=failed progress=2%
+[2026-02-07T21:48:00.659Z] [Stream] Now processing: Adepteq | 95487
+[2026-02-07T21:48:01.109Z] [Stream] Completed: company_id=95487 status=failed progress=2%
+[2026-02-07T21:48:01.278Z] [Stream] Now processing: Advanced CCA | 95488
+[2026-02-07T21:48:01.667Z] [Stream] Completed: company_id=95488 status=failed progress=2%
+[2026-02-07T21:48:01.845Z] [Stream] Now processing: Aeromark | 95489
+[2026-02-07T21:48:02.368Z] [Stream] Completed: company_id=95489 status=failed progress=3%
+[2026-02-07T21:48:02.539Z] [Stream] Now processing: Affordable Golf | 95490
+[2026-02-07T21:48:02.728Z] Progress: 32 terminal (one just finished; 10s since previous) | elapsed 20s
+[2026-02-07T21:48:02.730Z] Status: 32 terminal, 1 processing | elapsed 20s | since last completion: 10s
+[2026-02-07T21:48:02.730Z]   Current: Aeromark | https://aeromark.co.uk
+[2026-02-07T21:48:02.731Z]   Failed (new): ACAI Outdoorwear | https://acaioutdoorwear.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.732Z]   Failed (new): Acasta Europe Ltd | https://acastaeurope.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.733Z]   Failed (new): Accelerate ME | https://accelerateme.co | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.733Z]   Failed (new): AccelerComm Ltd | https://accelercomm.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.734Z]   Failed (new): Accident Credit Group Ltd | https://acg.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.735Z]   Failed (new): Accommodation for Students | https://accommodationforstudents.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.735Z]   Failed (new): Accountants Plus | https://accountantsplus.net | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.736Z]   Failed (new): ACE Training - Construction Centre | https://acetraining.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.737Z]   Failed (new): ActionFunder | https://actionfunder.org | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.737Z]   Failed (new): Activate Learning Education Trust | https://alet.org.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.738Z]   Failed (new): Acute Training Solutions | https://acutetrainingsolutions.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.738Z]   Failed (new): Adapt (UK) Training Services Limited | https://adapt-training.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.739Z]   Failed (new): Adapt Commercial Cleaning | https://adaptcommercialcleaning.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.740Z]   Failed (new): Addcom-IT | https://addcom-it.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.740Z]   Failed (new): Additional Lengths | https://additionallengths.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.741Z]   Failed (new): Adepteq | https://adepteq.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.741Z]   Failed (new): Advanced CCA | https://advancedcca.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:02.935Z] [Stream] Completed: company_id=95490 status=failed progress=3%
+[2026-02-07T21:48:03.100Z] [Stream] Now processing: agentOS | 95491
+[2026-02-07T21:48:03.496Z] [Stream] Completed: company_id=95491 status=failed progress=3%
+[2026-02-07T21:48:03.662Z] [Stream] Now processing: Ailsa | 95492
+[2026-02-07T21:48:04.054Z] [Stream] Completed: company_id=95492 status=failed progress=3%
+[2026-02-07T21:48:04.228Z] [Stream] Now processing: AIM Smarter UK | 95493
+[2026-02-07T21:48:04.620Z] [Stream] Completed: company_id=95493 status=failed progress=3%
+[2026-02-07T21:48:04.801Z] [Stream] Now processing: Air Power Products Ltd | 95494
+[2026-02-07T21:48:05.194Z] [Stream] Completed: company_id=95494 status=failed progress=3%
+[2026-02-07T21:48:05.378Z] [Stream] Now processing: Airsys United Kingdom | 95495
+[2026-02-07T21:48:05.979Z] [Stream] Completed: company_id=95495 status=failed progress=3%
+[2026-02-07T21:48:06.161Z] [Stream] Now processing: AJ Bell Investcentre | 95496
+[2026-02-07T21:48:06.554Z] [Stream] Completed: company_id=95496 status=failed progress=3%
+[2026-02-07T21:48:06.734Z] [Stream] Now processing: Akoni Technologies | 95497
+[2026-02-07T21:48:07.116Z] [Stream] Completed: company_id=95497 status=failed progress=3%
+[2026-02-07T21:48:07.293Z] [Stream] Now processing: Albin & Co Solicitors | 95498
+[2026-02-07T21:48:07.674Z] [Stream] Completed: company_id=95498 status=failed progress=3%
+[2026-02-07T21:48:07.857Z] [Stream] Now processing: Alces Flight | 95499
+[2026-02-07T21:48:08.261Z] [Stream] Completed: company_id=95499 status=failed progress=4%
+[2026-02-07T21:48:08.441Z] [Stream] Now processing: Alectrofag.co.uk | 95500
+[2026-02-07T21:48:08.829Z] [Stream] Completed: company_id=95500 status=failed progress=4%
+[2026-02-07T21:48:09.016Z] [Stream] Now processing: Alison Law Solicitors Llp | 95501
+[2026-02-07T21:48:09.396Z] [Stream] Completed: company_id=95501 status=failed progress=4%
+[2026-02-07T21:48:09.576Z] [Stream] Now processing: Alison Law Solicitors Llp | 95502
+[2026-02-07T21:48:09.963Z] [Stream] Completed: company_id=95502 status=failed progress=4%
+[2026-02-07T21:48:10.151Z] [Stream] Now processing: Allcott Associates LLP | 95503
+[2026-02-07T21:48:10.536Z] [Stream] Completed: company_id=95503 status=failed progress=4%
+[2026-02-07T21:48:10.717Z] [Stream] Now processing: ALMIS International | 95504
+[2026-02-07T21:48:11.112Z] [Stream] Completed: company_id=95504 status=failed progress=4%
+[2026-02-07T21:48:11.284Z] [Stream] Now processing: Aluminium Fire Systems | 95505
+[2026-02-07T21:48:12.148Z] [Stream] Completed: company_id=95505 status=failed progress=4%
+[2026-02-07T21:48:12.326Z] [Stream] Now processing: amarti | 95506
+[2026-02-07T21:48:12.860Z] [Stream] Completed: company_id=95506 status=failed progress=4%
+[2026-02-07T21:48:13.009Z] [Stream] Now processing: Ambassador Group UK | 95507
+[2026-02-07T21:48:13.465Z] [Stream] Completed: company_id=95507 status=failed progress=4%
+[2026-02-07T21:48:13.640Z] [Stream] Now processing: AMDG Holdings | 95508
+[2026-02-07T21:48:13.769Z] Progress: 48 terminal (one just finished; 11s since previous) | elapsed 31s
+[2026-02-07T21:48:13.770Z] Status: 48 terminal, 1 processing | elapsed 31s | since last completion: 11s
+[2026-02-07T21:48:13.771Z]   Current: Aluminium Fire Systems | https://aluminiumfiresystems.com
+[2026-02-07T21:48:13.772Z]   Failed (new): Aeromark | https://aeromark.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.773Z]   Failed (new): Affordable Golf | https://affordablegolf.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.774Z]   Failed (new): agentOS | https://agentos.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.775Z]   Failed (new): Ailsa | https://ailsa.io | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.776Z]   Failed (new): AIM Smarter UK | https://aimsmarter.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.777Z]   Failed (new): Air Power Products Ltd | https://airpowerproducts.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.778Z]   Failed (new): Airsys United Kingdom | https://air-sys.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.778Z]   Failed (new): AJ Bell Investcentre | https://investcentre.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.779Z]   Failed (new): Akoni Technologies | https://akonitechnologies.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.779Z]   Failed (new): Albin & Co Solicitors | https://albinandco.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.780Z]   Failed (new): Alces Flight | https://alces-flight.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.781Z]   Failed (new): Alectrofag.co.uk | https://alectrofag.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.781Z]   Failed (new): Alison Law Solicitors Llp | https://alison-law.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.782Z]   Failed (new): Alison Law Solicitors Llp | https://alison-law.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.782Z]   Failed (new): Allcott Associates LLP | https://allcottassociates.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:13.783Z]   Failed (new): ALMIS International | https://almisinternational.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:14.030Z] [Stream] Completed: company_id=95508 status=failed progress=4%
+[2026-02-07T21:48:14.206Z] [Stream] Now processing: AMPLYFI | 95509
+[2026-02-07T21:48:14.605Z] [Stream] Completed: company_id=95509 status=failed progress=4%
+[2026-02-07T21:48:14.788Z] [Stream] Now processing: Ancient Wisdom Marketing Ltd | 95510
+[2026-02-07T21:48:15.180Z] [Stream] Completed: company_id=95510 status=failed progress=5%
+[2026-02-07T21:48:15.360Z] [Stream] Now processing: Ancient Wisdom Marketing Ltd | 95511
+[2026-02-07T21:48:15.751Z] [Stream] Completed: company_id=95511 status=failed progress=5%
+[2026-02-07T21:48:15.936Z] [Stream] Now processing: Annington | 95512
+[2026-02-07T21:48:16.324Z] [Stream] Completed: company_id=95512 status=failed progress=5%
+[2026-02-07T21:48:16.504Z] [Stream] Now processing: Antala Ltd. (DGE UK & Ireland) | 95513
+[2026-02-07T21:48:16.907Z] [Stream] Completed: company_id=95513 status=failed progress=5%
+[2026-02-07T21:48:17.081Z] [Stream] Now processing: Apex Computing Services Ltd | 95514
+[2026-02-07T21:48:17.795Z] [Stream] Completed: company_id=95514 status=failed progress=5%
+[2026-02-07T21:48:18.006Z] [Stream] Now processing: Appetite for Business | Microsoft 365 | BCorp | 95515
+[2026-02-07T21:48:18.490Z] [Stream] Completed: company_id=95515 status=failed progress=5%
+[2026-02-07T21:48:18.667Z] [Stream] Now processing: ApplianSys | 95516
+[2026-02-07T21:48:19.064Z] [Stream] Completed: company_id=95516 status=failed progress=5%
+[2026-02-07T21:48:19.238Z] [Stream] Now processing: ApplianSys | 95517
+[2026-02-07T21:48:19.625Z] [Stream] Completed: company_id=95517 status=failed progress=5%
+[2026-02-07T21:48:19.804Z] [Stream] Now processing: Appointedd | 95518
+[2026-02-07T21:48:20.202Z] [Stream] Completed: company_id=95518 status=failed progress=5%
+[2026-02-07T21:48:20.360Z] [Stream] Now processing: Apps for Good | 95519
+[2026-02-07T21:48:20.742Z] [Stream] Completed: company_id=95519 status=failed progress=5%
+[2026-02-07T21:48:20.927Z] [Stream] Now processing: arbnco | 95520
+[2026-02-07T21:48:21.318Z] [Stream] Completed: company_id=95520 status=failed progress=5%
+[2026-02-07T21:48:21.495Z] [Stream] Now processing: Art Click | 95521
+[2026-02-07T21:48:21.977Z] [Stream] Completed: company_id=95521 status=failed progress=6%
+[2026-02-07T21:48:22.152Z] [Stream] Now processing: ⚡️Zappaty⚡️ | 95522
+[2026-02-07T21:48:22.679Z] [Stream] Completed: company_id=95522 status=failed progress=6%
+[2026-02-07T21:48:22.857Z] [Stream] Now processing: Asanti | 95523
+[2026-02-07T21:48:23.538Z] [Stream] Completed: company_id=95523 status=failed progress=6%
+[2026-02-07T21:48:23.708Z] [Stream] Now processing: Ascendx | 95524
+[2026-02-07T21:48:24.097Z] [Stream] Completed: company_id=95524 status=failed progress=6%
+[2026-02-07T21:48:24.271Z] [Stream] Now processing: Asia Scotland Institute | 95525
+[2026-02-07T21:48:24.446Z] Progress: 65 terminal (one just finished; 11s since previous) | elapsed 42s
+[2026-02-07T21:48:24.447Z] Status: 65 terminal, 1 processing | elapsed 42s | since last completion: 11s
+[2026-02-07T21:48:24.448Z]   Current: ⚡️Zappaty⚡️ | https://zappaty.com
+[2026-02-07T21:48:24.449Z]   Failed (new): Aluminium Fire Systems | https://aluminiumfiresystems.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.450Z]   Failed (new): amarti | https://amarti.io | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.455Z]   Failed (new): Ambassador Group UK | https://ambassador-group.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.457Z]   Failed (new): AMDG Holdings | https://amdgholdings.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.458Z]   Failed (new): AMPLYFI | https://amplyfi.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.459Z]   Failed (new): Ancient Wisdom Marketing Ltd | https://ancientwisdom.biz | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.459Z]   Failed (new): Ancient Wisdom Marketing Ltd | https://ancientwisdom.biz | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.460Z]   Failed (new): Annington | https://annington.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.460Z]   Failed (new): Antala Ltd. (DGE UK & Ireland) | https://antala.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.461Z]   Failed (new): Apex Computing Services Ltd | https://apexcomputing.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.461Z]   Failed (new): Appetite for Business | Microsoft 365 | BCorp | https://appetite.business | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.462Z]   Failed (new): ApplianSys | https://appliansys.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.463Z]   Failed (new): ApplianSys | https://appliansys.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.463Z]   Failed (new): Appointedd | https://appointedd.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.464Z]   Failed (new): Apps for Good | https://appsforgood.org | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.465Z]   Failed (new): arbnco | https://arbnco.co.uk | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.465Z]   Failed (new): Art Click | https://theartclick.com | [Errno 2] No such file or directory: 'py'
+[2026-02-07T21:48:24.660Z] [Stream] Completed: company_id=95525 status=failed progress=6%
+[2026-02-07T21:48:24.837Z] [Stream] Now processing: askporter | 95526

@@ -1,0 +1,16 @@
+Mimic test run started at 2026-02-08T04:52:34.899Z
+[2026-02-08T04:52:34.902Z] Log file (this run): C:\Users\GMNG\Desktop\Work\Personal\JUSTPDF\mimic-test-logs\mimic-run-2026-02-08T04-52-34.log
+[2026-02-08T04:52:34.940Z] Target: https://www.trevnoctilla.com (live)
+[2026-02-08T04:54:20.537Z] Loading site and dismissing cookie modal...
+[2026-02-08T04:54:52.700Z] No cookie modal found or already dismissed
+[2026-02-08T04:54:53.532Z] Filling login...
+[2026-02-08T04:55:18.433Z] Login OK
+[2026-02-08T04:55:18.547Z] Waiting 10s for dashboard to refresh...
+[2026-02-08T04:55:28.612Z] Dashboard wait done.
+[2026-02-08T04:55:28.669Z] Auth: token=present user_data=tshepomtshali89@gmail.com tier=enterprise
+[2026-02-08T04:55:43.996Z] Usage: daily_limit=-1 daily_used=79 unlimited=true daily_remaining=N/A
+[2026-02-08T04:55:44.081Z] Navigating to campaign upload...
+[2026-02-08T04:56:14.243Z] Error: page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to "https://www.trevnoctilla.com/campaigns/upload", waiting until "load"[22m
+
