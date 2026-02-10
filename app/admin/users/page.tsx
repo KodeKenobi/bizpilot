@@ -56,6 +56,7 @@ export default function UsersPage() {
   const [roleFilter, setRoleFilter] = useState<string[]>([]);
   const [statusFilter, setStatusFilter] = useState("");
   const [tierFilter, setTierFilter] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   // Get tier from URL params if present
   useEffect(() => {
@@ -164,9 +165,6 @@ export default function UsersPage() {
         if (response.ok) {
           const data = await response.json();
 
-          // Log each user returned
-          data.users?.forEach((user: any, index: number) => {});
-
           // Transform the data to match our interface
           const transformedUsers = data.users.map((user: any) => ({
             id: user.id,
@@ -191,45 +189,19 @@ export default function UsersPage() {
         } else {
           const errorText = await response.text();
           console.error(`❌ Admin API failed (${response.status}):`, errorText);
-          try {
-            const errorJson = JSON.parse(errorText);
-            console.error("Parsed error JSON:", errorJson);
-          } catch (e) {}
+          setError(`Failed to fetch users: ${response.statusText}`);
+          setUsers([]);
         }
       } catch (adminError) {
         console.error('❌ Admin API error:', adminError);
+        setError(`Connection error: ${adminError instanceof Error ? adminError.message : String(adminError)}`);
+        setUsers([]);
       }
 
-      // Fallback: Create user entry from current session
-
-      const currentUser = {
-        id: session.user.id || 1,
-        email: session.user.email || "unknown@example.com",
-        role: session.user.role || "user",
-        is_active: session.user.is_active !== false,
-        created_at: new Date().toISOString(),
-        last_login: new Date().toISOString(),
-        api_keys_count: 0,
-      };
-
-      setUsers([currentUser]);
       setLoading(false);
     } catch (error) {
-      // Ultimate fallback: show current user if available
-      if (user) {
-        setUsers([
-          {
-            id: user.id || 1,
-            email: user.email || "unknown@example.com",
-            role: user.role || "user",
-            is_active: user.is_active !== false,
-            created_at: new Date().toISOString(),
-            last_login: new Date().toISOString(),
-            api_keys_count: 0,
-          },
-        ]);
-      }
-
+      console.error('❌ Root fetchUsers error:', error);
+      setError(`System error: ${error instanceof Error ? error.message : String(error)}`);
       setLoading(false);
     }
   };
@@ -564,6 +536,23 @@ export default function UsersPage() {
               </p>
             </div>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-900/20 border border-red-500/50 p-4 rounded-xl flex items-center space-x-3">
+              <Shield className="h-6 w-6 text-red-500" />
+              <div>
+                <p className="text-red-200 font-medium">Connection Error</p>
+                <p className="text-red-300/80 text-sm">{error}</p>
+              </div>
+              <button 
+                onClick={() => { setError(null); fetchUsers(); }}
+                className="ml-auto px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-sm rounded-lg transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          )}
 
           {/* Filters */}
           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 shadow-lg rounded-xl p-6">
