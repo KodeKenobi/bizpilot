@@ -111,8 +111,12 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-# Lib/
+Lib/
 Scripts/
+Include/
+.venv/
+.venv_fix/
+lib_temp/
 
 # Flask
 instance/
@@ -134,5 +138,7 @@ pnpm-lock.yaml
 package-lock.json
 yarn.lock
 
-# Flask backend (separate repository)
+# Backend repositories
 flask-backend/
+trevnoctilla-backend/
+justpdf-backend/

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-// import { motion, AnimatePresence } from "framer-motion";
+
 import { ArrowRight, Play, FileText, QrCode, Image, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@/contexts/NavigationContext";
@@ -26,12 +26,6 @@ export default function LandingPage() {
     { text: "Generate custom QR codes instantly", icon: QrCode },
     { text: "Convert images between formats", icon: Image },
   ]);
-  const [isInitialMount, setIsInitialMount] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsInitialMount(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -79,32 +73,14 @@ export default function LandingPage() {
                 {cardOrder.map((card, index) => {
                   const IconComponent = card.icon;
                   return (
-                    <motion.div
+                    <div
                       key={card.text}
-                      initial={
-                        isInitialMount
-                          ? { opacity: 0.9, y: 10 }
-                          : { opacity: 1, y: 0 }
-                      }
-                      animate={{
+                      className="absolute bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-foreground transition-all duration-300 hover:bg-white/20 hover:border-white/40"
+                      style={{
                         opacity: 1,
-                        y: 0,
                         width: `${Math.max(85, 100 - index * 10)}%`,
                         height: `${90 - index * 9}px`,
                         top: `${index * 8}%`,
-                      }}
-                      transition={{
-                        duration: isInitialMount ? 0.2 : 0.4,
-                        delay: isInitialMount ? 0.05 + index * 0.03 : 0,
-                        ease: "easeInOut",
-                      }}
-                      whileHover={{
-                        scale: 1.02,
-                        y: -2,
-                        transition: { duration: 0.2 },
-                      }}
-                      className="absolute bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl text-foreground transition-all duration-300 hover:bg-white/20 hover:border-white/40"
-                      style={{
                         zIndex: 5 - index,
                         padding: `${16 - index * 2}px 20px`,
                       }}
@@ -113,7 +89,7 @@ export default function LandingPage() {
                         <IconComponent className="text-foreground/70 w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0" />
                         <span className="text-xs sm:text-sm opacity-90 leading-tight break-words">{card.text}</span>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -160,18 +136,12 @@ export default function LandingPage() {
           className="relative z-10 px-6 lg:px-12 py-20 bg-background"
         >
           <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-foreground mb-4">Everything you need to convert files</h2>
               <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
                 Edit PDFs, merge documents, convert videos to MP3, transform images, generate QR codes, and more. All processing happens instantly in your browser with no software installation required.
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-3 gap-6 pt-8">
               {[
@@ -234,21 +204,12 @@ export default function LandingPage() {
                 },
               ].map((tool, index) => (
                 <Link key={tool.name} href={tool.href}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: index * 0.12,
-                      ease: "easeOut",
-                    }}
-                    viewport={{ once: true }}
-                  >
+                  <div>
                     <FileConversionCard
                       theme="modern-dark"
                       tool={tool}
                     />
-                  </motion.div>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -264,17 +225,12 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-background"></div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">Powerful Tools for Every Need</h2>
               <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 From PDF editing to video conversion, our comprehensive toolkit handles all your file processing needs with professional-grade quality. Edit PDFs online for free, merge PDF files, and convert videos - all in your browser.
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
               {[
@@ -318,12 +274,7 @@ export default function LandingPage() {
                 const items = Array(40).fill(0);
                 return (
                   <Link key={tool.title} href={tool.href}>
-                    <motion.article
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      whileHover={{ y: -3 }}
+                    <article
                       className="
                         group h-full
                         relative
@@ -334,6 +285,7 @@ export default function LandingPage() {
                         transition-all duration-300
                         hover:border-gray-600/70
                         hover:shadow-lg hover:shadow-cyan-500/10
+                        hover:-translate-y-1
                       "
                     >
                       {/* Radial gradient background */}
@@ -400,7 +352,7 @@ export default function LandingPage() {
                           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                         </div>
                       </div>
-                    </motion.article>
+                    </article>
                   </Link>
                 );
               })}
@@ -411,17 +363,12 @@ export default function LandingPage() {
         {/* Developer APIs CTA Section */}
         <section className="relative overflow-hidden bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-6">Developer APIs for Powerful Computing</h2>
               <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 Integrate our advanced file processing capabilities into your applications with our comprehensive API suite. Built for developers, by developers.
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-6 mb-16">
               {[
@@ -462,12 +409,8 @@ export default function LandingPage() {
                   motion: { x: 20 },
                 },
               ].map((api, index) => (
-                <motion.article
+                <article
                   key={api.title}
-                  initial={{ opacity: 0, ...api.motion }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   className="
                     group relative
                     flex h-96 w-full
@@ -527,7 +470,7 @@ export default function LandingPage() {
                       </div>
                     </div>
                   </div>
-                </motion.article>
+                </article>
               ))}
             </div>
           </div>

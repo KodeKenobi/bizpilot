@@ -86,35 +86,33 @@ export default function LoginPage() {
           // Don't block login if backend auth fails - NextAuth session is enough for UI
         }
 
-        // Get the session to check user role
-        const session = await getSession();
-
-        // Fetch user profile to check subscription tier
-        const token = localStorage.getItem("auth_token");
-        let userProfile = null;
-        
-        if (token) {
-          try {
-            const profileResponse = await fetch("/api/auth/profile", {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            
-            if (profileResponse.ok) {
-              userProfile = await profileResponse.json();
+        // Fetch session and profile in parallel
+        const [session, userProfileResult] = await Promise.all([
+          getSession(),
+          (async () => {
+            const token = localStorage.getItem("auth_token");
+            if (!token) return null;
+            try {
+              const profileResponse = await fetch("/api/auth/profile", {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              return profileResponse.ok ? await profileResponse.json() : null;
+            } catch (e) {
+              console.error("Failed to fetch user profile:", e);
+              return null;
             }
-          } catch (e) {
-            console.error("Failed to fetch user profile:", e);
-          }
-        }
+          })()
+        ]);
 
-        setTimeout(() => {
-          // Check for pending subscription
-          const pendingSubscription = sessionStorage.getItem(
-            "pending_subscription"
-          );
+        const userProfile = userProfileResult;
+
+        // Check for pending subscription
+        const pendingSubscription = sessionStorage.getItem(
+          "pending_subscription"
+        );
           if (pendingSubscription) {
             try {
               const subData = JSON.parse(pendingSubscription);
@@ -155,7 +153,6 @@ export default function LoginPage() {
               router.push("/dashboard");
             }
           }
-        }, 1500);
       }
     } catch (error) {
       setError("Network error. Please check your connection and try again.");

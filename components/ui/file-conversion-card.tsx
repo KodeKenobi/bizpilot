@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+
 import {
   FileText,
   Play,
@@ -134,16 +134,13 @@ const FileConversionCard: React.FC<FileConversionCardProps> = ({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
+    <div
       onClick={onClick}
       className={`
         relative overflow-hidden rounded-2xl p-6 ${styles.card}
         border backdrop-blur-sm ${styles.hover} transition-all duration-300
         group cursor-pointer h-full min-h-[550px] flex flex-col ${className}
+        hover:-translate-y-1
       `}
     >
       {/* Background Pattern */}
@@ -344,7 +341,7 @@ const FileConversionCard: React.FC<FileConversionCardProps> = ({
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
