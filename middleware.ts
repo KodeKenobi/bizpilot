@@ -3,6 +3,20 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
+    const host = req.headers.get("host");
+    const url = req.nextUrl.clone();
+
+    // Force WWW redirect for production domain
+    if (
+      process.env.NODE_ENV === "production" &&
+      host === "trevnoctilla.com"
+    ) {
+      return NextResponse.redirect(
+        `https://www.trevnoctilla.com${url.pathname}${url.search}`,
+        301
+      );
+    }
+
     // Create response
     const response = NextResponse.next();
 

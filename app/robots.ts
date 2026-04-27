@@ -17,7 +17,6 @@ export default function robots(): MetadataRoute.Robots {
         "/icons/",
         "/test",
         "/google*.html",
-        "/*?",
       ],
     },
     sitemap: "https://www.trevnoctilla.com/sitemap.xml",
