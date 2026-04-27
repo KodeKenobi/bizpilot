@@ -1,0 +1,239 @@
+"use client";
+
+import React, { useState } from "react";
+import { PDFFileUpload } from "@/components/ui/PDFFileUpload";
+import { useMonetization } from "@/contexts/MonetizationProvider";
+
+interface ExtractTextToolProps {
+  uploadedFile: File | null;
+  setUploadedFile: (file: File | null) => void;
+  result: any;
+  setResult: (result: any) => void;
+  isProcessing: boolean;
+  setIsProcessing: (processing: boolean) => void;
+  handleFileUpload: (file: File) => void;
+  uploadProgress?: number;
+}
+
+export const ExtractTextTool: React.FC<ExtractTextToolProps> = ({
+  uploadedFile,
+  setUploadedFile,
+  result,
+  setResult,
+  isProcessing,
+  setIsProcessing,
+  handleFileUpload,
+}) => {
+  const { showModal: showMonetizationModal } = useMonetization();
+  const [previewFormat, setPreviewFormat] = useState<string>("txt");
+
+  const getPreviewContent = () => {
+    if (!result?.data?.text || !uploadedFile) return "";
+
+    switch (previewFormat) {
+      case "txt":
+        return result.data.text;
+      case "md":
+        return `# ${uploadedFile.name}\n\n${result.data.text}`;
+      case "json":
+        return JSON.stringify(
+          {
+            fileName: uploadedFile.name,
+            page_count: result.data.page_count,
+            text: result.data.text,
+            extracted_at: new Date().toISOString(),
+          },
+          null,
+          2
+        );
+      case "csv":
+        return `Page,Content\n1,"${result.data.text.replace(/"/g, '""')}"`;
+      default:
+        return result.data.text;
+    }
+  };
+
+  const buildDataUrl = (content: string, mimeType: string) => {
+    return `data:${mimeType};charset=utf-8,${encodeURIComponent(content)}`;
+  };
+
+  const downloadText = async (format: string, mimeType: string) => {
+    if (!result?.data?.text || !uploadedFile) return;
+
+    let content = result.data.text;
+    let fileName = `${uploadedFile.name.replace(".pdf", "")}_extracted_text`;
+
+    switch (format) {
+      case "txt":
+        content = result.data.text;
+        fileName += ".txt";
+        break;
+      case "md":
+        content = `# ${uploadedFile.name}\n\n${result.data.text}`;
+        fileName += ".md";
+        break;
+      case "json":
+        content = JSON.stringify(
+          {
+            fileName: uploadedFile.name,
+            page_count: result.data.page_count,
+            text: result.data.text,
+            extracted_at: new Date().toISOString(),
+          },
+          null,
+          2
+        );
+        fileName += ".json";
+        break;
+      case "csv":
+        content = `Page,Content\n1,"${result.data.text.replace(/"/g, '""')}"`;
+        fileName += ".csv";
+        break;
+    }
+
+    // Create data URL BEFORE showing modal so it can be stored for PayFast payments
+    const dataUrl = buildDataUrl(content, mimeType);
+
+    const completed = await showMonetizationModal({
+      title: "Download Text",
+      message: `Choose how you'd like to download ${fileName}`,
+      fileName,
+      fileType: format.toUpperCase(),
+      downloadUrl: dataUrl, // Pass data URL so it's stored for PayFast payments
+    });
+
+    if (completed) {
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  if (!uploadedFile) {
+    return (
+      <PDFFileUpload
+        title="Extract Text from PDF"
+        description="Upload a PDF file to extract text content"
+        onFileSelect={handleFileUpload}
+        accept=".pdf"
+      />
+    );
+  }
+
+  return (
+    <>
+      {result && result.type === "success" && result.data && (
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden">
+          {/* Download Format Selector - At the Top */}
+          <div className="p-4 border-b border-white/10">
+            <div className="flex items-center justify-between">
+              <span className="text-gray-400 text-sm">
+                {result.data.page_count} pages processed
+              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-gray-500 text-sm">Download as:</span>
+                <select
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      const [format, mimeType] = e.target.value.split(",");
+                      downloadText(format, mimeType);
+                      e.target.value = ""; // Reset selection
+                    }
+                  }}
+                  className="bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                >
+                  <option value="">Choose format...</option>
+                  <option value="txt,text/plain">Text (.txt)</option>
+                  <option value="md,text/markdown">Markdown (.md)</option>
+                  <option value="json,application/json">JSON (.json)</option>
+                  <option value="csv,text/csv">CSV (.csv)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6">
+            <div>
+              {/* Extracted Text - Non-copyable */}
+              <div className="bg-gray-900/50 rounded-lg p-4 max-h-96 overflow-y-auto">
+                <pre
+                  className="text-gray-300 text-sm whitespace-pre-wrap select-none"
+                  style={{
+                    userSelect: "none",
+                    WebkitUserSelect: "none",
+                    MozUserSelect: "none",
+                    msUserSelect: "none",
+                  }}
+                >
+                  {result.data.text}
+                </pre>
+              </div>
+
+              {/* Format Preview - Non-copyable */}
+              <div className="mt-4 bg-gray-900/50 rounded-lg p-4">
+                <div className="flex gap-2 mb-3">
+                  <button
+                    onClick={() => setPreviewFormat("txt")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "txt"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    TXT
+                  </button>
+                  <button
+                    onClick={() => setPreviewFormat("md")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "md"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    MD
+                  </button>
+                  <button
+                    onClick={() => setPreviewFormat("json")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "json"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    JSON
+                  </button>
+                  <button
+                    onClick={() => setPreviewFormat("csv")}
+                    className={`px-3 py-1 rounded text-xs transition-colors ${
+                      previewFormat === "csv"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
+                  >
+                    CSV
+                  </button>
+                </div>
+                <div className="bg-gray-800 rounded p-3 max-h-48 overflow-y-auto">
+                  <pre
+                    className="text-gray-300 text-xs whitespace-pre-wrap select-none"
+                    style={{
+                      userSelect: "none",
+                      WebkitUserSelect: "none",
+                      MozUserSelect: "none",
+                      msUserSelect: "none",
+                    }}
+                  >
+                    {getPreviewContent()}
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
